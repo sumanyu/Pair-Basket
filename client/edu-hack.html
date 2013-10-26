@@ -1,9 +1,24 @@
 <head>
-  <title>edu-hack</title>
+  <title>Dynamic Documents</title>
 </head>
 
 <body>
-  {{> hello}}
+  <div class="container">
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Dynamic Documents</h1>
+        <p>Explanation</p>
+        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        {{> hello}}
+      </div>
+    </div>
+  </div>
 </body>
 
 <template name="hello">
