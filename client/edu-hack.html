@@ -5,21 +5,36 @@
 <body>
   <div class="container">
 
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Dynamic Documents</h1>
-        <p>Explanation</p>
-        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-      </div>
-    </div>
+    {{> header}}
 
-    <div class="row">
-      <div class="col-md-4">
-        {{> hello}}
+    <div class="container main">
+
+      <div class="row">
+        <div class="span8">
+          <h1>Dynamic Documents</h1>
+        </div>        
       </div>
-    </div>
+
+      <div class="row">
+        <div class="span8">
+          {{> hello}}
+        </div>
+      </div>
+
+    </div>   
+
+    {{> footer}}
+
   </div>
 </body>
+
+<template name="footer">
+  <div class="footer"></div>
+</template>
+
+<template name="header">
+  <div class="header"></div>
+</template>
 
 <template name="hello">
   <h1>Hello World!</h1>
