@@ -1,6 +1,7 @@
 {
   "meteor": {},
   "packages": {
-    "iron-router": {}
+    "iron-router": {},
+    "bootstrap-3": {}
   }
 }
