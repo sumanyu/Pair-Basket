@@ -1,3 +1,6 @@
+# Get subscriptions
+
+
 Template.hello.greeting = ->
   "Welcome to edu-hack."
 
