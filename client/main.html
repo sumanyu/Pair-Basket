@@ -7,25 +7,16 @@
 
     {{> header}}
 
-    <div class="row text-center title-container">
-      <span class="title">Peer Tutoring</span>
+    <div class="row pull-right">
+      <div class="col-md-2">
+        {{> ask_question }}
+      </div>
     </div>
 
-    <div class="container main">
-
-      <div class="row">
-        <div class="span8">
-          <h1>Introduction</h1>
-          <p>For centuries we’ve done most of our learning by reading static text on paper. Despite advances in computing, we’re still used to reading static text on our computers (pdf, doc, etc.). We can do better. What if we could interact with the notes we read? What if given a circuit diagram, we could explore what would happen if we changed all the various parameters?</p>
-        </div>        
+    <div class="row">
+      <div class="col-md-10">
+        {{> question_board }}
       </div>
-
-      <div class="row">
-        <div class="span8">
-          {{> hello}}
-        </div>
-      </div>
-
     </div>
 
     {{> footer}}
