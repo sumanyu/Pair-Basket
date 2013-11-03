@@ -5,21 +5,10 @@
 <body>
   <div class="container">
 
-    {{> header}}
+    {{> header }}
 
-    <div class="row pull-right">
-      <div class="col-md-2">
-        {{> ask_question }}
-      </div>
-    </div>
+    {{yield}}
 
-    <div class="row">
-      <div class="col-md-10">
-        {{> question_board }}
-      </div>
-    </div>
-
-    {{> footer}}
-
+    {{> footer }}
   </div>
 </body>
