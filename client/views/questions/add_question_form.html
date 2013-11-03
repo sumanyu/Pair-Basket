@@ -1,0 +1,29 @@
+<template name="insertQuestionForm">
+  {{#autoForm schema=questionCollection id="insertQuestionForm"}}
+  <fieldset>
+    <legend>Add a Question</legend>
+    <div class="form-group{{#if afFieldIsInvalid 'title'}} has-error{{/if}}">
+      {{afFieldLabel 'title'}}
+      {{afFieldInput 'title'}}
+      {{#if afFieldIsInvalid 'title'}}
+      <span class="help-block">{{afFieldMessage 'title'}}</span>
+      {{/if}}
+    </div>
+    <div class="form-group{{#if afFieldIsInvalid 'category'}} has-error{{/if}}">
+      {{afFieldLabel 'category'}}
+      {{afFieldInput 'category'}}
+      {{#if afFieldIsInvalid 'category'}}
+      <span class="help-block">{{afFieldMessage 'category'}}</span>
+      {{/if}}
+    </div>
+    <div class="form-group{{#if afFieldIsInvalid 'karmaOffered'}} has-error{{/if}}">
+      {{afFieldLabel 'karmaOffered'}}
+      {{afFieldInput 'karmaOffered'}}
+      {{#if afFieldIsInvalid 'karmaOffered'}}
+      <span class="help-block">{{afFieldMessage 'karmaOffered'}}</span>
+      {{/if}}
+    </div>
+  </fieldset>
+  <button type="submit" class="btn btn-primary insert">Insert</button>
+  {{/autoForm}}
+</template>
