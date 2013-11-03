@@ -1,6 +1,6 @@
 Template.question_board.helpers
 	questions: ->
-		"Welcome to edu-hack."
+		Questions.find({})
 
 Template.question_board.events =
   'click input#btnStartTutoring' : (event, selector) ->
