@@ -1,5 +1,5 @@
 Router.configure
-  layout: 'main'
+  layout: 'layout'
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
 
@@ -7,6 +7,7 @@ Router.map ->
   @route 'home',
     path: '/'
     template: 'questions_page'
+    
     # yieldTemplates:
     #   header:
     #     to: 'header'
@@ -15,5 +16,3 @@ Router.map ->
 
   # @route 'dashboard',
   #   path: '/dashboard'
-
-

@@ -2,13 +2,20 @@
   <title>Peer tutoring</title>
 </head>
 
-<body>
+<template name="layout">
   <div class="container">
+<!--     <header>
+      {{yield "header"}}
+    </header> -->
 
     {{> header }}
 
     {{yield}}
 
     {{> footer }}
+
+<!--     <footer>
+      {{yield "footer"}}
+    </footer> -->
   </div>
-</body>
+</template>
