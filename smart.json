@@ -4,7 +4,6 @@
     "iron-router": {
         "git": "https://github.com/EventedMind/iron-router",
         "branch": "dev"
-      }
     },
     "bootstrap-3": {},
     "bootboxjs": {},
