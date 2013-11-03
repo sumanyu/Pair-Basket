@@ -1,5 +1,34 @@
-@Questions = new Meteor.Collection("questions")
+@Questions = new Meteor.Collection2("questions",
+  schema:
+    title:
+      type: String
+      label: "Title"
+      max: 200
+    userId:
+      type: String
+      label: "userId"
+    category:
+      type: String
+    tags:
+      type: [String]
+    karmaOffered:
+      type: Number
+      label: "Karma offered"
+      min: 0
+    dateCreated:
+      type: Date
+      label: "Date when this question was created"
+    dateModified:
+      type: Date
+      label: "Date when this question was modified"
+    status:
+      type: String
+      label: "Resolved, Inactive, Expired, Deleted"
+    virtualFields: 
+      tags: (question) ->
+        question.tags.reduce (current, total) -> "#{total}, #{current}"
+)
 
-Questions.allow
-  insert: (title, userId, category, tags, karma_offered) ->
-  	return true
+# Questions.allow
+#   insert: (title, userId, category, tags, karma_offered) ->
+#   	return true
