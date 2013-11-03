@@ -4,7 +4,9 @@
     "basePackages": {
       "iron-router": {},
       "bootstrap-3": {},
-      "bootboxjs": {}
+      "bootboxjs": {},
+      "autoform": {},
+      "collection2": {}
     },
     "packages": {
       "iron-router": {
@@ -21,6 +23,26 @@
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
         "tag": "v3.2.2",
         "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
+      },
+      "autoform": {
+        "git": "https://github.com/aldeed/meteor-autoform.git",
+        "tag": "v0.4.0",
+        "commit": "f1acc52acaf72dd53a3c33467eb75abaab66c790"
+      },
+      "collection2": {
+        "git": "https://github.com/aldeed/meteor-collection2.git",
+        "tag": "v0.2.11",
+        "commit": "34ea61718c8826dfa9236222cec6c097bd41ae6b"
+      },
+      "simple-schema": {
+        "git": "https://github.com/aldeed/meteor-simple-schema.git",
+        "tag": "v0.2.13",
+        "commit": "fe7950ad64ebeadec9bc2e17fc7a335aae4bc7fc"
+      },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.2.1",
+        "commit": "9ee12e714afe56b189f53076447b7b54f3012065"
       }
     }
   }
