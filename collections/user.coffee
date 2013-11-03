@@ -18,9 +18,9 @@ Users = new Meteor.Collection2("users",
     dateModified:
       type: Date
       label: "Date when this question was modified"
-    virtualFields: 
-      fullName: (person) ->
-        person.firstName + ", " + person.lastName
+  virtualFields: 
+    fullName: (person) ->
+      return person.firstName + ", " + person.lastName
 )
 
 # Users.allow

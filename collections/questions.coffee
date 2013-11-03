@@ -24,9 +24,9 @@
     status:
       type: String
       label: "Resolved, Inactive, Expired, Deleted"
-    virtualFields: 
-      tags: (question) ->
-        question.tags.reduce (current, total) -> "#{total}, #{current}"
+  virtualFields: 
+    tagsJoined: (question) ->
+      question.tags.reduce (current, total) -> "#{total}, #{current}"
 )
 
 # Questions.allow
