@@ -21,6 +21,22 @@ Router.map ->
     path: '/question/new'
     template: 'addQuestionForm'
 
+  # @route 'sess',
+  #   path: '/session'
+  #   action: ->
+  #     sessionId = Random().id()
+  #     @redirect "session/#{sessionId}"
+
   @route 'session',
-    path: '/session'
+    path: '/session/:sessionId?'
     template: 'mainBox'
+    action: ->
+      console.log @params
+
+      if not @params.sessionId?
+        sessionId = Random.id()
+        console.log sessionId
+        @redirect "/session/#{sessionId}"
+
+      else
+        @render 'mainBox'
