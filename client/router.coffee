@@ -1,8 +1,8 @@
 Router.configure
-  layout: 'layout'
+  layoutTemplate: 'layout'
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
-  renderTemplates:
+  yieldTemplates:
     header:
       to: 'header'
     footer:
