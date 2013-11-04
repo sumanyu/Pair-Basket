@@ -2,12 +2,13 @@
   "meteor": {},
   "packages": {
     "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router",
-        "branch": "dev"
+      "git": "https://github.com/EventedMind/iron-router",
+      "branch": "dev"
     },
     "bootstrap-3": {},
     "bootboxjs": {},
     "autoform": {},
-    "collection2": {}
+    "collection2": {},
+    "accounts-ui-bootstrap-3": {}
   }
 }
