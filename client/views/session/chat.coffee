@@ -32,6 +32,7 @@ sendMessage = ->
 Template.chatBox.events 
   "keydown #chat-message": (e, s) ->
     if e.keyCode is 13
+      e.preventDefault()
       sendMessage()
 
   "click #send": (e, s) ->
