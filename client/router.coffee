@@ -20,3 +20,7 @@ Router.map ->
   @route 'addQuestion',
     path: '/question/new'
     template: 'addQuestionForm'
+
+  @route 'session',
+    path: '/session'
+    template: 'mainBox'
