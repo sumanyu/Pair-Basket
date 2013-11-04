@@ -15,17 +15,8 @@ Router.map ->
 
   @route 'test',
     path: '/test'
-    template: 'test'
+    template: 'test' 
 
   @route 'addQuestion',
     path: '/question/new'
     template: 'insertQuestionForm'
-    
-    # yieldTemplates:
-    #   header:
-    #     to: 'header'
-    #   footer:
-    #     to: 'footer'
-
-  # @route 'dashboard',
-  #   path: '/dashboard'
