@@ -1,31 +1,43 @@
-<template name="insertQuestionForm">
+<template name="addQuestionForm">
   <div class="row">
-    {{#autoForm schema=questionCollection id="insertQuestionForm"}}
-    <fieldset>
-      <legend>Add a Question</legend>
-      <div class="form-group{{#if afFieldIsInvalid 'title'}} has-error{{/if}}">
-        {{afFieldLabel 'title'}}
-        {{afFieldInput 'title'}}
-        {{#if afFieldIsInvalid 'title'}}
-        <span class="help-block">{{afFieldMessage 'title'}}</span>
-        {{/if}}
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="inputTitle" class="col-sm-2 control-label">Question</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="inputTitle" placeholder="I need help with...">
+        </div>
       </div>
-      <div class="form-group{{#if afFieldIsInvalid 'category'}} has-error{{/if}}">
-        {{afFieldLabel 'category'}}
-        {{afFieldInput 'category'}}
-        {{#if afFieldIsInvalid 'category'}}
-        <span class="help-block">{{afFieldMessage 'category'}}</span>
-        {{/if}}
+<!--       <div class="form-group">
+        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+          <textarea rows="3" class="form-control" id="inputDescription" placeholder="Description of your question" />
+        </div>
+      </div> -->
+      <div class="form-group">
+        <label for="inputCategory" class="col-sm-2 control-label">Categories</label>
+        <div class="col-sm-2">
+          <select multiple class="form-control" id="inputCategory">
+            <option>Math</option>
+            <option>Phyics</option>
+            <option>Chemistry</option>
+            <option>Biology</option>
+            <option>English</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group{{#if afFieldIsInvalid 'karmaOffered'}} has-error{{/if}}">
-        {{afFieldLabel 'karmaOffered'}}
-        {{afFieldInput 'karmaOffered'}}
-        {{#if afFieldIsInvalid 'karmaOffered'}}
-        <span class="help-block">{{afFieldMessage 'karmaOffered'}}</span>
-        {{/if}}
+
+      <div class="form-group">
+        <label for="inputKarma" class="col-sm-2 control-label">Karma</label>
+        <div class="col-sm-1">
+          <input type="number" class="form-control" id="inputKarma">
+        </div>
       </div>
-    </fieldset>
-    <button type="submit" class="btn btn-primary insert">Insert</button>
-    {{/autoForm}}
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="button" class="btn btn-primary">Create Question</button>
+        </div>
+      </div>
+    </form>
   </div>
 </template>

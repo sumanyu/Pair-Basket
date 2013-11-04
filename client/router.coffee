@@ -19,4 +19,4 @@ Router.map ->
 
   @route 'addQuestion',
     path: '/question/new'
-    template: 'insertQuestionForm'
+    template: 'addQuestionForm'
