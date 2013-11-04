@@ -13,6 +13,10 @@ Router.map ->
     path: '/'
     template: 'questions_page'
 
+  @route 'test',
+    path: '/test'
+    template: 'test'
+
   @route 'addQuestion',
     path: '/question/new'
     template: 'insertQuestionForm'
