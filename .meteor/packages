@@ -9,10 +9,10 @@ preserve-inputs
 coffeescript
 stylus
 iron-router
-bootstrap-3
 bootboxjs
 collection2
 autoform
-accounts-ui-bootstrap-3
 accounts-base
 accounts-password
+accounts-ui
+bootstrap
