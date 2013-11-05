@@ -2,20 +2,18 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router",
-        "branch": "dev"
-      },
+      "iron-router": {},
       "bootstrap-3": {},
       "bootboxjs": {},
       "autoform": {},
       "collection2": {},
-      "accounts-ui-bootstrap-3": {}
+      "accounts-ui-bootstrap-3": {},
+      "accounts-entry": {}
     },
     "packages": {
       "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router",
-        "branch": "dev",
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.6.1",
         "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
       },
       "bootstrap-3": {
@@ -42,6 +40,11 @@
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
         "tag": "v0.2.3",
         "commit": "c6aac7a331e457abd457a6f3ed030ac1411b220c"
+      },
+      "accounts-entry": {
+        "git": "https://github.com/BeDifferential/accounts-entry.git",
+        "tag": "v0.4.2",
+        "commit": "d846e901d7478240050471bcd5afff7de12b3683"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
