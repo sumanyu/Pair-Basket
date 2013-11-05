@@ -10,7 +10,8 @@
       "bootboxjs": {},
       "autoform": {},
       "collection2": {},
-      "accounts-ui-bootstrap-3": {}
+      "accounts-ui-bootstrap-3": {},
+      "streams": {}
     },
     "packages": {
       "iron-router": {
@@ -42,6 +43,11 @@
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
         "tag": "v0.2.3",
         "commit": "c6aac7a331e457abd457a6f3ed030ac1411b220c"
+      },
+      "streams": {
+        "git": "https://github.com/arunoda/meteor-streams.git",
+        "tag": "v0.1.17",
+        "commit": "9fcbbc9b7bf542827babc92089c19e730892a22f"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
