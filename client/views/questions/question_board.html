@@ -10,9 +10,13 @@
 	    </tr>			
 		</thead>
 		<tbody>
-			{{#each questions}}
-				{{> question}}
-			{{/each}}
+			{{#if questionsLoaded}}
+				{{#each questions}}
+					{{> question}}
+				{{/each}}
+			{{else}}
+				Loading...
+			{{/if}}
 		</tbody>
 	</table>
 </template>

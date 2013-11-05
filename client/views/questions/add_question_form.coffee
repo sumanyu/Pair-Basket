@@ -1,2 +1,2 @@
-Template.insertQuestionForm.questionCollection = ->
-  return @Questions
+# Template.addQuestionForm.questionCollection = ->
+#   return @Questions

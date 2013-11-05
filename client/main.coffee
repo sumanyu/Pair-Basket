@@ -1,3 +1,7 @@
 # Get subscriptions
 
-Meteor.subscribe "questions", "active"
+Meteor.startup ->
+  Session.set("questions_loaded", false)
+
+Meteor.subscribe "questions", ->
+  Session.set("questions_loaded", true)
