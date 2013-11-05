@@ -23,8 +23,7 @@ Router.map ->
 
   @route 'session',
     path: '/session/:sessionId?'
-    template: 'mainBox'
-
+    
     action: ->
       if not @params.sessionId?
         sessionId = Random.id()
