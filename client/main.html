@@ -1,11 +1,10 @@
 <head>
-  <title>Peer tutoring</title>
+  <title>Pair Basket</title>
 </head>
 
 <template name="layout">
+	{{yield 'header'}}
   <div class="container">
-    {{yield 'header'}}
-
     {{yield}}
 
     {{yield 'footer'}}

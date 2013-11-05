@@ -3,13 +3,6 @@
 body
 	background: light-grey 
 
-	.title-container
-		margin: 40px 0px 40px 0px		
-
-		.title
-			font-size: 50px
-			font-weight: bold
-
 	.container.main
 		width: 800px
 		padding: 50px
@@ -18,7 +11,39 @@ body
 		container-border()
 
 	.header
-		margin: _margin_top 0px 0px 0px
+		// margin: _margin_top 0px 0px 0px
+		width: 100%
+		height: 60px
+		background-color: #FFD300 // yellow
+		// float: left
+
+	.header-content
+		width: 980px
+		height: 60px
+		display: block
+		margin: auto
+
+	.header-title
+		display: block
+		float: left
+		height: 60px
+		margin: 0px 50px
+
+	.header-title h2
+		margin: 10px 0px
+
+	.circle {
+		display: block
+		float: left
+		background-color: black
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		text-align:center;
+		font-size: 36px
+		line-height: 50px
+		color: #FFD300 // yellow
+	}
 
 	.footer
 		margin: 0px 0px _margin_top 0px
