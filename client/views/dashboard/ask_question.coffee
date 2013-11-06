@@ -6,6 +6,7 @@ Template.ask_question.events =
 
   'click .overlay' : (e, selector) ->
     Session.set('askQuestion', false)
+
   'click input#question-submit' : (e, selector) ->
     e.preventDefault()
 
