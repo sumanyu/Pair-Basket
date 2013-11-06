@@ -3,22 +3,30 @@
 </head>
 
 <template name="landingLayout">
-  <div class="container">
-    {{yield}}
+  <div id="landing">
+      {{yield 'landingHeader'}}
+    <div class="container">
+      {{yield}}
+    </div>
+      {{yield 'landingFooter'}}
   </div>
 </template>
 
 <template name="tutoringSessionLayout">
-  <div class="container">
-    {{yield}}
+  <div id="tutoringSession">
+    <div class="container">
+      {{yield}}
+    </div>
   </div>
 </template>
 
 <template name="dashboardLayout">
-	{{yield 'header'}}
-  <div class="container main">
-    {{yield}}
+  <div id="dashboard">
+  	{{yield 'header'}}
+    <div class="container main">
+      {{yield}}
 
-    {{yield 'footer'}}
+      {{yield 'footer'}}
+    </div>
   </div>
 </template>
