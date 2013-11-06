@@ -36,3 +36,4 @@ Template.ask_question.events =
     Questions.insert question
 
     Session.set('askQuestion', false)
+    Session.set('waitingForTutor', true)

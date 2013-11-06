@@ -9,6 +9,9 @@ Template.question_board.helpers
     console.log(Session.get('askQuestion'))
     Session.get('askQuestion')
 
+  waitingForTutor: ->
+  	Session.get('waitingForTutor')
+
 Template.question_board.events =
   'click input#btnStartTutoring' : (event, selector) ->
     console.log "You pressed start session"
