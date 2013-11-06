@@ -25,25 +25,4 @@
     {{/if}}
   </div>
 
-  <table style='display: none;' class="table table-striped table-hover">
-      <thead>
-          <tr>
-        <th>Question</th>
-        <th>Category</th>
-        <th>Tags</th>
-        <th>Karma Offered</th>
-        <th></th>
-      </tr>           
-      </thead>
-      <tbody>
-          {{#if questionsLoaded}}
-              {{#each questions}}
-                  {{> question}}
-              {{/each}}
-          {{else}}
-              Loading...
-          {{/if}}
-      </tbody>
-  </table>
-
 </template>
