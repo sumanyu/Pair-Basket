@@ -1,3 +1,7 @@
 <template name="ask_question">
-	<a class="btn btn-primary" id="btnAskQuestion" role="button" href="{{ pathFor 'addQuestion' }}">Ask Question</a>
+	<div class="overlay">
+		<div class="ask-question-popup"></div>
+	</div>
+
+	<a style="display: none;" class="btn btn-primary" id="btnAskQuestion" role="button" href="{{ pathFor 'addQuestion' }}">Ask Question</a>
 </template>

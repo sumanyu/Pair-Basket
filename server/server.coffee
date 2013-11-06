@@ -16,7 +16,7 @@ if Questions.find().count() is 0
     ,
       "Grade 1"
     ]
-    karmaOffered: 50
+    karmaOffered: 30
     dateCreated: new Date()
     dateModified: new Date()
     status: "Active"
@@ -29,10 +29,25 @@ if Questions.find().count() is 0
     ,
       "Grade 5"
     ]
-    karmaOffered: 100
+    karmaOffered: 50
     dateCreated: new Date()
     dateModified: new Date()
-    status: "Inactive"
+    status: "Active"
+  ,
+    title: "In elastic collisions, why is momentum conserved?"
+    userId: '1'
+    category: 'Physics'
+    tags: [
+      "Kinematics"
+    ,
+      "Energy"
+    ,
+      "Grade 10"
+    ]
+    karmaOffered: 80
+    dateCreated: new Date()
+    dateModified: new Date()
+    status: "Active"
   ]
 
   for question in questions
