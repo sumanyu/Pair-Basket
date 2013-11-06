@@ -35,14 +35,19 @@ Router.map ->
   @route 'session',
     path: '/session/:sessionId?'
     layoutTemplate: 'tutoringSessionLayout'
-    
+
     action: ->
       if not @params.sessionId?
         sessionId = Random.id()
         @redirect "/session/#{sessionId}"
       else
         Session.set('sessionId', @params.sessionId)
+        
+        @render 'tutoringSessionSidebar', 
+          to: 'tutoringSessionSidebar'
+
         @render 'mainBox'
+
 
     # after: ->
     #   console.log "Rendered?"
