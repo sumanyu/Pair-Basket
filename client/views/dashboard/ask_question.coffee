@@ -11,10 +11,10 @@ Template.ask_question.events =
     e.preventDefault()
 
     console.log("clicked question submit")
-    tags = $('textarea#question-category').value
-    title = $('textarea#question-title').value
-    text = $('textarea#question-text').value
-    karma_offered = $('textarea#karma-offered').value
+    tags = $('textarea#question-category').val()
+    title = $('textarea#question-title').val()
+    text = $('textarea#question-text').val()
+    karma_offered = $('textarea#karma-offered').val()
 
     console.log tags
     console.log title
