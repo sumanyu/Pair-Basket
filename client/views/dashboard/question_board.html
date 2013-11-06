@@ -1,6 +1,8 @@
 <template name="question_board">
   {{#if askQuestion}}
     {{> ask_question}}
+  {{else}}
+    
   {{/if}}
   <div class="question-list">
     {{#if questionsLoaded}}
