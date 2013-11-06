@@ -1,9 +1,22 @@
 <template name="question">
-	<tr>
-		<td>{{title}}</td>
-		<td>{{category}}</td>
-		<td>{{tags}}</td>
-		<td>{{karma_offered}}</td>
-		<td><input class="btn btn-primary" type="button" id="btnStartTutoring" value="Click" /></td>
-	</tr>
+	<div class="question-tile">
+      <div class="question-tile-left">
+        <div class="left-item">
+          {{#each tags}}
+            <div class="question-tag">{{this}}</div>
+          {{/each}}
+        </div>
+        <div class="left-item question-title">
+          <p>{{category}}</p>
+        </div>
+        <div class="left-item">
+          <p>{{title}}</p>
+        </div>
+      </div>
+      <div class="question-tile-right">
+        <div class="question-circle">{{karmaOffered}}</div>
+        <div class="yellow-button">Accept</div>
+      </div>
+    </div>
+
 </template>

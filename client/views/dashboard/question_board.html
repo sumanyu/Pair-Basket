@@ -1,23 +1,12 @@
 <template name="question_board">
   <div class="question-list">
-    <div class="question-tile">
-      <div class="question-tile-left">
-        <div class="left-item">
-          <div class="question-tag">math</div>
-          <div class="question-tag">calculus</div>
-        </div>
-        <div class="left-item question-title">
-          <p>Epsilon-N proof</p>
-        </div>
-        <div class="left-item">
-          <p>How to prove hard stuff?</p>
-        </div>
-      </div>
-      <div class="question-tile-right">
-        <div class="question-circle">10</div>
-        <div class="yellow-button">Accept</div>
-      </div>
-    </div>
+    {{#if questionsLoaded}}
+        {{#each questions}}
+            {{> question}}
+        {{/each}}
+    {{else}}
+        Loading...
+    {{/if}}
   </div>
 
   <table style='display: none;' class="table table-striped table-hover">
