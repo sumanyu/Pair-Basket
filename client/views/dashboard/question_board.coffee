@@ -1,9 +1,13 @@
 Template.question_board.helpers
-	questions: =>
+  questions: =>
     @Questions.find({})
 
   questionsLoaded: ->
     Session.get('hasQuestionsLoaded?')
+
+  askQuestion: ->
+    console.log(Session.get('askQuestion'))
+    Session.get('askQuestion')
 
 Template.question_board.events =
   'click input#btnStartTutoring' : (event, selector) ->

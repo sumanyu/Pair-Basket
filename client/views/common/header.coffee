@@ -2,5 +2,5 @@ Template.header.events =
   'click .ask-question' : (e, selector) ->
     e.preventDefault()
 
-    console.log("asked question")
+    Session.set('askQuestion', true)
     # Session.set('firstTimeQuestion', question)
