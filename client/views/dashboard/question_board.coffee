@@ -18,3 +18,8 @@ Template.question_board.helpers
 Template.question_board.events =
   'click input#btnStartTutoring' : (event, selector) ->
     console.log "You pressed start session"
+
+  'click .start-session-button' : (e, selector) ->
+      e.preventDefault()
+      console.log "session"
+      Router.go('session')
