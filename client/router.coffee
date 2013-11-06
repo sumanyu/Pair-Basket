@@ -1,5 +1,4 @@
 Router.configure
-  layoutTemplate: 'layout'
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
   yieldTemplates:
@@ -11,6 +10,12 @@ Router.configure
 Router.map ->
   @route 'home',
     path: '/'
+    layoutTemplate: 'landingLayout'
+    template: 'landingPage'
+    
+  @route 'dashboard',
+    path: '/dashboard'
+    layoutTemplate: 'dashboardLayout'
     template: 'questions_page'
 
   @route 'test',
@@ -19,10 +24,12 @@ Router.map ->
 
   @route 'addQuestion',
     path: '/question/new'
+    layoutTemplate: 'dashboardLayout'
     template: 'addQuestionForm'
 
   @route 'session',
     path: '/session/:sessionId?'
+    layoutTemplate: 'tutoringSessionLayout'
     
     action: ->
       if not @params.sessionId?

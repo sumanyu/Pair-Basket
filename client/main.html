@@ -2,7 +2,19 @@
   <title>Pair Basket</title>
 </head>
 
-<template name="layout">
+<template name="landingLayout">
+  <div class="container">
+    {{yield}}
+  </div>
+</template>
+
+<template name="tutoringSessionLayout">
+  <div class="container">
+    {{yield}}
+  </div>
+</template>
+
+<template name="dashboardLayout">
 	{{yield 'header'}}
   <div class="container main">
     {{yield}}
