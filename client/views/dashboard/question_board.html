@@ -10,6 +10,11 @@
   {{else}}
     
   {{/if}}
+
+  {{#if foundTutor}}
+    <div class="overlay"></div>
+  {{/if}}
+
   <div class="question-list">
     {{#if questionsLoaded}}
         {{#each questions}}

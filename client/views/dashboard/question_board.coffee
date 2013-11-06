@@ -10,7 +10,10 @@ Template.question_board.helpers
     Session.get('askQuestion')
 
   waitingForTutor: ->
-  	Session.get('waitingForTutor')
+    Session.get('waitingForTutor')
+
+  foundTutor: ->
+    Session.get('foundTutor')
 
 Template.question_board.events =
   'click input#btnStartTutoring' : (event, selector) ->
