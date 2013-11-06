@@ -1,4 +1,7 @@
 Template.landingPage.events =
-  'click button#landingAskQuestion' : (e, selector) ->
+  'click input#landingSubmit' : (e, selector) ->
     e.preventDefault()
-    console.log "Pressed button"
+
+    question = $('textarea#landingAskQuestion').val()
+    Session.set('firstTimeQuestion', question)
+    Router.go('dashboard')
