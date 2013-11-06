@@ -1,14 +1,6 @@
 @import 'utility'
 
 body
-	background: light-grey 
-
-	.footer
-		margin: 0px 0px _margin_top 0px
-
-	.control-label
-		font-weight: bold
-
 	.yellow-button
 		background: #FFD300
 		background-image: -webkit-linear-gradient(top, #FFD300, #FFD300)
@@ -59,6 +51,10 @@ body
 			padding-left: 0px
 
 	#dashboard
+
+		.control-label
+			font-weight: bold
+
 		.container.main
 			width: 800px
 			padding: 50px
@@ -128,6 +124,50 @@ body
 
 		.control-label
 			font-weight: bold
+
+		.question-list
+			width: 800px
+			display: block
+			float: left
+			padding: 10px
+
+		.question-tile
+			width: 500px
+			height: 140px
+			margin: 20px auto
+			display: block
+			border-radius: 80%
+			-moz-border-radius: 80%;
+			-webkit-border-radius: 80%;
+
+		.question-tile-left
+			width: 400px
+			height: 100%
+			display: block
+			float: left
+			background-color: #E6E4E4 // darker grey
+
+		.question-tile-right
+			width: 100px
+			height: 100%
+			display: block
+			float: left
+			background-color: #D0CFCF // light grey
+
+		.question-circle
+			display: block
+			background-color: black
+			border-radius: 50%
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			width: 80px
+			height: 80px
+			margin: 0px 10px
+			text-align:center
+			font-size: 50px;
+			line-height: 80px;
+			color: #D0CFCF // light grey
+
 
 	#tutoringSession
 		#header {
