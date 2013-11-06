@@ -37,3 +37,14 @@ Template.ask_question.events =
 
     Session.set('askQuestion', false)
     Session.set('waitingForTutor', true)
+
+    wait_for_tutor = () ->
+        setTimeout (->
+        found_tutor
+        ), 5000
+
+    found_tutor = () ->
+        Session.set('waitingForTutor', false)
+        Session.set('foundTutor', true)
+
+    wait_for_tutor()
