@@ -4,9 +4,11 @@
 
 <template name="landingLayout">
   <div id="landing">
+      {{yield 'landingHeader'}}
     <div class="container">
       {{yield}}
     </div>
+      {{yield 'landingFooter'}}
   </div>
 </template>
 

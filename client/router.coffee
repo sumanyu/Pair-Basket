@@ -12,6 +12,11 @@ Router.map ->
     path: '/'
     layoutTemplate: 'landingLayout'
     template: 'landingPage'
+    yieldTemplates:
+      landingHeader:
+        to: 'landingHeader'
+      landingFooter:
+        to: 'landingFooter'
     
   @route 'dashboard',
     path: '/dashboard'
