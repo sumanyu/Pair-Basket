@@ -8,17 +8,19 @@ chatCollection = new Meteor.Collection(null)
 
 chatStream.on "chat", (message) ->
   chatCollection.insert
-    userId: @userId
-    message: message
+    userId: message.userId
+    message: message.message
 
 Template.chatBox.helpers 
   messages: ->
     # fetch all chat messages
     chatCollection.find()
 
-Template.chatMessage.helpers 
-  user: ->
-    @userId
+# Template.chatMessage.helpers 
+#   user: ->
+#     # console.log userId
+#     console.log @
+#     console.log @userId
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -30,8 +32,12 @@ sendMessage = ->
       message: message
 
     # Broadcast that message to all clients
-    chatStream.emit "chat", message
+    chatStream.emit "chat", 
+      message: message
+      userId: "Davin"
+
     $(".chat-message").val ""
+    console.log $('.chat-message').val()
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->
