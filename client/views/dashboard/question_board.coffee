@@ -1,6 +1,9 @@
 Template.question_board.helpers
   questions: =>
-    @Questions.find({})
+    @Questions.find(
+      {},
+      {sort: {dateCreated: -1}}
+    )
 
   questionsLoaded: ->
     Session.get('hasQuestionsLoaded?')
