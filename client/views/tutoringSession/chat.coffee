@@ -40,7 +40,7 @@ Template.chatBox.events
   "click #send": (e, s) ->
     sendMessage()
 
-Template.whiteBoard.created = ->
+Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun
   Session.set("hasWhiteboardLoaded?", true)
 
@@ -49,12 +49,11 @@ remotePad = undefined
 
 Meteor.startup ->
   Deps.autorun ->
-    if pad
-      pad.close()
-      remotePad.close()
-
-    sessionId = Session.get("sessionId")
-
     if Session.get("hasWhiteboardLoaded?")
+      if pad
+        pad.close()
+        remotePad.close()
+
+      sessionId = Session.get("sessionId")      
       pad = new Pad(sessionId)
       remotePad = new RemotePad(sessionId, pad)

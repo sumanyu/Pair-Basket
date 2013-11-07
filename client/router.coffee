@@ -46,7 +46,7 @@ Router.map ->
         @render 'tutoringSessionSidebar', 
           to: 'tutoringSessionSidebar'
 
-        @render 'mainBox'
+        @render 'tutoringSessionPage'
 
 
     # after: ->
