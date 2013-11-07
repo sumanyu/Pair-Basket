@@ -20,6 +20,15 @@ Template.questionsPage.events =
     console.log "You pressed start session"
 
   'click .start-session-button' : (e, selector) ->
-      e.preventDefault()
-      console.log "session"
-      Router.go('session')
+    e.preventDefault()
+    console.log "session"
+
+    console.log @
+
+    # Remove item from questions list
+    # @Questions.find({}, {sort: {dateCreated: -1}})
+
+    Router.go('session')
+
+  'click .decline-button': (e, selector) ->
+    Session.set('foundTutor', false)
