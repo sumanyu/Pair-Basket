@@ -21,16 +21,16 @@ Router.map ->
   @route 'dashboard',
     path: '/dashboard'
     layoutTemplate: 'dashboardLayout'
-    template: 'questions_page'
+    template: 'questionsPage'
 
-  @route 'test',
-    path: '/test'
-    template: 'test' 
+  # @route 'test',
+  #   path: '/test'
+  #   template: 'test' 
 
-  @route 'addQuestion',
-    path: '/question/new'
-    layoutTemplate: 'dashboardLayout'
-    template: 'addQuestionForm'
+  # @route 'addQuestion',
+  #   path: '/question/new'
+  #   layoutTemplate: 'dashboardLayout'
+  #   template: 'addQuestionForm'
 
   @route 'session',
     path: '/session/:sessionId?'

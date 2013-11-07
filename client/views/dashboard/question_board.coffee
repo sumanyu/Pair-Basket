@@ -1,4 +1,4 @@
-Template.question_board.helpers
+Template.questionsPage.helpers
   questions: =>
     @Questions.find({}, {sort: {dateCreated: -1}})
 
@@ -15,7 +15,7 @@ Template.question_board.helpers
   foundTutor: ->
     Session.get('foundTutor')
 
-Template.question_board.events =
+Template.questionsPage.events =
   'click input#btnStartTutoring' : (event, selector) ->
     console.log "You pressed start session"
 
