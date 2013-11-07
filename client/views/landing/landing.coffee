@@ -4,4 +4,5 @@ Template.landingPage.events =
 
     question = $('textarea#landingAskQuestion').val()
     Session.set('firstTimeQuestion', question)
+    Session.set('askQuestion', true)
     Router.go('dashboard')
