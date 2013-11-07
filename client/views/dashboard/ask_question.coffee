@@ -25,16 +25,15 @@ Template.ask_question.events =
     console.log text
     console.log karma_offered
 
-
     question = 
-        title: text
-        userId: '1'
-        category: title
-        tags: [tags]
-        karmaOffered: parseInt(karma_offered)
-        dateCreated: new Date()
-        dateModified: new Date()
-        status: "Active"
+      title: text
+      userId: '1'
+      category: title
+      tags: [tags]
+      karmaOffered: parseInt(karma_offered)
+      dateCreated: new Date()
+      dateModified: new Date()
+      status: "Active"
 
     console.log(question)
     Questions.insert question
@@ -42,13 +41,11 @@ Template.ask_question.events =
     Session.set('askQuestion', false)
     Session.set('waitingForTutor', true)
 
-    wait_for_tutor = () ->
-        setTimeout (->
-        found_tutor
-        ), 4000
+    wait_for_tutor = ->
+      Meteor.setTimeout found_tutor, 4000
 
-    found_tutor = () ->
-        Session.set('waitingForTutor', false)
-        Session.set('foundTutor', true)
+    found_tutor = ->
+      Session.set('waitingForTutor', false)
+      Session.set('foundTutor', true)
 
     wait_for_tutor()
