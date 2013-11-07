@@ -7,11 +7,11 @@
 <template name="tutoringSessionPage">
   <div class="row">
     <div class="col-md-6 col-md-offset-2">
-      <h2>White Board</h2>
+      <!-- <h2>White Board</h2> -->
       {{> whiteBoard}}
     </div>
-    <div class="col-md-3">
-      <h2>Chat</h2>
+    <div class="col-md-4">
+      <!-- <h2>Chat</h2> -->
       {{> chatBox}}
     </div>
   </div>
@@ -34,13 +34,17 @@
 </template>
 
 <template name='chatBox'>
-  <div id='messages'>
-    {{#each messages}}
-      {{> chatMessage}}
-    {{/each}}
+  <div class="chatBoxContainer">
+
+    <div class="chatMessages">
+      {{#each messages}}
+        {{> chatMessage}}
+      {{/each}}
+    </div>
+
+    <textarea class='chat-message'></textarea><br>
+    <!-- <button class='btn btn-primary' id='send'>Send</button> -->
   </div>
-  <textarea id='chat-message'></textarea><br>
-  <button class='btn btn-primary' id='send'>Send</button>
 </template>
 
 <template name='chatMessage'>

@@ -21,18 +21,20 @@ Template.chatMessage.helpers
     @userId
 
 sendMessage = ->
-  message = $("#chat-message").val()
+  message = $(".chat-message").val()
 
-  chatCollection.insert
-    userId: "me"
-    message: message
+  # Prevent empty messages
+  if message.length > 0
+    chatCollection.insert
+      userId: "me"
+      message: message
 
-  # Broadcast that message to all clients
-  chatStream.emit "chat", message
-  $("#chat-message").val ""
+    # Broadcast that message to all clients
+    chatStream.emit "chat", message
+    $(".chat-message").val ""
 
 Template.chatBox.events 
-  "keydown #chat-message": (e, s) ->
+  "keydown .chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
       sendMessage()
