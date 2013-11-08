@@ -36,8 +36,10 @@ Template.ask_question.events =
       status: "Active"
 
     console.log(question)
-    Questions.insert question
+    questionId = Questions.insert question
+    console.log questionId
 
+    Session.set("currentQuestion", questionId)
     Session.set('askQuestion', false)
     Session.set('waitingForTutor', true)
 
