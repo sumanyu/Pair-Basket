@@ -3,6 +3,8 @@ Template.landingPage.events =
     e.preventDefault()
 
     question = $('textarea#landingAskQuestion').val()
-    Session.set('firstTimeQuestion', question)
-    Session.set('askQuestion', true)
+
+    Session.set('questionFromLandingPrompt', question)
+    Session.set('askingQuestion?', true)
+
     Router.go('dashboard')

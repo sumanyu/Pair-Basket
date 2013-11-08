@@ -61,17 +61,17 @@ Meteor.startup ->
   Deps.autorun ->
     console.log "# of session requests: ", SessionRequest.find().count()
 
+
 Meteor.publish "questions", ->
   Questions.find({})
 
+# Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
   console.log "Publish, questionId:", questionId
   SessionRequest.find({questionId: questionId})
+
 
 Meteor.methods
   createSessionRequest: (questionId) ->
     console.log "Creating Session Request"
     requestId = SessionRequest.insert {questionId: questionId}
-
-
-

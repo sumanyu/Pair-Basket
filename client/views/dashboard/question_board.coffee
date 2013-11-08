@@ -6,20 +6,18 @@ Template.questionsPage.helpers
     Session.get('hasQuestionsLoaded?')
 
   askQuestion: ->
-    console.log("Asking question: ", Session.get('askQuestion'))
-    Session.get('askQuestion')
+    Session.get('askingQuestion?')
 
   waitingForTutor: ->
-    Session.get('waitingForTutor')
+    Session.get('waitingForTutor?')
 
   foundTutor: ->
-    Session.get('foundTutor')
+    Session.get('foundTutor?')
 
 Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()
-    console.log "session"
     Router.go('session')
 
   'click .decline-button': (e, selector) ->
-    Session.set('foundTutor', false)
+    Session.set('foundTutor?', false)
