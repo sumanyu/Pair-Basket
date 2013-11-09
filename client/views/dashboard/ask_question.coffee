@@ -28,12 +28,6 @@ unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 #     limit: 3 
 
 Template.ask_question.events =
-  'click input#btnAskQuestion' : (e, selector) ->
-    # console.log "You pressed start question"
-    # console.log e
-    # console.log selector
-    # if Session.get('karma') < 1
-
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
