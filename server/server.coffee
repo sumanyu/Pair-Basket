@@ -2,41 +2,38 @@ populateQuestions = ->
   # if Meteor.isServer and Questions.find().count() is 0
   if Questions.find().count() is 0
     questions = [
-      title: "How do you get the limit for 0/0?"
+      title: "Linguistic Anthropology"
       userId: '1'
-      text: "I tried doing xy but I'm not sure if I can do xyz and abcd as well"
+      text: "What are John Wesley Powell's contributions to the modern view of languages?"
       tags: [
-        "Calculus"
-      ,
-        "Grade 12"
-      ]
-      karmaOffered: 30
-      dateCreated: new Date()
-      dateModified: new Date()
-      status: "Active"
-    ,
-      title: "What is photosynthesis?"
-      userId: '1'
-      text: 'Some text, Some text, Some text,'
-      tags: [
-        "Plants"
-      ,
-        "Grade 5"
+        "John Wesley Powell",
+        "Philosophy"
       ]
       karmaOffered: 50
       dateCreated: new Date()
       dateModified: new Date()
       status: "Active"
     ,
-      title: "In elastic collisions, why is momentum conserved?"
+      title: "atan vs. atan2 in C++"
       userId: '1'
-      text: 'Some text, Some text, Some text, Some text, Some text, Some text, Some text,'
+      text: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
-        "Kinematics"
+        "C++"
       ,
-        "Energy"
+        "Programming"
+      ]
+      karmaOffered: 20
+      dateCreated: new Date()
+      dateModified: new Date()
+      status: "Active"
+    ,
+      title: "Epsilon-N Proof"
+      userId: '1'
+      text: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
+      tags: [
+        "Calculus"
       ,
-        "Grade 10"
+        "Delta Epsilon proofs"
       ]
       karmaOffered: 80
       dateCreated: new Date()
@@ -60,7 +57,6 @@ Meteor.startup ->
 
   Deps.autorun ->
     console.log "# of session requests: ", SessionRequest.find().count()
-
 
 Meteor.publish "questions", ->
   Questions.find({})
