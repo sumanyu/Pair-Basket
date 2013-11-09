@@ -1,10 +1,19 @@
+sendQuestion = ->
+  question = $('textarea#landingAskQuestion').val()
+
+  Session.set('questionFromLandingPrompt', question)
+  Session.set('askingQuestion?', true)
+
+  Router.go('dashboard')  
+
 Template.landingPage.events =
   'click input#landingSubmit' : (e, selector) ->
     e.preventDefault()
+    sendQuestion()
 
-    question = $('textarea#landingAskQuestion').val()
+  'keyup #landingAskQuestion': (e, t) ->
+    e.preventDefault()
 
-    Session.set('questionFromLandingPrompt', question)
-    Session.set('askingQuestion?', true)
-
-    Router.go('dashboard')
+    # on Enter
+    if e.which is 13
+      sendQuestion()
