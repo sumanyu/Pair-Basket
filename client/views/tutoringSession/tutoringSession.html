@@ -49,19 +49,30 @@
 <template name="tutoringSessionPage">
   <div class="row">
     <div class="col-md-6 col-md-offset-2">
-      <!-- <h2>White Board</h2> -->
-      <br />
-      <br />
-      <br />
-      <br />
+      {{#if whiteboardIsSelected }}
+        {{> whiteBoard}}
 
-      {{> whiteBoard}}
+      {{else}} {{#if fileIsSelected }}
+        {{> sharingFiles}}
+
+      {{else}} {{#if wolframIsSelected }}
+        {{> wolfram}}
+
+      {{/if}} {{/if}} {{/if}}
     </div>
     <div class="col-md-4">
       <!-- <h2>Chat</h2> -->
       {{> chatBox}}
     </div>
   </div>
+</template>
+
+<template name="sharingFiles">
+  Sharing files content here!
+</template>
+
+<template name="wolfram">
+  Wolfram content here!
 </template>
 
 <template name='whiteBoard'>
