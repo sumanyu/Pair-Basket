@@ -85,3 +85,19 @@ Meteor.methods
     responseId = SessionResponse.insert 
                   questionId: questionId
                   sessionId: sessionId
+
+  completeSession: (questionId) ->
+    # Remove sessionRequest and sessionResponse and question from question
+    console.log "Complete session"
+
+    # console.log SessionRequest.find().count()
+    # console.log SessionResponse.find().count()
+    # console.log Questions.find({}).count()
+
+    SessionRequest.remove({questionId: questionId})
+    SessionResponse.remove({questionId: questionId})
+    Questions.remove({_id: questionId})
+
+    # console.log SessionRequest.find().count()
+    # console.log SessionResponse.find().count()
+    # console.log Questions.find({}).count()

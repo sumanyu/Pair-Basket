@@ -17,7 +17,7 @@ Template.chatBox.helpers
     chatCollection.find()
 
 # Template.chatMessage.helpers 
-#   user: ->
+#   user: ->completeSession
 #     # console.log userId
 #     console.log @
 #     console.log @userId
@@ -82,6 +82,12 @@ Template.tutoringSessionSidebar.events
     Session.set('whiteboardIsSelected?', false)
     Session.set('fileIsSelected?', false)
     Session.set('wolframIsSelected?', true)
+
+  "click .end-session": (e, s) ->
+    Session.set('foundTutor?', false)
+    Session.set('waitingForTutor?', false)
+    Session.set('askingQuestion?', false)
+    Router.go('/dashboard')
 
 Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun

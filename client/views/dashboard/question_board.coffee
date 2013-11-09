@@ -26,6 +26,10 @@ Template.questionsPage.events =
       console.log "SessionRequestCreated"
     )
 
+    Meteor.call("completeSession", questionId, (err, result) ->
+      console.log "SessionRequestCreated"
+    )    
+
     Router.go("/session/#{session}")
 
   'click .decline-button': (e, selector) ->
