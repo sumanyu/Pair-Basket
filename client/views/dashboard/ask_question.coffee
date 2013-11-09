@@ -2,6 +2,9 @@ Template.ask_question.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt') 
     
+# Trim left and right
+unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
+
 Template.ask_question.events =
   'click input#btnAskQuestion' : (e, selector) ->
     # console.log "You pressed start question"
@@ -16,10 +19,20 @@ Template.ask_question.events =
     e.preventDefault()
 
     # console.log("clicked question submit")
-    tags = $('textarea#question-category').val()
+    stringTags = $('textarea#question-tags').val()
+    tagsList = stringTags.split(",")
+
+    tags = if tagsList.length is 0
+            [stringTags].map (tag) -> tag.trim()
+          else
+            tagsList.map (tag) -> tag.trim()
+
+    # console.log stringTags
+    
+    console.log tags
     title = $('textarea#question-title').val()
     text = $('textarea#question-text').val()
-    karma_offered = $('textarea#karma-offered').val()
+    karma_offered = $('input#karma-offered').val()
 
     # console.log tags
     # console.log title
@@ -27,10 +40,10 @@ Template.ask_question.events =
     # console.log karma_offered
 
     question = 
-      title: text
+      title: title
       userId: '1'
-      category: title
-      tags: [tags]
+      text: text
+      tags: tags
       karmaOffered: parseInt(karma_offered)
       dateCreated: new Date()
       dateModified: new Date()

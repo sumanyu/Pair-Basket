@@ -2,13 +2,13 @@ populateQuestions = ->
   # if Meteor.isServer and Questions.find().count() is 0
   if Questions.find().count() is 0
     questions = [
-      title: "What is 2+2?"
+      title: "How do you get the limit for 0/0?"
       userId: '1'
-      category: 'Math'
+      text: "I tried doing xy but I'm not sure if I can do xyz and abcd as well"
       tags: [
-        "Addition"
+        "Calculus"
       ,
-        "Grade 1"
+        "Grade 12"
       ]
       karmaOffered: 30
       dateCreated: new Date()
@@ -17,7 +17,7 @@ populateQuestions = ->
     ,
       title: "What is photosynthesis?"
       userId: '1'
-      category: 'Biology'
+      text: 'Some text, Some text, Some text,'
       tags: [
         "Plants"
       ,
@@ -30,7 +30,7 @@ populateQuestions = ->
     ,
       title: "In elastic collisions, why is momentum conserved?"
       userId: '1'
-      category: 'Physics'
+      text: 'Some text, Some text, Some text, Some text, Some text, Some text, Some text,'
       tags: [
         "Kinematics"
       ,
