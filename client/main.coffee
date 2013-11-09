@@ -40,7 +40,7 @@ Meteor.startup ->
   Session.set('showNotEnoughKarma?', false)
 
   # Set temporary userName
-  Session.set('userName', 'Davin')
+  Session.set('userName', 'Kelly')
 
   # Chatting with whom in whiteboard session
   Session.get('chattingWith', null)
