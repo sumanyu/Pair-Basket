@@ -25,7 +25,7 @@ Template.questionsPage.events =
     session = Random.id()
 
     # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, session, (err, result) ->
+    Meteor.call("createSessionResponse", questionId, session, Session.get('userName'), (err, result) ->
       console.log "SessionRequestCreated"
     )
 

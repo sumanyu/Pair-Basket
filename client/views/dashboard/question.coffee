@@ -8,7 +8,7 @@ Template.question.events =
     if String(Session.get("subscribedQuestion")).valueOf() != String(questionId).valueOf()
 
       # User Meteor method to notify client
-      Meteor.call("createSessionRequest", questionId, (err, result) ->
+      Meteor.call("createSessionRequest", questionId, Session.get('userName'), (err, result) ->
         console.log "SessionRequestCreated"
       )
       

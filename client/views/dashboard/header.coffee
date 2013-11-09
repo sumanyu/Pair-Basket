@@ -6,8 +6,6 @@ Template.header.events =
       Session.set('askingQuestion?', true)
     else
       Session.set('showNotEnoughKarma?', true)
-    # else
-    #   alert user that not enough funds exist
 
 Template.header.helpers
   userKarma: ->

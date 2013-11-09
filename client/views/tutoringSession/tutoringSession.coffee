@@ -16,6 +16,9 @@ Template.chatBox.helpers
     # fetch all chat messages
     chatCollection.find()
 
+  chatPartner: ->
+    Session.get("chattingWith")
+
 # Template.chatMessage.helpers 
 #   user: ->completeSession
 #     # console.log userId

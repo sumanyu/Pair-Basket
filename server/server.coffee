@@ -76,15 +76,16 @@ Meteor.publish "sessionResponse", (questionId) ->
   SessionResponse.find({questionId: questionId})
 
 Meteor.methods
-  createSessionRequest: (questionId) ->
+  createSessionRequest: (questionId, userName) ->
     console.log "Creating Session Request"
-    requestId = SessionRequest.insert {questionId: questionId}
+    requestId = SessionRequest.insert {questionId: questionId, userName: userName}
 
-  createSessionResponse: (questionId, sessionId) ->
+  createSessionResponse: (questionId, sessionId, userName) ->
     console.log "Creating Session Response"
     responseId = SessionResponse.insert 
                   questionId: questionId
                   sessionId: sessionId
+                  userName: userName
 
   completeSession: (questionId) ->
     # Remove sessionRequest and sessionResponse and question from question

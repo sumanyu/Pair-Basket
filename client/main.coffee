@@ -42,6 +42,9 @@ Meteor.startup ->
   # Set temporary userName
   Session.set('userName', 'Davin')
 
+  # Chatting with whom in whiteboard session
+  Session.get('chattingWith', null)
+
   Deps.autorun ->
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
@@ -52,14 +55,27 @@ Meteor.startup ->
     # If tutee accepted tutor's request
     if SessionResponse.find({}).count() > 0
       response = SessionResponse.findOne()
+
+      chattingWith = response.userName
+
+      console.log response, chattingWith
+
       Session.set('foundTutor?', false)
+      Session.set('chattingWith', chattingWith)
 
       Router.go("/session/#{response.sessionId}")
 
     # if tutor accepted the request
     if SessionRequest.find({}).count() > 0
+
+      request = SessionRequest.findOne()
+      chattingWith = request.userName
+
+      console.log request, chattingWith
+
       # Popup tutor
-      Session.set('foundTutor?', true)
+      Session.set('foundTutor?', true) 
+      Session.set('chattingWith', chattingWith)
 
     # Show whiteboard, hide other things
     if Session.get('whiteboardIsSelected?')

@@ -4,7 +4,7 @@ body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
 
-	.yellow-button
+	.yellow-button, .yellow-button-disabled
 		background: _yellow
 		background-image: -webkit-linear-gradient(top, _yellow, _yellow)
 		background-image: -moz-linear-gradient(top, _yellow, _yellow)
@@ -17,6 +17,9 @@ body
 		color: black
 		display: block
 		text-decoration: none
+
+	.yellow-button-disabled
+		opacity: 0.75
 
 	.yellow-button:hover
 		opacity: 0.75
