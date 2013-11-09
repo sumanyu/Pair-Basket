@@ -4,11 +4,11 @@
 	
 		<form role="form" class="questionForm">
 			<div class="form-group">
-				<textarea id="question-category" placeholder="Category" class="form-control" rows="1"></textarea>
+				<textarea id="question-category" placeholder="Category, ex: Mathematics" class="form-control" rows="1"></textarea>
 			</div>
 
 			<div class="form-group">
-				<textarea id="question-title" placeholder="Topic" class="form-control" rows="1"></textarea>
+				<textarea id="question-title" placeholder="Topic, ex: Multiply 2x2 matrices" class="form-control" rows="1"></textarea>
 			</div>
 
 			<div class="form-group">
@@ -16,12 +16,11 @@
 			</div>
 
 			<div class="form-group">
-				<textarea id="karma-offered" placeholder="Karma" class="form-control" rows="1"></textarea>
+				<input type="number" min="1" max="45" id="karma-offered" placeholder="Karma" class="form-control"></input>
 			</div>
 
 			<input id="question-submit" class="yellow-button submit-question" type="submit" value="ASK">
 		</form>
 	
 	</div>
-
 </template>
