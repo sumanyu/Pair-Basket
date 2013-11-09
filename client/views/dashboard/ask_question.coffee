@@ -41,13 +41,16 @@ Template.ask_question.events =
 
     Session.set("subscribedQuestion", questionId)
     Session.set('askingQuestion?', false)
-    Session.set('waitingForTutor?', true)
 
-    wait_for_tutor = ->
-      Meteor.setTimeout found_tutor, 4000
+    # Video stuff
+        
+    # Session.set('waitingForTutor?', true)
 
-    found_tutor = ->
-      Session.set('waitingForTutor?', false)
-      Session.set('foundTutor?', true)
+    # wait_for_tutor = ->
+    #   Meteor.setTimeout found_tutor, 4000
 
-    wait_for_tutor()
+    # found_tutor = ->
+    #   Session.set('waitingForTutor?', false)
+    #   Session.set('foundTutor?', true)
+
+    # wait_for_tutor()

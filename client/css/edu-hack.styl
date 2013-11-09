@@ -1,16 +1,17 @@
 @import 'utility'
 
 body
+	_sidebar_gray = #636363
+	_yellow = #FFDC00
+
 	.yellow-button
-		background: #FFD300
-		background-image: -webkit-linear-gradient(top, #FFD300, #FFD300)
-		background-image: -moz-linear-gradient(top, #FFD300, #FFD300)
-		background-image: -ms-linear-gradient(top, #FFD300, #FFD300)
-		background-image: -o-linear-gradient(top, #FFD300, #FFD300)
-		background-image: linear-gradient(to bottom, #FFD300, #FFD300)
-		-webkit-border-radius: 5
-		-moz-border-radius: 5
-		border-radius: 5px
+		background: _yellow
+		background-image: -webkit-linear-gradient(top, _yellow, _yellow)
+		background-image: -moz-linear-gradient(top, _yellow, _yellow)
+		background-image: -ms-linear-gradient(top, _yellow, _yellow)
+		background-image: -o-linear-gradient(top, _yellow, _yellow)
+		background-image: linear-gradient(to bottom, _yellow, _yellow)
+		border-radius(5px)
 		border: 0px
 		font-family: Arial
 		color: black
@@ -30,10 +31,8 @@ body
 			margin: 20px 0 0 0
 
 		.circle
-			background-color: #FFD300
-			border-radius: 50%
-			-moz-border-radius: 50%;
-			-webkit-border-radius: 50%;
+			background-color: _yellow
+			border-radius(50%)
 			width: 55px
 			height: h = 55px
 			text-align: center
@@ -62,7 +61,7 @@ body
 			// margin: _margin_top 0px 0px 0px
 			width: 100%
 			height: 60px
-			background-color: #FFD300 // yellow
+			background-color: _yellow // yellow
 			// float: left
 
 		.header-content
@@ -98,16 +97,14 @@ body
 			display: block
 			float: left
 			background-color: black
-			border-radius: 50%
-			-moz-border-radius: 50%;
-			-webkit-border-radius: 50%;
+			border-radius(50%)
 			width: 40px
 			height: 40px
 			margin: 0px 10px
 			text-align:center
 			font-size: 24px
 			line-height: 44px
-			color: #FFD300 // yellow
+			color: _yellow // yellow
 
 		.icon-text 
 			display: block
@@ -135,7 +132,7 @@ body
 			display: block
 
 		.question-tile-left
-			width: 400px
+			width: 390px
 			height: 100%
 			display: block
 			float: left
@@ -156,9 +153,7 @@ body
 
 		.question-tag
 			background: #595959
-			-webkit-border-radius: 5
-			-moz-border-radius: 5
-			border-radius: 5px
+			border-radius(5px)
 			color: white
 			font-size: 16px
 			padding: 2px 10px
@@ -187,15 +182,14 @@ body
 		.question-circle
 			display: block
 			background-color: black
-			border-radius: 50%
-			-moz-border-radius: 50%;
-			-webkit-border-radius: 50%;
-			width: 80px
-			height: 80px
-			margin: 10px 10px
+			border-radius(50%)
+			width: 70px
+			height: 70px
+			margin: 13px
 			text-align:center
-			font-size: 50px;
-			line-height: 80px;
+			font-size: 42px
+			font-weight: bold
+			line-height: 73px
 			color: #D0CFCF // light grey
 
 		.overlay
