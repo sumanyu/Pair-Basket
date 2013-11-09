@@ -208,19 +208,28 @@ body
 			position: fixed
 
 		.ask-question-popup
+			h = 400px
+			w = 400px
+			pad = 25px
+
 			display: block
 			position: absolute
 			top: 50%
 			left: 50%
-			margin-top: -185px
-			margin-left: -200px
-			height: 370px
-			width: 400px
-			padding: 30px
-			z-index: 100
-			background: #FFFFFF
+			width: w
+			margin-top: -(h/2)
+			margin-left: -(w/2)
+			z-index: 20
+			background: white
 			border-radius: 10px
 			border: 3px solid #D0CFCF
+
+			.container
+				width: h - pad
+				padding: pad 20px pad 20px
+
+				textarea#question-text
+					padding: 4px 6px
 
 		.ask-question-popup textarea
 			resize: none
@@ -310,7 +319,10 @@ body
 		.submit-question
 			font-size: 16px
 			padding: 5px 10px
-			margin: 0px 15px			
+			// margin: 0px 15px			
+
+		input[type="text"]
+			height: 34px
 
 		input[type="number"]
 			height: 34px

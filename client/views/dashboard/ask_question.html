@@ -1,26 +1,26 @@
 <template name="ask_question">
 	<div class="overlay"></div>
 	<div class="ask-question-popup">
-	
-		<form role="form" class="questionForm">
-			<div class="form-group">
-				<textarea id="question-tags" placeholder="Tags, ex: Mathematics" class="form-control" rows="1"></textarea>
-			</div>
+		<div class="container">
+			<form role="form" class="questionForm">
+				<div class="form-group">
+					<input id="question-tags" type="text" placeholder="Tags, ex: Mathematics" class="form-control"></input>
+				</div>
 
-			<div class="form-group">
-				<textarea id="question-title" placeholder="Topic, ex: Multiply 2x2 matrices" class="form-control" rows="1"></textarea>
-			</div>
+				<div class="form-group">
+					<input id="question-title" type="text" placeholder="Topic, ex: Multiply 2x2 matrices" class="form-control"></input>
+				</div>
 
-			<div class="form-group">
-				<textarea id="question-text" placeholder="Question" class="form-control" rows="5">{{getFirstQuestion}}</textarea>
-			</div>
+				<div class="form-group">
+					<textarea id="question-text" placeholder="Question" class="form-control" rows="5">{{getFirstQuestion}}</textarea>
+				</div>
 
-			<div class="form-group">
-				<input type="number" min="1" max="45" id="karma-offered" placeholder="Karma" class="form-control"></input>
-			</div>
+				<div class="form-group">
+					<input type="number" min="1" max="45" id="karma-offered" placeholder="Karma" class="form-control"></input>
+				</div>
 
-			<input id="question-submit" class="yellow-button submit-question" type="submit" value="ASK">
-		</form>
-	
+				<input id="question-submit" class="yellow-button submit-question pull-right" type="submit" value="ASK">
+			</form>			
+		</div>
 	</div>
 </template>

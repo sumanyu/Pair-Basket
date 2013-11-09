@@ -5,6 +5,17 @@ Template.ask_question.helpers
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
+# Template.ask_question.rendered = ->
+#   $('input#question-tags').typeahead
+#     name: 'tags',                                                          
+#     local: ['Mathematics', 'Grade 12', 'Linear Algebra']                                         
+#     limit: 3                                                                   
+
+#   $('input#question-title').typeahead
+#     name: 'tags',                                                          
+#     local: ['Mathematics', 'Grade 12', 'Linear Algebra']                                         
+#     limit: 3 
+
 Template.ask_question.events =
   'click input#btnAskQuestion' : (e, selector) ->
     # console.log "You pressed start question"
@@ -19,7 +30,7 @@ Template.ask_question.events =
     e.preventDefault()
 
     # console.log("clicked question submit")
-    stringTags = $('textarea#question-tags').val()
+    stringTags = $('input#question-tags').val()
     tagsList = stringTags.split(",")
 
     tags = if tagsList.length is 0
@@ -30,7 +41,7 @@ Template.ask_question.events =
     # console.log stringTags
     
     console.log tags
-    title = $('textarea#question-title').val()
+    title = $('input#question-title').val()
     text = $('textarea#question-text').val()
     karma_offered = $('input#karma-offered').val()
 
