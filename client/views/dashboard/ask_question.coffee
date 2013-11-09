@@ -10,6 +10,9 @@ Template.ask_question.rendered = ->
   selector = $('.questionForm').find("#question-tags") 
   focusText(selector)
 
+Template.ask_question.maxKarma = ->
+  Session.get('karma')
+
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
@@ -29,7 +32,7 @@ Template.ask_question.events =
     # console.log "You pressed start question"
     # console.log e
     # console.log selector
-    
+    # if Session.get('karma') < 1
 
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
@@ -49,10 +52,10 @@ Template.ask_question.events =
 
     # console.log stringTags
     
-    console.log tags
+    # console.log tags
     title = $('input#question-title').val()
     text = $('textarea#question-text').val()
-    karma_offered = $('input#karma-offered').val()
+    karmaOffered = parseInt($('input#karma-offered').val())
 
     # console.log tags
     # console.log title
@@ -64,7 +67,7 @@ Template.ask_question.events =
       userId: '1'
       text: text
       tags: tags
-      karmaOffered: parseInt(karma_offered)
+      karmaOffered: karmaOffered
       dateCreated: new Date()
       dateModified: new Date()
       status: "Active"
@@ -75,6 +78,9 @@ Template.ask_question.events =
 
     Session.set("subscribedQuestion", questionId)
     Session.set('askingQuestion?', false)
+
+    # Decrement karma
+    Session.set('karma', Session.get('karma') - karmaOffered)
 
     # Video stuff
         

@@ -30,6 +30,12 @@ Meteor.startup ->
   Session.set('fileIsSelected?', false)
   Session.set('wolframIsSelected?', false)
 
+  # Pretend this is hooked up to a user's account
+  Session.set('karma', 45)
+
+  # For tutor when she accepts a question
+  Session.set('karmaForCurrentQuestion', null)
+
   Deps.autorun ->
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
@@ -41,6 +47,20 @@ Meteor.startup ->
     if SessionResponse.find({}).count() > 0
       response = SessionResponse.findOne()
       Session.set('foundTutor?', false)
+
+      # console.log response
+
+      # qFound = Questions.findOne({questionId: response.questionId})
+
+      # console.log qFound
+
+      # # Find offered Karma for the question
+      # karmaOffered = qFound.karmaOffered
+      # console.log karmaOffered
+
+      # Increment karma
+      # Session.set('karma', Session.get('karma') + Session.get('karmaForCurrentQuestion'))      
+
       Router.go("/session/#{response.sessionId}")
 
     # if tutor accepted the request
