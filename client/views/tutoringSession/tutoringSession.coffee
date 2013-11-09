@@ -37,7 +37,6 @@ sendMessage = ->
       userId: "Davin"
 
     $(".chat-message").val ""
-    console.log $('.chat-message').val()
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->

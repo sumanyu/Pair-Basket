@@ -49,16 +49,11 @@
 <template name="tutoringSessionPage">
   <div class="row">
     <div class="col-md-6 col-md-offset-2">
-      {{#if whiteboardIsSelected }}
         {{> whiteBoard}}
 
-      {{else}} {{#if fileIsSelected }}
         {{> sharingFiles}}
 
-      {{else}} {{#if wolframIsSelected }}
         {{> wolfram}}
-
-      {{/if}} {{/if}} {{/if}}
     </div>
     <div class="col-md-4">
       <!-- <h2>Chat</h2> -->
@@ -68,33 +63,43 @@
 </template>
 
 <template name="sharingFiles">
-  Sharing files content here!
+  <div class="sharingFiles">
+    Sharing files content here!
+  </div>
 </template>
 
 <template name="wolfram">
-  Wolfram content here!
+  <div class="wolfram">
+    Wolfram content here!
+  </div>
 </template>
 
 <template name='whiteBoard'>
-  <canvas class="whiteboardCanvas"></canvas>
-<!--   <div id='header'>
-    <div id='heading'>
-    </div>
-    <div id='controls'>
-      <input class='btn btn-info btn-small' type="button" id='wipe' value='Clear Backboard'/>
-      <input class='btn btn-success btn-small' type="button" id='create-new' value='Create New'/>
-    </div>
-  </div> -->
+  <div class="whiteboard">
+    <canvas class="whiteboardCanvas"></canvas>
+  <!--   <div id='header'>
+      <div id='heading'>
+      </div>
+      <div id='controls'>
+        <input class='btn btn-info btn-small' type="button" id='wipe' value='Clear Backboard'/>
+        <input class='btn btn-success btn-small' type="button" id='create-new' value='Create New'/>
+      </div>
+    </div> -->
 
-  <script id='tmpl-nickname' type="text/html">
-    <span class='nickname'>nickname</span>
-  </script>
+    <script id='tmpl-nickname' type="text/html">
+      <span class='nickname'>nickname</span>
+    </script>
+  </div>
 </template>
 
 <template name='chatBox'>
   <div class="chatBoxContainer">
 
     <div class="chatMessages">
+      <div>
+        Now chatting with Davin. Say hi!
+      </div>      
+
       {{#each messages}}
         {{> chatMessage}}
       {{/each}}

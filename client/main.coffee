@@ -48,6 +48,22 @@ Meteor.startup ->
       # Popup tutor
       Session.set('foundTutor?', true)
 
+    # Show whiteboard, hide other things
+    if Session.get('whiteboardIsSelected?')
+      $('.whiteboard').show()
+      $('.sharingFiles').hide()
+      $('.wolfram').hide()
+
+    if Session.get('fileIsSelected?')
+      $('.whiteboard').hide()
+      $('.sharingFiles').show()
+      $('.wolfram').hide()    
+
+    if Session.get('wolframIsSelected?')
+      $('.whiteboard').hide()
+      $('.sharingFiles').hide()
+      $('.wolfram').show()
+
   Meteor.subscribe "questions", ->
     # Set variable in case collection isn't loaded in time for rendering
     Session.set("hasQuestionsLoaded?", true)
