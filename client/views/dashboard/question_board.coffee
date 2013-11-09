@@ -17,7 +17,16 @@ Template.questionsPage.helpers
 Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()
-    Router.go('session')
+
+    questionId = Session.get('subscribedQuestion')
+    session = Random.id()
+
+    # User Meteor method to notify client
+    Meteor.call("createSessionResponse", questionId, session, (err, result) ->
+      console.log "SessionRequestCreated"
+    )
+
+    Router.go("/session/#{session}")
 
   'click .decline-button': (e, selector) ->
     Session.set('foundTutor?', false)

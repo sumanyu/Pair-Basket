@@ -9,3 +9,5 @@ Template.question.events =
     Meteor.call("createSessionRequest", questionId, (err, result) ->
       console.log "SessionRequestCreated"
     )
+
+    Session.set("subscribedQuestionResponse", questionId)

@@ -67,11 +67,21 @@ Meteor.publish "questions", ->
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
-  console.log "Publish, questionId:", questionId
+  console.log "Publish sessionRequest, questionId:", questionId
   SessionRequest.find({questionId: questionId})
 
+# Subscription for tutors with responses for requests sent
+Meteor.publish "sessionResponse", (questionId) ->
+  console.log "Publish sessionResponse, questionId:", questionId
+  SessionResponse.find({questionId: questionId})
 
 Meteor.methods
   createSessionRequest: (questionId) ->
     console.log "Creating Session Request"
     requestId = SessionRequest.insert {questionId: questionId}
+
+  createSessionResponse: (questionId, sessionId) ->
+    console.log "Creating Session Response"
+    responseId = SessionResponse.insert 
+                  questionId: questionId
+                  sessionId: sessionId

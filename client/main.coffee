@@ -22,11 +22,23 @@ Meteor.startup ->
   # Subscribe user to user's asked question ID
   Session.set('subscribedQuestion', null)
 
+  # Subscribe user to user's asked question ID
+  Session.set('subscribedQuestionResponse', null)
+
   Deps.autorun ->
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
 
-    # if someone accepted the request
+    if Session.get("subscribedQuestionResponse")
+      Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
+      
+    # If tutee accepted tutor's request
+    if SessionResponse.find({}).count() > 0
+      response = SessionResponse.findOne()
+      Session.set('foundTutor?', false)
+      Router.go("/session/#{response.sessionId}")
+
+    # if tutor accepted the request
     if SessionRequest.find({}).count() > 0
       # Popup tutor
       Session.set('foundTutor?', true)
