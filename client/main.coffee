@@ -39,6 +39,9 @@ Meteor.startup ->
   # Alert the user she doesn't have enough Karma
   Session.set('showNotEnoughKarma?', false)
 
+  # Set temporary userName
+  Session.set('userName', 'Davin')
+
   Deps.autorun ->
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")

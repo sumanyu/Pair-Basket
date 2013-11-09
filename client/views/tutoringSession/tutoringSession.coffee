@@ -34,7 +34,7 @@ sendMessage = ->
     # Broadcast that message to all clients
     chatStream.emit "chat", 
       message: message
-      userId: "Davin"
+      userId: Session.get('userName')
 
     $(".chat-message").val ""
 
