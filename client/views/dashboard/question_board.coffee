@@ -14,6 +14,9 @@ Template.questionsPage.helpers
   foundTutor: ->
     Session.get('foundTutor?')
 
+  notEnoughKarma: ->
+    Session.get('showNotEnoughKarma?')
+
 Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()
@@ -34,3 +37,6 @@ Template.questionsPage.events =
 
   'click .decline-button': (e, selector) ->
     Session.set('foundTutor?', false)
+
+  'click .back-to-dashboard-button': (e, selector) ->
+    Session.set('showNotEnoughKarma?', false)    

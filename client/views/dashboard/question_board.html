@@ -33,7 +33,20 @@
       </div>
       <span class="decline-button">Decline</span>
     </div>
+  {{/if}}
 
+  {{#if notEnoughKarma}}
+    <div class="overlay"></div>
+    <div class="not-enough-karma-popup">
+      <h2>Not enough Karma!</h2>
+      <h3>Let's go help somebody.</h3>
+
+      <div class="back-to-dashboard-button yellow-button">
+        Back to <br/>
+        Dashboard
+      </div>
+      <span>(Get Karma by helping other people)</span>
+    </div>
   {{/if}}
 
   <div class="question-list">

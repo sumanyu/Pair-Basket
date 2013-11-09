@@ -36,6 +36,9 @@ Meteor.startup ->
   # For tutor when she accepts a question
   Session.set('karmaForCurrentQuestion', null)
 
+  # Alert the user she doesn't have enough Karma
+  Session.set('showNotEnoughKarma?', false)
+
   Deps.autorun ->
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
