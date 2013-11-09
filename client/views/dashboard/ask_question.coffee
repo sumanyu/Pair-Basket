@@ -79,6 +79,9 @@ Template.ask_question.events =
     # Decrement karma
     Session.set('karma', Session.get('karma') - karmaOffered)
 
+    # Set question from prompt to null
+    Session.set('questionFromLandingPrompt', null)
+
     # Video stuff
         
     # Session.set('waitingForTutor?', true)
