@@ -9,6 +9,7 @@ Template.ask_question.events =
     # console.log selector
 
   'click .overlay' : (e, selector) ->
+    Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
 
   'click input#question-submit' : (e, selector) ->
