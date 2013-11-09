@@ -48,19 +48,6 @@ Meteor.startup ->
       response = SessionResponse.findOne()
       Session.set('foundTutor?', false)
 
-      # console.log response
-
-      # qFound = Questions.findOne({questionId: response.questionId})
-
-      # console.log qFound
-
-      # # Find offered Karma for the question
-      # karmaOffered = qFound.karmaOffered
-      # console.log karmaOffered
-
-      # Increment karma
-      # Session.set('karma', Session.get('karma') + Session.get('karmaForCurrentQuestion'))      
-
       Router.go("/session/#{response.sessionId}")
 
     # if tutor accepted the request
