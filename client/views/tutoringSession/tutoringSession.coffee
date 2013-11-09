@@ -48,6 +48,32 @@ Template.chatBox.events
   "click #send": (e, s) ->
     sendMessage()
 
+Template.tutoringSessionSidebar.helpers
+  whiteboardIsSelected: ->
+    Session.get('whiteboardIsSelected?')
+
+  fileIsSelected: ->
+    Session.get('fileIsSelected?')
+
+  wolframIsSelected: ->
+    Session.get('wolframIsSelected?')
+
+Template.tutoringSessionSidebar.events 
+  "click .whiteboard-button": (e, s) ->
+    Session.set('whiteboardIsSelected?', true)
+    Session.set('fileIsSelected?', false)
+    Session.set('wolframIsSelected?', false)
+
+  "click .file-button": (e, s) ->
+    Session.set('whiteboardIsSelected?', false)
+    Session.set('fileIsSelected?', true)
+    Session.set('wolframIsSelected?', false)
+
+  "click .wolfram-button": (e, s) ->
+    Session.set('whiteboardIsSelected?', false)
+    Session.set('fileIsSelected?', false)
+    Session.set('wolframIsSelected?', true)
+
 Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun
   Session.set("hasWhiteboardLoaded?", true)

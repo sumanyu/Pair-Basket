@@ -25,6 +25,11 @@ Meteor.startup ->
   # Subscribe user to user's asked question ID
   Session.set('subscribedQuestionResponse', null)
 
+  # Session sidebar variables
+  Session.set('whiteboardIsSelected?', true)
+  Session.set('fileIsSelected?', false)
+  Session.set('wolframIsSelected?', false)
+
   Deps.autorun ->
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")

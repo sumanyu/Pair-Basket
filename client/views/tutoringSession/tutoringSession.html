@@ -1,6 +1,48 @@
 <template name="tutoringSessionSidebar">
   <div class="sidebar">
-    
+
+    {{#if whiteboardIsSelected }}
+      <div class="active-wrapper">
+    {{else}}
+      <div class="wrapper">
+    {{/if}}
+      <div class="whiteboard-button">
+        {{#if whiteboardIsSelected }}
+          <img class="whiteboard-button-img" src="/black_board_active.png"></src>
+        {{else}}
+          <img class="whiteboard-button-img" src="/black_board.png"></src>
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if fileIsSelected }}
+      <div class="active-wrapper">
+    {{else}}
+      <div class="wrapper">
+    {{/if}}
+      <div class="file-button">
+        {{#if fileIsSelected }}
+          <img class="file-button-img" src="/file_active.png"></src>
+        {{else}}
+          <img class="file-button-img" src="/file.png"></src>
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if wolframIsSelected }}
+      <div class="active-wrapper">
+    {{else}}
+      <div class="wrapper">
+    {{/if}}
+      <div class="wolfram-button">
+        {{#if wolframIsSelected }}
+          <img class="wolfram-button-img" src="/wolfram_active.png"></src>
+        {{else}}
+          <img class="wolfram-button-img" src="/wolfram.png"></src>
+        {{/if}}      
+      </div>      
+    </div>
+
   </div>
 </template>
 

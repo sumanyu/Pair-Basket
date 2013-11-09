@@ -322,13 +322,37 @@ body
 			left: 0px
 			right: auto
 			width: 10em			
-			background: #636363
+			background: _sidebar_gray
 			float: left
 			height: 100%
+			padding: 20px 0 0 0
 
-		// .whiteboardCanvas
-		// 	width: 500px
-		// 	height: 400px
+			.wrapper, .active-wrapper
+				width: 100%
+
+			.active-wrapper
+				background: white
+
+			.whiteboard-button, .file-button, .wolfram-button 
+				margin-top: 1em
+				margin-bottom: 1em
+				margin-left: auto
+				margin-right: auto
+				width: 6em
+				height: 7em
+				
+			.whiteboard-button
+				padding-top: 1.3em
+
+			.file-button
+				width: 4em
+				padding-top: 1.3em
+
+			.wolfram-button
+				padding-top: 0.5em
+
+			.whiteboard-button:hover, .file-button:hover, .wolfram-button:hover
+				cursor: pointer
 
 		.chatBoxContainer
 			padding: 20px
