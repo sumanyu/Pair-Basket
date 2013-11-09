@@ -10,4 +10,4 @@ Template.question.events =
       console.log "SessionRequestCreated"
     )
 
-    Session.set("subscribedQuestionResponse", questionId)
+    Session.set("subscribedQuestionResponse", questionId) if Session.get("subscribedQuestion") isnt questionId

@@ -1,7 +1,15 @@
+focusText = (i) ->
+  i.focus()
+  i.select()
+
 Template.ask_question.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt') 
     
+Template.ask_question.rendered = ->
+  selector = $('.questionForm').find("#question-tags") 
+  focusText(selector)
+
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
@@ -21,6 +29,7 @@ Template.ask_question.events =
     # console.log "You pressed start question"
     # console.log e
     # console.log selector
+    
 
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
