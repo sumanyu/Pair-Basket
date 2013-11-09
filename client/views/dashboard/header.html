@@ -1,19 +1,24 @@
 <template name="header">
-    <div class="header">
-      <div class="header-content">
-        <div class="header-title">
+  <div class="header">
+    <div class="header-content">
+      <div class="header-title">
+        <div class="col-md-2 logo-img-dashboard">
+          <img src="/logo-black.png"></img>
+        </div>
+        <div class="col-md-8 logo-title">
           <h2>PairBasket</h2>
         </div>
-        <div class="header-buttons">
-          <div class="header-icon ask-question">
-            <img class="ask-question-icon" src="ask.png" width="45" height="45"></img>
-            <span class="icon-text"><b>ASK</b></span>
-          </div>
-          <div class="header-icon">
-            <div class="header-circle">{{userKarma}}</div>
-            <span class="icon-text"><b>KARMA</b></span>
-          </div>
+      </div>
+      <div class="header-buttons">
+        <div class="header-icon ask-question">
+          <img class="ask-question-icon" src="ask.png" width="45" height="45"></img>
+          <span class="icon-text"><b>ASK</b></span>
+        </div>
+        <div class="header-icon">
+          <div class="header-circle">{{userKarma}}</div>
+          <span class="icon-text"><b>KARMA</b></span>
         </div>
       </div>
     </div>
+  </div>
 </template>
