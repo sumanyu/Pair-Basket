@@ -3,6 +3,8 @@
 body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
+	light-grey = #f6f6f6
+	_margin-top = 80px
 
 	.yellow-button, .yellow-button-disabled
 		background: _yellow
@@ -17,7 +19,7 @@ body
 		color: black
 		display: block
 		text-decoration: none
-		animate()
+		animate-transition()
 
 	.yellow-button-disabled
 		opacity: 0.75
@@ -25,7 +27,7 @@ body
 	.yellow-button:hover
 		opacity: 0.7
 		cursor: pointer
-		animate()
+		animate-transition()
 
 	.logo-img-dashboard
 		width: 2.6em
@@ -62,13 +64,11 @@ body
 		margin-top: 0.5em
 		margin-bottom: 6em
 		opacity: 0.7
-
-		animate()
+		animate-transition()
 
 	.logo-img-tutor-session:hover
 		opacity: 1.0		
-
-		animate()
+		animate-transition()
 
 	#landing
 		.header, .footer
@@ -85,9 +85,9 @@ body
 			background-color: _yellow
 			border-radius(50%)
 			width: 55px
-			height: h = 55px
+			height: 55px
 			text-align: center
-			padding-top: (h/3)
+			padding-top: (@height/3)
 			font-size: 26px
 			font-weight: bold
 			color: #FFFFFF // yellow
@@ -114,23 +114,17 @@ body
 			padding-left: 0px
 
 	#dashboard
-
 		.control-label
 			font-weight: bold
 
 		.container.main
 			width: 800px
-			// padding: 50px
 			background: white
-			// border-radius(3px)
-			// container-border()
 
 		.header
-			// margin: _margin_top 0px 0px 0px
 			width: 100%
 			height: 60px
-			background-color: _yellow // yellow
-			// float: left
+			background-color: _yellow
 
 		.header-content
 			width: 980px
@@ -187,7 +181,7 @@ body
 			font-size: 10pt
 
 		.footer
-			margin: 0px 0px _margin_top 0px
+			margin: 0px 0px _margin-top 0px
 
 		.control-label
 			font-weight: bold
@@ -196,7 +190,7 @@ body
 			width: 700px
 			display: block
 			padding: 10px
-			margin: 0px auto;
+			margin: 0px auto
 
 		.question-tile
 			width: 500px
@@ -204,18 +198,22 @@ body
 			margin: 20px auto
 			display: block
 
-		.question-tile-left
-			width: 390px
+		.question-tile-left, .question-tile-right
 			height: 100%
 			display: block
-			float: left
+			float: left			
+
+		.question-tile-left
+			width: 390px
 			background-color: #E6E4E4 // darker grey
-			border-top-left-radius: 8px
-			border-bottom-left-radius: 8px
-			-moz-border-top-left-radius: 8px
-			-moz-border-bottom-left-radius: 8px
-			-webkit-border-top-left-radius: 8px
-			-webkit-border-bottom-left-radius: 8px
+			border-top-left-radius(8px)
+			border-bottom-left-radius(8px)
+
+		.question-tile-right
+			width: 100px
+			background-color: #D0CFCF // light grey
+			border-top-right-radius(8px)
+			border-bottom-right-radius(8px)
 
 		.left-item
 			height: 30px
@@ -234,25 +232,12 @@ body
 			display: block
 			float: left
 			text-decoration: none
-			animate()
+			animate-transition()
 
 		.question-tag:hover
 			opacity: 0.75
 			cursor: pointer
-			animate()
-
-		.question-tile-right
-			width: 100px
-			height: 100%
-			display: block
-			float: left
-			background-color: #D0CFCF // light grey
-			border-top-right-radius: 8px
-			border-bottom-right-radius: 8px
-			-moz-border-top-right-radius: 8px
-			-moz-border-bottom-right-radius: 8px
-			-webkit-border-top-right-radius: 8px
-			-webkit-border-bottom-right-radius: 8px
+			animate-transition()
 
 		.question-circle
 			display: block
@@ -343,7 +328,6 @@ body
 			z-index: 100
 			color: #FFFFFF
 			text-align: center
-			// padding: 40px 0			
 
 			.back-to-dashboard-button
 				width: 120px
@@ -381,7 +365,6 @@ body
 			padding: 5px 10px
 
 		.decline-button
-			font-family: Arial
 			color: #d0cfcf
 			font-size: 16px
 			margin: 0px auto
@@ -405,7 +388,6 @@ body
 		.submit-question
 			font-size: 16px
 			padding: 5px 10px
-			// margin: 0px 15px			
 
 		input[type="text"]
 			height: 34px
@@ -457,15 +439,10 @@ body
 			.whiteboard-button:hover, .file-button:hover, .wolfram-button:hover
 				cursor: pointer
 
-		.whiteboard
+		.whiteboard, .sharingFiles, .wolfram
 			margin-top: 22px
 
-		.sharingFiles
-			margin-top: 22px
-			display: none
-
-		.wolfram
-			margin-top: 22px
+		.sharingFiles, .wolfram
 			display: none
 
 		.end-session
@@ -474,12 +451,12 @@ body
 			font-size: 16px
 			bottom: 2em
 			margin-left: 22px
-			animate()
+			animate-transition()
 
 		.end-session:hover
 			cursor: pointer
 			color: white
-			animate()
+			animate-transition()
 
 		.chatBoxContainer
 			padding: 20px
@@ -495,58 +472,3 @@ body
 
 			.chat-message
 				width: 250px
-
-		// #header {
-		//   position: fixed;
-		//   top: 0px;
-		//   left: 0px;
-		//   color: rgb(220, 220, 220);
-		//   border-bottom: 1px solid rgb(100, 100, 100);
-		//   padding: 15px 5px 5px 10px;
-		//   width: 100%;
-		// }
-
-		// #header #heading {
-		//   float: left;
-		//   width: 300px;
-		// }
-
-		// #header #controls {
-		//   float: left;
-		//   width: 600px;
-		//   text-align: right;
-		//   padding-right: 20px;
-		//   margin-left: 40px;
-		// }
-
-		// #header #heading h1 {
-		//   font-size: 28px;
-		//   line-height: 25px;
-		//   margin: 0px 0px 8px 0px;
-		//   float: left;
-		// }
-
-		// #header #heading h2 {
-		//   margin-bottom: 10px;
-		//   font-size: 16px;
-		//   line-height: 16px;
-		//   font-weight: normal;
-		// }
-
-		// #header #heading h2 a {
-		//   color: inherit;
-		//   text-decoration: none;
-		//   font-weight: bold;
-		//   border-bottom: 1px dashed white;
-		// }
-
-		// .nickname {
-		//   position: absolute;
-		//   font-family: 'Arial';
-		//   padding: 1px 4px 1px 4px;
-		//   font-size: 13px;
-		//   border-radius: 3px;
-		//   border: 2px solid rgb(100, 100, 100);
-		//   color: white;
-		//   background-color: black;
-		// }

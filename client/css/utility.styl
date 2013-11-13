@@ -1,19 +1,27 @@
+vendor(property, args)
+  -webkit-{property} args
+  -moz-{property} args
+  -ms-{property} args
+  -o-{property} args
+  {property} args
+
+border-top-right-radius()
+  vendor('border-top-right-radius', arguments)
+
+border-bottom-right-radius()
+  vendor('border-bottom-right-radius', arguments)
+
+border-top-left-radius()
+  vendor('border-top-left-radius', arguments)
+
+border-bottom-left-radius()
+  vendor('border-bottom-left-radius', arguments)
+
 border-radius()
-  -webkit-border-radius arguments
-  -moz-border-radius arguments
-  border-radius arguments
+  vendor('border-radius', arguments)
 
 container-border()
-	// box-shadow: 0 1px 7px rgba(0,0,0,0.15)
-	// -webkit-box-shadow: 0 1px 7px rgba(0,0,0,0.15)
-	border: 1px solid #c5c5c5
+  border: 1px solid #c5c5c5
 
-animate()
-  -webkit-transition: all 500ms ease
-  -moz-transition: all 500ms ease
-  -ms-transition: all 500ms ease
-  -o-transition: all 500ms ease
-  transition: all 500ms ease
-
-light-grey = #f6f6f6
-_margin_top = 80px
+animate-transition()
+  vendor('transition', all 500ms ease)
