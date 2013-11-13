@@ -4,7 +4,7 @@ populateQuestions = ->
     questions = [
       title: "Linguistic Anthropology"
       userId: '1'
-      text: "What are John Wesley Powell's contributions to the modern view of languages?"
+      question: "What are John Wesley Powell's contributions to the modern view of languages?"
       tags: [
         "John Wesley Powell",
         "Philosophy"
@@ -16,7 +16,7 @@ populateQuestions = ->
     ,
       title: "atan vs. atan2 in C++"
       userId: '1'
-      text: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
+      question: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
         "C++"
       ,
@@ -29,7 +29,7 @@ populateQuestions = ->
     ,
       title: "Epsilon-N Proof"
       userId: '1'
-      text: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
+      question: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
       tags: [
         "Calculus"
       ,
@@ -72,6 +72,35 @@ Meteor.publish "sessionResponse", (questionId) ->
   SessionResponse.find({questionId: questionId})
 
 Meteor.methods
+  createNewQuestion: (questionData) ->
+    currentUser = Meteor.user()
+
+    console.log currentUser
+
+    # Check if logged in
+    throw new Meteor.Error(401, 'You need to log in to post new questions') if not currentUser
+
+    # Test Collection2
+
+    console.log questionData
+
+    Questions.insert questionData, (error, result) ->
+      console.log result
+      console.log error
+
+    # Check if has question title
+    # if not questionData.title
+    #   throw new Meteor.Error(401, 'You need to log in to post new questions')      
+
+    # Check if has tags
+
+    # Check if has description
+
+    # Check if offers karma
+
+    # Check if user has enough karma
+
+
   createSessionRequest: (questionId, userName) ->
     console.log "Creating Session Request"
     requestId = SessionRequest.insert {questionId: questionId, userName: userName}
