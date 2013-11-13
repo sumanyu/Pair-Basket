@@ -19,26 +19,14 @@ Template.ask_question.maxKarma = ->
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
-# Template.ask_question.rendered = ->
-#   $('input#question-tags').typeahead
-#     name: 'tags',                                                          
-#     local: ['Mathematics', 'Grade 12', 'Linear Algebra']                                         
-#     limit: 3                                                                   
-
-#   $('input#question-title').typeahead
-#     name: 'tags',                                                          
-#     local: ['Mathematics', 'Grade 12', 'Linear Algebra']                                         
-#     limit: 3 
-
 Template.ask_question.events =
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
 
-  'click input#question-submit' : (e, selector) ->
+  'submit input#question-submit' : (e, selector) ->
     e.preventDefault()
 
-    # console.log("clicked question submit")
     stringTags = $('input#question-tags').val()
     tagsList = stringTags.split(",")
 
@@ -47,17 +35,9 @@ Template.ask_question.events =
           else
             tagsList.map (tag) -> tag.trim()
 
-    # console.log stringTags
-    
-    # console.log tags
     title = $('input#question-title').val()
     text = $('textarea#question-text').val()
     karmaOffered = parseInt($('input#karma-offered').val())
-
-    # console.log tags
-    # console.log title
-    # console.log text
-    # console.log karma_offered
 
     question = 
       title: title
@@ -69,9 +49,7 @@ Template.ask_question.events =
       dateModified: new Date()
       status: "Active"
 
-    # console.log(question)
     questionId = Questions.insert question
-    # console.log questionId
 
     Session.set("subscribedQuestion", questionId)
     Session.set('askingQuestion?', false)
@@ -81,16 +59,3 @@ Template.ask_question.events =
 
     # Set question from prompt to null
     Session.set('questionFromLandingPrompt', null)
-
-    # Video stuff
-        
-    # Session.set('waitingForTutor?', true)
-
-    # wait_for_tutor = ->
-    #   Meteor.setTimeout found_tutor, 4000
-
-    # found_tutor = ->
-    #   Session.set('waitingForTutor?', false)
-    #   Session.set('foundTutor?', true)
-
-    # wait_for_tutor()

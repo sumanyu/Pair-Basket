@@ -1,16 +1,18 @@
-<template name="header">
-  <div class="header">
+<template name="dashboardHeader">
+  <div class="dashboard-header">
     <div class="header-content">
       <div class="header-title">
-        <div class="col-md-2 logo-img-dashboard">
-          <img src="/logo-black.png"></img>
+        <div class="logo-wrapper">
+          <img class="logo" src="/logo-black.png"></img>
         </div>
-        <div class="col-md-8 logo-title">
-          <h2>PairBasket</h2>
+        <div class="title-wrapper">
+          PairBasket
         </div>
       </div>
       <div class="header-buttons">
-        {{loginButtons}}
+        <div class="header-icon header-login">
+          {{loginButtons}}
+        </div>
         <div class="header-icon ask-question">
           <img class="ask-question-icon" src="ask.png" width="45" height="45"></img>
           <span class="icon-text"><b>ASK</b></span>

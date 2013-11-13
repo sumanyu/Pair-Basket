@@ -22,6 +22,11 @@ Router.map ->
     path: '/dashboard'
     layoutTemplate: 'dashboardLayout'
     template: 'questionsPage'
+    yieldTemplates:
+      dashboardHeader:
+        to: 'dashboardHeader'
+      dashboardFooter:
+        to: 'dashboardFooter'    
 
   # @route 'test',
   #   path: '/test'

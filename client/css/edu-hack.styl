@@ -3,6 +3,8 @@
 body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
+	light-grey = #f6f6f6
+	_margin-top = 80px
 
 	.yellow-button, .yellow-button-disabled
 		background: _yellow
@@ -17,7 +19,7 @@ body
 		color: black
 		display: block
 		text-decoration: none
-		animate()
+		animate-transition()
 
 	.yellow-button-disabled
 		opacity: 0.75
@@ -25,151 +27,141 @@ body
 	.yellow-button:hover
 		opacity: 0.7
 		cursor: pointer
-		animate()
-
-	.logo-img-dashboard
-		width: 2.6em
-		height: 2.6em
-		padding: 4px 0
-
-		img
-			width: 36px
-			height: 50px
-
-	.logo-img-landing
-		width: 4em
-		height: 4em
-		padding: 0px 0px
-		margin-left: 9.5%
-		margin-top: -12px
-		opacity: .80
-
-		img
-			width: 51px
-			height: 70px
-
-	.logo-title-landing
-		padding-left: 25px
+		animate-transition()
 
 	.title-landing
 		height: 70px
 
-	.logo-img-tutor-session
-		width: 3.5em
-		height: 3.5em
-		margin-left: auto
-		margin-right: auto
-		margin-top: 0.5em
-		margin-bottom: 6em
-		opacity: 0.7
-
-		animate()
-
-	.logo-img-tutor-session:hover
-		opacity: 1.0		
-
-		animate()
-
 	#landing
-		.header, .footer
+		.landing-header, .landing-footer
 			width: 100%
 			height: 80px
 
-		.footer
+		.landing-footer
 			height: 0px
 
-		.questionForm
-			margin: 20px 0 0 0
+		.container.main
+			.questionForm
+				margin: 20px 0 0 0
 
-		.circle
-			background-color: _yellow
-			border-radius(50%)
-			width: 55px
-			height: h = 55px
-			text-align: center
-			padding-top: (h/3)
-			font-size: 26px
-			font-weight: bold
-			color: #FFFFFF // yellow
+			.circle
+				background-color: _yellow
+				border-radius(50%)
+				width: 55px
+				height: h = 55px
+				text-align: center
+				padding-top: (h/3)
+				font-size: 26px
+				font-weight: bold
+				color: #FFFFFF // yellow
+				line-height: 21px
 
-		.col-md-2.circle-width
-			width: 10%
-			padding-left: 0px
+			.col-md-2.circle-width
+				width: 10%
+				padding-left: 0px
+				margin-top: 9px
 
-		.landing-prompt
-			padding-left: 0px
+			.landing-prompt
+				padding-left: 0px
 
-		.steps
-			padding-left: 5px
+				h2
+					font-weight: bold
 
-			.unemphasized
-				font-weight: normal
+			.steps
+				padding-left: 5px
 
-		.landing-prompt
-			padding-left: 0px
+				.unemphasized
+					font-weight: normal
+
+			.landing-prompt
+				padding-left: 0px
+
+			.logo-wrapper
+				width: 4em
+				height: 4em
+				padding: 0px 0px
+				margin-left: 9.3%
+				opacity: .80
+
+				img.logo
+					width: 60px
+					height: auto
+
+			.title-wrapper
+				padding-left: 25px
+
+				.title
+					font-weight: bold
 
 	#dashboard
+		.dashboard-header
+			width: 100%
+			height: 60px
+			background-color: _yellow // yellow
+
+			.header-content
+				width: 980px
+				display: block
+				margin: auto
+
+				.header-title
+					float: left
+					height: 60px
+					margin: 0px 50px
+
+					.logo-wrapper
+						padding: 6px 0
+						float: left
+						margin-right: 10px
+
+						img.logo
+							width: 36px
+							height: auto
+
+					.title-wrapper
+						float: left
+						line-height: 60px
+						vertical-align: middle
+						font-size: 30px
+
+				.header-buttons
+					display: block
+					float: right
+					height: 60px
+					margin: 0px 50px
+
+					.header-icon
+						margin-top: 4px
+						display: block
+						float: left
+						height: 60px
+						width: 60px
+						text-align: center
+						cursor: pointer
+
+					.header-login
+						width: 200px
+
+					.header-circle
+						display: block
+						float: left
+						background-color: black
+						border-radius(50%)
+						width: 38px
+						height: 38px
+						margin: 0px 10px
+						text-align:center
+						font-size: 22px
+						font-weight: bold
+						line-height: 41px
+						color: _yellow // yellow
 
 		.control-label
 			font-weight: bold
 
 		.container.main
 			width: 800px
-			// padding: 50px
 			background: white
-			// border-radius(3px)
-			// container-border()
-
-		.header
-			// margin: _margin_top 0px 0px 0px
-			width: 100%
-			height: 60px
-			background-color: _yellow // yellow
-			// float: left
-
-		.header-content
-			width: 980px
-			height: 60px
-			display: block
-			margin: auto
-
-		.header-title
-			display: block
-			float: left
-			height: 60px
-			margin: 0px 50px
-
-		.header-title h2
-			margin: 10px 0px
-
-		.header-buttons
-			display: block
-			float: right
-			height: 60px
-			margin: 0px 50px
-
-		.header-icon
-			margin-top: 4px
-			display: block
-			float: left
-			height: 60px
-			width: 60px
-			text-align: center
-			cursor: pointer
-
-		.header-circle
-			display: block
-			float: left
-			background-color: black
-			border-radius(50%)
-			width: 38px
-			height: 38px
-			margin: 0px 10px
-			text-align:center
-			font-size: 22px
-			font-weight: bold
-			line-height: 41px
-			color: _yellow // yellow
 
 		.icon-text 
 			display: block
@@ -179,7 +171,7 @@ body
 			font-size: 10pt
 
 		.footer
-			margin: 0px 0px _margin_top 0px
+			margin: 0px 0px _margin-top 0px
 
 		.control-label
 			font-weight: bold
@@ -188,7 +180,7 @@ body
 			width: 700px
 			display: block
 			padding: 10px
-			margin: 0px auto;
+			margin: 0px auto
 
 		.question-tile
 			width: 500px
@@ -196,18 +188,22 @@ body
 			margin: 20px auto
 			display: block
 
-		.question-tile-left
-			width: 390px
+		.question-tile-left, .question-tile-right
 			height: 100%
 			display: block
-			float: left
+			float: left			
+
+		.question-tile-left
+			width: 390px
 			background-color: #E6E4E4 // darker grey
-			border-top-left-radius: 8px
-			border-bottom-left-radius: 8px
-			-moz-border-top-left-radius: 8px
-			-moz-border-bottom-left-radius: 8px
-			-webkit-border-top-left-radius: 8px
-			-webkit-border-bottom-left-radius: 8px
+			border-top-left-radius(8px)
+			border-bottom-left-radius(8px)
+
+		.question-tile-right
+			width: 100px
+			background-color: #D0CFCF // light grey
+			border-top-right-radius(8px)
+			border-bottom-right-radius(8px)
 
 		.left-item
 			height: 30px
@@ -226,25 +222,12 @@ body
 			display: block
 			float: left
 			text-decoration: none
-			animate()
+			animate-transition()
 
 		.question-tag:hover
 			opacity: 0.75
 			cursor: pointer
-			animate()
-
-		.question-tile-right
-			width: 100px
-			height: 100%
-			display: block
-			float: left
-			background-color: #D0CFCF // light grey
-			border-top-right-radius: 8px
-			border-bottom-right-radius: 8px
-			-moz-border-top-right-radius: 8px
-			-moz-border-bottom-right-radius: 8px
-			-webkit-border-top-right-radius: 8px
-			-webkit-border-bottom-right-radius: 8px
+			animate-transition()
 
 		.question-circle
 			display: block
@@ -335,7 +318,6 @@ body
 			z-index: 100
 			color: #FFFFFF
 			text-align: center
-			// padding: 40px 0			
 
 			.back-to-dashboard-button
 				width: 120px
@@ -373,7 +355,6 @@ body
 			padding: 5px 10px
 
 		.decline-button
-			font-family: Arial
 			color: #d0cfcf
 			font-size: 16px
 			margin: 0px auto
@@ -397,7 +378,6 @@ body
 		.submit-question
 			font-size: 16px
 			padding: 5px 10px
-			// margin: 0px 15px			
 
 		input[type="text"]
 			height: 34px
@@ -415,11 +395,28 @@ body
 			top: 0px
 			left: 0px
 			right: auto
-			width: 10em			
+			width: 160px		
 			background: _sidebar_gray
 			float: left
 			height: 100%
 			padding: 20px 0 0 0
+
+			.logo-wrapper
+				margin-top: 0.5em
+				margin-bottom: 6em
+				opacity: 0.7
+				animate-transition()
+
+				img.logo
+					display: block
+					margin-left: auto
+					margin-right: auto					
+					width: 55px
+					height: auto
+
+			.logo-wrapper:hover
+				opacity: 1.0
+				animate-transition()
 
 			.wrapper, .active-wrapper
 				width: 100%
@@ -427,51 +424,58 @@ body
 			.active-wrapper
 				background: white
 
-			.whiteboard-button, .file-button, .wolfram-button 
-				margin-top: 1em
-				margin-bottom: 1em
-				margin-left: auto
-				margin-right: auto
-				width: 6em
-				height: 7em
-				display: block
-				
-			.whiteboard-button
-				padding-top: 1.3em
+			.whiteboard-button, .file-button, .wolfram-button
+				img.whiteboard-button-img, img.file-button-img, img.wolfram-button-img
+					display: block
+					margin-left: auto
+					margin-right: auto	
+					width: 90px
+					height: auto				
 
 			.file-button
-				width: 4em
-				padding-top: 1.3em
+				img.file-button-img
+					width: 60px
 
 			.wolfram-button
-				padding-top: 0.5em
+				img.wolfram-button-img
+					width: 85px
+
+			.whiteboard-button, .file-button, .wolfram-button
+				padding: 1em 0
 
 			.whiteboard-button:hover, .file-button:hover, .wolfram-button:hover
 				cursor: pointer
 
-		.whiteboard
+		.whiteboard, .sharingFiles, .wolfram
 			margin-top: 22px
 
-		.sharingFiles
-			margin-top: 22px
-			display: none
+			img.files-screenshot
+				width: 555px
+				height: auto
 
 		.wolfram
 			margin-top: 22px
+
+		.sharingFiles, .wolfram
 			display: none
+
+			img.wolfram-screenshot
+				width: 555px
+				height: auto
 
 		.end-session
 			position: fixed
 			color: gray
 			font-size: 16px
 			bottom: 2em
-			margin-left: 22px
-			animate()
+			left: 0
+			width: 160px
+			animate-transition()
 
 		.end-session:hover
 			cursor: pointer
 			color: white
-			animate()
+			animate-transition()
 
 		.chatBoxContainer
 			padding: 20px
@@ -487,58 +491,3 @@ body
 
 			.chat-message
 				width: 250px
-
-		// #header {
-		//   position: fixed;
-		//   top: 0px;
-		//   left: 0px;
-		//   color: rgb(220, 220, 220);
-		//   border-bottom: 1px solid rgb(100, 100, 100);
-		//   padding: 15px 5px 5px 10px;
-		//   width: 100%;
-		// }
-
-		// #header #heading {
-		//   float: left;
-		//   width: 300px;
-		// }
-
-		// #header #controls {
-		//   float: left;
-		//   width: 600px;
-		//   text-align: right;
-		//   padding-right: 20px;
-		//   margin-left: 40px;
-		// }
-
-		// #header #heading h1 {
-		//   font-size: 28px;
-		//   line-height: 25px;
-		//   margin: 0px 0px 8px 0px;
-		//   float: left;
-		// }
-
-		// #header #heading h2 {
-		//   margin-bottom: 10px;
-		//   font-size: 16px;
-		//   line-height: 16px;
-		//   font-weight: normal;
-		// }
-
-		// #header #heading h2 a {
-		//   color: inherit;
-		//   text-decoration: none;
-		//   font-weight: bold;
-		//   border-bottom: 1px dashed white;
-		// }
-
-		// .nickname {
-		//   position: absolute;
-		//   font-family: 'Arial';
-		//   padding: 1px 4px 1px 4px;
-		//   font-size: 13px;
-		//   border-radius: 3px;
-		//   border: 2px solid rgb(100, 100, 100);
-		//   color: white;
-		//   background-color: black;
-		// }
