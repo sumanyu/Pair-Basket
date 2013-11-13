@@ -27,30 +27,6 @@ body
 		cursor: pointer
 		animate()
 
-	.logo-img-dashboard
-		width: 2.6em
-		height: 2.6em
-		padding: 4px 0
-
-		img
-			width: 36px
-			height: 50px
-
-	.logo-img-landing
-		width: 4em
-		height: 4em
-		padding: 0px 0px
-		margin-left: 9.5%
-		margin-top: -12px
-		opacity: .80
-
-		img
-			width: 51px
-			height: 70px
-
-	.logo-title-landing
-		padding-left: 25px
-
 	.title-landing
 		height: 70px
 
@@ -62,58 +38,135 @@ body
 		margin-top: 0.5em
 		margin-bottom: 6em
 		opacity: 0.7
-
 		animate()
 
 	.logo-img-tutor-session:hover
-		opacity: 1.0		
-
+		opacity: 1.0
 		animate()
 
 	#landing
-		.header, .footer
+		.landing-header, .landing-footer
 			width: 100%
 			height: 80px
 
-		.footer
+		.landing-footer
 			height: 0px
 
-		.questionForm
-			margin: 20px 0 0 0
+		.container.main
+			.questionForm
+				margin: 20px 0 0 0
 
-		.circle
-			background-color: _yellow
-			border-radius(50%)
-			width: 55px
-			height: h = 55px
-			text-align: center
-			padding-top: (h/3)
-			font-size: 26px
-			font-weight: bold
-			color: #FFFFFF // yellow
-			line-height: 21px;
-
-		.col-md-2.circle-width
-			width: 10%
-			padding-left: 0px
-			margin-top: 9px
-
-		.landing-prompt
-			padding-left: 0px
-
-			h2
+			.circle
+				background-color: _yellow
+				border-radius(50%)
+				width: 55px
+				height: h = 55px
+				text-align: center
+				padding-top: (h/3)
+				font-size: 26px
 				font-weight: bold
+				color: #FFFFFF // yellow
+				line-height: 21px
 
-		.steps
-			padding-left: 5px
+			.col-md-2.circle-width
+				width: 10%
+				padding-left: 0px
+				margin-top: 9px
 
-			.unemphasized
-				font-weight: normal
+			.landing-prompt
+				padding-left: 0px
 
-		.landing-prompt
-			padding-left: 0px
+				h2
+					font-weight: bold
+
+			.steps
+				padding-left: 5px
+
+				.unemphasized
+					font-weight: normal
+
+			.landing-prompt
+				padding-left: 0px
+
+			.logo-wrapper
+				width: 4em
+				height: 4em
+				padding: 0px 0px
+				margin-left: 9.3%
+				opacity: .80
+
+				img.logo
+					width: 60px
+					height: auto
+
+			.title-wrapper
+				padding-left: 25px
+
+				.title
+					font-weight: bold
 
 	#dashboard
+
+		.dashboard-header
+			width: 100%
+			height: 60px
+			background-color: _yellow // yellow
+
+			.logo-img-dashboard
+				width: 2.6em
+				height: 2.6em
+				padding: 4px 0
+
+				img
+					width: 36px
+					height: 50px
+
+			.header-content
+				width: 980px
+				height: 60px
+				display: block
+				margin: auto
+
+			.header-title
+				display: block
+				float: left
+				height: 60px
+				margin: 0px 50px
+
+			.header-title h2
+				margin: 10px 0px
+
+			.header-buttons
+				display: block
+				float: right
+				height: 60px
+				margin: 0px 50px
+
+			.header-icon
+				margin-top: 4px
+				display: block
+				float: left
+				height: 60px
+				width: 60px
+				text-align: center
+				cursor: pointer
+
+			.header-login
+				width: 200px
+
+			.header-circle
+				display: block
+				float: left
+				background-color: black
+				border-radius(50%)
+				width: 38px
+				height: 38px
+				margin: 0px 10px
+				text-align:center
+				font-size: 22px
+				font-weight: bold
+				line-height: 41px
+				color: _yellow // yellow
 
 		.control-label
 			font-weight: bold
@@ -124,60 +177,6 @@ body
 			background: white
 			// border-radius(3px)
 			// container-border()
-
-		.header
-			// margin: _margin_top 0px 0px 0px
-			width: 100%
-			height: 60px
-			background-color: _yellow // yellow
-			// float: left
-
-		.header-content
-			width: 980px
-			height: 60px
-			display: block
-			margin: auto
-
-		.header-title
-			display: block
-			float: left
-			height: 60px
-			margin: 0px 50px
-
-		.header-title h2
-			margin: 10px 0px
-
-		.header-buttons
-			display: block
-			float: right
-			height: 60px
-			margin: 0px 50px
-
-		.header-icon
-			margin-top: 4px
-			display: block
-			float: left
-			height: 60px
-			width: 60px
-			text-align: center
-			cursor: pointer
-
-		.header-login
-			width: 200px
-
-		.header-circle
-			display: block
-			float: left
-			background-color: black
-			border-radius(50%)
-			width: 38px
-			height: 38px
-			margin: 0px 10px
-			text-align:center
-			font-size: 22px
-			font-weight: bold
-			line-height: 41px
-			color: _yellow // yellow
 
 		.icon-text 
 			display: block
