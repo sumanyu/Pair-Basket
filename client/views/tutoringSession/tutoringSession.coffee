@@ -101,6 +101,10 @@ Template.whiteBoard.rendered = ->
   Session.set("karma", Session.get('karma') + Session.get('karmaForCurrentQuestion'))
   Session.set('karmaForCurrentQuestion', null)
 
+Template.whiteBoard.events
+  'click .clear-blackboard': (e, s) ->
+    pad.wipe true     
+
 pad = undefined
 remotePad = undefined
 
