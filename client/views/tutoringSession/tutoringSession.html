@@ -1,8 +1,8 @@
 <template name="tutoringSessionSidebar">
   <div class="sidebar">
 
-    <div class="logo-img-tutor-session">
-      <img src="/logo-white.png" />
+    <div class="logo-wrapper">
+      <img class="logo" src="/logo-white.png" />
     </div>
 
     {{#if whiteboardIsSelected }}
@@ -56,14 +56,11 @@
 <template name="tutoringSessionPage">
   <div class="row">
     <div class="col-md-6 col-md-offset-1">
-        {{> whiteBoard}}
-
-        {{> sharingFiles}}
-
-        {{> wolfram}}
+      {{> whiteBoard}}
+      {{> sharingFiles}}
+      {{> wolfram}}
     </div>
     <div class="col-md-4">
-      <!-- <h2>Chat</h2> -->
       {{> chatBox}}
     </div>
   </div>
@@ -71,15 +68,13 @@
 
 <template name="sharingFiles">
   <div class="sharingFiles">
-    <h5>Sharing files feature for future versions</h5>
-    <img src="/files.jpg">  
+    <img class="files-screenshot" src="/files.jpg">  
   </div>
 </template>
 
 <template name="wolfram">
   <div class="wolfram">
-    <h5>Cobrowsing Wolfram feature for future versions</h5>
-    <img src="/wolfram_cropped.jpg">
+    <img class="wolfram-screenshot" src="/wolfram_cropped.jpg">
   </div>
 </template>
 

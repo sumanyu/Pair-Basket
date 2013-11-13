@@ -1,59 +1,59 @@
 <template name="landingPage">
-    <div class="row title-landing">
-      <div class="col-md-2 logo-img-landing">
-        <img src="/logo-black.png"></img>
+  <div class="row title-landing">
+    <div class="col-md-2 logo-wrapper">
+      <img class="logo" src="/logo-black.png"></img>
+    </div>
+    <div class="col-md-8 title-wrapper">
+      <h1 class="title">Welcome to PairBasket</h1>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="col-md-2 circle-width">
+        <div class="circle">1</div>
       </div>
-      <div class="col-md-8 logo-title-landing">
-        <h1>Welcome to PairBasket</h1>
+      <div class="col-md-8 steps">
+        <h2 class="unemphasized">Get tutored <i>for free.</i></h2>
       </div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-md-8 col-md-offset-1">
-        <div class="col-md-2 circle-width">
-          <div class="circle">1</div>
-        </div>
-        <div class="col-md-8 steps">
-          <h2 class="unemphasized">Get tutored <i>for free.</i></h2>
-        </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="col-md-2 circle-width">
+        <div class="circle">2</div>
+      </div>
+      <div class="col-md-8 steps">
+        <h2 class="unemphasized">Tutor somebody else.</h2>
       </div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-md-8 col-md-offset-1">
-        <div class="col-md-2 circle-width">
-          <div class="circle">2</div>
-        </div>
-        <div class="col-md-8 steps">
-          <h2 class="unemphasized">Tutor somebody else.</h2>
-        </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="col-md-2 circle-width">
+        <div class="circle">3</div>
+      </div>
+      <div class="col-md-8 steps">
+        <h2><b>That's it.</b></h2>
       </div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-md-8 col-md-offset-1">
-        <div class="col-md-2 circle-width">
-          <div class="circle">3</div>
-        </div>
-        <div class="col-md-8 steps">
-          <h2><b>That's it.</b></h2>
-        </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="col-md-3 landing-prompt">
+        <h2>What do you need help with?</h2>
       </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-md-8 col-md-offset-1">
-        <div class="col-md-3 landing-prompt">
-          <h2>What do you need help with?</h2>
-        </div>
-        <div class="col-md-7">
-          <form role="form" class="questionForm">
-            <div class="form-group">
-              <textarea id="landingAskQuestion" placeholder="Example: Determinant of a matrix" class="form-control" rows="5"></textarea>
-            </div>
+      <div class="col-md-7">
+        <form role="form" class="questionForm">
+          <div class="form-group">
+            <textarea id="landingAskQuestion" placeholder="Example: Determinant of a matrix" class="form-control" rows="5"></textarea>
+          </div>
 
-            <input id="landingSubmit" class="btn pull-right yellow-button" type="submit" value="Find a tutor">
-          </form>
-        </div>
-     </div>
+          <input id="landingSubmit" class="btn pull-right yellow-button" type="submit" value="Find a tutor">
+        </form>
+      </div>
+   </div>
 </template>

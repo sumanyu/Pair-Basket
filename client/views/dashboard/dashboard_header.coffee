@@ -1,4 +1,4 @@
-Template.header.events =
+Template.dashboardHeader.events =
   'click .ask-question' : (e, selector) ->
     e.preventDefault()
 
@@ -7,6 +7,6 @@ Template.header.events =
     else
       Session.set('showNotEnoughKarma?', true)
 
-Template.header.helpers
+Template.dashboardHeader.helpers
   userKarma: ->
     Session.get('karma')
