@@ -1,6 +1,6 @@
 populateQuestions = ->
-  # if Meteor.isServer and Questions.find().count() is 0
-  if Questions.find().count() is 0
+  if Meteor.isServer and Questions.find().count() is 0
+  # if Questions.find().count() is 0
     questions = [
       title: "Linguistic Anthropology"
       userId: '1'
