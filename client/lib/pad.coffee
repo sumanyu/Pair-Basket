@@ -39,7 +39,7 @@ class @Pad
     LineStream.emit "pad", id
 
     pad = canvas.attr(
-      width: 560
+      width: 555
       height: 580
     ).hammer()
 
