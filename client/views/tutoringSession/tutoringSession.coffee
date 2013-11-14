@@ -118,8 +118,10 @@ Meteor.startup ->
         pad.close()
         remotePad.close()
 
-      user = Meteor.user()?._id || "Anonymous"
+      # Hot code bypasses hasWhiteboardLoaded?
+      if $('canvas').length > 0
+        user = Meteor.user()?._id || "Anonymous"
 
-      sessionId = Session.get("sessionId")      
-      pad = new Pad($('canvas'), sessionId, user)
-      remotePad = new RemotePad(sessionId, pad)
+        sessionId = Session.get("sessionId")      
+        pad = new Pad($('canvas'), sessionId, user)
+        remotePad = new RemotePad(sessionId, pad)
