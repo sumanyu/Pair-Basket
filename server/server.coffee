@@ -82,6 +82,7 @@ Meteor.methods
 
     # Test Collection2
 
+    questionData['userId'] = currentUser['_id']
     console.log questionData
 
     Questions.insert questionData, (error, result) ->
