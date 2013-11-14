@@ -81,9 +81,15 @@
 <template name='whiteBoard'>
   <div class="whiteboard">
     <div class="whiteboard-controls">
-      <input class='btn btn-warning btn-small clear-blackboard' type="button" value='Clear Backboard'/>  
+      <input class='btn btn-info btn-small clear-blackboard' type="button" value='Clear Backboard'/> 
+      <input class='btn btn-warning btn-small eraser' type="button" value='Eraser'/>
     </div>
     <canvas class="whiteboardCanvas"></canvas>
+    <script id='tmpl-nickname' type="text/html">
+      <span class='nickname'>
+        nickname
+      </span>
+    </script>    
   </div>
 </template>
 
