@@ -73,7 +73,13 @@ class @Pad
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
   drawLine: (from, to, color) ->
-    ctx.strokeStyle = if mode is 'draw' then color else COLORS.black
+    if mode is 'draw'
+      ctx.strokeStyle = color
+      ctx.lineWidth = 3
+    else
+      ctx.strokeStyle = COLORS.black
+      ctx.lineWidth = 7
+
     ctx.beginPath()
     ctx.moveTo from.x, from.y
     ctx.lineTo to.x, to.y
