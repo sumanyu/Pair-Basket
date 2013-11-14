@@ -57,28 +57,6 @@ class @Pad
     ctx.lineWidth = 3
     ctx.fillRect 0, 0, canvas.width(), canvas.height()
 
-  # #send padid to the sever
-  # onDrag = (event, context) =>
-
-  #   console.log @
-  #   console.log context
-
-  #   if drawing
-  #     to = getPosition(event)
-  #     drawLine from, to, color
-  #     ctx.LineStream.emit id + ":drag", nickname, to
-  #     from = to
-  #     skipCount = 0
-
-  # onDragStart = (event, ctx) =>
-  #   drawing = true
-  #   from = getPosition(event)
-  #   ctx.LineStream.emit id + ":dragstart", nickname, from, color
-
-  # onDragEnd = (event, ctx) =>
-  #   drawing = false
-  #   ctx.LineStream.emit id + ":dragend", nickname
-
   getPosition = (event) ->      
     # Hard coded to offset for sidebar
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
@@ -100,7 +78,7 @@ class @Pad
   document.ontouchmove = (event) ->
     event.preventDefault()  
 
-  #expose API
+  # Not using it apparently
   close: ->
 
     console.log "closing pad"
