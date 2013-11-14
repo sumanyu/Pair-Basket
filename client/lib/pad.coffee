@@ -13,6 +13,7 @@ class @Pad
   baseGlobalCompositeOperation = undefined
 
   COLORS = 
+    erase: 'rgba(0,0,0,1)'
     black: "#000000"
 
   # 'draw', 'erase'
@@ -63,10 +64,8 @@ class @Pad
     setNickname(nickname)
 
     ctx.strokeStyle = color
-    ctx.fillStyle = COLORS.black
     ctx.lineCap = "round"
     ctx.lineWidth = 3
-    ctx.fillRect 0, 0, canvas.width(), canvas.height()
 
   getPosition = (event) ->      
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
@@ -77,8 +76,8 @@ class @Pad
       ctx.strokeStyle = color
       ctx.lineWidth = 3
     else
-      ctx.strokeStyle = COLORS.black
-      ctx.lineWidth = 7
+      ctx.strokeStyle = COLORS.erase
+      ctx.lineWidth = 15
 
     ctx.beginPath()
     ctx.moveTo from.x, from.y
@@ -87,7 +86,7 @@ class @Pad
     ctx.stroke()
 
   wipe: (emitAlso) ->
-    ctx.fillRect 0, 0, canvas.width(), canvas.height()
+    ctx.clearRect 0, 0, canvas.width(), canvas.height()
     LineStream.emit id + ":wipe", nickname if emitAlso
 
   toggleModes: ->
@@ -99,12 +98,12 @@ class @Pad
   # Use 'black' eraser
   startEraseMode: ->
     mode = 'erase'
-    # baseGlobalCompositeOperation = ctx.globalCompositeOperation
-    # ctx.globalCompositeOperation = 'destination-over'
+    baseGlobalCompositeOperation = ctx.globalCompositeOperation
+    ctx.globalCompositeOperation = 'destination-out'
 
   startDrawMode: ->
     mode = 'draw'
-    # ctx.globalCompositeOperation = baseGlobalCompositeOperation
+    ctx.globalCompositeOperation = baseGlobalCompositeOperation
 
   getDrawingMode: ->
     mode
