@@ -11,13 +11,18 @@ class @Pad
   nickname = undefined
   LineStream = undefined
 
+  # 'draw', 'erase'
+  mode = undefined
+
   constructor: (_canvas, _id, _nickname) ->
     canvas = _canvas
-    id = _id
-    nickname = _nickname
+    id = _id || Random.id()
+    nickname = _nickname || "Anonymous"
 
     canvasOffset = canvas.offset()
     ctx = canvas[0].getContext("2d")
+
+    mode = 'draw'
 
     setup(@)
 
@@ -58,7 +63,6 @@ class @Pad
     ctx.fillRect 0, 0, canvas.width(), canvas.height()
 
   getPosition = (event) ->      
-    # Hard coded to offset for sidebar
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
@@ -73,6 +77,15 @@ class @Pad
   wipe: (emitAlso) ->
     ctx.fillRect 0, 0, canvas.width(), canvas.height()
     LineStream.emit id + ":wipe", nickname if emitAlso
+
+  startEraseMode: ->
+    mode = 'erase'
+
+  startDrawMode: ->
+    mode = 'draw'
+
+  drawingMode: ->
+    mode
 
   # Stop iOS from doing the bounce thing with the screen
   document.ontouchmove = (event) ->
