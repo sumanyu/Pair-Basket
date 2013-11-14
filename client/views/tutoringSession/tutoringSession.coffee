@@ -102,8 +102,11 @@ Template.whiteBoard.rendered = ->
   Session.set('karmaForCurrentQuestion', null)
 
 Template.whiteBoard.events
-  'click .eraser': (e, s) ->
-    pad.toggleModes()
+  'click .draw': (e, s) ->
+    pad.startDrawMode()
+
+  'click .erase': (e, s) ->
+    pad.startEraseMode()
 
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     
