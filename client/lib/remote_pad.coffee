@@ -6,7 +6,6 @@
     pointer.css
       top: position.y + 10
       left: position.x + 10
-
   
   LineStream.on padId + ":dragstart", (nickname, position, color) ->
     pointer = $($("#tmpl-nickname").text())
