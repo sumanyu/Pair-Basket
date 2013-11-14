@@ -17,7 +17,7 @@ Template.chatBox.helpers
     chatCollection.find()
 
   chatPartner: ->
-    Session.get("chattingWith")
+    Session.get("chattingWith") || "Anonymous"
 
 # Template.chatMessage.helpers 
 #   user: ->completeSession
@@ -115,8 +115,8 @@ Meteor.startup ->
         pad.close()
         remotePad.close()
 
-      user = Meteor.user()
+      user = Meteor.user()?._id || "Anonymous"
 
       sessionId = Session.get("sessionId")      
-      pad = new Pad($('canvas'), sessionId, user._id)
+      pad = new Pad($('canvas'), sessionId, user)
       remotePad = new RemotePad(sessionId, pad)
