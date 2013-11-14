@@ -54,7 +54,7 @@ Template.ask_question.events =
       console.log error, result
 
       if not error
-        # Session.set("subscribedQuestion", questionId)
+        Session.set("subscribedQuestion", result)
         Session.set('askingQuestion?', false)
 
         # Decrement karma
