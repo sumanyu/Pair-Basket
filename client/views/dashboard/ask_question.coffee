@@ -24,7 +24,7 @@ Template.ask_question.events =
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
 
-  'submit input#question-submit' : (e, selector) ->
+  'submit' : (e, selector) ->
     e.preventDefault()
 
     stringTags = $('input#question-tags').val()
@@ -54,7 +54,7 @@ Template.ask_question.events =
       console.log error, result
 
       if not error
-        Session.set("subscribedQuestion", questionId)
+        # Session.set("subscribedQuestion", questionId)
         Session.set('askingQuestion?', false)
 
         # Decrement karma
