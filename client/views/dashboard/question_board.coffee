@@ -30,7 +30,7 @@ Template.questionsPage.events =
     )
 
     Meteor.call("completeSession", questionId, (err, result) ->
-      console.log "SessionRequestCreated"
+      console.log "completeSession"
     )    
 
     Router.go("/session/#{session}")
