@@ -81,8 +81,11 @@
 <template name='whiteBoard'>
   <div class="whiteboard">
     <div class="row whiteboard-controls">
-      <input class='btn btn-info btn-small clear-blackboard' type="button" value='Clear Backboard'/> 
-      <input class='btn btn-warning btn-small eraser' type="button" value='Eraser'/>
+
+      <input class='btn btn-danger clear-blackboard' type="button" value='Clear Backboard'/> 
+      <button type="button" class="btn btn-default erase">Erase</button>
+      <button type="button" class="btn btn-default draw">Draw</button>
+
     </div>
     <div class="row canvas-wrapper">
       <canvas class="whiteboardCanvas"></canvas>
