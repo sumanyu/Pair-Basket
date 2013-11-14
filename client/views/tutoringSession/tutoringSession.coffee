@@ -103,7 +103,7 @@ Template.whiteBoard.rendered = ->
 
 Template.whiteBoard.events
   'click .eraser': (e, s) ->
-    
+    pad.toggleModes()
 
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     

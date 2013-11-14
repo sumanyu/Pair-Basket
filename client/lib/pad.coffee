@@ -10,6 +10,10 @@ class @Pad
   id = undefined
   nickname = undefined
   LineStream = undefined
+  baseGlobalCompositeOperation = undefined
+
+  COLORS = 
+    black: "#000000"
 
   # 'draw', 'erase'
   mode = undefined
@@ -22,6 +26,8 @@ class @Pad
     canvasOffset = canvas.offset()
     ctx = canvas[0].getContext("2d")
 
+    # Used for erasing components
+    baseGlobalCompositeOperation = ctx.globalCompositeOperation
     mode = 'draw'
 
     setup(@)
@@ -57,7 +63,7 @@ class @Pad
     setNickname(nickname)
 
     ctx.strokeStyle = color
-    ctx.fillStyle = "#000000"
+    ctx.fillStyle = COLORS.black
     ctx.lineCap = "round"
     ctx.lineWidth = 3
     ctx.fillRect 0, 0, canvas.width(), canvas.height()
@@ -67,7 +73,7 @@ class @Pad
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
   drawLine: (from, to, color) ->
-    ctx.strokeStyle = color
+    ctx.strokeStyle = if mode is 'draw' then color else COLORS.black
     ctx.beginPath()
     ctx.moveTo from.x, from.y
     ctx.lineTo to.x, to.y
@@ -78,13 +84,23 @@ class @Pad
     ctx.fillRect 0, 0, canvas.width(), canvas.height()
     LineStream.emit id + ":wipe", nickname if emitAlso
 
+  toggleModes: ->
+    if @getDrawingMode() is 'erase'
+      @startDrawMode()
+    else
+      @startEraseMode()
+
+  # Use 'black' eraser
   startEraseMode: ->
     mode = 'erase'
+    # baseGlobalCompositeOperation = ctx.globalCompositeOperation
+    # ctx.globalCompositeOperation = 'destination-over'
 
   startDrawMode: ->
     mode = 'draw'
+    # ctx.globalCompositeOperation = baseGlobalCompositeOperation
 
-  drawingMode: ->
+  getDrawingMode: ->
     mode
 
   # Stop iOS from doing the bounce thing with the screen
