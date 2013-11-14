@@ -115,6 +115,8 @@ Meteor.startup ->
         pad.close()
         remotePad.close()
 
+      user = Meteor.user()
+
       sessionId = Session.get("sessionId")      
-      pad = new Pad(sessionId)
+      pad = new Pad($('canvas'), sessionId, user._id)
       remotePad = new RemotePad(sessionId, pad)
