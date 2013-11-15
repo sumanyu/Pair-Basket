@@ -6,7 +6,6 @@ Template.landingCallToAction.helpers
     Session.get('askQuestion?')
 
   showBoth: ->
-    console.log 'showBoth?', Session.get('showBoth?')
     Session.get('showBoth?')
 
 logSession = ->
@@ -20,15 +19,11 @@ Template.landingCallToAction.events =
     Session.set('helpOthers?', false)
     Session.set('showBoth?', false)
 
-    logSession()
-
   'click .help-others-btn': (e, s) ->
     Session.set('helpOthers?', true)
 
     Session.set('askQuestion?', false)
     Session.set('showBoth?', false)
-
-    logSession()
 
 Template.landingHelpOthers.rendered = ->
   console.log $('input[type=email]')
