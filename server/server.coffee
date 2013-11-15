@@ -151,7 +151,7 @@ Meteor.methods
     console.log questionId
     console.log karmaOffered
 
-    # teacher karma ++, learner karma --
+    # learner lose karma, teacher gain karma
     Meteor.users.update(
       {'_id': Meteor.userId()},
       { $inc: {'karma': -1*karmaOffered} })
