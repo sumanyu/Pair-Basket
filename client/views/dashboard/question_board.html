@@ -53,12 +53,12 @@
     {{#if questionsLoaded}}
         <div class="owned-questions">
           {{#each ownedQuestions}}
-              {{> question}}
+              {{> ownedQuestionTile}}
           {{/each}}
         </div>
         <div class="other-questions">
           {{#each otherQuestions}}
-              {{> question}}
+              {{> otherQuestionTile}}
           {{/each}}
         </div>
     {{else}}
