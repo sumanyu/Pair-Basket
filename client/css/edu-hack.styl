@@ -3,6 +3,7 @@
 body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
+	dark-yellow = #ffc801
 	light-grey = #f6f6f6
 	_margin-top = 80px
 
@@ -101,6 +102,36 @@ body
 
 				.title
 					font-weight: bold
+
+			.call-to-action
+				margin-left: 100px
+
+				.square-button
+					height: 55px
+					line-height: @height
+					width: 150px
+					text-align: center
+					vertical-align: center
+					background: _yellow
+					font-size: 18px
+					font-weight: bold
+					border-radius(2px)
+					box-shadow(0 5px dark-yellow)
+
+				.square-button:hover
+					cursor: pointer
+					margin-top: -1px
+					box-shadow(0 6px dark-yellow)
+
+				.square-button:active
+					margin-top: 5px
+					box-shadow(0 0px dark-yellow)
+
+				.help-others
+					float: left
+
+				.ask-question
+					float: right
 
 	#dashboard
 		.dashboard-header
