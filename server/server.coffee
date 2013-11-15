@@ -97,7 +97,8 @@ Meteor.methods
     console.log currentUser
 
     # Check if logged in
-    throw new Meteor.Error(401, 'You need to log in to post new questions') if not currentUser
+    if not currentUser
+      throw new Meteor.Error(401, 'Please log in to post new questions')
 
     # Test Collection2
 
@@ -109,16 +110,22 @@ Meteor.methods
       console.log error
 
     # Check if has question title
-    # if not questionData.title
-    #   throw new Meteor.Error(401, 'You need to log in to post new questions')      
+    if not questionData.title
+      throw new Meteor.Error(401, 'Please enter a question')
 
     # Check if has tags
+    if not questionData.tags
+      throw new Meteor.Error(401, 'Please enter a tag')
 
     # Check if has description
+    if not questionData.description
+      throw new Meteor.Error(401, 'Please enter a description')
 
     # Check if offers karma
+    if not questionData.tags
+      throw new Meteor.Error(401, 'Please enter karma offered')
 
-    # Check if user has enough karma
+    # Done through html form max: Check if user has enough karma
 
 
   createSessionRequest: (questionId, user) ->
