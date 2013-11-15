@@ -110,7 +110,8 @@ Meteor.methods
       throw new Meteor.Error(401, 'Please enter a category')
 
     # Check if has tags
-    if not questionData.tags
+    # need better regex
+    if questionData.tags[0] == ''
       throw new Meteor.Error(401, 'Please enter a tag')
 
     # Check if has question
