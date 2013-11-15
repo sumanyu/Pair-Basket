@@ -58,6 +58,13 @@ Meteor.startup ->
   Deps.autorun ->
     console.log "# of session requests: ", SessionRequest.find().count()
 
+Accounts.onCreateUser (options, user) ->
+  user.karma = 100
+  # We still want the default hook's 'profile' behavior.
+  # if (options.profile)
+  #   user.profile = options.profile;
+  return user
+
 # TODO
 # can users manually edit karma with this implementation?
 # would this fix it?:
