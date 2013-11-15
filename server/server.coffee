@@ -94,7 +94,7 @@ Meteor.methods
   createNewQuestion: (questionData) ->
     currentUser = Meteor.user()
 
-    console.log currentUser
+    # console.log currentUser
 
     # Check if logged in
     if not currentUser
@@ -103,7 +103,7 @@ Meteor.methods
     # Test Collection2
 
     questionData['userId'] = currentUser['_id']
-    console.log questionData
+    # console.log questionData
 
     # Check if has category
     if not questionData.category
