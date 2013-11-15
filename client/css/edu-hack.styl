@@ -446,8 +446,8 @@ body
 			.whiteboard-button:hover, .file-button:hover, .wolfram-button:hover
 				cursor: pointer
 
-		.whiteboard, .sharingFiles, .wolfram
-			margin-top: 22px
+		.sharingFiles, .wolfram
+			padding-top: 22px
 
 			img.files-screenshot
 				width: 555px
@@ -462,6 +462,28 @@ body
 			img.wolfram-screenshot
 				width: 555px
 				height: auto
+
+		.whiteboard
+			padding-top: 20px
+
+			.whiteboard-controls
+				margin-left: 0px
+				margin-right: 0px
+				padding: 5px 0px 5px 5px
+
+				.clear-blackboard
+					float: right
+					margin-left: 15px
+
+				.erase, .draw
+					margin-left: 5px
+					float: right
+
+			.canvas-wrapper
+				margin-left: 0px
+				margin-right: 0px
+				height: 580px
+				background: black
 
 		.end-session
 			position: fixed

@@ -36,26 +36,32 @@ Template.ask_question.events =
             tagsList.map (tag) -> tag.trim()
 
     title = $('input#question-title').val()
-    text = $('textarea#question-text').val()
+    question = $('textarea#question-text').val()
     karmaOffered = parseInt($('input#karma-offered').val())
 
     question = 
       title: title
       userId: '1'
-      text: text
+      question: question
       tags: tags
       karmaOffered: karmaOffered
       dateCreated: new Date()
       dateModified: new Date()
       status: "Active"
 
-    questionId = Questions.insert question
+    Meteor.call 'createNewQuestion', question, (error, result) ->
 
-    Session.set("subscribedQuestion", questionId)
-    Session.set('askingQuestion?', false)
+      console.log error, result
 
-    # Decrement karma
-    Session.set('karma', Session.get('karma') - karmaOffered)
+      if not error
+        Session.set("subscribedQuestion", questionId)
+        Session.set('askingQuestion?', false)
 
-    # Set question from prompt to null
-    Session.set('questionFromLandingPrompt', null)
+        # Decrement karma
+        Session.set('karma', Session.get('karma') - karmaOffered)
+
+        # Set question from prompt to null
+        Session.set('questionFromLandingPrompt', null)
+
+    # questionId = Questions.insert question
+
