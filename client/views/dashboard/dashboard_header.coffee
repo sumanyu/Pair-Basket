@@ -9,4 +9,7 @@ Template.dashboardHeader.events =
 
 Template.dashboardHeader.helpers
   userKarma: ->
-    Session.get('karma')
+    if Meteor.user()
+      Meteor.user().karma
+    else
+      karma = 0
