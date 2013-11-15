@@ -121,6 +121,11 @@ Meteor.methods
     # console.log SessionResponse.find().count()
     # console.log Questions.find({}).count()
 
+    karmaOffered = Questions.findOne({_id: questionId}).karmaOffered
+
+    console.log questionId
+    console.log karmaOffered
+
     SessionRequest.remove({questionId: questionId})
     SessionResponse.remove({questionId: questionId})
     Questions.remove({_id: questionId})
