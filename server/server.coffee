@@ -121,10 +121,17 @@ Meteor.methods
     # console.log SessionResponse.find().count()
     # console.log Questions.find({}).count()
 
-    karmaOffered = Questions.findOne({_id: questionId}).karmaOffered
+    karmaOffered = Questions.findOne({'_id': questionId}).karmaOffered
 
     console.log questionId
     console.log karmaOffered
+
+    Meteor.users.update(
+      {'_id': Meteor.userId()},
+      { $set: {'karma': karmaOffered} })
+    #   # {'karma': Meteor.user().karma + karmaOffered})
+  
+    console.log Meteor.user()
 
     SessionRequest.remove({questionId: questionId})
     SessionResponse.remove({questionId: questionId})
