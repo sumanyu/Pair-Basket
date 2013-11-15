@@ -72,7 +72,8 @@ Meteor.startup ->
     if SessionRequest.find({}).count() > 0
 
       request = SessionRequest.findOne()
-      chattingWith = request.userName
+      chattingWith = "Davin"
+      # chattingWith = request.userName
 
       console.log request, chattingWith
 

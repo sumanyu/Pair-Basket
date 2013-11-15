@@ -121,9 +121,11 @@ Meteor.methods
     # Check if user has enough karma
 
 
-  createSessionRequest: (questionId, userName) ->
+  createSessionRequest: (questionId, user) ->
     console.log "Creating Session Request"
-    requestId = SessionRequest.insert {questionId: questionId, userName: userName}
+    requestId = SessionRequest.insert
+      questionId: questionId
+      user: user
 
   createSessionResponse: (questionId, sessionId, userName) ->
     console.log "Creating Session Response"
@@ -135,7 +137,11 @@ Meteor.methods
   completeSession: (questionId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Complete session"
+    # console.log SessionRequest
+    console.log SessionRequest.findOne()
 
+    tutorId = SessionRequest.findOne().user['_id']
+    console.log tutorId 
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
     # console.log Questions.find({}).count()
@@ -150,6 +156,10 @@ Meteor.methods
       {'_id': Meteor.userId()},
       { $set: {'karma': Meteor.user().karma + karmaOffered} })
     
+    Meteor.users.update(
+      {'_id': tutorId},
+      { $inc: {'karma': karmaOffered} })
+
     # Session.get('karma') - karmaOffered)
     console.log Meteor.user()
 
