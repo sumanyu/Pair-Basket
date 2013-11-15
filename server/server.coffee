@@ -111,7 +111,7 @@ Meteor.methods
 
     # Check if has category
     if not questionData.category
-      throw new Meteor.Error(401, 'Please enter a question')
+      throw new Meteor.Error(401, 'Please enter a category')
 
     # Check if has tags
     if not questionData.tags
@@ -119,7 +119,7 @@ Meteor.methods
 
     # Check if has question
     if not questionData.question
-      throw new Meteor.Error(401, 'Please enter a description')
+      throw new Meteor.Error(401, 'Please enter a question')
 
     # Check if offers karma
     if not questionData.karmaOffered
