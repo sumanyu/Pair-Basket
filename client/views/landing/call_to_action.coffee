@@ -30,6 +30,10 @@ Template.landingCallToAction.events =
 
     logSession()
 
+Template.landingHelpOthers.rendered = ->
+  console.log $('input[type=email]')
+  focusText($('input[type=email]'))
+
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
     e.preventDefault()
@@ -55,6 +59,10 @@ Template.landingHelpOthers.events =
     else
       # Throw some message
       console.log "invalid input"
+
+Template.landingAskQuestion.rendered = ->
+  console.log $('input[type=email]')
+  focusText($('input[type=email]'))
 
 Template.landingAskQuestion.events =
   'submit': (e, s) ->

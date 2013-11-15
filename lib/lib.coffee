@@ -1,10 +1,10 @@
 if Meteor.isClient
-  focusText = (i) ->
+  @focusText = (i) ->
     i.focus()
     i.select()
 
   # Trim left and right
   unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
-  areElementsNonEmpty = (list) ->
+  @areElementsNonEmpty = (list) ->
     list.every (input) -> input.length
