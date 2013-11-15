@@ -6,8 +6,8 @@ Template.ask_question.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
 
-  validForm: ->
-    parseInt($('input#karma-offered').val()) <= Meteor.user().karma
+  # validForm: ->
+  #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
 Template.ask_question.rendered = ->
   selector = $('.questionForm').find("#question-tags") 
