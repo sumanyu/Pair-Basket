@@ -1,25 +1,3 @@
-sendQuestion = ->
-  email = $('input[type=email]').val()
-  password = $('input[type=password]').val()
-  question = $('textarea.question').val()
-
-  console.log email, password, question
-
-  # Clean input
-
-  # Validate email
-
-  # Validate password
-
-  # Create meteor account
-
-  # Log the user in
-
-  Session.set('questionFromLandingPrompt', question)
-  Session.set('askingQuestion?', true)
-
-  # Router.go('dashboard')
-
 Template.landingCallToAction.helpers
   helpOthers: ->
     Session.get('helpOthers?')
@@ -30,9 +8,6 @@ Template.landingCallToAction.helpers
   showBoth: ->
     console.log 'showBoth?', Session.get('showBoth?')
     Session.get('showBoth?')
-
-  # showHelpOthersAndAskQuestion: ->
-  #   not (Session.get('helpOthers?') and Session.get('askQuestion?'))
 
 logSession = ->
   ['askQuestion?', 'helpOthers?', 'showBoth?'].forEach (vars) ->
