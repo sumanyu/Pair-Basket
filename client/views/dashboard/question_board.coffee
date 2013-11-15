@@ -6,7 +6,7 @@ Template.questionsPage.helpers
 
   otherQuestions: =>
     @Questions.find(
-      {_id: { $ne: Meteor.userId() } },
+      {userId: { $ne: Meteor.userId() } },
       {sort: {dateCreated: -1}})
 
   questionsLoaded: ->
