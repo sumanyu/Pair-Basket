@@ -65,9 +65,9 @@ Template.landingAskQuestion.events =
     console.log 'submit'
 
     # Clean input
-    email = $.trim $('input[type=email]').val()
-    password = $.trim $('input[type=password]').val()
-    question = $.trim $('textarea.question').val()
+    email = $('input[type=email]').val().trim()
+    password = $('input[type=password]').val().trim()
+    question = $('textarea.question').val().trim()
 
     # Validate email
 
