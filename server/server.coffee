@@ -145,10 +145,10 @@ Meteor.methods
     console.log questionId
     console.log karmaOffered
 
+    # teacher karma ++, learner karma --
     Meteor.users.update(
       {'_id': Meteor.userId()},
       { $set: {'karma': Meteor.user().karma + karmaOffered} })
-    #   # {'karma': Meteor.user().karma + karmaOffered})
   
     console.log Meteor.user()
 
