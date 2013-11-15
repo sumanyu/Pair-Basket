@@ -1,7 +1,3 @@
-focusText = (i) ->
-  i.focus()
-  i.select()
-
 Template.ask_question.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
@@ -15,9 +11,6 @@ Template.ask_question.rendered = ->
 
 Template.ask_question.maxKarma = ->
   Session.get('karma')
-
-# Trim left and right
-unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
 Template.ask_question.events =
   'click .overlay' : (e, selector) ->
