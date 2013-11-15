@@ -25,7 +25,7 @@ logSession = ->
     console.log vars, Session.get(vars)
 
 Template.callToAction.events =
-  'click .ask-question': (e, s) ->
+  'click .ask-question-btn': (e, s) ->
     Session.set('askQuestion?', true)
 
     Session.set('helpOthers?', false)
@@ -33,7 +33,7 @@ Template.callToAction.events =
 
     logSession()
 
-  'click .help-others': (e, s) ->
+  'click .help-others-btn': (e, s) ->
     Session.set('helpOthers?', true)
 
     Session.set('askQuestion?', false)

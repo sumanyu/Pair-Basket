@@ -50,25 +50,42 @@
 
     {{#if showBoth}}
       <div class="col-md-5">
-        <div class="square-button help-others">
+        <div class="square-button help-others-btn">
           Help Others
         </div>
 
-        <div class="square-button ask-question">
+        <div class="square-button ask-question-btn">
           Ask a Question
         </div>
       </div>    
     {{/if}}
 
     {{#if helpOthers}}
-      <div class="col-md-5">
-        Help others screen flow
+      <div class="col-md-5 help-others-wrapper">
+        <form role="form" class="help-others-form">
+          <div class="form-group">
+            <textarea id="landingAskQuestion" placeholder="Example: Determinant of a matrix" class="form-control" rows="5"></textarea>
+          </div>
+
+          <input id="landingSubmit" class="btn pull-right yellow-button" type="submit" value="Find a tutor">
+        </form>
       </div>
     {{/if}}
 
     {{#if askQuestion}}
-      <div class="col-md-5">
-        Ask a question
+      <div class="col-md-5 ask-question-wrapper">
+        <form role="form" class="ask-question-form">
+          <div class="ask-question-form-wrapper">
+            <div class="questions-group">
+              <input type="email" class="form-control email" id="exampleInputEmail1" placeholder="Email">
+              <input type="password" class="form-control password" id="exampleInputEmail1" placeholder="Password">
+              <textarea id="landingAskQuestion" placeholder="Example: Determinant of a matrix" class="form-control question" rows="3"></textarea>
+            </div>
+            <div class="submit-group">
+              <input class="btn yellow-button ask-question-button" type="submit" value="Ask">
+            </div>
+          </div>
+        </form>
       </div>
     {{/if}}
 
