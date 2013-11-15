@@ -55,31 +55,31 @@ Template.landingCallToAction.events =
 
     logSession()
 
-  'submit' : (e, s) ->
-    console.log 'landingCallToAction'
-
-  # 'click input#landingSubmit' : (e, selector) ->
-  #   e.preventDefault()
-  #   sendQuestion()
-
-  # 'keyup #landingAskQuestion': (e, t) ->
-  #   e.preventDefault()
-
-  #   # on Enter
-  #   if e.which is 13
-  #     sendQuestion()
-
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
     # sendQuestion()
 
 Template.landingAskQuestion.events =
-  'submit .ask-question-form-button': (e, s) ->
-
+  'submit': (e, s) ->
+    e.preventDefault()
     console.log 'submit'
 
-    email = $('input[type=email]').val()
-    password = $('input[type=password]').val()
-    question = $('textarea.question').val()
+    # Clean input
+    email = $.trim $('input[type=email]').val()
+    password = $.trim $('input[type=password]').val()
+    question = $.trim $('textarea.question').val()
+
+    # Validate email
+
+    # Validate password
+
+    # Create meteor account
+
+    # Log the user in
 
     console.log email, password, question
+
+    Session.set('questionFromLandingPrompt', question)
+    Session.set('askingQuestion?', true)
+
+    Router.go('dashboard')
