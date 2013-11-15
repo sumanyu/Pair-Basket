@@ -3,16 +3,27 @@
 body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
+	_red = #F22C1E
 	light-grey = #f6f6f6
 	_margin-top = 80px
 
-	.yellow-button, .yellow-button-disabled
+	.yellow-button
 		background: _yellow
 		background-image: -webkit-linear-gradient(top, _yellow, _yellow)
 		background-image: -moz-linear-gradient(top, _yellow, _yellow)
 		background-image: -ms-linear-gradient(top, _yellow, _yellow)
 		background-image: -o-linear-gradient(top, _yellow, _yellow)
 		background-image: linear-gradient(to bottom, _yellow, _yellow)
+
+	.red-button
+		background: _red
+		background-image: -webkit-linear-gradient(top, _red, _red)
+		background-image: -moz-linear-gradient(top, _red, _red)
+		background-image: -ms-linear-gradient(top, _red, _red)
+		background-image: -o-linear-gradient(top, _red, _red)
+		background-image: linear-gradient(to bottom, _red, _red)
+
+	.yellow-button, .yellow-button-disabled, .red-button, .red-button-disabled
 		border-radius(5px)
 		border: 0px
 		font-family: Arial
@@ -21,10 +32,10 @@ body
 		text-decoration: none
 		animate-transition()
 
-	.yellow-button-disabled
+	.yellow-button-disabled, .red-button-disabled
 		opacity: 0.75
 
-	.yellow-button:hover
+	.yellow-button:hover, .red-button:hover
 		opacity: 0.7
 		cursor: pointer
 		animate-transition()
@@ -374,7 +385,7 @@ body
 		.decline-button:hover
 			cursor: pointer			
 
-		.accept-question
+		.accept-question, .cancel-question
 			font-size: 16px
 			padding: 5px 10px
 			margin: 0px 15px
