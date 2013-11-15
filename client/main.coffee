@@ -30,9 +30,6 @@ Meteor.startup ->
   Session.set('fileIsSelected?', false)
   Session.set('wolframIsSelected?', false)
 
-  # Pretend this is hooked up to a user's account
-  Session.set('karma', 45)
-
   # For tutor when she accepts a question
   Session.set('karmaForCurrentQuestion', null)
 
