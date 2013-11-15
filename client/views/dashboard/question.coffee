@@ -13,4 +13,4 @@ Template.question.events =
       )
       
       Session.set("subscribedQuestionResponse", questionId)
-      Session.set("karmaForCurrentQuestion", @.karmaOffered)
+      # @.karmaOffered

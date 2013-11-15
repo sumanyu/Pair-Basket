@@ -30,9 +30,6 @@ Meteor.startup ->
   Session.set('fileIsSelected?', false)
   Session.set('wolframIsSelected?', false)
 
-  # For tutor when she accepts a question
-  Session.set('karmaForCurrentQuestion', null)
-
   # Alert the user she doesn't have enough Karma
   Session.set('showNotEnoughKarma?', false)
 
