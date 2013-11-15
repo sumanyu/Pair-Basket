@@ -5,3 +5,6 @@ if Meteor.isClient
 
   # Trim left and right
   unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
+
+  areElementsNonEmpty = (list) ->
+    list.every (input) -> input.length

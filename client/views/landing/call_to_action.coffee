@@ -57,7 +57,29 @@ Template.landingCallToAction.events =
 
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
-    # sendQuestion()
+    e.preventDefault()
+    console.log 'submit'
+
+    # Clean input
+    email = $('input[type=email]').val().trim()
+    password = $('input[type=password]').val().trim()
+
+    # Validate inputs - for now just check if all inputs were entered
+    isInputValid = areElementsNonEmpty([email, password])
+
+    if isInputValid
+
+      # Create meteor account, on client will log-in upon successful completion
+      Accounts.createUser {email: email, password: password}, (err) ->
+        if err
+          console.log err
+        else
+          # Success, account was created
+
+          Router.go('dashboard')
+    else
+      # Throw some message
+      console.log "invalid input"
 
 Template.landingAskQuestion.events =
   'submit': (e, s) ->
@@ -70,7 +92,7 @@ Template.landingAskQuestion.events =
     question = $('textarea.question').val().trim()
 
     # Validate inputs - for now just check if all inputs were entered
-    isInputValid = [email, password, question].every (input) -> input.length
+    isInputValid = areElementsNonEmpty([email, password, question])
 
     if isInputValid
 
@@ -78,7 +100,6 @@ Template.landingAskQuestion.events =
       Accounts.createUser {email: email, password: password}, (err) ->
         if err
           console.log err
-          # throw new Meteor.Error(401, err)
         else
           # Success, account was created
           Session.set('questionFromLandingPrompt', question)
