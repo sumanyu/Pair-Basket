@@ -4,7 +4,7 @@ populateQuestions = ->
     questions = [
       category: "Linguistic Anthropology"
       userId: '1'
-      question: "What are John Wesley Powell's contributions to the modern view of languages?"
+      questionText: "What are John Wesley Powell's contributions to the modern view of languages?"
       tags: [
         "John Wesley Powell",
         "Philosophy"
@@ -16,7 +16,7 @@ populateQuestions = ->
     ,
       category: "atan vs. atan2 in C++"
       userId: '1'
-      question: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
+      questionText: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
         "C++"
       ,
@@ -29,7 +29,7 @@ populateQuestions = ->
     ,
       category: "Epsilon-N Proof"
       userId: '1'
-      question: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
+      questionText: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
       tags: [
         "Calculus"
       ,
@@ -118,7 +118,7 @@ Meteor.methods
       throw new Meteor.Error(401, 'Please enter a tag')
 
     # Check if has question
-    if not questionData.question
+    if not questionData.questionText
       throw new Meteor.Error(401, 'Please enter a question')
 
     # Check if offers karma

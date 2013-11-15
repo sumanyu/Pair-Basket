@@ -10,7 +10,7 @@
     userId:
       type: String
       label: "userId"
-    question:
+    questionText:
       type: String
     tags:
       type: [String]
