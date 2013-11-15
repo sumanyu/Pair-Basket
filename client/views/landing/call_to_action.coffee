@@ -6,7 +6,6 @@ Template.landingCallToAction.helpers
     Session.get('askQuestion?')
 
   showBoth: ->
-    console.log 'showBoth?', Session.get('showBoth?')
     Session.get('showBoth?')
 
 logSession = ->
@@ -20,24 +19,18 @@ Template.landingCallToAction.events =
     Session.set('helpOthers?', false)
     Session.set('showBoth?', false)
 
-    logSession()
-
   'click .help-others-btn': (e, s) ->
     Session.set('helpOthers?', true)
 
     Session.set('askQuestion?', false)
     Session.set('showBoth?', false)
 
-    logSession()
-
 Template.landingHelpOthers.rendered = ->
-  console.log $('input[type=email]')
   focusText($('input[type=email]'))
 
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
     e.preventDefault()
-    console.log 'submit'
 
     # Clean input
     email = $('input[type=email]').val().trim()
@@ -61,13 +54,11 @@ Template.landingHelpOthers.events =
       console.log "invalid input"
 
 Template.landingAskQuestion.rendered = ->
-  console.log $('input[type=email]')
   focusText($('input[type=email]'))
 
 Template.landingAskQuestion.events =
   'submit': (e, s) ->
     e.preventDefault()
-    console.log 'submit'
 
     # Clean input
     email = $('input[type=email]').val().trim()
