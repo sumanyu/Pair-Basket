@@ -149,7 +149,8 @@ Meteor.methods
     Meteor.users.update(
       {'_id': Meteor.userId()},
       { $set: {'karma': Meteor.user().karma + karmaOffered} })
-  
+    
+    # Session.get('karma') - karmaOffered)
     console.log Meteor.user()
 
     SessionRequest.remove({questionId: questionId})

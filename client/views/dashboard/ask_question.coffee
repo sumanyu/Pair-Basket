@@ -58,7 +58,7 @@ Template.ask_question.events =
         Session.set('askingQuestion?', false)
 
         # Decrement karma
-        Session.set('karma', Session.get('karma') - karmaOffered)
+        # Session.set('karma', Session.get('karma') - karmaOffered)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
