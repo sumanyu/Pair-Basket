@@ -47,15 +47,30 @@
 
 <template name="callToAction">
   <div class="row call-to-action">
-    <div class="col-md-5">
 
-      <div class="square-button help-others">
-        Help Others
-      </div>
+    {{#if showBoth}}
+      <div class="col-md-5">
+        <div class="square-button help-others">
+          Help Others
+        </div>
 
-      <div class="square-button ask-question">
-        Ask a Question
+        <div class="square-button ask-question">
+          Ask a Question
+        </div>
+      </div>    
+    {{/if}}
+
+    {{#if helpOthers}}
+      <div class="col-md-5">
+        Help others screen flow
       </div>
+    {{/if}}
+
+    {{#if askQuestion}}
+      <div class="col-md-5">
+        Ask a question
+      </div>
+    {{/if}}
 
 <!--       <div class="col-md-3 landing-prompt">
         <h2>What do you need help with?</h2>
@@ -70,6 +85,5 @@
         </form>
       </div> -->
 
-    </div>
   </div>
 </template>
