@@ -55,8 +55,8 @@ Template.landingCallToAction.events =
 
     logSession()
 
-  'submit': (e, s) ->
-    sendQuestion()
+  'submit' : (e, s) ->
+    console.log 'landingCallToAction'
 
   # 'click input#landingSubmit' : (e, selector) ->
   #   e.preventDefault()
@@ -68,3 +68,18 @@ Template.landingCallToAction.events =
   #   # on Enter
   #   if e.which is 13
   #     sendQuestion()
+
+Template.landingHelpOthers.events =
+  'submit': (e, s) ->
+    # sendQuestion()
+
+Template.landingAskQuestion.events =
+  'submit .ask-question-form-button': (e, s) ->
+
+    console.log 'submit'
+
+    email = $('input[type=email]').val()
+    password = $('input[type=password]').val()
+    question = $('textarea.question').val()
+
+    console.log email, password, question
