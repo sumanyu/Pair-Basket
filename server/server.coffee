@@ -154,7 +154,7 @@ Meteor.methods
     # teacher karma ++, learner karma --
     Meteor.users.update(
       {'_id': Meteor.userId()},
-      { $set: {'karma': Meteor.user().karma + karmaOffered} })
+      { $inc: {'karma': -1*karmaOffered} })
     
     Meteor.users.update(
       {'_id': tutorId},
