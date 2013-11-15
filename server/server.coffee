@@ -2,7 +2,7 @@ populateQuestions = ->
   if Meteor.isServer and Questions.find().count() is 0
   # if Questions.find().count() is 0
     questions = [
-      title: "Linguistic Anthropology"
+      category: "Linguistic Anthropology"
       userId: '1'
       question: "What are John Wesley Powell's contributions to the modern view of languages?"
       tags: [
@@ -14,7 +14,7 @@ populateQuestions = ->
       dateModified: new Date()
       status: "Active"
     ,
-      title: "atan vs. atan2 in C++"
+      category: "atan vs. atan2 in C++"
       userId: '1'
       question: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
@@ -27,7 +27,7 @@ populateQuestions = ->
       dateModified: new Date()
       status: "Active"
     ,
-      title: "Epsilon-N Proof"
+      category: "Epsilon-N Proof"
       userId: '1'
       question: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
       tags: [
@@ -109,8 +109,8 @@ Meteor.methods
       console.log result
       console.log error
 
-    # Check if has question title
-    if not questionData.title
+    # Check if has question category
+    if not questionData.category
       throw new Meteor.Error(401, 'Please enter a question')
 
     # Check if has tags

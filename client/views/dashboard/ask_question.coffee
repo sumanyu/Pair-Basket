@@ -35,12 +35,12 @@ Template.ask_question.events =
           else
             tagsList.map (tag) -> tag.trim()
 
-    title = $('input#question-title').val()
+    category = $('input#question-category').val()
     question = $('textarea#question-text').val()
     karmaOffered = parseInt($('input#karma-offered').val())
 
     question = 
-      title: title
+      category: category
       userId: '1'
       question: question
       tags: tags

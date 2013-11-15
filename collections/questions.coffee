@@ -3,9 +3,9 @@
 # We might use Collection2 later
 @Questions = new Meteor.Collection2("questions",
   schema:
-    title:
+    category:
       type: String
-      label: "Title"
+      label: "Category"
       max: 200
     userId:
       type: String
