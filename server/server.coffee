@@ -105,10 +105,6 @@ Meteor.methods
     questionData['userId'] = currentUser['_id']
     console.log questionData
 
-    Questions.insert questionData, (error, result) ->
-      console.log result
-      console.log error
-
     # Check if has category
     if not questionData.category
       throw new Meteor.Error(401, 'Please enter a category')
@@ -129,6 +125,9 @@ Meteor.methods
     if Meteor.user().karma < questionData.karmaOffered
       throw new Meteor.Error(401, 'Karma offered greater than karma owned')
 
+    Questions.insert questionData, (error, result) ->
+      console.log result
+      console.log error
 
   createSessionRequest: (questionId, user) ->
     console.log "Creating Session Request"
