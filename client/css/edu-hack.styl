@@ -8,12 +8,7 @@ body
 	_margin-top = 80px
 
 	.yellow-button, .yellow-button-disabled
-		background: _yellow
-		background-image: -webkit-linear-gradient(top, _yellow, _yellow)
-		background-image: -moz-linear-gradient(top, _yellow, _yellow)
-		background-image: -ms-linear-gradient(top, _yellow, _yellow)
-		background-image: -o-linear-gradient(top, _yellow, _yellow)
-		background-image: linear-gradient(to bottom, _yellow, _yellow)
+		set-background(_yellow)
 		border-radius(5px)
 		color: black
 		display: block
@@ -163,6 +158,11 @@ body
 								position: relative
 								left: 50%
 								top: 50%
+								set-background(dark-yellow)
+								border-radius(5px)
+								animate-transition()
+								font-weight: bold
+								font-size: 14px
 
 	#dashboard
 		.dashboard-header
