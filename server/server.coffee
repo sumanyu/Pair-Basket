@@ -125,7 +125,9 @@ Meteor.methods
     if not questionData.tags
       throw new Meteor.Error(401, 'Please enter karma offered')
 
-    # Done through html form max: Check if user has enough karma
+    # Check if user has enough karma
+    if Meteor.user().karma < questionData.karmaOffered
+      throw new Meteor.Error(401, 'Karma offered greater than karma owned')
 
 
   createSessionRequest: (questionId, user) ->
