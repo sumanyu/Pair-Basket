@@ -51,9 +51,16 @@
 
   <div class="question-list">
     {{#if questionsLoaded}}
-        {{#each questions}}
-            {{> question}}
-        {{/each}}
+        <div class="owned-questions">
+          {{#each ownedQuestions}}
+              {{> question}}
+          {{/each}}
+        </div>
+        <div class="other-questions">
+          {{#each otherQuestions}}
+              {{> question}}
+          {{/each}}
+        </div>
     {{else}}
         Loading...
     {{/if}}
