@@ -138,18 +138,18 @@ Meteor.methods
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Complete session"
     # console.log SessionRequest
-    console.log SessionRequest.findOne()
+    # console.log SessionRequest.findOne()
 
     tutorId = SessionRequest.findOne().user['_id']
-    console.log tutorId 
+    # console.log tutorId 
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
     # console.log Questions.find({}).count()
 
     karmaOffered = Questions.findOne({'_id': questionId}).karmaOffered
 
-    console.log questionId
-    console.log karmaOffered
+    # console.log questionId
+    # console.log karmaOffered
 
     # learner lose karma, teacher gain karma
     Meteor.users.update(
@@ -159,9 +159,6 @@ Meteor.methods
     Meteor.users.update(
       {'_id': tutorId},
       { $inc: {'karma': karmaOffered} })
-
-    # Session.get('karma') - karmaOffered)
-    console.log Meteor.user()
 
     SessionRequest.remove({questionId: questionId})
     SessionResponse.remove({questionId: questionId})
