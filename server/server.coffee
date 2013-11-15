@@ -147,7 +147,7 @@ Meteor.methods
 
     Meteor.users.update(
       {'_id': Meteor.userId()},
-      { $set: {'karma': karmaOffered} })
+      { $set: {'karma': Meteor.user().karma + karmaOffered} })
     #   # {'karma': Meteor.user().karma + karmaOffered})
   
     console.log Meteor.user()
