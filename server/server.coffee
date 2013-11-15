@@ -58,6 +58,18 @@ Meteor.startup ->
   Deps.autorun ->
     console.log "# of session requests: ", SessionRequest.find().count()
 
+# TODO
+# can users manually edit karma with this implementation?
+# would this fix it?:
+# Meteor.users.deny({update: function () { return true; }});
+
+Meteor.publish "users", ->
+  Meteor.users.find
+    _id: @userId
+  ,
+    fields:
+      karma: 1
+
 Meteor.publish "questions", ->
   Questions.find({})
 

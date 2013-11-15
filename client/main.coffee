@@ -46,6 +46,9 @@ Meteor.startup ->
   Session.get('chattingWith', null)
 
   Deps.autorun ->
+
+    Meteor.subscribe 'users'
+
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
 
