@@ -73,11 +73,13 @@
 <template name="landingHelpOthers">
   <div class="col-md-5 help-others-wrapper">
     <form role="form" class="help-others-form">
-      <div class="form-group">
-        <textarea id="landingAskQuestion" placeholder="Example: Determinant of a matrix" class="form-control" rows="5"></textarea>
+      <div class="questions-group">
+        <input type="email" class="form-control email" placeholder="Email">
+        <input type="password" class="form-control password" placeholder="Password">
       </div>
-
-      <input id="landingSubmit" class="btn pull-right yellow-button" type="submit" value="Find a tutor">
+      <div class="submit-group">
+        <input class="btn help-others-form-button" type="submit" value="Register">
+      </div>
     </form>
   </div>
 </template>
@@ -85,15 +87,13 @@
 <template name="landingAskQuestion">
   <div class="col-md-5 ask-question-wrapper">
     <form role="form" class="ask-question-form">
-      <div class="ask-question-form-wrapper">
-        <div class="questions-group">
-          <input type="email" class="form-control email" id="exampleInputEmail1" placeholder="Email">
-          <input type="password" class="form-control password" id="exampleInputEmail1" placeholder="Password">
-          <textarea placeholder="Example: Determinant of a matrix" class="form-control question" rows="3"></textarea>
-        </div>
-        <div class="submit-group">
-          <input class="btn ask-question-form-button" type="submit" value="Ask">
-        </div>
+      <div class="questions-group">
+        <input type="email" class="form-control email" placeholder="Email">
+        <input type="password" class="form-control password" placeholder="Password">
+        <textarea placeholder="Example: Determinant of a matrix" class="form-control question" rows="3"></textarea>
+      </div>
+      <div class="submit-group">
+        <input class="btn ask-question-form-button" type="submit" value="Ask">
       </div>
     </form>
   </div>  

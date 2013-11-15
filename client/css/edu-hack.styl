@@ -131,14 +131,15 @@ body
 					border-radius(2px)
 					box-shadow(0 5px dark-yellow)
 
-				.ask-question-wrapper
+				.ask-question-wrapper, .help-others-wrapper
 					background: _yellow
 					border-radius(2px)
 					box-shadow(0 8px dark-yellow)
 					// height: 200px
 					padding: 10px 5px 10px 30px
+					width: 425px
 
-					.ask-question-form
+					.ask-question-form, .help-others-form
 
 						.questions-group
 							float: left
@@ -163,6 +164,24 @@ body
 								animate-transition()
 								font-weight: bold
 								font-size: 14px
+
+					.help-others-form
+
+						.questions-group
+							width: 280px
+
+						.submit-group
+							height: 80px
+
+							.help-others-form-button
+								position: relative
+								left: 20%
+								top: 25%
+								set-background(dark-yellow)
+								border-radius(5px)
+								animate-transition()
+								font-weight: bold
+								font-size: 14px						
 
 	#dashboard
 		.dashboard-header
