@@ -1,12 +1,26 @@
 sendQuestion = ->
-  question = $('textarea#landingAskQuestion').val()
+  email = $('input[type=email]').val()
+  password = $('input[type=password]').val()
+  question = $('textarea.question').val()
+
+  console.log email, password, question
+
+  # Clean input
+
+  # Validate email
+
+  # Validate password
+
+  # Create meteor account
+
+  # Log the user in
 
   Session.set('questionFromLandingPrompt', question)
   Session.set('askingQuestion?', true)
 
-  Router.go('dashboard')  
+  # Router.go('dashboard')
 
-Template.callToAction.helpers
+Template.landingCallToAction.helpers
   helpOthers: ->
     Session.get('helpOthers?')
 
@@ -24,7 +38,7 @@ logSession = ->
   ['askQuestion?', 'helpOthers?', 'showBoth?'].forEach (vars) ->
     console.log vars, Session.get(vars)
 
-Template.callToAction.events =
+Template.landingCallToAction.events =
   'click .ask-question-btn': (e, s) ->
     Session.set('askQuestion?', true)
 
@@ -40,6 +54,9 @@ Template.callToAction.events =
     Session.set('showBoth?', false)
 
     logSession()
+
+  'submit': (e, s) ->
+    sendQuestion()
 
   # 'click input#landingSubmit' : (e, selector) ->
   #   e.preventDefault()
