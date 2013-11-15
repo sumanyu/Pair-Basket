@@ -7,14 +7,14 @@ Template.ask_question.helpers
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
 
   validForm: ->
-    parseInt($('input#karma-offered').val()) <= Session.get('karma')
+    parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
 Template.ask_question.rendered = ->
   selector = $('.questionForm').find("#question-tags") 
   focusText(selector)
 
 Template.ask_question.maxKarma = ->
-  Session.get('karma')
+  Meteor.user().karma
 
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
