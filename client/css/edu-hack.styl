@@ -6,6 +6,8 @@ body
 	dark-yellow = #ffc801
 	_red = #F22C1E
 	light-grey = #f6f6f6
+	_light_gray = #D0CFCF
+	_dark_gray = #E6E4E4
 	_margin-top = 80px
 
 	.yellow-button
@@ -229,16 +231,25 @@ body
 					margin: 0px 50px
 
 					.header-icon
-						margin-top: 4px
+						padding: 4px 0px
 						display: block
 						float: left
 						height: 60px
 						width: 60px
 						text-align: center
-						cursor: pointer
 
 					.header-login
-						width: 200px
+						width: 150px
+						cursor: pointer
+
+					.header-login:hover
+						set-background(_light_gray)
+
+					.ask-question
+						cursor: pointer
+
+					.ask-question:hover
+						set-background(_light_gray)
 
 					.header-circle
 						display: block
@@ -262,8 +273,10 @@ body
 
 			.dropdown-toggle
 				display: block
-				padding: 15px
+				padding: 15px 0px
 				text-decoration: none
+				overflow-ellipsis()
+				animate-transition()
 
 		.control-label
 			font-weight: bold
@@ -305,13 +318,13 @@ body
 
 		.question-tile-left
 			width: 390px
-			background-color: #E6E4E4 // darker grey
+			background-color: _dark_gray
 			border-top-left-radius(8px)
 			border-bottom-left-radius(8px)
 
 		.question-tile-right
 			width: 100px
-			background-color: #D0CFCF // light grey
+			background-color: _light_gray
 			border-top-right-radius(8px)
 			border-bottom-right-radius(8px)
 
