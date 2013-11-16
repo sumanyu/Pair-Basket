@@ -10,7 +10,12 @@ Template.chatBox.helpers
     TutoringSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
-    Session.get("chattingWith") || "Anonymous"
+    currentUser = Meteor.userId()
+    currentSession = TutoringSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
+    tutorId = currentSession.tutorId
+    tuteeId = currentSession.tuteeId
+
+    if currentUser is tutorId then tuteeId else tutorId
 
 sendMessage = ->
   message = $(".chat-message").val()
