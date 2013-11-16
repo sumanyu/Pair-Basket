@@ -4,11 +4,8 @@ Meteor.startup ->
 
   Meteor.subscribe 'users'
 
-  Meteor.subscribe "otherQuestions", ->
-    # Set variable in case collection isn't loaded in time for rendering
-    Session.set("hasQuestionsLoaded?", true)
-
-  Meteor.subscribe "ownedQuestions"
+  Meteor.subscribe 'questions', ->
+    Session.set("hasQuestionsLoaded?", true)  
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)

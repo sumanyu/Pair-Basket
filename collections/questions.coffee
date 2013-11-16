@@ -31,7 +31,3 @@ questionsSchema =
       question.tags.reduce (current, total) -> "#{total}, #{current}"
 
 @Questions = new Meteor.Collection2("questions", questionsSchema)
-
-if Meteor.isClient
-  @OwnedQuestions = new Meteor.Collection2("ownedQuestions", questionsSchema)
-  @OtherQuestions = new Meteor.Collection2("otherQuestions", questionsSchema)

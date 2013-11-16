@@ -77,21 +77,8 @@ Meteor.publish "users", ->
     fields:
       karma: 1
 
-Meteor.publish "ownedQuestions", ->
-  Questions.find(
-    {
-      userId: Meteor.userId(),
-      status: 'waiting'
-    },
-    {sort: {dateCreated: -1}})
-
-Meteor.publish "otherQuestions", ->
-  Questions.find(
-    {
-      userId: { $ne: Meteor.userId() },
-      status: 'waiting'
-    },
-    {sort: {dateCreated: -1}})
+Meteor.publish 'questions', ->
+  Questions.find({})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -207,8 +194,8 @@ Meteor.methods
       {$set: {status: 'resolved'}}
     )
 
-    TutoringSession.insert
-      sessionId: 
+    # TutoringSession.insert
+    #   sessionId: 
 
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
