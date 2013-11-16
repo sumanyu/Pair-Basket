@@ -1,11 +1,6 @@
 # Temporary local chat collection
 chatCollection = new Meteor.Collection(null)
 
-# ChatStream.on "chat", (message) ->
-#   chatCollection.insert
-#     userId: message.userId
-#     message: message.message
-
 test = 0
 
 Template.chatBox.helpers 
@@ -19,12 +14,6 @@ Template.chatBox.helpers
 
   chatPartner: ->
     Session.get("chattingWith") || "Anonymous"
-
-# Template.chatMessage.helpers 
-#   user: ->completeSession
-#     # console.log userId
-#     console.log @
-#     console.log @userId
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -41,15 +30,6 @@ sendMessage = ->
     TutoringSession.update {_id: tutoringSessionId}, $push: {messages: totalMessage}
 
     console.log TutoringSession.findOne()
-
-    # chatCollection.insert
-    #   userId: "me"
-    #   message: message
-
-    # # Broadcast that message to all clients
-    # ChatStream.emit "chat", 
-    #   message: message
-    #   userId: Session.get('userName')
 
     $(".chat-message").val ""
 
