@@ -12,7 +12,7 @@ populateQuestions = ->
       karmaOffered: 50
       dateCreated: new Date()
       dateModified: new Date()
-      status: "Active"
+      status: "waiting"
     ,
       category: "atan vs. atan2 in C++"
       userId: '1'
@@ -25,7 +25,7 @@ populateQuestions = ->
       karmaOffered: 20
       dateCreated: new Date()
       dateModified: new Date()
-      status: "Active"
+      status: "waiting"
     ,
       category: "Epsilon-N Proof"
       userId: '1'
@@ -38,7 +38,7 @@ populateQuestions = ->
       karmaOffered: 80
       dateCreated: new Date()
       dateModified: new Date()
-      status: "Active"
+      status: "waiting"
     ]
 
     for question in questions
