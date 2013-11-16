@@ -158,7 +158,7 @@ Meteor.methods
                   sessionId: sessionId
                   userName: userName
 
-  completeSession: (questionId) ->
+  startSession: (questionId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Complete session"
     # console.log SessionRequest
