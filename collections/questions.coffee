@@ -26,7 +26,7 @@
       label: "Date when this question was modified"
     status:
       type: String
-      label: "Resolved, Inactive, Expired, Deleted"
+      label: "waiting, session, resolved, deleted"
   virtualFields: 
     tagsJoined: (question) ->
       question.tags.reduce (current, total) -> "#{total}, #{current}"
