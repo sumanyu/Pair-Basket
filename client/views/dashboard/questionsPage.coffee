@@ -15,9 +15,6 @@ Template.questionsPage.helpers
   askQuestion: ->
     Session.get('askingQuestion?')
 
-  waitingForTutor: ->
-    Session.get('waitingForTutor?')
-
   foundTutor: ->
     Session.get('foundTutor?')
 

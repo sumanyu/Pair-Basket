@@ -13,9 +13,6 @@ Meteor.startup ->
   # Is the client asking a question?
   Session.set('askingQuestion?', false)
 
-  # Is the client waiting for a tutor?
-  Session.set('waitingForTutor?', false)
-
   # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
   Session.set('foundTutor?', false)
 
