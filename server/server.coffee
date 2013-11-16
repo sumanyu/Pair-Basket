@@ -187,7 +187,11 @@ Meteor.methods
 
     SessionRequest.remove({questionId: questionId})
     SessionResponse.remove({questionId: questionId})
-    Questions.remove({_id: questionId})
+
+    Questions.update(
+      {_id: questionId},
+      {$set: {status: 'resolved'}}
+    )
 
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
