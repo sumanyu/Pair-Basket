@@ -1,5 +1,29 @@
 @TutoringSession = new Meteor.Collection("TutoringSession")
 
+messageSchema = 
+  schema:
+    userId:
+      type: String
+    message:
+      type: String
+
+tutoringSessionSchema = 
+  schema:
+    tutorId:
+      type: String
+    tuteeId:
+      type: String
+    sessionId:
+      type: String
+    questionId:
+      type: String
+    status:
+      type: String
+      allowedValues: ['active', 'completed']
+    messages:
+      type: [messageSchema]
+
+
 @TutoringSession.allow
   # User must be logged in and document must be owned by user
   'insert': (userId, doc) ->
