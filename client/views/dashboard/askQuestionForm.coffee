@@ -12,9 +12,6 @@ Template.askQuestionForm.rendered = ->
 Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
 
-# Trim left and right
-unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
-
 Template.askQuestionForm.events =
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
