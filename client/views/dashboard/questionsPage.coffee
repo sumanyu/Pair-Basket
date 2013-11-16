@@ -1,15 +1,25 @@
 Template.questionsPage.helpers
-  questions: =>
-    @Questions.find({}, {sort: {dateCreated: -1}})
+  ownedQuestions: =>
+    @Questions.find(
+      {
+        userId: Meteor.userId(),
+        status: 'waiting'
+      },
+      {sort: {dateCreated: -1}})
+
+  otherQuestions: =>
+    @Questions.find(
+      {
+        userId: { $ne: Meteor.userId() },
+        status: 'waiting'
+      },
+      {sort: {dateCreated: -1}})
 
   questionsLoaded: ->
     Session.get('hasQuestionsLoaded?')
 
   askQuestion: ->
     Session.get('askingQuestion?')
-
-  waitingForTutor: ->
-    Session.get('waitingForTutor?')
 
   foundTutor: ->
     Session.get('foundTutor?')
@@ -30,7 +40,7 @@ Template.questionsPage.events =
     )
 
     Meteor.call("completeSession", questionId, (err, result) ->
-      console.log "SessionRequestCreated"
+      console.log "completeSession"
     )    
 
     Router.go("/session/#{session}")

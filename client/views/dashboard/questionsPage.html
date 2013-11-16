@@ -1,5 +1,5 @@
 <template name="questionsPage">
-  {{# if waitingForTutor}}
+  {{# if false}}
     <div class="searching-for-tutor">
       <p>Searching for tutor...<p>
       <img src="/searching.gif"/>
@@ -7,7 +7,7 @@
   {{/if}}
 
   {{#if askQuestion}}
-    {{> ask_question}}
+    {{> askQuestionForm}}
   {{else}}
   {{/if}}
 
@@ -51,9 +51,16 @@
 
   <div class="question-list">
     {{#if questionsLoaded}}
-        {{#each questions}}
-            {{> question}}
-        {{/each}}
+        <div class="owned-questions">
+          {{#each ownedQuestions}}
+              {{> ownedQuestionTile}}
+          {{/each}}
+        </div>
+        <div class="other-questions">
+          {{#each otherQuestions}}
+              {{> otherQuestionTile}}
+          {{/each}}
+        </div>
     {{else}}
         Loading...
     {{/if}}

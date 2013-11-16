@@ -1,14 +1,14 @@
-<template name="ask_question">
+<template name="askQuestionForm">
 	<div class="overlay"></div>
 	<div class="ask-question-popup">
 		<div class="container">
 			<form role="form" class="questionForm">
 				<div class="form-group">
-					<input id="question-tags" type="text" placeholder="Tags, ex: Mathematics" class="form-control"></input>
+					<input id="question-category" type="text" placeholder="Category, ex: Mathematics" class="form-control"></input>
 				</div>
 
 				<div class="form-group">
-					<input id="question-title" type="text" placeholder="Topic, ex: Multiply 2x2 matrices" class="form-control" value="{{getFirstQuestion}}"></input>
+					<input id="question-tags" type="text" placeholder="Tags, ex: Fractions" class="form-control" value="{{getFirstQuestion}}"></input>
 				</div>
 
 				<div class="form-group">

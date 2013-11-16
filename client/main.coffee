@@ -1,6 +1,9 @@
 # Get subscriptions
 
 Meteor.startup ->
+
+  Meteor.subscribe 'users'
+
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
 
@@ -12,9 +15,6 @@ Meteor.startup ->
 
   # Is the client asking a question?
   Session.set('askingQuestion?', false)
-
-  # Is the client waiting for a tutor?
-  Session.set('waitingForTutor?', false)
 
   # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
   Session.set('foundTutor?', false)
@@ -29,12 +29,6 @@ Meteor.startup ->
   Session.set('whiteboardIsSelected?', true)
   Session.set('fileIsSelected?', false)
   Session.set('wolframIsSelected?', false)
-
-  # Pretend this is hooked up to a user's account
-  Session.set('karma', 45)
-
-  # For tutor when she accepts a question
-  Session.set('karmaForCurrentQuestion', null)
 
   # Alert the user she doesn't have enough Karma
   Session.set('showNotEnoughKarma?', false)
@@ -51,6 +45,7 @@ Meteor.startup ->
   Session.set('showBoth?', true)
 
   Deps.autorun ->
+
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
 
@@ -74,7 +69,8 @@ Meteor.startup ->
     if SessionRequest.find({}).count() > 0
 
       request = SessionRequest.findOne()
-      chattingWith = request.userName
+      chattingWith = "Davin"
+      # chattingWith = request.userName
 
       console.log request, chattingWith
 

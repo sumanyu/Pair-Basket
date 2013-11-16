@@ -3,14 +3,14 @@
 # We might use Collection2 later
 @Questions = new Meteor.Collection2("questions",
   schema:
-    title:
+    category:
       type: String
-      label: "Title"
+      label: "Category"
       max: 200
     userId:
       type: String
       label: "userId"
-    question:
+    questionText:
       type: String
     tags:
       type: [String]
@@ -26,7 +26,7 @@
       label: "Date when this question was modified"
     status:
       type: String
-      label: "Resolved, Inactive, Expired, Deleted"
+      label: "waiting, session, resolved, deleted"
   virtualFields: 
     tagsJoined: (question) ->
       question.tags.reduce (current, total) -> "#{total}, #{current}"
