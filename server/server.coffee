@@ -168,6 +168,12 @@ Meteor.methods
   cancelSessionResponse: (questionId) ->
     SessionResponse.remove({questionId: questionId})
 
+  # Render TutoringSession's status 'resolved'
+  endSession: (sessionId) ->
+    TutoringSession.update
+      {sessionId: sessionId},
+      {$set: {status: 'resolved'}}
+
   startSession: (questionId, sessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
