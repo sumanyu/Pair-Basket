@@ -2,24 +2,24 @@ focusText = (i) ->
   i.focus()
   i.select()
 
-Template.ask_question.helpers
+Template.askQuestionForm.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
 
   # validForm: ->
   #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
-Template.ask_question.rendered = ->
+Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-tags") 
   focusText(selector)
 
-Template.ask_question.maxKarma = ->
+Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
 
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
-Template.ask_question.events =
+Template.askQuestionForm.events =
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
