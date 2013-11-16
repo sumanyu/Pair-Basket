@@ -7,53 +7,94 @@
       <h1 class="title">Welcome to PairBasket</h1>
     </div>
   </div>
-  <br />
-  <div class="row">
-    <div class="col-md-8 col-md-offset-1">
-      <div class="col-md-2 circle-width">
-        <div class="circle">1</div>
-      </div>
-      <div class="col-md-8 steps">
-        <h2 class="unemphasized">Get tutored <i>for free.</i></h2>
-      </div>
-    </div>
-  </div>
-  <br />
-  <div class="row">
-    <div class="col-md-8 col-md-offset-1">
-      <div class="col-md-2 circle-width">
-        <div class="circle">2</div>
-      </div>
-      <div class="col-md-8 steps">
-        <h2 class="unemphasized">Tutor somebody else.</h2>
-      </div>
-    </div>
-  </div>
-  <br />
-  <div class="row">
-    <div class="col-md-8 col-md-offset-1">
-      <div class="col-md-2 circle-width">
-        <div class="circle">3</div>
-      </div>
-      <div class="col-md-8 steps">
-        <h2><b>That's it.</b></h2>
-      </div>
-    </div>
-  </div>
-  <br />
-  <div class="row">
-    <div class="col-md-8 col-md-offset-1">
-      <div class="col-md-3 landing-prompt">
-        <h2>What do you need help with?</h2>
-      </div>
-      <div class="col-md-7">
-        <form role="form" class="questionForm">
-          <div class="form-group">
-            <textarea id="landingAskQuestion" placeholder="Example: Determinant of a matrix" class="form-control" rows="5"></textarea>
-          </div>
 
-          <input id="landingSubmit" class="btn pull-right yellow-button" type="submit" value="Find a tutor">
-        </form>
+  <div class="col-md-offset-1 value-props">
+    <div class="row value-prop">
+      <div class="col-md-8">
+        <div class="col-md-2 circle-width">
+          <div class="circle">1</div>
+        </div>
+        <div class="col-md-8 steps">
+          <h2 class="unemphasized">Get tutored <i>for free.</i></h2>
+        </div>
       </div>
-   </div>
+    </div>
+    <div class="row value-prop">
+      <div class="col-md-8">
+        <div class="col-md-2 circle-width">
+          <div class="circle">2</div>
+        </div>
+        <div class="col-md-8 steps">
+          <h2 class="unemphasized">Tutor somebody else.</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row value-prop">
+      <div class="col-md-8">
+        <div class="col-md-2 circle-width">
+          <div class="circle">3</div>
+        </div>
+        <div class="col-md-8 steps">
+          <h2><b>That's it.</b></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{> landingCallToAction}}
+
+</template>
+
+<template name="landingCallToAction">
+  <div class="row call-to-action">
+
+    {{#if showBoth}}
+      <div class="col-md-5">
+        <div class="square-button help-others-btn">
+          Help Others
+        </div>
+
+        <div class="square-button ask-question-btn">
+          Ask a Question
+        </div>
+      </div>    
+    {{/if}}
+
+    {{#if helpOthers}}
+      {{> landingHelpOthers}}
+    {{/if}}
+
+    {{#if askQuestion}}
+      {{> landingAskQuestion}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="landingHelpOthers">
+  <div class="col-md-5 help-others-wrapper">
+    <form role="form" class="help-others-form">
+      <div class="questions-group">
+        <input type="email" class="form-control email" placeholder="Email">
+        <input type="password" class="form-control password" placeholder="Password">
+      </div>
+      <div class="submit-group">
+        <input class="btn help-others-form-button" type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+</template>
+
+<template name="landingAskQuestion">
+  <div class="col-md-5 ask-question-wrapper">
+    <form role="form" class="ask-question-form">
+      <div class="questions-group">
+        <input type="email" class="form-control email" placeholder="Email">
+        <input type="password" class="form-control password" placeholder="Password">
+        <textarea placeholder="Example: Determinant of a matrix" class="form-control question" rows="3"></textarea>
+      </div>
+      <div class="submit-group">
+        <input class="btn ask-question-form-button" type="submit" value="Ask">
+      </div>
+    </form>
+  </div>  
 </template>

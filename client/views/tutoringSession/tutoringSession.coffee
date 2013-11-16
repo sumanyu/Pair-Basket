@@ -17,7 +17,7 @@ Template.chatBox.helpers
     chatCollection.find()
 
   chatPartner: ->
-    Session.get("chattingWith")
+    Session.get("chattingWith") || "Anonymous"
 
 # Template.chatMessage.helpers 
 #   user: ->completeSession
@@ -96,6 +96,20 @@ Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun
   Session.set("hasWhiteboardLoaded?", true)
 
+  # Increment tutor's count
+  Session.set("karma", Session.get('karma') + Session.get('karmaForCurrentQuestion'))
+  Session.set('karmaForCurrentQuestion', null)
+
+Template.whiteBoard.events
+  'click .draw': (e, s) ->
+    pad.startDrawMode()
+
+  'click .erase': (e, s) ->
+    pad.startEraseMode()
+
+  'click .clear-blackboard': (e, s) ->
+    pad.wipe true     
+
 pad = undefined
 remotePad = undefined
 
@@ -106,6 +120,10 @@ Meteor.startup ->
         pad.close()
         remotePad.close()
 
-      sessionId = Session.get("sessionId")      
-      pad = new Pad(sessionId)
-      remotePad = new RemotePad(sessionId, pad)
+      # Hot code bypasses hasWhiteboardLoaded?
+      if $('canvas').length > 0
+        user = Meteor.user()?._id || "Anonymous"
+
+        sessionId = Session.get("sessionId")      
+        pad = new Pad($('canvas'), sessionId, user)
+        remotePad = new RemotePad(sessionId, pad)
