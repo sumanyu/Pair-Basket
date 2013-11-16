@@ -1,19 +1,9 @@
 Template.questionsPage.helpers
   ownedQuestions: =>
-    @Questions.find(
-      {
-        userId: Meteor.userId(),
-        status: 'waiting'
-      },
-      {sort: {dateCreated: -1}})
+    @OwnedQuestions.find({})
 
   otherQuestions: =>
-    @Questions.find(
-      {
-        userId: { $ne: Meteor.userId() },
-        status: 'waiting'
-      },
-      {sort: {dateCreated: -1}})
+    @OtherQuestions.find({})
 
   questionsLoaded: ->
     Session.get('hasQuestionsLoaded?')

@@ -4,6 +4,12 @@ Meteor.startup ->
 
   Meteor.subscribe 'users'
 
+  Meteor.subscribe "otherQuestions", ->
+    # Set variable in case collection isn't loaded in time for rendering
+    Session.set("hasQuestionsLoaded?", true)
+
+  Meteor.subscribe "ownedQuestions"
+
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
 
@@ -93,7 +99,3 @@ Meteor.startup ->
       $('.whiteboard').hide()
       $('.sharingFiles').hide()
       $('.wolfram').show()
-
-  Meteor.subscribe "questions", ->
-    # Set variable in case collection isn't loaded in time for rendering
-    Session.set("hasQuestionsLoaded?", true)
