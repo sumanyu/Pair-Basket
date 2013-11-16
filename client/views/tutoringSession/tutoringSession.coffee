@@ -83,7 +83,6 @@ Template.tutoringSessionSidebar.events
 
   "click .end-session": (e, s) ->
     Session.set('foundTutor?', false)
-    Session.set('waitingForTutor?', false)
     Session.set('askingQuestion?', false)
     
     Router.go('/dashboard')

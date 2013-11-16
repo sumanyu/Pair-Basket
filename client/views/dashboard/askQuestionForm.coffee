@@ -1,23 +1,23 @@
-Template.ask_question.helpers
+Template.askQuestionForm.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
 
-  validForm: ->
-    parseInt($('input#karma-offered').val()) <= Session.get('karma')
+  # validForm: ->
+  #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
-Template.ask_question.rendered = ->
+Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-tags") 
   focusText(selector)
 
-Template.ask_question.maxKarma = ->
-  Session.get('karma')
+Template.askQuestionForm.maxKarma = ->
+  Meteor.user().karma
 
-Template.ask_question.events =
+Template.askQuestionForm.events =
   'click .overlay' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
 
-  'submit input#question-submit' : (e, selector) ->
+  'submit' : (e, selector) ->
     e.preventDefault()
 
     stringTags = $('input#question-tags').val()
@@ -28,30 +28,27 @@ Template.ask_question.events =
           else
             tagsList.map (tag) -> tag.trim()
 
-    title = $('input#question-title').val()
-    question = $('textarea#question-text').val()
+    category = $('input#question-category').val()
+    questionText = $('textarea#question-text').val()
     karmaOffered = parseInt($('input#karma-offered').val())
 
     question = 
-      title: title
-      userId: '1'
-      question: question
+      category: category
+      # userId: '1'
+      questionText: questionText
       tags: tags
       karmaOffered: karmaOffered
-      dateCreated: new Date()
-      dateModified: new Date()
-      status: "Active"
+      # dateCreated: new Date()
+      # dateModified: new Date()
+      # status: "Active"
 
     Meteor.call 'createNewQuestion', question, (error, result) ->
 
       console.log error, result
 
       if not error
-        Session.set("subscribedQuestion", questionId)
+        Session.set("subscribedQuestion", result)
         Session.set('askingQuestion?', false)
-
-        # Decrement karma
-        Session.set('karma', Session.get('karma') - karmaOffered)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)

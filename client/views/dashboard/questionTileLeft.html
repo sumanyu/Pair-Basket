@@ -1,0 +1,15 @@
+<template name="questionTileLeft">
+    <div class="question-tile-left">
+      <div class="left-item">
+        {{#each tags}}
+          <div class="question-tag">{{this}}</div>
+        {{/each}}
+      </div>
+      <div class="left-item question-category">
+        <p>{{category}}</p>
+      </div>
+      <div class="left-item">
+        <p>{{questionText}}</p>
+      </div>
+    </div>
+</template>
