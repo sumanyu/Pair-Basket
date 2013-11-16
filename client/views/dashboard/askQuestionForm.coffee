@@ -1,7 +1,3 @@
-focusText = (i) ->
-  i.focus()
-  i.select()
-
 Template.askQuestionForm.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
