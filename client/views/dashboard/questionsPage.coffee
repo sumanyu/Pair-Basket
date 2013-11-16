@@ -41,8 +41,6 @@ Template.questionsPage.events =
     Meteor.call("createSessionResponse", questionId, session, (err, result) ->
       console.log "SessionResponseCreated"
 
-      console.log err
-
       if err
         console.log err
       else
@@ -55,7 +53,8 @@ Template.questionsPage.events =
             console.log result
 
             # Subscribe to tutoring session
-            Meteor.subscribe 'tutoringSession', session
+            Meteor.subscribe 'tutoringSession', session, ->
+              Router.go("/session/#{session}")
         )
     )
 

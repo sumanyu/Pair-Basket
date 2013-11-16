@@ -72,6 +72,8 @@ Meteor.startup ->
         Meteor.call 'cancelSessionResponse', response.questionId, (err, result) ->
           if err
             console.log err
+          else
+            Router.go("/session/#{response.sessionId}")
 
   Deps.autorun -> 
     # if tutor accepted the request
@@ -82,18 +84,18 @@ Meteor.startup ->
       # Popup tutor
       Session.set('foundTutor?', true)
 
-  Deps.autorun ->
-    # Takes time for message to propogate between subscription and delivery
-    if TutoringSession.find({}).count() > 0
-      console.log "TutoringSession autorun"   
-      tutoringSession = TutoringSession.findOne()
+  # Deps.autorun ->
+  #   # Takes time for message to propogate between subscription and delivery
+  #   if TutoringSession.find({}).count() > 0
+  #     console.log "TutoringSession autorun"   
+  #     tutoringSession = TutoringSession.findOne()
 
-      console.log tutoringSession
+  #     console.log tutoringSession
 
-      sessionId = tutoringSession.sessionId
+  #     sessionId = tutoringSession.sessionId
 
-      console.log "Entering tutoring session page"
-      Router.go("/session/#{sessionId}")
+  #     console.log "Entering tutoring session page"
+      
 
   Deps.autorun ->
     # Show whiteboard, hide other things

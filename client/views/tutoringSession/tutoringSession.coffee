@@ -7,9 +7,18 @@ Template.chatBox.helpers
   messages: ->
     # fetch all chat messages
     console.log "Testing #{test}"
-    console.log TutoringSession.findOne()
-    messages = TutoringSession.findOne({}, {fields: {messages: 1}}).messages
+
+    messages = [
+      userId: "nil"
+      message: "?"
+    ]
+
+    if TutoringSession.findOne()
+      console.log TutoringSession.findOne()
+      messages = TutoringSession.findOne({}, {fields: {messages: 1}}).messages
+
     test = test + 1
+
     messages
 
   chatPartner: ->
