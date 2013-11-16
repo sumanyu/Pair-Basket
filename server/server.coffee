@@ -130,6 +130,13 @@ Meteor.methods
       console.log result
       console.log error
 
+  cancelOwnedQuestion: (questionId) ->
+    if Meteor.userId() == Questions.findOne({_id: questionId}).userId
+      SessionRequest.remove({questionId: questionId})
+      Questions.remove({_id: questionId})
+    else
+      throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
+
   createSessionRequest: (questionId, user) ->
     console.log "Creating Session Request"
     requestId = SessionRequest.insert
