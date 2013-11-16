@@ -1,12 +1,7 @@
-# Manages client to client communication
-chatStream = new Meteor.Stream("chat")
-
-@LineStream = new Meteor.Stream("lines")
-
 # Temporary local chat collection
-chatCollection = new Meteor.Collection('userChat')
+chatCollection = new Meteor.Collection(null)
 
-chatStream.on "chat", (message) ->
+ChatStream.on "chat", (message) ->
   chatCollection.insert
     userId: message.userId
     message: message.message
@@ -35,7 +30,7 @@ sendMessage = ->
       message: message
 
     # Broadcast that message to all clients
-    chatStream.emit "chat", 
+    ChatStream.emit "chat", 
       message: message
       userId: Session.get('userName')
 
