@@ -33,7 +33,7 @@
   LineStream.on padId + ":wipe", (nickname) ->
     pad.wipe()
 
-  @close = ->
+  close: ->
     LineStream.removeAllListeners padId + ":dragstart"
     LineStream.removeAllListeners padId + ":dragend"
     LineStream.removeAllListeners padId + ":drag"
