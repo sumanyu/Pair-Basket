@@ -34,13 +34,13 @@ Template.askQuestionForm.events =
 
     question = 
       category: category
-      userId: '1'
+      # userId: '1'
       questionText: questionText
       tags: tags
       karmaOffered: karmaOffered
-      dateCreated: new Date()
-      dateModified: new Date()
-      status: "Active"
+      # dateCreated: new Date()
+      # dateModified: new Date()
+      # status: "Active"
 
     Meteor.call 'createNewQuestion', question, (error, result) ->
 

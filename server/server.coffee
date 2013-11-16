@@ -103,6 +103,9 @@ Meteor.methods
     # Test Collection2
 
     questionData['userId'] = currentUser['_id']
+    questionData['status'] = 'waiting'
+    questionData['dateCreated'] = new Date()
+    questionData['dateModified'] = new Date()
     # console.log questionData
 
     # Check if has category
