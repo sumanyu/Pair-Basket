@@ -102,13 +102,20 @@
   <div class="chatBoxContainer">
 
     <div class="chatMessages">
-      <div>
-        Now chatting with {{chatPartner}}. Say hi!
-      </div>      
 
-      {{#each messages}}
-        {{> chatMessage}}
-      {{/each}}
+      {{#if areMessagesReady }}
+
+        <div>
+          Now chatting with {{chatPartner}}. Say hi!
+        </div>      
+
+        {{#each messages}}
+          {{> chatMessage}}
+        {{/each}}
+
+      {{else}}
+        Loading...
+      {{/if}}
     </div>
 
     <textarea class='chat-message'></textarea><br>

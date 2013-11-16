@@ -54,6 +54,7 @@ Template.questionsPage.events =
 
             # Subscribe to tutoring session
             Meteor.subscribe 'tutoringSession', session, ->
+              console.log @
               Router.go("/session/#{session}")
         )
     )

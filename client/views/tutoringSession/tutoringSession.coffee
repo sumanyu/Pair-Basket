@@ -1,25 +1,13 @@
 # Temporary local chat collection
 chatCollection = new Meteor.Collection(null)
 
-test = 0
+Template.chatBox.helpers
+  areMessagesReady: ->
+    TutoringSession.findOne({}) || false
 
-Template.chatBox.helpers 
   messages: ->
     # fetch all chat messages
-    console.log "Testing #{test}"
-
-    messages = [
-      userId: "nil"
-      message: "?"
-    ]
-
-    if TutoringSession.findOne()
-      console.log TutoringSession.findOne()
-      messages = TutoringSession.findOne({}, {fields: {messages: 1}}).messages
-
-    test = test + 1
-
-    messages
+    TutoringSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
     Session.get("chattingWith") || "Anonymous"
