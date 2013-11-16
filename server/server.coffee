@@ -136,7 +136,13 @@ Meteor.methods
   cancelOwnedQuestion: (questionId) ->
     if Meteor.userId() == Questions.findOne({_id: questionId}).userId
       SessionRequest.remove({questionId: questionId})
-      Questions.remove({_id: questionId})
+
+      # Questions.remove({_id: questionId})
+      Questions.update(
+        {_id: questionId},
+        {$set: {status: 'deleted'}}
+      )
+
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
