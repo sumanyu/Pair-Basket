@@ -39,18 +39,21 @@ Template.questionsPage.events =
 
     # User Meteor method to notify client
     Meteor.call("createSessionResponse", questionId, session, (err, result) ->
-      console.log "SessionRequestCreated"
+      console.log "SessionResponseCreated"
+
+      console.log err
 
       if err
         console.log err
       else
-        Meteor.call("startSession", questionId, session, tutorId (err, result) ->
+        Meteor.call("startSession", questionId, session, tutorId, (err, result) ->
           console.log "startSession"
-          console.log result
 
           if err
             console.log err
           else
+            console.log result
+
             # Subscribe to tutoring session
             Meteor.subscribe 'tutoringSession', session, ->
               Router.go("/session/#{session}")

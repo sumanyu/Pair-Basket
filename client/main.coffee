@@ -58,11 +58,14 @@ Meteor.startup ->
     if SessionResponse.find({}).count() > 0
       response = SessionResponse.findOne()
 
+      console.log response
+
       Session.set('foundTutor?', false)
 
       Meteor.subscribe 'tutoringSession', response.sessionId, ->
-        SessionResponse.remove({questionId: questionId})
-        Router.go("/session/#{response.sessionId}")
+        Meteor.call 'cancelSessionResponse', response.questionId, (err, result) ->
+          if not err
+            Router.go("/session/#{response.sessionId}")
 
     # if tutor accepted the request
     if SessionRequest.find({}).count() > 0

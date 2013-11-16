@@ -1,15 +1,15 @@
 # Temporary local chat collection
 chatCollection = new Meteor.Collection(null)
 
-ChatStream.on "chat", (message) ->
-  chatCollection.insert
-    userId: message.userId
-    message: message.message
+# ChatStream.on "chat", (message) ->
+#   chatCollection.insert
+#     userId: message.userId
+#     message: message.message
 
 Template.chatBox.helpers 
   messages: ->
     # fetch all chat messages
-    chatCollection.find()
+    TutoringSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
     Session.get("chattingWith") || "Anonymous"
@@ -25,14 +25,25 @@ sendMessage = ->
 
   # Prevent empty messages
   if message.length > 0
-    chatCollection.insert
-      userId: "me"
+    totalMessage = 
       message: message
+      userId: Meteor.userId()
 
-    # Broadcast that message to all clients
-    ChatStream.emit "chat", 
-      message: message
-      userId: Session.get('userName')
+    tutoringSessionId = TutoringSession.findOne()._id
+
+    # Push messages
+    TutoringSession.update {_id: tutoringSessionId}, $push: {messages: totalMessage}
+
+    console.log TutoringSession.findOne()
+
+    # chatCollection.insert
+    #   userId: "me"
+    #   message: message
+
+    # # Broadcast that message to all clients
+    # ChatStream.emit "chat", 
+    #   message: message
+    #   userId: Session.get('userName')
 
     $(".chat-message").val ""
 
@@ -40,6 +51,7 @@ Template.chatBox.events
   "keydown .chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
+      console.log "entering?"
       sendMessage()
 
   "click #send": (e, s) ->

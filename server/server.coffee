@@ -47,7 +47,9 @@ populateQuestions = ->
 
 dropAll = ->
   SessionRequest.remove({})
+  SessionResponse.remove({})
   Questions.remove({})
+  TutoringSession.remove({})
   populateQuestions()
 
 Meteor.startup ->
@@ -162,10 +164,14 @@ Meteor.methods
                   sessionId: sessionId
                   userId: @userId
 
+  # Add better validation later
+  cancelSessionResponse: (questionId) ->
+    SessionResponse.remove({questionId: questionId})
+
   startSession: (questionId, sessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
-    console.log "Complete session"
-    tuteeId = @userId()
+    console.log "Start session"
+    tuteeId = @userId
 
     karmaOffered = Questions.findOne({'_id': questionId}).karmaOffered
 
@@ -189,7 +195,7 @@ Meteor.methods
     )
 
     # Add tutor name
-    TutoringSession.insert
+    tutoringSessionId = TutoringSession.insert
       questionId: questionId
       sessionId: sessionId
       tutorId: tutorId
@@ -200,9 +206,3 @@ Meteor.methods
           message: "Welcome to the tutoring!"
         }
       ]
-
-    console.log TutoringSession.find().count()
-
-    # console.log SessionRequest.find().count()
-    # console.log SessionResponse.find().count()
-    # console.log Questions.find({}).count()
