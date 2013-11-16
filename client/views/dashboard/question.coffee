@@ -1,4 +1,4 @@
-Template.question.events =
+Template.questionTileLeft.events =
   'click .accept-question' : (e, selector) ->
     e.preventDefault()
     console.log "Accepting Question"  
