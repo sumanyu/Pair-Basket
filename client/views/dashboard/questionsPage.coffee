@@ -31,25 +31,31 @@ Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()
 
-    questionId = Session.get('subscribedQuestion')
+    request = SessionRequest.findOne({})
+    questionId = request.questionId
+    tutorId = request.userId
+
     session = Random.id()
 
     # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, session, Session.get('userName'), (err, result) ->
+    Meteor.call("createSessionResponse", questionId, session, (err, result) ->
       console.log "SessionRequestCreated"
-    )
-
-    Meteor.call("startSession", questionId, session, (err, result) ->
-      console.log "startSession"
-      console.log result
 
       if err
         console.log err
       else
-        # Subscribe to tutoring session
-        Meteor.subscribe 'tutoringSession', session, ->
-          Router.go("/session/#{session}")
+        Meteor.call("startSession", questionId, session, tutorId (err, result) ->
+          console.log "startSession"
+          console.log result
 
+          if err
+            console.log err
+          else
+            # Subscribe to tutoring session
+            Meteor.subscribe 'tutoringSession', session, ->
+              Router.go("/session/#{session}")
+
+        )
     )
 
   'click .decline-button': (e, selector) ->

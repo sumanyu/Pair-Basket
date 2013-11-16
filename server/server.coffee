@@ -149,32 +149,23 @@ Meteor.methods
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
-  createSessionRequest: (questionId, user) ->
+  createSessionRequest: (questionId) ->
     console.log "Creating Session Request"
-    requestId = SessionRequest.insert
+    request = SessionRequest.insert
       questionId: questionId
-      user: user
+      userId: @userId
 
-  createSessionResponse: (questionId, sessionId, userName) ->
+  createSessionResponse: (questionId, sessionId) ->
     console.log "Creating Session Response"
-    responseId = SessionResponse.insert 
+    response = SessionResponse.insert 
                   questionId: questionId
                   sessionId: sessionId
-                  userName: userName
+                  userId: @userId
 
-  startSession: (questionId, sessionId) ->
+  startSession: (questionId, sessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Complete session"
-    # console.log SessionRequest
-    # console.log SessionRequest.findOne()
-
-    tutorId = SessionRequest.findOne().user['_id']
-    tuteeId = Meteor.userId()
-
-    # console.log tutorId 
-    # console.log SessionRequest.find().count()
-    # console.log SessionResponse.find().count()
-    # console.log Questions.find({}).count()
+    tuteeId = @userId()
 
     karmaOffered = Questions.findOne({'_id': questionId}).karmaOffered
 
@@ -191,14 +182,15 @@ Meteor.methods
       { $inc: {'karma': karmaOffered} })
 
     SessionRequest.remove({questionId: questionId})
-    SessionResponse.remove({questionId: questionId})
 
     Questions.update(
       {_id: questionId},
       {$set: {status: 'resolved'}}
     )
 
+    # Add tutor name
     TutoringSession.insert
+      questionId: questionId
       sessionId: sessionId
       tutorId: tutorId
       tuteeId: tuteeId
@@ -209,7 +201,7 @@ Meteor.methods
         }
       ]
 
-    console.log TutoringSession
+    console.log TutoringSession.find().count()
 
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()

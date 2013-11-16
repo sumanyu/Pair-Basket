@@ -8,9 +8,12 @@ Template.otherQuestionTile.events =
     if String(Session.get("subscribedQuestion")).valueOf() != String(questionId).valueOf()
 
       # User Meteor method to notify client
-      Meteor.call("createSessionRequest", questionId, Meteor.user(), (err, result) ->
+      Meteor.call "createSessionRequest", questionId, (err, result) ->
         console.log "SessionRequestCreated"
-      )
-      
-      Session.set("subscribedQuestionResponse", questionId)
+
+        if err
+          console.log err
+        else
+          Session.set("subscribedQuestionResponse", questionId)
+          
       # @.karmaOffered

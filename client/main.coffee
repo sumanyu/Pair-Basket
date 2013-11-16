@@ -48,7 +48,6 @@ Meteor.startup ->
   Session.set('showBoth?', true)
 
   Deps.autorun ->
-
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
 
@@ -59,28 +58,20 @@ Meteor.startup ->
     if SessionResponse.find({}).count() > 0
       response = SessionResponse.findOne()
 
-      chattingWith = response.userName
-
-      console.log response, chattingWith
-
       Session.set('foundTutor?', false)
-      Session.set('chattingWith', chattingWith)
 
-      Router.go("/session/#{response.sessionId}")
+      Meteor.subscribe 'tutoringSession', response.sessionId, ->
+        SessionResponse.remove({questionId: questionId})
+        Router.go("/session/#{response.sessionId}")
 
     # if tutor accepted the request
     if SessionRequest.find({}).count() > 0
-
-      request = SessionRequest.findOne()
-      chattingWith = "Davin"
-      # chattingWith = request.userName
-
-      console.log request, chattingWith
+      console.log SessionRequest.findOne()
 
       # Popup tutor
-      Session.set('foundTutor?', true) 
-      Session.set('chattingWith', chattingWith)
+      Session.set('foundTutor?', true)
 
+  Deps.autorun ->
     # Show whiteboard, hide other things
     if Session.get('whiteboardIsSelected?')
       $('.whiteboard').show()
