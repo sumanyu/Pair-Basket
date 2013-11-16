@@ -4,7 +4,7 @@ chatStream = new Meteor.Stream("chat")
 @LineStream = new Meteor.Stream("lines")
 
 # Temporary local chat collection
-chatCollection = new Meteor.Collection(null)
+chatCollection = new Meteor.Collection('userChat')
 
 chatStream.on "chat", (message) ->
   chatCollection.insert
