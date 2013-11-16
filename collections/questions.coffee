@@ -5,7 +5,7 @@
   schema:
     category:
       type: String
-      label: "math, science, english, social_science, computers, business, second_language"
+      label: "math, science, english, social_science, computers, business, foreign_language"
       max: 200
     userId:
       type: String
