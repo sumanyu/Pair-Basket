@@ -97,10 +97,6 @@ Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun
   Session.set("hasWhiteboardLoaded?", true)
 
-  # Increment tutor's count
-  Session.set("karma", Session.get('karma') + Session.get('karmaForCurrentQuestion'))
-  Session.set('karmaForCurrentQuestion', null)
-
 Template.whiteBoard.events
   'click .draw': (e, s) ->
     pad.startDrawMode()
