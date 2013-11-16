@@ -3,22 +3,15 @@
 body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
+	dark-yellow = #ffc801
 	light-grey = #f6f6f6
 	_margin-top = 80px
 
 	.yellow-button, .yellow-button-disabled
-		background: _yellow
-		background-image: -webkit-linear-gradient(top, _yellow, _yellow)
-		background-image: -moz-linear-gradient(top, _yellow, _yellow)
-		background-image: -ms-linear-gradient(top, _yellow, _yellow)
-		background-image: -o-linear-gradient(top, _yellow, _yellow)
-		background-image: linear-gradient(to bottom, _yellow, _yellow)
+		set-background(_yellow)
 		border-radius(5px)
-		border: 0px
-		font-family: Arial
 		color: black
 		display: block
-		text-decoration: none
 		animate-transition()
 
 	.yellow-button-disabled
@@ -29,18 +22,27 @@ body
 		cursor: pointer
 		animate-transition()
 
-	.title-landing
-		height: 70px
-
 	#landing
 		.landing-header, .landing-footer
 			width: 100%
-			height: 80px
+			height: 50px
 
 		.landing-footer
 			height: 0px
 
 		.container.main
+			.title-landing
+				height: 70px
+				// margin-bottom: 10px
+
+			.value-props
+				margin-top: 25px
+				margin-bottom: 30px
+
+				.value-prop
+					margin-top: 5px
+					margin-bottom: 5px
+
 			.questionForm
 				margin: 20px 0 0 0
 
@@ -92,6 +94,94 @@ body
 
 				.title
 					font-weight: bold
+
+			.call-to-action
+				margin-top: 40px
+				margin-left: 140px
+
+				.square-button
+					height: 55px
+					line-height: @height
+					width: 150px
+					text-align: center
+					vertical-align: center
+					background: _yellow
+					font-size: 18px
+					font-weight: bold
+					border-radius(2px)
+					box-shadow(0 5px dark-yellow)
+
+				.square-button:hover
+					cursor: pointer
+					margin-top: -1px
+					box-shadow(0 6px dark-yellow)
+
+				.square-button:active
+					margin-top: 5px
+					box-shadow(0 0px dark-yellow)
+
+				.help-others-btn
+					float: left
+
+				.ask-question-btn
+					float: right
+
+				.help-others-wrapper
+					background: _yellow
+					border-radius(2px)
+					box-shadow(0 5px dark-yellow)
+
+				.ask-question-wrapper, .help-others-wrapper
+					background: _yellow
+					border-radius(2px)
+					box-shadow(0 8px dark-yellow)
+					// height: 200px
+					padding: 10px 5px 10px 30px
+					width: 425px
+
+					.ask-question-form, .help-others-form
+
+						.questions-group
+							float: left
+							width: 300px
+
+							.email, .password, .question
+								margin-top: 5px
+								margin-bottom: 5px
+
+						// Make this auto resize later
+						.submit-group
+							float: left
+							height: 130px
+							margin-top: 5px
+
+							.ask-question-form-button
+								position: relative
+								left: 40%
+								top: 50%
+								set-background(dark-yellow)
+								border-radius(5px)
+								animate-transition()
+								font-weight: bold
+								font-size: 14px
+
+					.help-others-form
+
+						.questions-group
+							width: 280px
+
+						.submit-group
+							height: 80px
+
+							.help-others-form-button
+								position: relative
+								left: 20%
+								top: 25%
+								set-background(dark-yellow)
+								border-radius(5px)
+								animate-transition()
+								font-weight: bold
+								font-size: 14px						
 
 	#dashboard
 		.dashboard-header

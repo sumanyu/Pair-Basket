@@ -43,7 +43,12 @@ Meteor.startup ->
   Session.set('userName', 'Kelly')
 
   # Chatting with whom in whiteboard session
-  Session.get('chattingWith', null)
+  Session.set('chattingWith', null)
+
+  # Landing Session variables
+  Session.set('helpOthers?', false)
+  Session.set('askQuestion?', false)
+  Session.set('showBoth?', true)
 
   Deps.autorun ->
     if Session.get("subscribedQuestion")

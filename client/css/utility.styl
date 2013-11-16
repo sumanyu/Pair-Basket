@@ -5,6 +5,9 @@ vendor(property, args)
   -o-{property} args
   {property} args
 
+box-shadow()
+  vendor('box-shadow', arguments)
+
 border-top-right-radius()
   vendor('border-top-right-radius', arguments)
 
@@ -19,6 +22,14 @@ border-bottom-left-radius()
 
 border-radius()
   vendor('border-radius', arguments)
+
+set-background()
+  background: arguments
+  background-image: -webkit-linear-gradient(top, arguments, arguments)
+  background-image: -moz-linear-gradient(top, arguments, arguments)
+  background-image: -ms-linear-gradient(top, arguments, arguments)
+  background-image: -o-linear-gradient(top, arguments, arguments)
+  background-image: linear-gradient(to bottom, arguments, arguments)
 
 container-border()
   border: 1px solid #c5c5c5
