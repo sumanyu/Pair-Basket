@@ -1,6 +1,9 @@
 # Get subscriptions
 
 Meteor.startup ->
+
+  Meteor.subscribe 'users'
+
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
 
@@ -42,8 +45,6 @@ Meteor.startup ->
   Session.set('showBoth?', true)
 
   Deps.autorun ->
-
-    Meteor.subscribe 'users'
 
     if Session.get("subscribedQuestion")
       Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
