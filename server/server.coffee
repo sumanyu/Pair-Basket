@@ -2,7 +2,7 @@ populateQuestions = ->
   if Meteor.isServer and Questions.find().count() is 0
   # if Questions.find().count() is 0
     questions = [
-      category: "Linguistic Anthropology"
+      category: "social_science"
       userId: '1'
       questionText: "What are John Wesley Powell's contributions to the modern view of languages?"
       tags: [
@@ -14,7 +14,7 @@ populateQuestions = ->
       dateModified: new Date()
       status: "waiting"
     ,
-      category: "atan vs. atan2 in C++"
+      category: "computers"
       userId: '1'
       questionText: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
@@ -27,7 +27,7 @@ populateQuestions = ->
       dateModified: new Date()
       status: "waiting"
     ,
-      category: "Epsilon-N Proof"
+      category: "math"
       userId: '1'
       questionText: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
       tags: [
