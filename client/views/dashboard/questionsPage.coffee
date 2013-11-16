@@ -39,11 +39,18 @@ Template.questionsPage.events =
       console.log "SessionRequestCreated"
     )
 
-    Meteor.call("startSession", questionId, (err, result) ->
+    Meteor.call("startSession", questionId, session, (err, result) ->
       console.log "startSession"
-    )    
+      console.log result
 
-    Router.go("/session/#{session}")
+      if err
+        console.log err
+      else
+        # Subscribe to tutoring session
+        Meteor.subscribe 'tutoringSession', session, ->
+          Router.go("/session/#{session}")
+
+    )
 
   'click .decline-button': (e, selector) ->
     Session.set('foundTutor?', false)

@@ -80,6 +80,10 @@ Meteor.publish "users", ->
 Meteor.publish 'questions', ->
   Questions.find({})
 
+Meteor.publish 'tutoringSession', (sessionId) ->
+  console.log "Publishing tutoring session"
+  TutoringSession.find({sessionId: sessionId})
+
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
   console.log "Publish sessionRequest, questionId:", questionId
@@ -158,7 +162,7 @@ Meteor.methods
                   sessionId: sessionId
                   userName: userName
 
-  startSession: (questionId) ->
+  startSession: (questionId, sessionId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Complete session"
     # console.log SessionRequest
@@ -194,8 +198,18 @@ Meteor.methods
       {$set: {status: 'resolved'}}
     )
 
-    # TutoringSession.insert
-    #   sessionId: 
+    TutoringSession.insert
+      sessionId: sessionId
+      tutorId: tutorId
+      tuteeId: tuteeId
+      messages: [
+        {
+          userId: "testing"
+          message: "Welcome to the tutoring!"
+        }
+      ]
+
+    console.log TutoringSession
 
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
