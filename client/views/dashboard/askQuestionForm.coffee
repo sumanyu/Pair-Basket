@@ -13,7 +13,7 @@ Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
 
 Template.askQuestionForm.events =
-  'click .overlay' : (e, selector) ->
+  'click .close-popup-button' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
 
