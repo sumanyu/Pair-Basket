@@ -1,3 +1,9 @@
+Handlebars.registerHelper(
+  "underscoreToSpace",
+  (string) ->
+    string.split("_").join(" ")
+);
+
 Template.questionsPage.helpers
   ownedQuestions: =>
     @Questions.find(
@@ -51,9 +57,6 @@ Template.questionsPage.helpers
   isCategoryActive: (category) ->
     categoryFilter = Session.get('categoryFilter')
     categoryFilter[category]
-
-  underscoreToSpace: (string) ->
-    string.split("_").join(" ")
 
 Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
