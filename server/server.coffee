@@ -2,12 +2,12 @@ populateQuestions = ->
   if Meteor.isServer and Questions.find().count() is 0
   # if Questions.find().count() is 0
     questions = [
-      category: "social_science"
+      category: "english"
       userId: '1'
-      questionText: "What are John Wesley Powell's contributions to the modern view of languages?"
+      questionText: "How do you structure an essay to be creative but effective?"
       tags: [
-        "John Wesley Powell",
-        "Philosophy"]
+        "Essay",
+        "Writing"]
       karmaOffered: 50
       dateCreated: new Date()
       dateModified: new Date()
