@@ -9,20 +9,19 @@ Template.questionsPage.helpers
 
   otherQuestions: =>
     categoryFilter = Session.get('categoryFilter')
-
-    console.log categoryFilter
+    # console.log categoryFilter
 
     activeCategories = []
     for category, active of categoryFilter
       if active
         activeCategories.push(category)
-
-    console.log activeCategories
+    # console.log activeCategories
 
     @Questions.find(
       {
         userId: { $ne: Meteor.userId() },
-        status: 'waiting'
+        status: 'waiting',
+        category: { $in: activeCategories }
       },
       {sort: {dateCreated: -1}})
 
