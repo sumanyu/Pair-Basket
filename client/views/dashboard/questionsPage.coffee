@@ -4,6 +4,7 @@ Handlebars.registerHelper(
     string.split("_").join(" ")
 );
 
+# TODO: put this array somewhere. it is copied in server.coffee
 Handlebars.registerHelper(
   "allCategory",
   () ->
