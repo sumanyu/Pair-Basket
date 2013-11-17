@@ -26,15 +26,15 @@ Template.landingCallToAction.events =
     Session.set('showBoth?', false)
 
 Template.landingHelpOthers.rendered = ->
-  focusText($('input[type=email]'))
+  focusText($('.help-others-wrapper input[type=email]'))
 
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
     e.preventDefault()
 
     # Clean input
-    email = $('input[type=email]').val().trim()
-    password = $('input[type=password]').val().trim()
+    email = $('.help-others-wrapper input[type=email]').val().trim()
+    password = $('.help-others-wrapper input[type=password]').val().trim()
 
     # Validate inputs - for now just check if all inputs were entered
     isInputValid = areElementsNonEmpty([email, password])
@@ -54,16 +54,16 @@ Template.landingHelpOthers.events =
       console.log "invalid input"
 
 Template.landingAskQuestion.rendered = ->
-  focusText($('input[type=email]'))
+  focusText($('.ask-question-wrapper input[type=email]'))
 
 Template.landingAskQuestion.events =
   'submit': (e, s) ->
     e.preventDefault()
 
     # Clean input
-    email = $('input[type=email]').val().trim()
-    password = $('input[type=password]').val().trim()
-    question = $('textarea.question').val().trim()
+    email = $('.ask-question-wrapper input[type=email]').val().trim()
+    password = $('.ask-question-wrapper input[type=password]').val().trim()
+    question = $('.ask-question-wrapper textarea.question').val().trim()
 
     # Validate inputs - for now just check if all inputs were entered
     isInputValid = areElementsNonEmpty([email, password, question])
