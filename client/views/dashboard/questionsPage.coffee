@@ -64,4 +64,12 @@ Template.questionsPage.events =
     Session.set('foundTutor?', false)
 
   'click .back-to-dashboard-button': (e, selector) ->
-    Session.set('showNotEnoughKarma?', false)    
+    Session.set('showNotEnoughKarma?', false)
+
+  'click .category': (e, selector) ->
+    category = e.target.id
+    console.log e.target.className
+
+    categoryFilter = Session.get('categoryFilter')
+
+    categoryFilter[category]
