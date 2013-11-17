@@ -6,6 +6,16 @@ Router.configure
       to: 'header'
     footer:
       to: 'footer'
+  before: ->
+    # no need to check at these URLs
+    if @route.name == 'home'
+      return
+
+    # if not logged in, send to home page
+    if !Meteor.user()
+      Router.go(Router.path('home'))
+      @render (if Meteor.loggingIn() then @loading else 'landingPage')
+      @stop()
 
 Router.map ->
   @route 'home',
