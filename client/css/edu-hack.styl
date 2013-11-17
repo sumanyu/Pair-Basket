@@ -304,11 +304,15 @@ body
 			width: 150px
 			height: 100%
 			display: block
+			float: left
 			padding-left: 0px
 			padding: 10px
-			position: fixed
+			// position: fixed
 			// set-background(_light_gray)
 			// margin: 0px auto
+
+			@media screen and (min-width: 900px)
+				position: fixed !important
 
 			.category
 				cursor: pointer
