@@ -55,9 +55,9 @@
   <div class="question-sidebar">
     {{#each allCategory}}
       {{#if isCategoryActive this }}
-        <div id="{{this}}" class="category active">{{this}}</div>
+        <div id="{{this}}" class="category active">{{underscoreToSpace this}}</div>
       {{else}}
-        <div id="{{this}}" class="category inactive">{{this}}</div>
+        <div id="{{this}}" class="category inactive">{{underscoreToSpace this}}</div>
       {{/if}}
     {{/each}}
   </div>
