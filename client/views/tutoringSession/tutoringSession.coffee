@@ -114,7 +114,7 @@ Meteor.startup ->
         pad.close()
         remotePad.close()
 
-      # Hot code bypasses hasWhiteboardLoaded?
+      # Hot code bypasses `hasWhiteboardLoaded?`
       if $('canvas').length > 0
         user = Meteor.user()?._id || "Anonymous"
 

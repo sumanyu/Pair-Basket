@@ -47,11 +47,14 @@ Template.askQuestionForm.events =
       console.log error, result
 
       if not error
-        Session.set("subscribedQuestion", result)
+        # Auto run will automatically set `subscribedQuestion`
+        # Session.set("subscribedQuestion", result)
         Session.set('askingQuestion?', false)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
 
-    # questionId = Questions.insert question
-
+# Subscribed question will always hold the subscribed question
+Deps.autorun ->
+  if Meteor.userId()
+    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})._id)
