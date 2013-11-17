@@ -84,8 +84,14 @@ Template.tutoringSessionSidebar.events
   "click .end-session": (e, s) ->
     Session.set('foundTutor?', false)
     Session.set('askingQuestion?', false)
-    
-    Router.go('/dashboard')
+
+    Meteor.call 'endSession', TutoringSession.findOne().sessionId, (err, result) ->
+      console.log "Calling end session"
+
+      if err
+        console.log err
+      else
+        Router.go('/dashboard')
 
 Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun
