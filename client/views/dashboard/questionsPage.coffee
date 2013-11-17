@@ -1,5 +1,16 @@
 Template.questionsPage.helpers
   ownedQuestions: =>
+    categoryFilter = Session.get('categoryFilter')
+
+    console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+
+    console.log activeCategories
+
     @Questions.find(
       {
         userId: Meteor.userId(),
