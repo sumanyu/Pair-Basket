@@ -45,6 +45,28 @@ populateQuestions = ->
       dateCreated: new Date()
       dateModified: new Date()
       status: "waiting"
+    ,
+      category: "science"
+      userId: '1'
+      questionText: 'Why is citric acid a key part of the Krebs Cycle?'
+      tags: [
+        "Biology",
+        "Metabolism"]
+      karmaOffered: 57
+      dateCreated: new Date()
+      dateModified: new Date()
+      status: "waiting"
+    ,
+      category: "business"
+      userId: '1'
+      questionText: 'How do banks create value by lending money they do not own?'
+      tags: [
+        "Finance",
+        "Multiplier Effect"]
+      karmaOffered: 92
+      dateCreated: new Date()
+      dateModified: new Date()
+      status: "waiting"
     ]
 
     for question in questions
