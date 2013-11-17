@@ -27,6 +27,21 @@ Template.questionsPage.helpers
   notEnoughKarma: ->
     Session.get('showNotEnoughKarma?')
 
+  allCategory: ->
+    [
+      'math',
+      'science',
+      'english',
+      'social_science',
+      'computer',
+      'business',
+      'foreign_language',
+    ]
+
+  isCategoryActive: (category) ->
+    categoryFilter = Session.get('categoryFilter')
+    categoryFilter[category]
+
 Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()

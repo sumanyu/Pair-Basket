@@ -53,13 +53,13 @@
   {{/if}}
 
   <div class="question-sidebar">
-    <div>Math</div>
-    <div>Science</div>
-    <div>English</div>
-    <div>Social Science</div>
-    <div>Computer</div>
-    <div>Business</div>
-    <div>Foreign Language</div>
+    {{#each allCategory}}
+      {{#if isCategoryActive this }}
+        <div class="category active {{this}}">{{this}}</div>
+      {{else}}
+        <div class="category inactive {{this}}">{{this}}</div>
+      {{/if}}
+    {{/each}}
   </div>
 
   <div class="question-list">
