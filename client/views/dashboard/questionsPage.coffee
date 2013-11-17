@@ -19,6 +19,12 @@ Handlebars.registerHelper(
     ]
 );
 
+Handlebars.registerHelper(
+  "user",
+  () ->
+    Meteor.user()
+);
+
 Template.questionsPage.helpers
   ownedQuestions: =>
     @Questions.find(
