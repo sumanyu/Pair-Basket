@@ -3,7 +3,7 @@
 body
 	_sidebar_gray = #636363
 	_yellow = #FFDC00
-	dark-yellow = #FFBB00
+	_dark_yellow = #FFBB00
 	_red = #F22C1E
 	_light_gray = #D7D7D7
 	_dark_gray = #E7E7E7
@@ -117,16 +117,16 @@ body
 					font-size: 18px
 					font-weight: bold
 					border-radius(2px)
-					box-shadow(0 5px dark-yellow)
+					box-shadow(0 5px _dark_yellow)
 
 				.square-button:hover
 					cursor: pointer
 					margin-top: -1px
-					box-shadow(0 6px dark-yellow)
+					box-shadow(0 6px _dark_yellow)
 
 				.square-button:active
 					margin-top: 5px
-					box-shadow(0 0px dark-yellow)
+					box-shadow(0 0px _dark_yellow)
 
 				.help-others-btn
 					float: left
@@ -137,12 +137,12 @@ body
 				.help-others-wrapper
 					background: _yellow
 					border-radius(2px)
-					box-shadow(0 5px dark-yellow)
+					box-shadow(0 5px _dark_yellow)
 
 				.ask-question-wrapper, .help-others-wrapper
 					background: _yellow
 					border-radius(2px)
-					box-shadow(0 8px dark-yellow)
+					box-shadow(0 8px _dark_yellow)
 					// height: 200px
 					padding: 10px 5px 10px 30px
 					width: 425px
@@ -167,7 +167,7 @@ body
 								position: relative
 								left: 40%
 								top: 50%
-								set-background(dark-yellow)
+								set-background(_dark_yellow)
 								border-radius(5px)
 								animate-transition()
 								font-weight: bold
@@ -185,7 +185,7 @@ body
 								position: relative
 								left: 20%
 								top: 25%
-								set-background(dark-yellow)
+								set-background(_dark_yellow)
 								border-radius(5px)
 								animate-transition()
 								font-weight: bold
@@ -327,7 +327,7 @@ body
 				animate-transition()
 
 			.active
-				set-background(dark-yellow)
+				set-background(_dark_yellow)
 			.inactive
 				set-background(_very_dark_gray)
 
