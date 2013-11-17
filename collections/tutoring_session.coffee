@@ -19,7 +19,7 @@ tutoringSessionSchema =
       type: String
     status:
       type: String
-      allowedValues: ['active', 'completed']
+      allowedValues: ['active', 'resolved']
     messages:
       type: [messageSchema]
 
