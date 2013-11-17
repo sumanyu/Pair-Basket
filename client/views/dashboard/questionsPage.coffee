@@ -8,6 +8,17 @@ Template.questionsPage.helpers
       {sort: {dateCreated: -1}})
 
   otherQuestions: =>
+    categoryFilter = Session.get('categoryFilter')
+
+    console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+
+    console.log activeCategories
+
     @Questions.find(
       {
         userId: { $ne: Meteor.userId() },
