@@ -28,22 +28,12 @@ Router.map ->
       dashboardFooter:
         to: 'dashboardFooter'    
 
-  # @route 'test',
-  #   path: '/test'
-  #   template: 'test' 
-
-  # @route 'addQuestion',
-  #   path: '/question/new'
-  #   layoutTemplate: 'dashboardLayout'
-  #   template: 'addQuestionForm'
-
   @route 'session',
     path: '/session/:sessionId?'
     layoutTemplate: 'tutoringSessionLayout'
 
     action: ->
       if not @params.sessionId?
-        # sessionId = Random.id()
         @redirect "/dashboard"
       else
         if TutoringSession.findOne({sessionId: @params.sessionId})
