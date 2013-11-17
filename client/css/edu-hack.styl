@@ -32,6 +32,99 @@ body
 		cursor: pointer
 		animate-transition()
 
+	.dashboard-header
+		position: fixed !important
+		width: 100%
+		height: 60px
+		background-color: _yellow
+		box-shadow(0px 1px 15px _dark_gray)
+
+		.header-content
+			width: 980px
+			display: block
+			margin: auto
+
+			.header-title
+				float: left
+				height: 60px
+				margin: 0px 50px
+
+				.logo-wrapper
+					padding: 6px 0
+					float: left
+					margin-right: 10px
+
+					img.logo
+						width: 36px
+						height: auto
+
+				.title-wrapper
+					float: left
+					line-height: 60px
+					vertical-align: middle
+					font-size: 30px
+
+			.header-buttons
+				display: block
+				float: right
+				height: 60px
+				margin: 0px 50px
+
+				.header-icon
+					padding: 4px 0px
+					display: block
+					float: left
+					height: 60px
+					width: 60px
+					text-align: center
+
+				.header-login
+					width: 150px
+					cursor: pointer
+
+				.header-login:hover
+					set-background(_light_gray)
+
+				.ask-question
+					cursor: pointer
+
+				.ask-question:hover
+					set-background(_light_gray)
+
+				.header-circle
+					display: block
+					float: left
+					background-color: black
+					border-radius(50%)
+					width: 38px
+					height: 38px
+					margin: 0px 10px
+					text-align:center
+					font-size: 22px
+					font-weight: bold
+					line-height: 41px
+					color: _yellow
+
+	#login-dropdown-list
+		list-style: none
+
+		.caret
+			display: none
+
+		.dropdown-toggle
+			display: block
+			padding: 15px 0px
+			text-decoration: none
+			overflow-ellipsis()
+			animate-transition()
+
+	.icon-text 
+		display: block
+		float: left
+		width: 60px
+		margin: 0px
+		font-size: 10pt
+
 	#landing
 		.landing-header, .landing-footer
 			width: 100%
@@ -193,99 +286,6 @@ body
 								font-size: 14px
 
 	#dashboard
-		.dashboard-header
-			position: fixed !important
-			width: 100%
-			height: 60px
-			background-color: _yellow
-			box-shadow(0px 1px 15px _dark_gray)
-
-			.header-content
-				width: 980px
-				display: block
-				margin: auto
-
-				.header-title
-					float: left
-					height: 60px
-					margin: 0px 50px
-
-					.logo-wrapper
-						padding: 6px 0
-						float: left
-						margin-right: 10px
-
-						img.logo
-							width: 36px
-							height: auto
-
-					.title-wrapper
-						float: left
-						line-height: 60px
-						vertical-align: middle
-						font-size: 30px
-
-				.header-buttons
-					display: block
-					float: right
-					height: 60px
-					margin: 0px 50px
-
-					.header-icon
-						padding: 4px 0px
-						display: block
-						float: left
-						height: 60px
-						width: 60px
-						text-align: center
-
-					.header-login
-						width: 150px
-						cursor: pointer
-
-					.header-login:hover
-						set-background(_light_gray)
-
-					.ask-question
-						cursor: pointer
-
-					.ask-question:hover
-						set-background(_light_gray)
-
-					.header-circle
-						display: block
-						float: left
-						background-color: black
-						border-radius(50%)
-						width: 38px
-						height: 38px
-						margin: 0px 10px
-						text-align:center
-						font-size: 22px
-						font-weight: bold
-						line-height: 41px
-						color: _yellow
-
-		#login-dropdown-list
-			list-style: none
-
-			.caret
-				display: none
-
-			.dropdown-toggle
-				display: block
-				padding: 15px 0px
-				text-decoration: none
-				overflow-ellipsis()
-				animate-transition()
-
-		.icon-text 
-			display: block
-			float: left
-			width: 60px
-			margin: 0px
-			font-size: 10pt
-
 		.control-label
 			font-weight: bold
 
