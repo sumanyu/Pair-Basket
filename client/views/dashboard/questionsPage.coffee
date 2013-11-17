@@ -67,9 +67,16 @@ Template.questionsPage.events =
     Session.set('showNotEnoughKarma?', false)
 
   'click .category': (e, selector) ->
-    category = e.target.id
-    console.log e.target.className
+    ### 
+      when a category filter is clicked, toggle between active/inactive
+      update session variable category filters, which reactively updates question list
+    ###
 
+    category = e.target.id
+    state = e.target.className.split(" ")[1] # active, inactive
     categoryFilter = Session.get('categoryFilter')
 
-    categoryFilter[category]
+    # toggle active/inactive
+    categoryFilter[category] = !(state == 'active')
+
+    Session.set('categoryFilter', categoryFilter)
