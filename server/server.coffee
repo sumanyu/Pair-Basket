@@ -170,7 +170,11 @@ Meteor.methods
 
   # Render TutoringSession's status 'resolved'
   endSession: (sessionId) ->
+    # Mark as resolved
     TutoringSession.update {sessionId: sessionId}, {$set: {status: 'resolved'}}
+
+    # Let others know user has left
+    # Event emitter?
 
   startSession: (questionId, sessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
