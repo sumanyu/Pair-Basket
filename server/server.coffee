@@ -84,7 +84,7 @@ Meteor.publish 'questions', ->
 
 Meteor.publish 'tutoringSession', (sessionId) ->
   console.log "Publishing tutoring session"
-  TutoringSession.find({sessionId: sessionId})
+  TutoringSession.find({sessionId: sessionId, status: 'active'})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -170,9 +170,7 @@ Meteor.methods
 
   # Render TutoringSession's status 'resolved'
   endSession: (sessionId) ->
-    TutoringSession.update
-      {sessionId: sessionId},
-      {$set: {status: 'resolved'}}
+    TutoringSession.update {sessionId: sessionId}, {$set: {status: 'resolved'}}
 
   startSession: (questionId, sessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
@@ -206,6 +204,7 @@ Meteor.methods
       sessionId: sessionId
       tutorId: tutorId
       tuteeId: tuteeId
+      status: 'active'
       messages: [
         {
           userId: "testing"
