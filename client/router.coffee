@@ -46,14 +46,10 @@ Router.map ->
         # sessionId = Random.id()
         @redirect "/dashboard"
       else
-        Session.set('sessionId', @params.sessionId)
-        
-        @render 'tutoringSessionSidebar', 
-          to: 'tutoringSessionSidebar'
+        if TutoringSession.findOne({sessionId: @params.sessionId})
+          Session.set('sessionId', @params.sessionId)
+          
+          @render 'tutoringSessionSidebar', 
+            to: 'tutoringSessionSidebar'
 
-        @render 'tutoringSessionPage'
-
-
-    # after: ->
-    #   console.log "Rendered?"
-    #   Session.set("whiteboardLoaded?", true)
+          @render 'tutoringSessionPage'
