@@ -3,8 +3,8 @@
 	<div class="ask-question-popup">
 		<div class="container">
 			<form role="form" class="questionForm">
-				<div class="dropdown">
-					<select id="question-category">
+				<div class="form-group">
+					<select id="question-category" class="form-control">
 						{{#each allCategory}}
 							<option value="{{this}}">{{ underscoreToSpace this}}</option>
 						{{/each}}
