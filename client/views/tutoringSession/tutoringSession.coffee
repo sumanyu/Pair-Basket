@@ -1,6 +1,3 @@
-# Temporary local chat collection
-chatCollection = new Meteor.Collection(null)
-
 Template.chatBox.helpers
   areMessagesReady: ->
     TutoringSession.findOne({}) || false
