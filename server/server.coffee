@@ -14,7 +14,7 @@ populateQuestions = ->
       dateModified: new Date()
       status: "waiting"
     ,
-      category: "computers"
+      category: "computer"
       userId: '1'
       questionText: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
@@ -36,6 +36,19 @@ populateQuestions = ->
         "Delta Epsilon proofs"
       ]
       karmaOffered: 80
+      dateCreated: new Date()
+      dateModified: new Date()
+      status: "waiting"
+    ,
+      category: "science"
+      userId: '1'
+      questionText: 'How do you draw a free body diagram with deformable solids?'
+      tags: [
+        "Deformable Solids"
+      ,
+        "Physics"
+      ]
+      karmaOffered: 45
       dateCreated: new Date()
       dateModified: new Date()
       status: "waiting"
