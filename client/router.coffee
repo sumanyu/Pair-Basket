@@ -32,8 +32,8 @@ Router.map ->
     layoutTemplate: 'landingLayout'
     template: 'landingPage'
     yieldTemplates:
-      landingHeader:
-        to: 'landingHeader'
+      dashboardHeader:
+        to: 'dashboardHeader'
       landingFooter:
         to: 'landingFooter'
     
