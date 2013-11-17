@@ -43,8 +43,8 @@ Router.map ->
 
     action: ->
       if not @params.sessionId?
-        sessionId = Random.id()
-        @redirect "/session/#{sessionId}"
+        # sessionId = Random.id()
+        @redirect "/dashboard"
       else
         Session.set('sessionId', @params.sessionId)
         
