@@ -54,7 +54,7 @@ Template.landingHelpOthers.events =
       console.log "invalid input"
 
 Template.landingAskQuestion.rendered = ->
-  focusText($('.ask-question-wrapper input[type=email]'))
+  focusText($('.ask-question-wrapper textarea'))
 
 Template.landingAskQuestion.events =
   'submit': (e, s) ->
