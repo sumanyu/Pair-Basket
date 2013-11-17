@@ -5,6 +5,7 @@
 			<form role="form" class="questionForm">
 				<div class="form-group">
 					<select id="question-category" class="form-control">
+						<option disabled="disabled" selected="selected">Category</option>
 						{{#each allCategory}}
 							<option value="{{this}}">{{ underscoreToSpace this}}</option>
 						{{/each}}

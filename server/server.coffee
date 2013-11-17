@@ -1,3 +1,13 @@
+@allCategory = [
+  'math',
+  'science',
+  'english',
+  'social_science',
+  'computer',
+  'business',
+  'foreign_language',
+]
+
 populateQuestions = ->
   if Meteor.isServer and Questions.find().count() is 0
   # if Questions.find().count() is 0
@@ -137,8 +147,8 @@ Meteor.methods
     # console.log questionData
 
     # Check if has category
-    if not questionData.category
-      throw new Meteor.Error(401, 'Please enter a category')
+    if questionData.category not in allCategory
+      throw new Meteor.Error(401, 'Please select a category')
 
     # Check if has tags
     # need better regex
