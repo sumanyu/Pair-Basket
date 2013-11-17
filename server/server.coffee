@@ -7,8 +7,7 @@ populateQuestions = ->
       questionText: "What are John Wesley Powell's contributions to the modern view of languages?"
       tags: [
         "John Wesley Powell",
-        "Philosophy"
-      ]
+        "Philosophy"]
       karmaOffered: 50
       dateCreated: new Date()
       dateModified: new Date()
@@ -18,10 +17,8 @@ populateQuestions = ->
       userId: '1'
       questionText: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
       tags: [
-        "C++"
-      ,
-        "Programming"
-      ]
+        "C++",
+        "Programming"]
       karmaOffered: 20
       dateCreated: new Date()
       dateModified: new Date()
@@ -31,10 +28,8 @@ populateQuestions = ->
       userId: '1'
       questionText: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
       tags: [
-        "Calculus"
-      ,
-        "Delta Epsilon proofs"
-      ]
+        "Calculus",
+        "Delta Epsilon proofs"]
       karmaOffered: 80
       dateCreated: new Date()
       dateModified: new Date()
@@ -44,10 +39,8 @@ populateQuestions = ->
       userId: '1'
       questionText: 'How do you draw a free body diagram with deformable solids?'
       tags: [
-        "Deformable Solids"
-      ,
-        "Physics"
-      ]
+        "Deformable Solids",
+        "Physics"]
       karmaOffered: 45
       dateCreated: new Date()
       dateModified: new Date()
