@@ -6,7 +6,7 @@ Template.askQuestionForm.helpers
   #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
 Template.askQuestionForm.rendered = ->
-  selector = $('.questionForm').find("#question-tags") 
+  selector = $('.questionForm').find("#question-category") 
   focusText(selector)
 
 Template.askQuestionForm.maxKarma = ->
