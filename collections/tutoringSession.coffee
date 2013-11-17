@@ -13,6 +13,10 @@ tutoringSessionSchema =
       type: String
     tuteeId:
       type: String
+    hasTutorEndedSession:
+      type: Boolean
+    hasTuteeEndedSession:
+      type: Boolean
     sessionId:
       type: String
     questionId:
