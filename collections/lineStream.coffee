@@ -1,0 +1,1 @@
+@LineStream = new Meteor.Stream("lines")
