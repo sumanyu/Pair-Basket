@@ -4,6 +4,20 @@ Handlebars.registerHelper(
     string.split("_").join(" ")
 );
 
+Handlebars.registerHelper(
+  "allCategory",
+  () ->
+    [
+      'math',
+      'science',
+      'english',
+      'social_science',
+      'computer',
+      'business',
+      'foreign_language',
+    ]
+);
+
 Template.questionsPage.helpers
   ownedQuestions: =>
     @Questions.find(
@@ -42,17 +56,6 @@ Template.questionsPage.helpers
 
   notEnoughKarma: ->
     Session.get('showNotEnoughKarma?')
-
-  allCategory: ->
-    [
-      'math',
-      'science',
-      'english',
-      'social_science',
-      'computer',
-      'business',
-      'foreign_language',
-    ]
 
   isCategoryActive: (category) ->
     categoryFilter = Session.get('categoryFilter')
