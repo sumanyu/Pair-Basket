@@ -252,7 +252,8 @@ Meteor.methods
       sessionId: sessionId
       tutorId: tutorId
       tuteeId: tuteeId
-      status: 'active'
+      tutorStatus: true
+      tuteeStatus: true
       messages: [
         {
           userId: "testing"
