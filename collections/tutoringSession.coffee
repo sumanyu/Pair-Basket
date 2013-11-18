@@ -1,5 +1,3 @@
-@TutoringSession = new Meteor.Collection("TutoringSession")
-
 messageSchema = 
   schema:
     userId:
@@ -13,20 +11,22 @@ tutoringSessionSchema =
       type: String
     tuteeId:
       type: String
-    hasTutorEndedSession:
+    tutorStatus:
       type: Boolean
-    hasTuteeEndedSession:
+    tuteeStatus:
       type: Boolean
     sessionId:
       type: String
     questionId:
       type: String
-    status:
-      type: String
-      allowedValues: ['active', 'resolved']
     messages:
       type: [messageSchema]
+  virtualFields: 
+    # False only when both tutor and tutee are inactive
+    classroomStatus: (tutoringSession) ->
+      not (tutoringSession.tutorStatus or tutoringSession.tuteeStatus)
 
+@TutoringSession = new Meteor.Collection2("TutoringSession", tutoringSessionSchema)
 
 @TutoringSession.allow
   # User must be logged in and document must be owned by user
