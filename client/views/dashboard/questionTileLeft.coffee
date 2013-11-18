@@ -5,6 +5,7 @@ Template.questionTileLeft.events =
 
     questionId = @._id
 
+    # Make sure you can't accept your own question
     if String(Session.get("subscribedQuestion")).valueOf() != String(questionId).valueOf()
 
       # User Meteor method to notify client
@@ -12,5 +13,9 @@ Template.questionTileLeft.events =
         console.log "SessionRequestCreated"
       )
       
-      Session.set("subscribedQuestionResponse", questionId)
-      # @.karmaOffered
+      # Auto run should auto-set this
+      # Session.set("subscribedQuestionResponse", questionId)
+
+Deps.autorun ->
+  if SessionRequest.findOne({userId: Meteor.userId()})
+    Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()}).questionId)

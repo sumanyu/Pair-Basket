@@ -2,17 +2,29 @@
 	<div class="overlay"></div>
 	<div class="ask-question-popup">
 		<div class="container">
+			<button class="close close-popup-button">&times;</button>
 			<form role="form" class="questionForm">
+				<div class="form-group">
+					<select id="question-category" class="form-control">
+						<option disabled="disabled" selected="selected">Category</option>
+						{{#each allCategory}}
+							<option value="{{this}}">{{ underscoreToSpace this}}</option>
+						{{/each}}
+					</select>
+				</div>
+
+				{{!
 				<div class="form-group">
 					<input id="question-category" type="text" placeholder="Category, ex: Mathematics" class="form-control"></input>
 				</div>
+				}}
 
 				<div class="form-group">
-					<input id="question-tags" type="text" placeholder="Tags, ex: Fractions" class="form-control" value="{{getFirstQuestion}}"></input>
+					<input id="question-tags" type="text" placeholder="Tags: biology, plants, photosynthesis" class="form-control"></input>
 				</div>
 
 				<div class="form-group">
-					<textarea id="question-text" placeholder="Question" class="form-control" rows="5"></textarea>
+					<textarea id="question-text" placeholder="Question" class="form-control" rows="5">{{getFirstQuestion}}</textarea>
 				</div>
 
 				<div class="form-group">

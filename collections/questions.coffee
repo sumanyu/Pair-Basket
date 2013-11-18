@@ -4,7 +4,7 @@ questionsSchema =
   schema:
     category:
       type: String
-      label: "Category"
+      label: "math, science, english, social_science, computers, business, foreign_language"
       max: 200
     userId:
       type: String
