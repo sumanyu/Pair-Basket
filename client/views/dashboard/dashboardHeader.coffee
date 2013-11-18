@@ -12,4 +12,4 @@ Template.dashboardHeader.helpers
     if Meteor.user()
       Meteor.user().karma
     else
-      karma = 0
+      karma = ''

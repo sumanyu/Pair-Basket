@@ -6,14 +6,14 @@ Template.askQuestionForm.helpers
   #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
 Template.askQuestionForm.rendered = ->
-  selector = $('.questionForm').find("#question-tags") 
+  selector = $('.questionForm').find("#question-category") 
   focusText(selector)
 
 Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
 
 Template.askQuestionForm.events =
-  'click .overlay' : (e, selector) ->
+  'click .close-popup-button' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
 
