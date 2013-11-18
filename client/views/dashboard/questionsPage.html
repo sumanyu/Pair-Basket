@@ -16,6 +16,8 @@
     <div class="found-tutor-popup">
       <h3>You've been matched <br/>
       with a tutor.</h3>
+
+      {{!
       <div class="tutor-box">
         <div class="tutor-picture">
           <img src="/sumanyu.jpeg"/>
@@ -26,6 +28,7 @@
           <p>University of Waterloo</p>
         </div>
       </div>
+      }}
 
       <div class="start-session-button yellow-button">
         Start <br/>
@@ -48,6 +51,16 @@
       <span>(Get Karma by helping other people)</span>
     </div>
   {{/if}}
+
+  <div class="question-sidebar">
+    {{#each allCategory}}
+      {{#if isCategoryActive this }}
+        <div id="{{this}}" class="category active">{{underscoreToSpace this}}</div>
+      {{else}}
+        <div id="{{this}}" class="category inactive">{{underscoreToSpace this}}</div>
+      {{/if}}
+    {{/each}}
+  </div>
 
   <div class="question-list">
     {{#if questionsLoaded}}

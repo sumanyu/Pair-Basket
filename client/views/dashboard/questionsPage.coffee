@@ -1,3 +1,23 @@
+Handlebars.registerHelper(
+  "underscoreToSpace",
+  (string) ->
+    string.split("_").join(" ")
+);
+
+Handlebars.registerHelper(
+  "allCategory",
+  () ->
+    [
+      'math',
+      'science',
+      'english',
+      'social_science',
+      'computer',
+      'business',
+      'foreign_language',
+    ]
+);
+
 Template.questionsPage.helpers
   ownedQuestions: =>
     @Questions.find(
@@ -8,10 +28,20 @@ Template.questionsPage.helpers
       {sort: {dateCreated: -1}})
 
   otherQuestions: =>
+    categoryFilter = Session.get('categoryFilter')
+    # console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+    # console.log activeCategories
+
     @Questions.find(
       {
         userId: { $ne: Meteor.userId() },
-        status: 'waiting'
+        status: 'waiting',
+        category: { $in: activeCategories }
       },
       {sort: {dateCreated: -1}})
 
@@ -26,6 +56,10 @@ Template.questionsPage.helpers
 
   notEnoughKarma: ->
     Session.get('showNotEnoughKarma?')
+
+  isCategoryActive: (category) ->
+    categoryFilter = Session.get('categoryFilter')
+    categoryFilter[category]
 
 Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
@@ -49,4 +83,19 @@ Template.questionsPage.events =
     Session.set('foundTutor?', false)
 
   'click .back-to-dashboard-button': (e, selector) ->
-    Session.set('showNotEnoughKarma?', false)    
+    Session.set('showNotEnoughKarma?', false)
+
+  'click .category': (e, selector) ->
+    ### 
+      when a category filter is clicked, toggle between active/inactive
+      update session variable category filters, which reactively updates question list
+    ###
+
+    category = e.target.id
+    state = e.target.className.split(" ")[1] # active, inactive
+    categoryFilter = Session.get('categoryFilter')
+
+    # toggle active/inactive
+    categoryFilter[category] = !(state == 'active')
+
+    Session.set('categoryFilter', categoryFilter)

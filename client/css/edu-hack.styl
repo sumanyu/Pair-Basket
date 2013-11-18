@@ -8,6 +8,7 @@ body
 	light-grey = #f6f6f6
 	_light_gray = #D0CFCF
 	_dark_gray = #E6E4E4
+	_very_dark_gray = #595959
 	_margin-top = 80px
 
 	.yellow-button
@@ -189,7 +190,7 @@ body
 								border-radius(5px)
 								animate-transition()
 								font-weight: bold
-								font-size: 14px						
+								font-size: 14px
 
 	#dashboard
 		.dashboard-header
@@ -282,8 +283,8 @@ body
 			font-weight: bold
 
 		.container.main
-			padding-top: 60px
-			width: 800px
+			padding-top: 75px
+			width: 920px
 			background: white
 
 		.icon-text 
@@ -299,55 +300,85 @@ body
 		.control-label
 			font-weight: bold
 
+		.question-sidebar
+			width: 150px
+			height: 100%
+			display: block
+			float: left
+			padding-left: 0px
+			padding: 10px
+			// position: fixed
+			// set-background(_light_gray)
+			// margin: 0px auto
+
+			@media screen and (min-width: 920px)
+				position: fixed !important
+
+			.category
+				cursor: pointer
+				// padding: 5px
+				border-radius(5px)
+				color: white
+				font-size: 14px
+				padding: 2px 10px
+				display: block
+				float: left
+				clear: both
+				margin-bottom: 10px
+				animate-transition()
+
+			.active
+				set-background(dark-yellow)
+			.inactive
+				set-background(_very_dark_gray)
+
 		.question-list
-			width: 700px
+			// width: 800px
 			display: block
 			padding: 10px
-			margin: 0px auto
+			margin-left: 140px
+			// margin: 0px auto
 
 		.question-tile
-			width: 500px
 			height: 145px
-			margin: 20px auto
-			display: block
+			display: inline-block
 
 		.question-tile-left, .question-tile-right
 			height: 100%
 			display: block
-			float: left			
+			float: left
 
 		.question-tile-left
-			width: 390px
+			width: 560px
 			background-color: _dark_gray
-			border-top-left-radius(8px)
-			border-bottom-left-radius(8px)
+			// border-top-left-radius(8px)
+			// border-bottom-left-radius(8px)
 
 		.question-tile-right
 			width: 100px
 			background-color: _light_gray
-			border-top-right-radius(8px)
-			border-bottom-right-radius(8px)
+			// border-top-right-radius(8px)
+			// border-bottom-right-radius(8px)
 
 		.owned-questions .question-tile
-			border: 5px solid _yellow
-			border-radius(15px)
+			border: 3px solid _yellow
+			// border-radius(15px)
 
 		.other-questions .question-tile
-			border: 5px solid transparent
-			border-radius(15px)
+			// aligns owned/other tiles
+			border-left: 3px solid transparent
+			border-right: 3px solid transparent
+			// border-radius(15px)
 
 		.left-item
 			height: 30px
 			margin: 7px 15px
 
-		.question-category
-			font-weight: bold
-
 		.question-tag
 			background: #595959
 			border-radius(5px)
 			color: white
-			font-size: 16px
+			font-size: 14px
 			padding: 2px 10px
 			margin-right: 10px
 			display: block
@@ -371,7 +402,7 @@ body
 			font-size: 40px
 			font-weight: bold
 			line-height: 73px
-			color: #D0CFCF // light grey
+			color: _light_gray // light grey
 
 		.overlay
 			opacity: 0.7
@@ -398,7 +429,7 @@ body
 			z-index: 20
 			background: white
 			border-radius(10px)
-			border: 3px solid #D0CFCF
+			border: 3px solid _light_gray
 
 			.container
 				width: h - pad
@@ -414,15 +445,15 @@ body
 			float: right
 			margin: 0px
 
-		.searching-for-tutor
-			text-align: center
-			padding: 20px
-			width: 700px
-			margin: 0px auto
-			margin-top: 30px
-			background-color: #FFFFBE
-			border-radius(10px)
-			font-size: 16px
+		// .searching-for-tutor
+		// 	text-align: center
+		// 	padding: 20px
+		// 	width: 700px
+		// 	margin: 0px auto
+		// 	margin-top: 30px
+		// 	background-color: #FFFFBE
+		// 	border-radius(10px)
+		// 	font-size: 16px
 
 		.found-tutor-popup
 			display: block
@@ -443,7 +474,7 @@ body
 			top: 50%
 			left: 50%
 			height: h = 325px
-			width: w = 400px			
+			width: w = 400px
 			margin-top: -(h/2)
 			margin-left: -(w/2)
 			z-index: 100
@@ -456,7 +487,7 @@ body
 				font-size: 16px
 				margin: 10px auto
 				font-weight: bold
-				padding: 5px 10px			
+				padding: 5px 10px
 
 		.tutor-picture
 			float: left
@@ -486,7 +517,7 @@ body
 			padding: 5px 10px
 
 		.decline-button
-			color: #d0cfcf
+			color: _light_gray
 			font-size: 16px
 			margin: 0px auto
 			display: block
@@ -541,7 +572,7 @@ body
 				img.logo
 					display: block
 					margin-left: auto
-					margin-right: auto					
+					margin-right: auto
 					width: 55px
 					height: auto
 
@@ -559,9 +590,9 @@ body
 				img.whiteboard-button-img, img.file-button-img, img.wolfram-button-img
 					display: block
 					margin-left: auto
-					margin-right: auto	
+					margin-right: auto
 					width: 90px
-					height: auto				
+					height: auto
 
 			.file-button
 				img.file-button-img

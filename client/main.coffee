@@ -44,6 +44,17 @@ Meteor.startup ->
   Session.set('askQuestion?', false)
   Session.set('showBoth?', true)
 
+  # category filter
+  Session.set('categoryFilter', {
+    'math': true,
+    'science': true,
+    'english': true,
+    'social_science': false,
+    'computer': true,
+    'business': false,
+    'foreign_language': false
+  })
+
   Deps.autorun ->
 
     if Session.get("subscribedQuestion")
