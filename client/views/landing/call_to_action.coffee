@@ -33,16 +33,22 @@ Template.landingHelpOthers.events =
     e.preventDefault()
 
     # Clean input
+    name = $('.help-others-wrapper .name').val().trim()
+    school = $('.help-others-wrapper .school').val().trim()
     email = $('.help-others-wrapper input[type=email]').val().trim()
     password = $('.help-others-wrapper input[type=password]').val().trim()
 
     # Validate inputs - for now just check if all inputs were entered
-    isInputValid = areElementsNonEmpty([email, password])
+    isInputValid = areElementsNonEmpty([email, password, name, school])
 
     if isInputValid
 
+      profile =
+        'name': name
+        'school': school
+
       # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: email, password: password}, (err) ->
+      Accounts.createUser {email: email, password: password, profile: profile}, (err) ->
         if err
           console.log err
         else
