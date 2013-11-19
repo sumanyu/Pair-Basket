@@ -98,6 +98,8 @@ Meteor.startup ->
 
 Accounts.onCreateUser (options, user) ->
   user.karma = 100
+  if options.profile
+    user.profile = options.profile
   # We still want the default hook's 'profile' behavior.
   # if (options.profile)
   #   user.profile = options.profile;
@@ -114,6 +116,7 @@ Meteor.publish "users", ->
   ,
     fields:
       karma: 1
+      profile: 1
 
 Meteor.publish "questions", ->
   Questions.find({})
