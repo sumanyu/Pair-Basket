@@ -7,40 +7,42 @@
     </div>
   </div>
 
-  <div class="col-md-offset-1 value-props">
+  <div class="col-md-7 value-props col-md-offset-1">
     <div class="row value-prop">
-      <div class="col-md-8">
-        <div class="col-md-2 circle-width">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3 circle-width">
           <div class="circle">1</div>
         </div>
-        <div class="col-md-8 steps">
+        <div class="col-md-9 steps">
           <h2 class="unemphasized">Ask a school question</h2>
         </div>
       </div>
     </div>
     <div class="row value-prop">
-      <div class="col-md-8">
-        <div class="col-md-2 circle-width">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3 circle-width">
           <div class="circle">2</div>
         </div>
-        <div class="col-md-8 steps">
+        <div class="col-md-9 steps">
           <h2 class="unemphasized">Talk to a tutor online for <b>free</b></h2>
         </div>
       </div>
     </div>
     <div class="row value-prop">
-      <div class="col-md-8">
-        <div class="col-md-2 circle-width">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3 circle-width">
           <div class="circle">3</div>
         </div>
-        <div class="col-md-8 steps">
+        <div class="col-md-9 steps">
           <h2>Help someone else</h2>
         </div>
       </div>
     </div>
   </div>
 
-  {{> landingCallToAction}}
+  <div class="col-md-4">
+    {{> landingCallToAction}}
+  </div>
 
 </template>
 
@@ -48,11 +50,12 @@
   <div class="row call-to-action">
 
     {{#if showBoth}}
-      <div class="col-md-5">
+      <div class="col-md-3">
         <div class="square-button help-others-btn">
           Help Others
         </div>
-
+      </div>
+      <div class="col-md-3 col-md-offset-2">
         <div class="square-button ask-question-btn">
           Ask a Question
         </div>
