@@ -1,5 +1,8 @@
 @import 'utility'
 
+html
+	height: 100%
+
 body
 	_margin-top = 80px
 
@@ -15,6 +18,8 @@ body
 	// layer 1: pop-up 100
 	// layer 2: overlay 90
 	// layer 3: header 80
+
+	height: 100%
 
 	.yellow-button
 		set-background(_yellow)
@@ -135,6 +140,9 @@ body
 		font-size: 10pt
 
 	#landing
+		min-height: 100%
+		background: url('/home_background.jpg')
+
 		.landing-header, .landing-footer
 			width: 100%
 			height: 50px
@@ -144,13 +152,18 @@ body
 
 		.container.main
 			padding-top: 90px
+			padding-left: 0px
+			padding-right: 0px
+			width: 100%
 
 			.title-landing
 				height: 70px
+				color: white
 
 			.value-props
 				margin-top: 25px
 				margin-bottom: 30px
+				color: white
 
 				.value-prop
 					margin-top: 5px
