@@ -14,6 +14,9 @@ Template.otherQuestionTile.events =
         if err
           console.log err
         else
-          Session.set("subscribedQuestionResponse", questionId)
-          
-      # @.karmaOffered
+          Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
+
+# subscribedQuestionResponse will ALWAYS have the value of the subscribed session request
+Deps.autorun ->
+  if Meteor.userId()
+    Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
