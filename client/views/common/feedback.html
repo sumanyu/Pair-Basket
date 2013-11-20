@@ -1,5 +1,21 @@
-<template name="feedback">   
-    <div id="feedback">
-      <a href="/feedback_url/">feedback</a>
-    </div>
+<template name="feedback">
+	<div id="feedback">
+	  <a href="#">feedback</a>
+	</div>
+
+	{{#if feedbackPopup}}
+	<div class="overlay"></div>
+	<div class="feedback-popup popup">
+		<div class="container">
+			<button class="close close-popup-button">&times;</button>
+			<form role="form" class="feedbackForm">
+				<div class="form-group">
+					<textarea class="feedback-text" placeholder="Feedback" class="form-control" rows="5"></textarea>
+				</div>
+
+					<input id="feedback-submit" class="yellow-button submit-feedback pull-right" type="submit" value="SEND">
+			</form>	
+		</div>
+	</div>
+	{{/if}}
 </template>

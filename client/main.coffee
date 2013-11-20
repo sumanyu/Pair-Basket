@@ -13,6 +13,9 @@ Meteor.startup ->
   # Ensure whiteboard has loaded
   Session.set("hasWhiteboardLoaded?", false)
 
+  # Click feedback button
+  Session.set('feedbackPopup', false)
+
   # Is the client asking a question?
   Session.set('askingQuestion?', false)
 
