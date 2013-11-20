@@ -50,10 +50,12 @@ Template.askQuestionForm.events =
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
 
+        Session.set("subscribedQuestion", result)
+
 # Event listener for listening for classroom requests
 Deps.autorun ->
   if Session.get('subscribedQuestion')
-    ClassroomStream.on "question:#{Session.get('subscribedQuestion')}", (message) ->
+    ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (message) ->
       console.log "Someone clicked accept to my question"
 
 # Subscribed question will always hold the subscribed question

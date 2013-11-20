@@ -14,8 +14,17 @@ Template.otherQuestionTile.events =
         if err
           console.log err
         else
-          # Use event emitter to signal question owner that someone has accepted your question
+          # Use event emitter to signal question owner that I've accepted her question
+          ClassroomStream.emit "request:#{questionId}", result
+          Session.set("subscribedResponse", result)
+
           Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
+
+# Event listener for listening for classroom requests
+Deps.autorun ->
+  if Session.get('subscribedResponse')
+    ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (message) ->
+      console.log "That person started the tutoring session!"
 
 # subscribedQuestionResponse will ALWAYS have the value of the subscribed session request
 Deps.autorun ->

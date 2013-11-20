@@ -173,9 +173,7 @@ Meteor.methods
     if Meteor.user().karma < questionData.karmaOffered
       throw new Meteor.Error(401, 'Karma offered greater than karma owned')
 
-    Questions.insert questionData, (error, result) ->
-      console.log result
-      console.log error
+    questionId = Questions.insert questionData
 
   cancelOwnedQuestion: (questionId) ->
     if Questions.findOne({_id: questionId, userId: Meteor.userId()})
@@ -195,6 +193,7 @@ Meteor.methods
     request = SessionRequest.insert
       questionId: questionId
       userId: @userId
+    Random.id()
 
   createSessionResponse: (questionId, sessionId) ->
     console.log "Creating Session Response"
