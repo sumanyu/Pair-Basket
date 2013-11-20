@@ -46,6 +46,8 @@ Router.map ->
         to: 'dashboardHeader'
       dashboardFooter:
         to: 'dashboardFooter'    
+      feedback:
+        to: 'feedback'
 
   # @route 'test',
   #   path: '/test'
