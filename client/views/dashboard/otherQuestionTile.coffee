@@ -14,6 +14,7 @@ Template.otherQuestionTile.events =
         if err
           console.log err
         else
+          # Use event emitter to signal question owner that someone has accepted your question
           Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
 
 # subscribedQuestionResponse will ALWAYS have the value of the subscribed session request
