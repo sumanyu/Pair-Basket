@@ -209,13 +209,9 @@ Meteor.methods
   # Render TutoringSession's status 'resolved'
   endSession: (sessionId) ->
     if TutoringSession.findOne({tutorId: @userId, sessionId: sessionId})
-      TutoringSession.update {sessionId: sessionId}, {$set: {hasTutorEndedSession: true}}
+      TutoringSession.update {sessionId: sessionId}, {$set: {tutorStatus: false}}
     else if TutoringSession.findOne({tuteeId: @userId, sessionId: sessionId})
-      TutoringSession.update {sessionId: sessionId}, {$set: {hasTuteeEndedSession: true}}
-
-    if TutoringSession.findOne({sessionId: sessionId, hasTutorEndedSession: true, hasTuteeEndedSession: true})
-      # Mark as resolved, users will not be able to enter this session again
-      TutoringSession.update {sessionId: sessionId}, {$set: {status: 'resolved'}}
+      TutoringSession.update {sessionId: sessionId}, {$set: {tuteeStatus: false}}
 
     # Let others know user has left
     # Event emitter?
