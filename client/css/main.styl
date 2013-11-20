@@ -1,14 +1,20 @@
 @import 'utility'
 
 body
-	_sidebar_gray = #636363
-	_yellow = #FFDC00
-	dark-yellow = #ffc801
-	_red = #F22C1E
-	light-grey = #f6f6f6
-	_light_gray = #D0CFCF
-	_dark_gray = #E6E4E4
 	_margin-top = 80px
+
+	_yellow = #FFDC00
+	_dark_yellow = #FFBB00
+	_light_gray = #D7D7D7
+	_medium_gray = #E7E7E7
+	_dark_gray = #636363
+
+	_red = #F22C1E
+
+	// z-index
+	// layer 1: pop-up 100
+	// layer 2: overlay 90
+	// layer 3: header 80
 
 	.yellow-button
 		set-background(_yellow)
@@ -30,6 +36,101 @@ body
 		cursor: pointer
 		animate-transition()
 
+	.dashboard-header
+		position: fixed !important
+		width: 100%
+		height: 60px
+		z-index: 80
+		background-color: _yellow
+		box-shadow(0px 1px 15px _dark_gray)
+
+		.header-content
+			width: 980px
+			display: block
+			margin: auto
+
+			.header-title
+				float: left
+				height: 60px
+				margin: 0px 50px
+
+				.logo-wrapper
+					padding: 6px 0
+					float: left
+					margin-right: 10px
+
+					img.logo
+						width: 36px
+						height: auto
+
+				.title-wrapper
+					float: left
+					line-height: 60px
+					vertical-align: middle
+					font-size: 30px
+
+			.header-buttons
+				display: block
+				float: right
+				height: 60px
+				margin: 0px 50px
+
+				.header-icon
+					padding: 4px 0px
+					display: block
+					float: left
+					height: 60px
+					width: 60px
+					text-align: center
+
+				.header-login
+					width: 150px
+					cursor: pointer
+
+				.header-login:hover
+					set-background(_light_gray)
+
+				.ask-question
+					cursor: pointer
+
+				.ask-question:hover
+					set-background(_light_gray)
+
+				.header-circle
+					display: block
+					float: left
+					background-color: black
+					border-radius(50%)
+					width: 38px
+					height: 38px
+					margin: 0px 10px
+					text-align:center
+					font-size: 22px
+					font-weight: bold
+					line-height: 41px
+					color: _yellow
+					box-shadow: 0px 0px 1px black
+
+	#login-dropdown-list
+		list-style: none
+
+		.caret
+			display: none
+
+		.dropdown-toggle
+			display: block
+			padding: 15px 0px
+			text-decoration: none
+			overflow-ellipsis()
+			animate-transition()
+
+	.icon-text 
+		display: block
+		float: left
+		width: 60px
+		margin: 0px
+		font-size: 10pt
+
 	#landing
 		.landing-header, .landing-footer
 			width: 100%
@@ -39,9 +140,10 @@ body
 			height: 0px
 
 		.container.main
+			padding-top: 90px
+
 			.title-landing
 				height: 70px
-				// margin-bottom: 10px
 
 			.value-props
 				margin-top: 25px
@@ -63,7 +165,7 @@ body
 				padding-top: (h/3)
 				font-size: 26px
 				font-weight: bold
-				color: #FFFFFF // yellow
+				color: white
 				line-height: 21px
 
 			.col-md-2.circle-width
@@ -117,16 +219,16 @@ body
 					font-size: 18px
 					font-weight: bold
 					border-radius(2px)
-					box-shadow(0 5px dark-yellow)
+					box-shadow(0 5px _dark_yellow)
 
 				.square-button:hover
 					cursor: pointer
 					margin-top: -1px
-					box-shadow(0 6px dark-yellow)
+					box-shadow(0 6px _dark_yellow)
 
 				.square-button:active
 					margin-top: 5px
-					box-shadow(0 0px dark-yellow)
+					box-shadow(0 0px _dark_yellow)
 
 				.help-others-btn
 					float: left
@@ -137,15 +239,18 @@ body
 				.help-others-wrapper
 					background: _yellow
 					border-radius(2px)
-					box-shadow(0 5px dark-yellow)
+					box-shadow(0 5px _dark_yellow)
 
 				.ask-question-wrapper, .help-others-wrapper
 					background: _yellow
 					border-radius(2px)
-					box-shadow(0 8px dark-yellow)
+					box-shadow(0 8px _dark_yellow)
 					// height: 200px
 					padding: 10px 5px 10px 30px
 					width: 425px
+
+					textarea
+						resize: none
 
 					.ask-question-form, .help-others-form
 
@@ -167,7 +272,7 @@ body
 								position: relative
 								left: 40%
 								top: 50%
-								set-background(dark-yellow)
+								set-background(_dark_yellow)
 								border-radius(5px)
 								animate-transition()
 								font-weight: bold
@@ -185,113 +290,20 @@ body
 								position: relative
 								left: 20%
 								top: 25%
-								set-background(dark-yellow)
+								set-background(_dark_yellow)
 								border-radius(5px)
 								animate-transition()
 								font-weight: bold
-								font-size: 14px						
+								font-size: 14px
 
 	#dashboard
-		.dashboard-header
-			position: fixed !important
-			width: 100%
-			height: 60px
-			background-color: _yellow // yellow
-			box-shadow(0px 1px 15px _sidebar_gray)
-
-			.header-content
-				width: 980px
-				display: block
-				margin: auto
-
-				.header-title
-					float: left
-					height: 60px
-					margin: 0px 50px
-
-					.logo-wrapper
-						padding: 6px 0
-						float: left
-						margin-right: 10px
-
-						img.logo
-							width: 36px
-							height: auto
-
-					.title-wrapper
-						float: left
-						line-height: 60px
-						vertical-align: middle
-						font-size: 30px
-
-				.header-buttons
-					display: block
-					float: right
-					height: 60px
-					margin: 0px 50px
-
-					.header-icon
-						padding: 4px 0px
-						display: block
-						float: left
-						height: 60px
-						width: 60px
-						text-align: center
-
-					.header-login
-						width: 150px
-						cursor: pointer
-
-					.header-login:hover
-						set-background(_light_gray)
-
-					.ask-question
-						cursor: pointer
-
-					.ask-question:hover
-						set-background(_light_gray)
-
-					.header-circle
-						display: block
-						float: left
-						background-color: black
-						border-radius(50%)
-						width: 38px
-						height: 38px
-						margin: 0px 10px
-						text-align:center
-						font-size: 22px
-						font-weight: bold
-						line-height: 41px
-						color: _yellow // yellow
-
-		#login-dropdown-list
-			list-style: none
-
-			.caret
-				display: none
-
-			.dropdown-toggle
-				display: block
-				padding: 15px 0px
-				text-decoration: none
-				overflow-ellipsis()
-				animate-transition()
-
 		.control-label
 			font-weight: bold
 
 		.container.main
-			padding-top: 60px
-			width: 800px
+			padding-top: 75px
+			width: 920px
 			background: white
-
-		.icon-text 
-			display: block
-			float: left
-			width: 60px
-			margin: 0px
-			font-size: 10pt
 
 		.footer
 			margin: 0px 0px _margin-top 0px
@@ -299,55 +311,82 @@ body
 		.control-label
 			font-weight: bold
 
+		.question-sidebar
+			width: 150px
+			height: 100%
+			display: block
+			float: left
+			padding-left: 0px
+			padding: 10px
+			// position: fixed
+
+			@media screen and (min-width: 920px)
+				position: fixed !important
+
+			.category
+				cursor: pointer
+				border-radius(5px)
+				color: white
+				font-size: 14px
+				padding: 2px 10px
+				display: block
+				float: left
+				clear: both
+				margin-bottom: 10px
+				animate-transition()
+
+			.active
+				set-background(_dark_yellow)
+			.inactive
+				set-background(_dark_gray)
+
 		.question-list
-			width: 700px
+			// width: 800px
 			display: block
 			padding: 10px
-			margin: 0px auto
+			margin-left: 140px
+			// margin: 0px auto
 
 		.question-tile
-			width: 500px
 			height: 145px
-			margin: 20px auto
-			display: block
+			display: inline-block
 
 		.question-tile-left, .question-tile-right
 			height: 100%
 			display: block
-			float: left			
+			float: left
 
 		.question-tile-left
-			width: 390px
-			background-color: _dark_gray
-			border-top-left-radius(8px)
-			border-bottom-left-radius(8px)
+			width: 560px
+			background-color: _medium_gray
+			padding: 7px 15px
+			// border-top-left-radius(8px)
+			// border-bottom-left-radius(8px)
 
 		.question-tile-right
 			width: 100px
 			background-color: _light_gray
-			border-top-right-radius(8px)
-			border-bottom-right-radius(8px)
+			// border-top-right-radius(8px)
+			// border-bottom-right-radius(8px)
 
 		.owned-questions .question-tile
-			border: 5px solid _yellow
-			border-radius(15px)
+			border: 3px solid _yellow
+			// border-radius(15px)
 
 		.other-questions .question-tile
-			border: 5px solid transparent
-			border-radius(15px)
+			// aligns owned/other tiles
+			border-left: 3px solid transparent
+			border-right: 3px solid transparent
+			// border-radius(15px)
 
 		.left-item
 			height: 30px
-			margin: 7px 15px
-
-		.question-category
-			font-weight: bold
 
 		.question-tag
-			background: #595959
+			background: _dark_gray
 			border-radius(5px)
 			color: white
-			font-size: 16px
+			font-size: 14px
 			padding: 2px 10px
 			margin-right: 10px
 			display: block
@@ -371,14 +410,15 @@ body
 			font-size: 40px
 			font-weight: bold
 			line-height: 73px
-			color: #D0CFCF // light grey
+			color: _light_gray
+			box-shadow: 0px 0px 1px black
 
 		.overlay
 			opacity: 0.7
-			background: #000
+			background: black
 			width: 100%
 			height: 100%
-			z-index: 10
+			z-index: 90
 			top: 0
 			left: 0
 			position: fixed
@@ -389,16 +429,21 @@ body
 			pad = 25px
 
 			display: block
-			position: absolute
+			position: fixed
 			top: 50%
 			left: 50%
 			width: w
 			margin-top: -(h/2)
 			margin-left: -(w/2)
-			z-index: 20
+			z-index: 100
 			background: white
 			border-radius(10px)
-			border: 3px solid #D0CFCF
+			border: 3px solid _light_gray
+
+			.close-popup-button
+				position: absolute
+				top: 5px
+				right: 10px
 
 			.container
 				width: h - pad
@@ -414,16 +459,6 @@ body
 			float: right
 			margin: 0px
 
-		.searching-for-tutor
-			text-align: center
-			padding: 20px
-			width: 700px
-			margin: 0px auto
-			margin-top: 30px
-			background-color: #FFFFBE
-			border-radius(10px)
-			font-size: 16px
-
 		.found-tutor-popup
 			display: block
 			position: fixed
@@ -434,7 +469,7 @@ body
 			height: 325px
 			width: 400px
 			z-index: 100
-			color: #FFFFFF
+			color: white
 			text-align: center
 
 		.not-enough-karma-popup
@@ -443,11 +478,11 @@ body
 			top: 50%
 			left: 50%
 			height: h = 325px
-			width: w = 400px			
+			width: w = 400px
 			margin-top: -(h/2)
 			margin-left: -(w/2)
 			z-index: 100
-			color: #FFFFFF
+			color: white
 			text-align: center
 
 			.back-to-dashboard-button
@@ -456,7 +491,7 @@ body
 				font-size: 16px
 				margin: 10px auto
 				font-weight: bold
-				padding: 5px 10px			
+				padding: 5px 10px
 
 		.tutor-picture
 			float: left
@@ -486,7 +521,7 @@ body
 			padding: 5px 10px
 
 		.decline-button
-			color: #d0cfcf
+			color: _light_gray
 			font-size: 16px
 			margin: 0px auto
 			display: block
@@ -527,7 +562,7 @@ body
 			left: 0px
 			right: auto
 			width: 160px		
-			background: _sidebar_gray
+			background: _dark_gray
 			float: left
 			height: 100%
 			padding: 20px 0 0 0
@@ -541,7 +576,7 @@ body
 				img.logo
 					display: block
 					margin-left: auto
-					margin-right: auto					
+					margin-right: auto
 					width: 55px
 					height: auto
 
@@ -559,9 +594,9 @@ body
 				img.whiteboard-button-img, img.file-button-img, img.wolfram-button-img
 					display: block
 					margin-left: auto
-					margin-right: auto	
+					margin-right: auto
 					width: 90px
-					height: auto				
+					height: auto
 
 			.file-button
 				img.file-button-img
