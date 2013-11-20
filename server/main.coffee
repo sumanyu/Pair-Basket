@@ -178,11 +178,11 @@ Meteor.methods
       console.log error
 
   cancelOwnedQuestion: (questionId) ->
-    if Meteor.userId() == Questions.findOne({_id: questionId}).userId
-      SessionRequest.remove({questionId: questionId})
+    if Questions.findOne({_id: questionId, userId: Meteor.userId()})
+      SessionRequest.remove({questionId: questionId, userId: Meteor.userId()})
 
       Questions.update(
-        {_id: questionId},
+        {_id: questionId, userId: Meteor.userId()},
         {$set: {status: 'deleted'}}
       )
 
