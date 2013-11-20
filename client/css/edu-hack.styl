@@ -116,6 +116,33 @@ body
 					color: _yellow
 					box-shadow: 0px 0px 1px black
 
+	#feedback
+		height: 104px
+		width: 104px
+		position: fixed
+		top: 40%
+		z-index: 80
+		transform: rotate(-90deg)
+		-webkit-transform: rotate(-90deg) 
+		-moz-transform: rotate(-90deg)
+		-o-transform: rotate(-90deg)
+		// filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3)
+
+	#feedback a
+		display: block
+		set-background(_dark_gray)
+		padding: 8px 16px
+		color: #fff
+		font-size: 17px
+		font-weight: bold
+		text-decoration: none
+		border-bottom: solid 1px #333
+		border-left: solid 1px #333
+		border-right: solid 1px #333
+
+	#feedback a:hover
+		padding-top: 20px
+
 	#login-dropdown-list
 		list-style: none
 
