@@ -41,6 +41,16 @@ body
 		cursor: pointer
 		animate-transition()
 
+	.overlay
+		opacity: 0.7
+		background: black
+		width: 100%
+		height: 100%
+		z-index: 90
+		top: 0
+		left: 0
+		position: fixed
+
 	.dashboard-header
 		position: fixed !important
 		width: 100%
@@ -466,16 +476,6 @@ body
 			line-height: 73px
 			color: _light_gray
 			box-shadow: 0px 0px 1px black
-
-		.overlay
-			opacity: 0.7
-			background: black
-			width: 100%
-			height: 100%
-			z-index: 90
-			top: 0
-			left: 0
-			position: fixed
 
 		.ask-question-popup
 			h = 400px
