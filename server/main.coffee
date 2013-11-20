@@ -180,6 +180,7 @@ Meteor.methods
   cancelOwnedQuestion: (questionId) ->
     if Questions.findOne({_id: questionId, userId: Meteor.userId()})
       SessionRequest.remove({questionId: questionId})
+      SessionResponse.remove({questionId: questionId})
 
       Questions.update(
         {_id: questionId, userId: Meteor.userId()},
