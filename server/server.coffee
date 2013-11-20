@@ -91,6 +91,8 @@ dropAll = ->
 Meteor.startup ->
   console.log "Server is starting!"
   console.log "# of Questions: ", Questions.find().count()
+  console.log "# of Feedback: ", Feedback.find().count()
+
   dropAll()
 
   Deps.autorun ->
@@ -237,3 +239,16 @@ Meteor.methods
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
     # console.log Questions.find({}).count()
+
+  createFeedback: (feedbackText) ->
+    if not Meteor.user()
+      throw new Meteor.Error(401, 'Please log in to give feedback')
+
+    feedbackData =
+      'userId': Meteor.userId()
+      'feedbackText': feedbackText
+      'dateCreated': new Date()
+
+    Feedback.insert feedbackData, (error, result) ->
+      console.log result
+      console.log error
