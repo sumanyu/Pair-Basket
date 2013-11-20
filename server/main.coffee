@@ -122,7 +122,7 @@ Meteor.publish 'questions', ->
 
 Meteor.publish 'tutoringSession', (sessionId) ->
   console.log "Publishing tutoring session"
-  TutoringSession.find({sessionId: sessionId, status: 'active'})
+  TutoringSession.find({sessionId: sessionId, classroomStatus: true})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
