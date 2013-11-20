@@ -1,0 +1,1 @@
+@ClassroomStream = new Meteor.Stream("classroomStream")
