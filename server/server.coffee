@@ -105,9 +105,6 @@ Accounts.onCreateUser (options, user) ->
   #   user.profile = options.profile;
   return user
 
-Accounts.config({
-  forbidClientAccountCreation : true
-});
 
 # TODO
 # can users manually edit karma with this implementation?
