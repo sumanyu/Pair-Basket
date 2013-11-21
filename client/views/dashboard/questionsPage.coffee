@@ -71,8 +71,6 @@ Template.questionsPage.events =
     # tutorId = request.userId
 
     questionId = Session.get('subscribedQuestion')
-
-    # Get correct tutorId; this is wrong right now
     tutorId = Session.get('subscribedResponse')
 
     # User Meteor method to notify client

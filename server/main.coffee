@@ -162,6 +162,8 @@ Meteor.publish 'tutoringSession', ->
   #   console.log "Not matched tutee"
 
   # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+
+  # Discriminate between tutorId or tuteeId later
   TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]})
 
 # Subscription for tutees with questions waiting to be answered
@@ -228,12 +230,12 @@ Meteor.methods
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
-  createSessionRequest: (questionId) ->
-    console.log "Creating Session Request"
-    request = SessionRequest.insert
-      questionId: questionId
-      userId: @userId
-    Random.id()
+  # createSessionRequest: (questionId) ->
+  #   console.log "Creating Session Request"
+  #   request = SessionRequest.insert
+  #     questionId: questionId
+  #     userId: @userId
+  #   Random.id()
 
   createSessionResponse: (questionId) ->
     console.log "Creating Session Response"
