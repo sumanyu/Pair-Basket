@@ -1,9 +1,10 @@
-messageSchema = 
-  schema:
-    userId:
-      type: String
-    message:
-      type: String
+# Validation is not playing well with messages
+# messageSchema = 
+#   schema:
+#     userId:
+#       type: String
+#     message:
+#       type: String
 
 tutoringSessionSchema = 
   schema:
@@ -19,8 +20,8 @@ tutoringSessionSchema =
       type: String
     questionId:
       type: String
-    messages:
-      type: [messageSchema]
+    # messages:
+    #   type: Object
   virtualFields: 
     # False only when both tutor and tutee are inactive
     classroomStatus: (tutoringSession) ->

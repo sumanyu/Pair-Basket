@@ -5,19 +5,19 @@ Template.otherQuestionTile.events =
 
     questionId = @._id
 
-    # Prevent from accepting your own question
-    if String(Session.get("subscribedQuestion")).valueOf() != String(questionId).valueOf()
+    # User Meteor method to notify client
+    Meteor.call "createSessionRequest", questionId, (err, responseId) ->
+      console.log "createSessionRequest"
 
-      # User Meteor method to notify client
-      Meteor.call "createSessionRequest", questionId, (err, result) ->
-        console.log "SessionRequestCreated"
+      if err
+        console.log "Error..." 
+        console.log err
+      else
+        console.log "Responseid: #{responseId}"
 
-        if err
-          console.log err
-        else
-          # Use event emitter to signal question owner that I've accepted her question
-          ClassroomStream.emit "request:#{questionId}", result
-          Session.set("subscribedResponse", result)
+        # Use event emitter to signal question owner that I've accepted her question
+        ClassroomStream.emit "request:#{questionId}", responseId
+        Session.set("subscribedResponse", responseId)
 
           # Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
 

@@ -244,8 +244,7 @@ Meteor.methods
       {$set: {status: 'resolved'}}
     )
 
-    # Add tutor name
-    tutoringSessionId = TutoringSession.insert
+    obj =       
       questionId: questionId
       sessionId: sessionId
       tutorId: tutorId
@@ -258,3 +257,6 @@ Meteor.methods
           message: "Welcome to the tutoring!"
         }
       ]
+
+    # Add tutor name
+    tutorSessionId = TutoringSession.insert obj

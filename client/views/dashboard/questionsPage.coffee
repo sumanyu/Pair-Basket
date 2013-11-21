@@ -83,7 +83,7 @@ Template.questionsPage.events =
           if err
             console.log err
           else
-            console.log tutoringSessionId
+            console.log Session.get('subscribedResponse')
 
             ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
 

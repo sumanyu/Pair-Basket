@@ -55,10 +55,13 @@ Router.map ->
       if not @params.sessionId?
         @redirect "/dashboard"
       else
+        console.log TutoringSession.findOne({sessionId: @params.sessionId})
+
         if TutoringSession.findOne({sessionId: @params.sessionId})
-          Session.set('sessionId', @params.sessionId)
           
           @render 'tutoringSessionSidebar', 
             to: 'tutoringSessionSidebar'
 
           @render 'tutoringSessionPage'
+        else
+          @redirect "/dashboard"

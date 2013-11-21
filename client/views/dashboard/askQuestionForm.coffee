@@ -38,28 +38,24 @@ Template.askQuestionForm.events =
       tags: tags
       karmaOffered: karmaOffered
 
-    Meteor.call 'createNewQuestion', question, (error, result) ->
+    Meteor.call 'createNewQuestion', question, (error, questionId) ->
 
-      console.log error, result
+      console.log "Creating new question"
 
-      if not error
-        # Auto run will automatically set `subscribedQuestion`
-        # Session.set("subscribedQuestion", result)
+      if error
+        console.log "Error...", error
+      else
+        console.log "questionId: #{questionId}"
         Session.set('askingQuestion?', false)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
 
-        Session.set("subscribedQuestion", result)
+        Session.set("subscribedQuestion", questionId)
 
 # Event listener for listening for classroom requests
 Deps.autorun ->
   if Session.get('subscribedQuestion')
-    ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (message) ->
-      console.log "Someone clicked accept to my question"
-      Session.set('subscribedResponse', message)
-
-# Subscribed question will always hold the subscribed question
-Deps.autorun ->
-  if Meteor.userId()
-    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id)
+    ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (secretId) ->
+      console.log "Someone clicked accept to my question; their secret id: #{secretId}"
+      Session.set('subscribedResponse', secretId)

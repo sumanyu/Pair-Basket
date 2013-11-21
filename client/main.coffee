@@ -2,10 +2,15 @@
 
 Meteor.startup ->
 
+  console.log "Meteor startup start"
+
   Meteor.subscribe 'users'
 
   Meteor.subscribe 'questions', ->
-    Session.set("hasQuestionsLoaded?", true)  
+    Session.set("hasQuestionsLoaded?", true)
+
+    # Subscribed question will always hold the subscribed question
+    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
@@ -58,37 +63,39 @@ Meteor.startup ->
     'foreign_language': false
   })
 
-  Deps.autorun ->
-    if Session.get("subscribedQuestion")
-      Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
+  console.log "Meteor startup end"
 
-  Deps.autorun ->
-    if Session.get("subscribedQuestionResponse")
-      Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
+  # Deps.autorun ->
+  #   if Session.get("subscribedQuestion")
+  #     Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
+
+  # Deps.autorun ->
+  #   if Session.get("subscribedQuestionResponse")
+  #     Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
       
-  Deps.autorun ->
-    # If tutee accepted tutor's request
-    if SessionResponse.find({}).count() > 0
-      console.log "SessionResponse autorun"
-      response = SessionResponse.findOne()
+  # Deps.autorun ->
+  #   # If tutee accepted tutor's request
+  #   if SessionResponse.find({}).count() > 0
+  #     console.log "SessionResponse autorun"
+  #     response = SessionResponse.findOne()
 
-      console.log response
+  #     console.log response
 
-      Session.set('foundTutor?', false)
+  #     Session.set('foundTutor?', false)
 
-      Meteor.subscribe 'tutoringSession', response.sessionId, (arg) ->
-        console.log arg
-        console.log @
-        Router.go("/session/#{response.sessionId}")
+  #     Meteor.subscribe 'tutoringSession', response.sessionId, (arg) ->
+  #       console.log arg
+  #       console.log @
+  #       Router.go("/session/#{response.sessionId}")
 
-  Deps.autorun -> 
-    # if tutor accepted the request
-    if SessionRequest.find({}).count() > 0
-      console.log "SessionRequest autorun"      
-      console.log SessionRequest.findOne()
+  # Deps.autorun -> 
+  #   # if tutor accepted the request
+  #   if SessionRequest.find({}).count() > 0
+  #     console.log "SessionRequest autorun"      
+  #     console.log SessionRequest.findOne()
 
-      # Popup tutor
-      Session.set('foundTutor?', true)
+  #     # Popup tutor
+  #     Session.set('foundTutor?', true)
 
   Deps.autorun ->
     # Show whiteboard, hide other things
