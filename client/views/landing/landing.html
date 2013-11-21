@@ -101,7 +101,7 @@
         <input type="text" class="form-control name" placeholder="Name">
         <select class="form-control school">
             {{#each allSchool}}
-            <option value="{{this}}">{{this}}</option>
+            <option value="{{this}}">{{underscoreToSpace this}}</option>
             {{/each}}
         </select>
         <input type="email" class="form-control email" placeholder="Email">
