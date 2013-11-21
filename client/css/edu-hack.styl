@@ -513,38 +513,6 @@ body
 			color: _light_gray
 			box-shadow: 0px 0px 1px black
 
-		.ask-question-popup
-			h = 400px
-			w = 400px
-			pad = 25px
-
-			display: block
-			position: fixed
-			top: 50%
-			left: 50%
-			width: w
-			margin-top: -(h/2)
-			margin-left: -(w/2)
-			z-index: 100
-			background: white
-			border-radius(10px)
-			border: 3px solid _light_gray
-
-			.close-popup-button
-				position: absolute
-				top: 5px
-				right: 10px
-
-			.container
-				width: h - pad
-				padding: pad 20px pad 20px
-
-				textarea#question-text
-					padding: 4px 6px
-
-		.ask-question-popup textarea
-			resize: none
-
 		#question-submit
 			float: right
 			margin: 0px
