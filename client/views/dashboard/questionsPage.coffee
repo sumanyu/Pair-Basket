@@ -19,6 +19,24 @@ Handlebars.registerHelper(
     ]
 );
 
+Handlebars.registerHelper(
+  "allSchool",
+  () ->
+    [
+      "University_of_Waterloo"
+      "High_School"
+      "McGill_University"
+      "McMaster_University"
+      "Ryerson_University"
+      "McGill_University"
+      "University_of_British Columbia"
+      "University_of_Toronto"
+      "University_of_Western Ontario"
+      "York_University"
+      "Other"
+    ]
+);
+
 Template.questionsPage.helpers
   ownedQuestions: =>
     @Questions.find(

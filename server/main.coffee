@@ -14,7 +14,7 @@ populateQuestions = ->
     questions = [
       category: "english"
       userId: '1'
-      questionText: "How do you structure an essay to be creative but effective?"
+      questionText: "How do you structure an essay to be creative but still believable and persuasive?"
       tags: [
         "essay",
         "writing"]
@@ -91,17 +91,26 @@ dropAll = ->
 Meteor.startup ->
   console.log "Server is starting!"
   console.log "# of Questions: ", Questions.find().count()
+  console.log "# of Feedback: ", Feedback.find().count()
+
+  # Feedback.find().forEach((feedback) ->
+  #   console.log feedback
+  # )
+
   dropAll()
 
   Deps.autorun ->
     console.log "# of session requests: ", SessionRequest.find().count()
 
 Accounts.onCreateUser (options, user) ->
-  user.karma = 100
+  user.karma = 10
+  if options.profile
+    user.profile = options.profile
   # We still want the default hook's 'profile' behavior.
   # if (options.profile)
   #   user.profile = options.profile;
   return user
+
 
 # TODO
 # can users manually edit karma with this implementation?
@@ -114,6 +123,7 @@ Meteor.publish "users", ->
   ,
     fields:
       karma: 1
+      profile: 1
 
 Meteor.publish "questions", ->
   Questions.find({})
@@ -165,7 +175,7 @@ Meteor.methods
 
     # Check if user has enough karma
     if Meteor.user().karma < questionData.karmaOffered
-      throw new Meteor.Error(401, 'Karma offered greater than karma owned')
+      throw new Meteor.Error(401, 'Offering more karma than owned')
 
     Questions.insert questionData, (error, result) ->
       console.log result
@@ -233,3 +243,16 @@ Meteor.methods
     # console.log SessionRequest.find().count()
     # console.log SessionResponse.find().count()
     # console.log Questions.find({}).count()
+
+  createFeedback: (feedbackText) ->
+    if not Meteor.user()
+      throw new Meteor.Error(401, 'Please log in to give feedback')
+
+    feedbackData =
+      'userId': Meteor.userId()
+      'feedbackText': feedbackText
+      'dateCreated': new Date()
+
+    Feedback.insert feedbackData, (error, result) ->
+      console.log result
+      console.log error

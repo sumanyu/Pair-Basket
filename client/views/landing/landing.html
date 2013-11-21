@@ -1,47 +1,46 @@
 <template name="landingPage">
   <div class="row title-landing">
-    <div class="col-md-2 logo-wrapper">
-      <img class="logo" src="/logo-black.png"></img>
-    </div>
-    <div class="col-md-8 title-wrapper">
-      <h1 class="title">Welcome to PairBasket</h1>
+    <div class="col-md-12 title-wrapper">
+      <h1 class="title">PairBasket is a community of <br/>students teaching students</h1>
     </div>
   </div>
 
-  <div class="col-md-offset-1 value-props">
+  <div class="col-md-6 value-props col-md-offset-1">
     <div class="row value-prop">
-      <div class="col-md-8">
-        <div class="col-md-2 circle-width">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3 circle-width">
           <div class="circle">1</div>
         </div>
-        <div class="col-md-8 steps">
-          <h2 class="unemphasized">Ask a question</h2>
+        <div class="col-md-9 steps">
+          <h2 class="unemphasized">Ask a school question</h2>
         </div>
       </div>
     </div>
     <div class="row value-prop">
-      <div class="col-md-8">
-        <div class="col-md-2 circle-width">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3 circle-width">
           <div class="circle">2</div>
         </div>
-        <div class="col-md-8 steps">
-          <h2 class="unemphasized">Get a <b>free</b> online tutor</h2>
+        <div class="col-md-9 steps">
+          <h2 class="unemphasized">Get 1-on-1 help for <b>free</b></h2>
         </div>
       </div>
     </div>
     <div class="row value-prop">
-      <div class="col-md-8">
-        <div class="col-md-2 circle-width">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3 circle-width">
           <div class="circle">3</div>
         </div>
-        <div class="col-md-8 steps">
+        <div class="col-md-9 steps">
           <h2>Help someone else</h2>
         </div>
       </div>
     </div>
   </div>
 
-  {{> landingCallToAction}}
+  <div class="col-md-4">
+    {{> landingCallToAction}}
+  </div>
 
 </template>
 
@@ -49,11 +48,12 @@
   <div class="row call-to-action">
 
     {{#if showBoth}}
-      <div class="col-md-5">
+      <div class="col-md-3">
         <div class="square-button help-others-btn">
           Help Others
         </div>
-
+      </div>
+      <div class="col-md-3 col-md-offset-2">
         <div class="square-button ask-question-btn">
           Ask a Question
         </div>
@@ -74,6 +74,15 @@
   <div class="col-md-5 help-others-wrapper">
     <form role="form" class="help-others-form">
       <div class="questions-group">
+        <input type="text" class="form-control name" placeholder="Name">
+        <select class="form-control school">
+            {{#each allSchool}}
+            <option value="{{this}}">{{underscoreToSpace this}}</option>
+            {{/each}}
+        </select>
+
+        {{!<input type="text" class="form-control school" placeholder="School">}}
+
         <input type="email" class="form-control email" placeholder="Email">
         <input type="password" class="form-control password" placeholder="Password">
       </div>
@@ -89,6 +98,12 @@
     <form role="form" class="ask-question-form">
       <div class="questions-group">
         <textarea placeholder="Question: Without photosynthesis, how would the biosphere adapt?" class="form-control question" rows="3"></textarea>
+        <input type="text" class="form-control name" placeholder="Name">
+        <select class="form-control school">
+            {{#each allSchool}}
+            <option value="{{this}}">{{underscoreToSpace this}}</option>
+            {{/each}}
+        </select>
         <input type="email" class="form-control email" placeholder="Email">
         <input type="password" class="form-control password" placeholder="Password">
       </div>
