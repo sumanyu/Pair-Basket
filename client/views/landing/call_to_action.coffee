@@ -26,7 +26,7 @@ Template.landingCallToAction.events =
     Session.set('showBoth?', false)
 
 Template.landingHelpOthers.rendered = ->
-  focusText($('.help-others-wrapper input[type=email]'))
+  focusText($('.help-others-wrapper .name'))
 
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
