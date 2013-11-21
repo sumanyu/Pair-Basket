@@ -87,7 +87,7 @@ dropAll = ->
   SessionRequest.remove({})
   SessionResponse.remove({})
   Questions.remove({})
-  TutoringSession.remove({})
+  # TutoringSession.remove({})
   populateQuestions()
 
 Meteor.startup ->
@@ -120,9 +120,49 @@ Meteor.publish "users", ->
 Meteor.publish 'questions', ->
   Questions.find({})
 
-Meteor.publish 'tutoringSession', (sessionId) ->
-  console.log "Publishing tutoring session"
-  TutoringSession.find({sessionId: sessionId, classroomStatus: true})
+# Interestingly, $or doesn't work with classroomStatus: true
+# console.log TutoringSession.find({classroomStatus: true, $or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+
+# I learned that publish functions can't contain if/else logic on a collection
+Meteor.publish 'tutoringSession', ->
+  console.log "Publishing tutoring session to: #{@userId}"
+  # console.log TutoringSession.find().fetch()
+  # console.log TutoringSession.find({tuteeId: @userId}, classroomStatus: true).fetch()
+  # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}], classroomStatus: true}).fetch()
+  # console.log TutoringSession.find({classroomStatus: true, $or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+  # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+
+  # console.log TutoringSession.findOne({tuteeId: @userId})
+  # console.log TutoringSession.findOne({tuteeId: @userId}) isnt undefined
+  # console.log TutoringSession.findOne({tutorId: @userId})
+  # console.log TutoringSession.findOne({tutorId: @userId}) isnt undefined
+
+  # console.log TutoringSession.findOne({classroomStatus: true})
+  # console.log TutoringSession.findOne({classroomStatus: false})
+  # console.log TutoringSession.findOne({tutorId: @userId, classroomStatus: true})
+  # console.log TutoringSession.findOne({tutee: @userId, classroomStatus: true})
+
+  # existsAsTutor = TutoringSession.findOne({tutorId: @userId})
+  # existsAsTutee = TutoringSession.findOne({tutee: @userId})
+
+  # console.log existsAsTutor, existsAsTutee
+
+  # if existsAsTutor != undefined
+  #   console.log "Matched tutor"
+  #   console.log TutoringSession.find({tutorId: @userId}).fetch()
+  #   return TutoringSession.find({tutorId: @userId})
+  # else
+  #   console.log "Not matched tutor"
+  
+  # if existsAsTutee != undefined
+  #   console.log "Matched tutee"
+  #   console.log TutoringSession.find({tutee: @userId}).fetch()
+  #   return TutoringSession.find({tutee: @userId})
+  # else
+  #   console.log "Not matched tutee"
+
+  # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+  TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -259,4 +299,9 @@ Meteor.methods
       ]
 
     # Add tutor name
-    tutorSessionId = TutoringSession.insert obj
+    tutorSessionId = TutoringSession.insert obj, (err, result) ->
+      console.log "Inserting tutoring session"
+      if err
+        console.log err
+      else
+        console.log result

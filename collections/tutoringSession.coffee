@@ -25,7 +25,7 @@ tutoringSessionSchema =
   virtualFields: 
     # False only when both tutor and tutee are inactive
     classroomStatus: (tutoringSession) ->
-      not (tutoringSession.tutorStatus or tutoringSession.tuteeStatus)
+      tutoringSession.tutorStatus or tutoringSession.tuteeStatus
 
 @TutoringSession = new Meteor.Collection2("TutoringSession", tutoringSessionSchema)
 

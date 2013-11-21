@@ -24,9 +24,9 @@ Template.otherQuestionTile.events =
 # Event listener for listening for classroom requests
 Deps.autorun ->
   if Session.get('subscribedResponse')
-    ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (message) ->
-      console.log message
-      console.log "That person started the tutoring session!"
+    ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (session) ->
+      console.log "That person started the tutoring session!; sessionId: #{session}"
+      Router.go("/session/#{session}")
 
 # # subscribedQuestionResponse will ALWAYS have the value of the subscribed session request
 # Deps.autorun ->

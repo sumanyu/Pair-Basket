@@ -55,6 +55,8 @@ Router.map ->
       if not @params.sessionId?
         @redirect "/dashboard"
       else
+        console.log "Router: sessionId: #{@params.sessionId}"
+        console.log TutoringSession.find().fetch()
         console.log TutoringSession.findOne({sessionId: @params.sessionId})
 
         if TutoringSession.findOne({sessionId: @params.sessionId})
@@ -64,4 +66,5 @@ Router.map ->
 
           @render 'tutoringSessionPage'
         else
+          console.log "Router: Tutoring Session not found"
           @redirect "/dashboard"

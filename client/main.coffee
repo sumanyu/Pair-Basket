@@ -7,10 +7,15 @@ Meteor.startup ->
   Meteor.subscribe 'users'
 
   Meteor.subscribe 'questions', ->
+    console.log "Subscribed to Questions"
     Session.set("hasQuestionsLoaded?", true)
 
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
+
+  Meteor.subscribe 'tutoringSession', ->
+    console.log "Subscibred to tutoring session"
+    # console.log TutoringSession.find().fetch()
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)

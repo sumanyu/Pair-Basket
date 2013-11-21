@@ -66,9 +66,14 @@ Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()
 
-    request = SessionRequest.findOne({})
-    questionId = request.questionId
-    tutorId = request.userId
+    # request = SessionRequest.findOne({})
+    # questionId = request.questionId
+    # tutorId = request.userId
+
+    questionId = Session.get('subscribedQuestion')
+
+    # Get correct tutorId; this is wrong right now
+    tutorId = Session.get('subscribedResponse')
 
     # User Meteor method to notify client
     Meteor.call("createSessionResponse", questionId, (err, session) ->
@@ -86,11 +91,12 @@ Template.questionsPage.events =
             console.log Session.get('subscribedResponse')
 
             ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
+            Router.go("/session/#{session}")
 
-            # Subscribe to tutoring session
-            Meteor.subscribe 'tutoringSession', session, ->
-              console.log @
-              Router.go("/session/#{session}")
+            # # Subscribe to tutoring session
+            # Meteor.subscribe 'tutoringSession', session, ->
+            #   console.log @
+            #   Router.go("/session/#{session}")
         )
     )
 

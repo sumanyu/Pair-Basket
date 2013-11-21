@@ -59,3 +59,4 @@ Deps.autorun ->
     ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (secretId) ->
       console.log "Someone clicked accept to my question; their secret id: #{secretId}"
       Session.set('subscribedResponse', secretId)
+      Session.set('foundTutor?', true)
