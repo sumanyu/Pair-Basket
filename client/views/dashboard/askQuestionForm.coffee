@@ -57,6 +57,7 @@ Deps.autorun ->
   if Session.get('subscribedQuestion')
     ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (message) ->
       console.log "Someone clicked accept to my question"
+      Session.set('subscribedResponse', message)
 
 # Subscribed question will always hold the subscribed question
 Deps.autorun ->

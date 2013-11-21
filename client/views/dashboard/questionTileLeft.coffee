@@ -1,3 +1,5 @@
+# Is this even being used?
+
 Template.questionTileLeft.events =
   'click .accept-question' : (e, selector) ->
     e.preventDefault()

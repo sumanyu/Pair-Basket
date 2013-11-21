@@ -70,22 +70,22 @@ Template.questionsPage.events =
     questionId = request.questionId
     tutorId = request.userId
 
-    session = Random.id()
-
     # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, session, (err, result) ->
+    Meteor.call("createSessionResponse", questionId, (err, session) ->
       console.log "SessionResponseCreated"
 
       if err
         console.log err
       else
-        Meteor.call("startSession", questionId, session, tutorId, (err, result) ->
+        Meteor.call("startSession", questionId, session, tutorId, (err, tutoringSessionId) ->
           console.log "startSession"
 
           if err
             console.log err
           else
-            console.log result
+            console.log tutoringSessionId
+
+            ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
 
             # Subscribe to tutoring session
             Meteor.subscribe 'tutoringSession', session, ->

@@ -195,12 +195,14 @@ Meteor.methods
       userId: @userId
     Random.id()
 
-  createSessionResponse: (questionId, sessionId) ->
+  createSessionResponse: (questionId) ->
     console.log "Creating Session Response"
+    sessionId = Random.id()
     response = SessionResponse.insert 
                   questionId: questionId
                   sessionId: sessionId
                   userId: @userId
+    sessionId
 
   # Add better validation later
   cancelSessionResponse: (questionId) ->
