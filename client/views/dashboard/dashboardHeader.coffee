@@ -15,4 +15,5 @@ Template.dashboardHeader.helpers
       karma = ''
 
 Template.dashboardHeader.rendered = ->
-  $('.dropdown-toggle').html('Sign In')
+  if not Meteor.user()
+    $('.dropdown-toggle').html('Sign In')
