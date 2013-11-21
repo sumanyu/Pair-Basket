@@ -175,7 +175,7 @@ Meteor.methods
 
     # Check if user has enough karma
     if Meteor.user().karma < questionData.karmaOffered
-      throw new Meteor.Error(401, 'Karma offered greater than karma owned')
+      throw new Meteor.Error(401, 'Offering more karma than owned')
 
     Questions.insert questionData, (error, result) ->
       console.log result

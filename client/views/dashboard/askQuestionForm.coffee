@@ -2,6 +2,9 @@ Template.askQuestionForm.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
 
+  questionFormError: =>
+    Session.get('questionFormError')
+
   # validForm: ->
   #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
@@ -45,6 +48,9 @@ Template.askQuestionForm.events =
     Meteor.call 'createNewQuestion', question, (error, result) ->
 
       console.log error, result
+
+      if error
+        Session.set("questionFormError", error.reason)
 
       if not error
         Session.set("subscribedQuestion", result)

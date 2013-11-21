@@ -4,6 +4,9 @@
 		<div class="container">
 			<button class="close close-popup-button">&times;</button>
 			<form role="form" class="questionForm">
+				{{#if questionFormError}}
+				<div class="alert alert-warning">{{questionFormError}}</div>
+				{{/if}}
 				<div class="form-group">
 					<select id="question-category" class="form-control">
 						<option disabled="disabled" selected="selected">Category</option>
