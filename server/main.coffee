@@ -103,7 +103,7 @@ Meteor.startup ->
     console.log "# of session requests: ", SessionRequest.find().count()
 
 Accounts.onCreateUser (options, user) ->
-  user.karma = 100
+  user.karma = 10
   if options.profile
     user.profile = options.profile
   # We still want the default hook's 'profile' behavior.
