@@ -93,6 +93,10 @@ Meteor.startup ->
   console.log "# of Questions: ", Questions.find().count()
   console.log "# of Feedback: ", Feedback.find().count()
 
+  # Feedback.find().forEach((feedback) ->
+  #   console.log feedback
+  # )
+
   dropAll()
 
   Deps.autorun ->
