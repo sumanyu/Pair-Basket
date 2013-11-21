@@ -52,11 +52,3 @@ Template.askQuestionForm.events =
         Session.set('questionFromLandingPrompt', null)
 
         Session.set("subscribedQuestion", questionId)
-
-# Event listener for listening for classroom requests
-Deps.autorun ->
-  if Session.get('subscribedQuestion')
-    ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (secretId) ->
-      console.log "Someone clicked accept to my question; their secret id: #{secretId}"
-      Session.set('subscribedResponse', secretId)
-      Session.set('foundTutor?', true)

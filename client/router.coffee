@@ -6,6 +6,7 @@ Router.configure
       to: 'header'
     footer:
       to: 'footer'
+      
   before: ->
     # if logged in, send to dashboard
     if Meteor.user()
@@ -56,11 +57,11 @@ Router.map ->
         @redirect "/dashboard"
       else
         console.log "Router: sessionId: #{@params.sessionId}"
-        console.log TutoringSession.find().fetch()
-        console.log TutoringSession.findOne({sessionId: @params.sessionId})
 
         if TutoringSession.findOne({sessionId: @params.sessionId})
           
+          Session.set("sessionId", @params.sessionId)
+
           @render 'tutoringSessionSidebar', 
             to: 'tutoringSessionSidebar'
 

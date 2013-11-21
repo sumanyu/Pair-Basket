@@ -15,7 +15,15 @@ Meteor.startup ->
 
   Meteor.subscribe 'tutoringSession', ->
     console.log "Subscibred to tutoring session"
-    # console.log TutoringSession.find().fetch()
+
+    tutoringSession = TutoringSession.findOne()
+
+    console.log "Current tutoring session: #{tutoringSession}"
+
+    # If pending tutoringSession, go straight to the session
+    if tutoringSession
+      Session.set("sessionId", tutoringSession.sessionId)
+      Router.go('/session/#{tutoringSession.sessionId}')
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
@@ -118,3 +126,18 @@ Meteor.startup ->
       $('.whiteboard').hide()
       $('.sharingFiles').hide()
       $('.wolfram').show()
+
+  # Event listener for listening for classroom requests
+  Deps.autorun ->
+    if Session.get('subscribedQuestion')
+      ClassroomStream.on "request:#{Session.get('subscribedQuestion')}", (secretId) ->
+        console.log "Someone clicked accept to my question; their secret id: #{secretId}"
+        Session.set('subscribedResponse', secretId)
+        Session.set('foundTutor?', true)
+
+  # Event listener for listening for classroom requests
+  Deps.autorun ->
+    if Session.get('subscribedResponse')
+      ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (session) ->
+        console.log "That person started the tutoring session!; sessionId: #{session}"
+        Router.go("/session/#{session}")

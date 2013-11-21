@@ -14,13 +14,8 @@ LineStream.on "pad", (padId) ->
 
 LineStream.permissions.read ((event) ->
   
-  console.log @
-  console.log event
-
   #getting padId from the event
   matched = event.match(/(.*):/)
-
-  console.log matched
 
   if matched
     padId = matched[1]

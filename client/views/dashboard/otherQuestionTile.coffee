@@ -27,12 +27,6 @@ Template.otherQuestionTile.events =
 
           # Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
 
-# Event listener for listening for classroom requests
-Deps.autorun ->
-  if Session.get('subscribedResponse')
-    ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (session) ->
-      console.log "That person started the tutoring session!; sessionId: #{session}"
-      Router.go("/session/#{session}")
 
 # # subscribedQuestionResponse will ALWAYS have the value of the subscribed session request
 # Deps.autorun ->

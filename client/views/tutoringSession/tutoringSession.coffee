@@ -25,6 +25,8 @@ sendMessage = ->
 
     tutoringSessionId = TutoringSession.findOne()._id
 
+    console.log TutoringSession.findOne()
+
     # Push messages
     TutoringSession.update {_id: tutoringSessionId}, $push: {messages: totalMessage}
 
@@ -118,6 +120,6 @@ Meteor.startup ->
       if $('canvas').length > 0
         user = Meteor.user()?._id || "Anonymous"
 
-        sessionId = Session.get("sessionId")      
+        sessionId = Session.get("sessionId")
         pad = new Pad($('canvas'), sessionId, user)
         remotePad = new RemotePad(sessionId, pad)

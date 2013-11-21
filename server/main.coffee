@@ -87,7 +87,7 @@ dropAll = ->
   SessionRequest.remove({})
   SessionResponse.remove({})
   Questions.remove({})
-  # TutoringSession.remove({})
+  TutoringSession.remove({})
   populateQuestions()
 
 Meteor.startup ->
