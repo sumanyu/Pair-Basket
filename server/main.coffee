@@ -14,7 +14,7 @@ populateQuestions = ->
     questions = [
       category: "english"
       userId: '1'
-      questionText: "How do you structure an essay to be creative but effective?"
+      questionText: "How do you structure an essay to be creative but still believable and persuasive?"
       tags: [
         "essay",
         "writing"]
