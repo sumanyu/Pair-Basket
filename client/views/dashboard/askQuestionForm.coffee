@@ -19,6 +19,7 @@ Template.askQuestionForm.events =
   'click .close-popup-button' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
+    Session.set('questionFormError', null)
 
   'submit' : (e, selector) ->
     e.preventDefault()
@@ -55,6 +56,7 @@ Template.askQuestionForm.events =
       if not error
         Session.set("subscribedQuestion", result)
         Session.set('askingQuestion?', false)
+        Session.set('questionFormError', null)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
