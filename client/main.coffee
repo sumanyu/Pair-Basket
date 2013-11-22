@@ -26,13 +26,9 @@ Meteor.startup ->
 
     # If pending tutoringSession, go straight to the session
     if TutoringSession.find().count() > 0
-      console.log "Count is greater than 0"
-      console.log tutoringSession
+      console.log "Count is greater than 0, redirecting..."
       Session.set("sessionId", tutoringSession.sessionId)
       Session.set('pendingSession?', true)
-      console.log Router
-      # Router.go('/session/#{tutoringSession.sessionId}')
-      console.log "Is router redirecting?"
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
