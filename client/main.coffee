@@ -76,7 +76,8 @@ Meteor.startup ->
     'foreign_language': false
   })
 
-  console.log "Meteor startup end"
+  # PLACE ALL DEPS.AUTORUN HERE to avoid dependancy issues
+  # Remember main.coffee is loaded LAST
 
   # Deps.autorun ->
   #   if Session.get("subscribedQuestion")
@@ -141,3 +142,5 @@ Meteor.startup ->
       ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (session) ->
         console.log "That person started the tutoring session!; sessionId: #{session}"
         Router.go("/session/#{session}")
+
+  console.log "Meteor startup end"
