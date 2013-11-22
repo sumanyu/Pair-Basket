@@ -13,17 +13,26 @@ Meteor.startup ->
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
+  # Pending session that user left unended should redirect to session itself
+  Session.set('pendingSession?', false)
+
   Meteor.subscribe 'tutoringSession', ->
     console.log "Subscibred to tutoring session"
 
     tutoringSession = TutoringSession.findOne()
 
     console.log "Current tutoring session: #{tutoringSession}"
+    console.log "Tutoring session count: #{TutoringSession.find().count()}"
 
     # If pending tutoringSession, go straight to the session
-    if tutoringSession
+    if TutoringSession.find().count() > 0
+      console.log "Count is greater than 0"
+      console.log tutoringSession
       Session.set("sessionId", tutoringSession.sessionId)
-      Router.go('/session/#{tutoringSession.sessionId}')
+      Session.set('pendingSession?', true)
+      console.log Router
+      # Router.go('/session/#{tutoringSession.sessionId}')
+      console.log "Is router redirecting?"
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
@@ -142,5 +151,10 @@ Meteor.startup ->
       ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (session) ->
         console.log "That person started the tutoring session!; sessionId: #{session}"
         Router.go("/session/#{session}")
+
+  # Automatically redirect user to session if user had a session open and didn't end it properly
+  Deps.autorun ->
+    if Session.get('pendingSession?')
+      Router.go("/session/#{Session.get("sessionId")}")
 
   console.log "Meteor startup end"
