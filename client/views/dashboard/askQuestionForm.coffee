@@ -2,6 +2,9 @@ Template.askQuestionForm.helpers
   getFirstQuestion: =>
     Session.get('questionFromLandingPrompt') if Session.get('questionFromLandingPrompt')
 
+  questionFormError: =>
+    Session.get('questionFormError')
+
   # validForm: ->
   #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
 
@@ -16,6 +19,7 @@ Template.askQuestionForm.events =
   'click .close-popup-button' : (e, selector) ->
     Session.set('questionFromLandingPrompt', null)
     Session.set('askingQuestion?', false)
+    Session.set('questionFormError', null)
 
   'submit' : (e, selector) ->
     e.preventDefault()
@@ -44,11 +48,13 @@ Template.askQuestionForm.events =
 
       if error
         console.log "Error...", error
+        Session.set("questionFormError", error.reason)
       else
         console.log "questionId: #{questionId}"
+        
+        Session.set("subscribedQuestion", questionId)
         Session.set('askingQuestion?', false)
+        Session.set('questionFormError', null)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
-
-        Session.set("subscribedQuestion", questionId)

@@ -1,9 +1,12 @@
 <template name="askQuestionForm">
 	<div class="overlay"></div>
-	<div class="ask-question-popup">
+	<div class="ask-question-popup popup">
 		<div class="container">
 			<button class="close close-popup-button">&times;</button>
 			<form role="form" class="questionForm">
+				{{#if questionFormError}}
+				<div class="alert alert-warning">{{questionFormError}}</div>
+				{{/if}}
 				<div class="form-group">
 					<select id="question-category" class="form-control">
 						<option disabled="disabled" selected="selected">Category</option>
@@ -31,7 +34,7 @@
 					<input type="number" min="1" max="{{maxKarma}}" id="karma-offered" placeholder="Karma" class="form-control"></input>
 				</div>
 
-					<input id="question-submit" class="yellow-button submit-question pull-right" type="submit" value="ASK">
+					<input id="question-submit" class="yellow-button submit-question pull-right" type="submit" value="Ask">
 
 			</form>			
 		</div>

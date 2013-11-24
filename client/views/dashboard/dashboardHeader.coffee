@@ -13,3 +13,7 @@ Template.dashboardHeader.helpers
       Meteor.user().karma
     else
       karma = ''
+
+Template.dashboardHeader.rendered = ->
+  if not Meteor.user()
+    $('.dropdown-toggle').html('Sign In')

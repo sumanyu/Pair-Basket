@@ -54,6 +54,8 @@ Router.map ->
         to: 'dashboardHeader'
       dashboardFooter:
         to: 'dashboardFooter'
+      feedback:
+        to: 'feedback'
     before: ->
       console.log "Calling before in dashboard"
     action: ->

@@ -27,8 +27,14 @@ Meteor.startup ->
   # Ensure whiteboard has loaded
   Session.set("hasWhiteboardLoaded?", false)
 
+  # Click feedback button
+  Session.set('feedbackPopup', false)
+
   # Is the client asking a question?
   Session.set('askingQuestion?', false)
+
+  # Error message for ask question
+  Session.get('questionFormError', null)
 
   # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
   Session.set('foundTutor?', false)

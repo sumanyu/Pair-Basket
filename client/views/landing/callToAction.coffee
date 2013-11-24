@@ -26,23 +26,29 @@ Template.landingCallToAction.events =
     Session.set('showBoth?', false)
 
 Template.landingHelpOthers.rendered = ->
-  focusText($('.help-others-wrapper input[type=email]'))
+  focusText($('.help-others-wrapper .name'))
 
 Template.landingHelpOthers.events =
   'submit': (e, s) ->
     e.preventDefault()
 
     # Clean input
+    name = $('.help-others-wrapper .name').val().trim()
+    school = $('.help-others-wrapper .school').val().trim()
     email = $('.help-others-wrapper input[type=email]').val().trim()
     password = $('.help-others-wrapper input[type=password]').val().trim()
 
     # Validate inputs - for now just check if all inputs were entered
-    isInputValid = areElementsNonEmpty([email, password])
+    isInputValid = areElementsNonEmpty([email, password, name, school])
 
     if isInputValid
 
+      profile =
+        'name': name
+        'school': school
+
       # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: email, password: password}, (err) ->
+      Accounts.createUser {email: email, password: password, profile: profile}, (err) ->
         if err
           console.log err
         else
@@ -61,17 +67,23 @@ Template.landingAskQuestion.events =
     e.preventDefault()
 
     # Clean input
+    name = $('.ask-question-wrapper .name').val().trim()
+    school = $('.ask-question-wrapper .school').val().trim()
     email = $('.ask-question-wrapper input[type=email]').val().trim()
     password = $('.ask-question-wrapper input[type=password]').val().trim()
     question = $('.ask-question-wrapper textarea.question').val().trim()
 
     # Validate inputs - for now just check if all inputs were entered
-    isInputValid = areElementsNonEmpty([email, password, question])
+    isInputValid = areElementsNonEmpty([email, password, question, name, school])
 
     if isInputValid
 
+      profile =
+        'name': name
+        'school': school
+
       # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: email, password: password}, (err) ->
+      Accounts.createUser {email: email, password: password, profile: profile}, (err) ->
         if err
           console.log err
         else

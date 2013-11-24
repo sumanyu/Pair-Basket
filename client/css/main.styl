@@ -1,5 +1,8 @@
 @import 'utility'
 
+html
+	height: 100%
+
 body
 	_margin-top = 80px
 
@@ -15,6 +18,8 @@ body
 	// layer 1: pop-up 100
 	// layer 2: overlay 90
 	// layer 3: header 80
+
+	height: 100%
 
 	.yellow-button
 		set-background(_yellow)
@@ -35,6 +40,48 @@ body
 		opacity: 0.7
 		cursor: pointer
 		animate-transition()
+
+	.overlay
+		opacity: 0.7
+		background: black
+		width: 100%
+		height: 100%
+		z-index: 90
+		top: 0
+		left: 0
+		position: fixed
+
+	.popup
+		h = 400px
+		w = 400px
+		pad = 25px
+
+		display: block
+		position: fixed
+		top: 50%
+		left: 50%
+		width: w
+		margin-top: -(h/2)
+		margin-left: -(w/2)
+		z-index: 100
+		background: white
+		border-radius(10px)
+		border: 3px solid _light_gray
+
+		.close-popup-button
+			position: absolute
+			top: 5px
+			right: 10px
+
+		.container
+			width: h - pad
+			padding: pad 20px pad 20px
+
+		textarea
+			resize: none
+
+		p
+			text-align: justify
 
 	.dashboard-header
 		position: fixed !important
@@ -88,13 +135,13 @@ body
 					cursor: pointer
 
 				.header-login:hover
-					set-background(_light_gray)
+					set-background(_dark_yellow)
 
 				.ask-question
 					cursor: pointer
 
 				.ask-question:hover
-					set-background(_light_gray)
+					set-background(_dark_yellow)
 
 				.header-circle
 					display: block
@@ -111,6 +158,33 @@ body
 					color: _yellow
 					box-shadow: 0px 0px 1px black
 
+	#feedback
+		height: 104px
+		width: 104px
+		position: fixed
+		top: 40%
+		z-index: 80
+		transform: rotate(-90deg)
+		-webkit-transform: rotate(-90deg) 
+		-moz-transform: rotate(-90deg)
+		-o-transform: rotate(-90deg)
+		// filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3)
+
+	#feedback a
+		display: block
+		set-background(_dark_gray)
+		padding: 8px 16px
+		color: #fff
+		font-size: 17px
+		font-weight: bold
+		text-decoration: none
+		border-bottom: solid 1px #333
+		border-left: solid 1px #333
+		border-right: solid 1px #333
+
+	#feedback a:hover
+		padding-top: 20px
+
 	#login-dropdown-list
 		list-style: none
 
@@ -124,6 +198,9 @@ body
 			overflow-ellipsis()
 			animate-transition()
 
+		#signup-link
+			display: none
+
 	.icon-text 
 		display: block
 		float: left
@@ -132,6 +209,11 @@ body
 		font-size: 10pt
 
 	#landing
+		min-height: 100%
+		background: url('/home_background.jpg')
+		background-size: 100%
+		background-repeat: no-repeat
+
 		.landing-header, .landing-footer
 			width: 100%
 			height: 50px
@@ -141,17 +223,33 @@ body
 
 		.container.main
 			padding-top: 90px
+			padding-left: 0px
+			padding-right: 0px
+			width: 100%
 
 			.title-landing
-				height: 70px
+				text-align: center
+				margin-bottom: 20px
+				width: 100%
+				color: white
+
+				h1
+					line-height: 60px
 
 			.value-props
-				margin-top: 25px
-				margin-bottom: 30px
+				// margin-top: 25px
+				// margin-bottom: 30px
+				color: white
 
 				.value-prop
-					margin-top: 5px
+					margin-top: 25px
 					margin-bottom: 5px
+
+					.steps
+						margin-left: -40px
+
+					h2
+						margin-top: 10px
 
 			.questionForm
 				margin: 20px 0 0 0
@@ -206,8 +304,8 @@ body
 					font-weight: bold
 
 			.call-to-action
-				margin-top: 40px
-				margin-left: 140px
+				margin-top: 30px
+				margin-left: -70px
 
 				.square-button
 					height: 55px
@@ -231,10 +329,10 @@ body
 					box-shadow(0 0px _dark_yellow)
 
 				.help-others-btn
-					float: left
+					// float: left
 
 				.ask-question-btn
-					float: right
+					// float: right
 
 				.help-others-wrapper
 					background: _yellow
@@ -258,7 +356,7 @@ body
 							float: left
 							width: 300px
 
-							.email, .password, .question
+							.email, .password, .question, .name, .school
 								margin-top: 5px
 								margin-bottom: 5px
 
@@ -333,6 +431,10 @@ body
 				float: left
 				clear: both
 				margin-bottom: 10px
+				animate-transition()
+
+			.category:hover
+				opacity: 0.75
 				animate-transition()
 
 			.active
@@ -412,48 +514,6 @@ body
 			line-height: 73px
 			color: _light_gray
 			box-shadow: 0px 0px 1px black
-
-		.overlay
-			opacity: 0.7
-			background: black
-			width: 100%
-			height: 100%
-			z-index: 90
-			top: 0
-			left: 0
-			position: fixed
-
-		.ask-question-popup
-			h = 400px
-			w = 400px
-			pad = 25px
-
-			display: block
-			position: fixed
-			top: 50%
-			left: 50%
-			width: w
-			margin-top: -(h/2)
-			margin-left: -(w/2)
-			z-index: 100
-			background: white
-			border-radius(10px)
-			border: 3px solid _light_gray
-
-			.close-popup-button
-				position: absolute
-				top: 5px
-				right: 10px
-
-			.container
-				width: h - pad
-				padding: pad 20px pad 20px
-
-				textarea#question-text
-					padding: 4px 6px
-
-		.ask-question-popup textarea
-			resize: none
 
 		#question-submit
 			float: right
