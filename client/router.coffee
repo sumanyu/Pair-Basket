@@ -23,6 +23,7 @@ Router.configure
         # Show loading screen until collections are loaded and then redirect to appropriate location
         @stop()
       else
+        # Given all collections have loaded, proceed to path user requested
         console.log "All collections have loaded"
 
 Router.map ->

@@ -54,42 +54,8 @@ Meteor.publish 'questions', ->
 # I learned that publish functions can't contain if/else logic on a collection
 Meteor.publish 'tutoringSession', ->
   console.log "Publishing tutoring session to: #{@userId}"
-  # console.log TutoringSession.find().fetch()
-  # console.log TutoringSession.find({tuteeId: @userId}, classroomStatus: true).fetch()
-  # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}], classroomStatus: true}).fetch()
-  # console.log TutoringSession.find({classroomStatus: true, $or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
-  # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
 
-  # console.log TutoringSession.findOne({tuteeId: @userId})
-  # console.log TutoringSession.findOne({tuteeId: @userId}) isnt undefined
-  # console.log TutoringSession.findOne({tutorId: @userId})
-  # console.log TutoringSession.findOne({tutorId: @userId}) isnt undefined
-
-  # console.log TutoringSession.findOne({classroomStatus: true})
-  # console.log TutoringSession.findOne({classroomStatus: false})
-  # console.log TutoringSession.findOne({tutorId: @userId, classroomStatus: true})
-  # console.log TutoringSession.findOne({tutee: @userId, classroomStatus: true})
-
-  # existsAsTutor = TutoringSession.findOne({tutorId: @userId})
-  # existsAsTutee = TutoringSession.findOne({tutee: @userId})
-
-  # console.log existsAsTutor, existsAsTutee
-
-  # if existsAsTutor != undefined
-  #   console.log "Matched tutor"
-  #   console.log TutoringSession.find({tutorId: @userId}).fetch()
-  #   return TutoringSession.find({tutorId: @userId})
-  # else
-  #   console.log "Not matched tutor"
-  
-  # if existsAsTutee != undefined
-  #   console.log "Matched tutee"
-  #   console.log TutoringSession.find({tutee: @userId}).fetch()
-  #   return TutoringSession.find({tutee: @userId})
-  # else
-  #   console.log "Not matched tutee"
-
-  # console.log TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+  # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
 
   # Discriminate between tutorId or tuteeId later
   TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]})
