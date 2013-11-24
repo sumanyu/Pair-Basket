@@ -89,7 +89,7 @@ Meteor.methods
     # console.log questionData
 
     # Check if has category
-    if not questionData.category
+    if questionData.category not in allCategory
       throw new Meteor.Error(401, 'Please enter a category')
 
     # Check if has tags
