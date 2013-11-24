@@ -39,7 +39,7 @@ Handlebars.registerHelper(
 
 Template.questionsPage.helpers
   ownedQuestions: =>
-    @Questions.find(
+    Questions.find(
       {
         userId: Meteor.userId(),
         status: 'waiting'
@@ -56,7 +56,7 @@ Template.questionsPage.helpers
         activeCategories.push(category)
     # console.log activeCategories
 
-    @Questions.find(
+    Questions.find(
       {
         userId: { $ne: Meteor.userId() },
         status: 'waiting',
@@ -85,18 +85,27 @@ Template.questionsPage.events =
     e.preventDefault()
 
     questionId = Session.get('subscribedQuestion')
-    session = Random.id()
+    tutorId = Session.get('subscribedResponse')
 
     # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, session, Session.get('userName'), (err, result) ->
-      console.log "SessionRequestCreated"
+    Meteor.call("createSessionResponse", questionId, (err, session) ->
+      console.log "SessionResponseCreated"
+
+      if err
+        console.log err
+      else
+        Meteor.call("startSession", questionId, session, tutorId, (err, tutoringSessionId) ->
+          console.log "startSession"
+
+          if err
+            console.log err
+          else
+            console.log Session.get('subscribedResponse')
+
+            ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
+            Router.go("/session/#{session}")
+        )
     )
-
-    Meteor.call("startSession", questionId, (err, result) ->
-      console.log "startSession"
-    )    
-
-    Router.go("/session/#{session}")
 
   'click .decline-button': (e, selector) ->
     Session.set('foundTutor?', false)

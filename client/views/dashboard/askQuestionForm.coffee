@@ -5,9 +5,6 @@ Template.askQuestionForm.helpers
   questionFormError: =>
     Session.get('questionFormError')
 
-  # validForm: ->
-  #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
-
 Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-category") 
   focusText(selector)
@@ -38,28 +35,24 @@ Template.askQuestionForm.events =
 
     question = 
       category: category
-      # userId: '1'
       questionText: questionText
       tags: tags
       karmaOffered: karmaOffered
-      # dateCreated: new Date()
-      # dateModified: new Date()
-      # status: "Active"
 
-    Meteor.call 'createNewQuestion', question, (error, result) ->
+    # Server creates question and returns questionId
+    Meteor.call 'createNewQuestion', question, (error, questionId) ->
 
-      console.log error, result
+      console.log "Creating new question"
 
       if error
+        console.log "Error...", error
         Session.set("questionFormError", error.reason)
-
-      if not error
-        Session.set("subscribedQuestion", result)
+      else
+        console.log "questionId: #{questionId}"
+        
+        Session.set("subscribedQuestion", questionId)
         Session.set('askingQuestion?', false)
         Session.set('questionFormError', null)
 
         # Set question from prompt to null
         Session.set('questionFromLandingPrompt', null)
-
-    # questionId = Questions.insert question
-

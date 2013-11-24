@@ -1,3 +1,5 @@
+# Note using session variables inside any router makes the fn reactive
+
 Router.configure
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
@@ -5,26 +7,24 @@ Router.configure
     header:
       to: 'header'
     footer:
-      to: 'footer'
+      to: 'footer'      
   before: ->
-    # if logged in, send to dashboard
-    if Meteor.user()
-      if @route.name == 'home'
-        Router.go(Router.path('dashboard'))
-        @render 'questionsPage'
-        @stop()
-      else
-        return
+    console.log "Router:Global:before: route name: #{@route.name}"
 
     # if not logged in, send to home page
     if !Meteor.user()
-      # allow home
-      if @route.name == 'home'
-        return
-      else
-        Router.go(Router.path('home'))
-        @render (if Meteor.loggingIn() then @loading else 'landingPage')
+      if @route.name != 'home'
+        @redirect 'home'
+    else if Meteor.user()
+      console.log "Calling before, user exists"
+
+      if not Session.get("haveAllCollectionsLoaded?")
+        console.log "All collections have not loaded, stopping rendering"
+        # Show loading screen until collections are loaded and then redirect to appropriate location
         @stop()
+      else
+        # Given all collections have loaded, proceed to path user requested
+        console.log "All collections have loaded"
 
 Router.map ->
   @route 'home',
@@ -36,7 +36,16 @@ Router.map ->
         to: 'dashboardHeader'
       landingFooter:
         to: 'landingFooter'
-    
+    before: ->
+      console.log "Calling before in home"
+
+      # if logged in, send to dashboard
+      if Meteor.user()
+        @redirect 'dashboard'
+        @stop()
+    action: ->
+      @render()
+
   @route 'dashboard',
     path: '/dashboard'
     layoutTemplate: 'dashboardLayout'
@@ -45,36 +54,35 @@ Router.map ->
       dashboardHeader:
         to: 'dashboardHeader'
       dashboardFooter:
-        to: 'dashboardFooter'    
+        to: 'dashboardFooter'
       feedback:
         to: 'feedback'
-
-  # @route 'test',
-  #   path: '/test'
-  #   template: 'test' 
-
-  # @route 'addQuestion',
-  #   path: '/question/new'
-  #   layoutTemplate: 'dashboardLayout'
-  #   template: 'addQuestionForm'
+    before: ->
+      console.log "Calling before in dashboard"
+    action: ->
+      console.log "Rendering dashboard"
+      @render()
 
   @route 'session',
     path: '/session/:sessionId?'
     layoutTemplate: 'tutoringSessionLayout'
-
-    action: ->
+    template: 'tutoringSessionPage'
+    before: ->
+      console.log "Calling before session"
       if not @params.sessionId?
-        sessionId = Random.id()
-        @redirect "/session/#{sessionId}"
-      else
-        Session.set('sessionId', @params.sessionId)
-        
-        @render 'tutoringSessionSidebar', 
-          to: 'tutoringSessionSidebar'
+        console.log "You don't have a session"
+        @redirect "/dashboard"    
+        @stop()
+    action: ->
+        console.log "Router: sessionId: #{@params.sessionId}"
 
-        @render 'tutoringSessionPage'
+        if TutoringSession.findOne({sessionId: @params.sessionId})
+          Session.set("sessionId", @params.sessionId)
 
+          @render 'tutoringSessionSidebar', 
+            to: 'tutoringSessionSidebar'
 
-    # after: ->
-    #   console.log "Rendered?"
-    #   Session.set("whiteboardLoaded?", true)
+          @render()
+        else
+          console.log "Router: Tutoring Session not found"
+          @redirect "/dashboard"

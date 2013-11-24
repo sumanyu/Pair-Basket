@@ -1,7 +1,6 @@
 # @Questions = new Meteor.Collection("questions")
 
-# We might use Collection2 later
-@Questions = new Meteor.Collection2("questions",
+questionsSchema =   
   schema:
     category:
       type: String
@@ -30,4 +29,5 @@
   virtualFields: 
     tagsJoined: (question) ->
       question.tags.reduce (current, total) -> "#{total}, #{current}"
-)
+
+@Questions = new Meteor.Collection2("questions", questionsSchema)

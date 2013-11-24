@@ -1,43 +1,36 @@
-# Manages client to client communication
-chatStream = new Meteor.Stream("chat")
+Template.chatBox.helpers
+  areMessagesReady: ->
+    TutoringSession.findOne({}) || false
 
-@LineStream = new Meteor.Stream("lines")
-
-# Temporary local chat collection
-chatCollection = new Meteor.Collection(null)
-
-chatStream.on "chat", (message) ->
-  chatCollection.insert
-    userId: message.userId
-    message: message.message
-
-Template.chatBox.helpers 
   messages: ->
     # fetch all chat messages
-    chatCollection.find()
+    TutoringSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
-    Session.get("chattingWith") || "Anonymous"
+    currentUser = Meteor.userId()
+    currentSession = TutoringSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
+    tutorId = currentSession.tutorId
+    tuteeId = currentSession.tuteeId
 
-# Template.chatMessage.helpers 
-#   user: ->completeSession
-#     # console.log userId
-#     console.log @
-#     console.log @userId
+    if currentUser is tutorId then tuteeId else tutorId
 
 sendMessage = ->
   message = $(".chat-message").val()
 
   # Prevent empty messages
   if message.length > 0
-    chatCollection.insert
-      userId: "me"
+    totalMessage = 
       message: message
+      userId: Meteor.userId()
 
-    # Broadcast that message to all clients
-    chatStream.emit "chat", 
-      message: message
-      userId: Session.get('userName')
+    tutoringSessionId = TutoringSession.findOne()._id
+
+    console.log TutoringSession.findOne()
+
+    # Push messages
+    TutoringSession.update {_id: tutoringSessionId}, $push: {messages: totalMessage}
+
+    console.log TutoringSession.findOne()
 
     $(".chat-message").val ""
 
@@ -45,6 +38,7 @@ Template.chatBox.events
   "keydown .chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
+      console.log "entering?"
       sendMessage()
 
   "click #send": (e, s) ->
@@ -89,16 +83,18 @@ Template.tutoringSessionSidebar.events
   "click .end-session": (e, s) ->
     Session.set('foundTutor?', false)
     Session.set('askingQuestion?', false)
-    
-    Router.go('/dashboard')
+
+    Meteor.call 'endSession', Session.get("sessionId"), (err, result) ->
+      console.log "Calling end session"
+
+      if err
+        console.log err
+      else
+        Router.go('/dashboard')
 
 Template.whiteBoard.rendered = ->
   # Ensures whiteboard layout has loaded before executing Deps.autorun
   Session.set("hasWhiteboardLoaded?", true)
-
-  # Increment tutor's count
-  Session.set("karma", Session.get('karma') + Session.get('karmaForCurrentQuestion'))
-  Session.set('karmaForCurrentQuestion', null)
 
 Template.whiteBoard.events
   'click .draw': (e, s) ->
@@ -120,10 +116,10 @@ Meteor.startup ->
         pad.close()
         remotePad.close()
 
-      # Hot code bypasses hasWhiteboardLoaded?
+      # Hot code bypasses `hasWhiteboardLoaded?`
       if $('canvas').length > 0
         user = Meteor.user()?._id || "Anonymous"
 
-        sessionId = Session.get("sessionId")      
+        sessionId = Session.get("sessionId")
         pad = new Pad($('canvas'), sessionId, user)
         remotePad = new RemotePad(sessionId, pad)
