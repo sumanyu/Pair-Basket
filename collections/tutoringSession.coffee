@@ -1,4 +1,3 @@
-# Validation is not playing well with messages
 messageSchema = new SimpleSchema
   userId:
     type: String
@@ -23,6 +22,7 @@ tutoringSessionSchema =
       type: [messageSchema]
   virtualFields: 
     # False only when both tutor and tutee are inactive
+    # Unfortunately, you can't query on virtual fields
     classroomStatus: (tutoringSession) ->
       tutoringSession.tutorStatus or tutoringSession.tuteeStatus
 

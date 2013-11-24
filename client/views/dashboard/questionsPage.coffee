@@ -84,10 +84,6 @@ Template.questionsPage.events =
   'click .start-session-button' : (e, selector) ->
     e.preventDefault()
 
-    # request = SessionRequest.findOne({})
-    # questionId = request.questionId
-    # tutorId = request.userId
-
     questionId = Session.get('subscribedQuestion')
     tutorId = Session.get('subscribedResponse')
 
@@ -108,11 +104,6 @@ Template.questionsPage.events =
 
             ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
             Router.go("/session/#{session}")
-
-            # # Subscribe to tutoring session
-            # Meteor.subscribe 'tutoringSession', session, ->
-            #   console.log @
-            #   Router.go("/session/#{session}")
         )
     )
 

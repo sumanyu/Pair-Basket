@@ -5,9 +5,6 @@ Template.askQuestionForm.helpers
   questionFormError: =>
     Session.get('questionFormError')
 
-  # validForm: ->
-  #   parseInt($('input#karma-offered').val()) <= Meteor.user().karma
-
 Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-category") 
   focusText(selector)
@@ -42,6 +39,7 @@ Template.askQuestionForm.events =
       tags: tags
       karmaOffered: karmaOffered
 
+    # Server creates question and returns questionId
     Meteor.call 'createNewQuestion', question, (error, questionId) ->
 
       console.log "Creating new question"

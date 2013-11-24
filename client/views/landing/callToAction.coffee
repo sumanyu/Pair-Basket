@@ -53,7 +53,6 @@ Template.landingHelpOthers.events =
           console.log err
         else
           # Success, account was created
-
           Router.go('dashboard')
     else
       # Throw some message

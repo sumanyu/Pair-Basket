@@ -8,27 +8,7 @@ Template.otherQuestionTile.events =
     # Add more security later
 
     console.log "createSessionRequest"
+
+    # Send my userId to person who wants my help
     ClassroomStream.emit "request:#{questionId}", Meteor.userId()
     Session.set("subscribedResponse", Meteor.userId())
-
-    # # User Meteor method to notify client
-    # Meteor.call "createSessionRequest", questionId, (err, responseId) ->
-    #   console.log "createSessionRequest"
-
-    #   if err
-    #     console.log "Error..." 
-    #     console.log err
-    #   else
-    #     console.log "Responseid: #{responseId}"
-
-    #     # Use event emitter to signal question owner that I've accepted her question
-    #     ClassroomStream.emit "request:#{questionId}", responseId
-    #     Session.set("subscribedResponse", responseId)
-
-          # Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
-
-
-# # subscribedQuestionResponse will ALWAYS have the value of the subscribed session request
-# Deps.autorun ->
-#   if Meteor.userId()
-#     Session.set("subscribedQuestionResponse", SessionRequest.findOne({userId: Meteor.userId()})?.questionId)
