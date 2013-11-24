@@ -5,18 +5,17 @@ Router.configure
     header:
       to: 'header'
     footer:
-      to: 'footer'
-      
-  # before: ->
-  #   # if not logged in, send to home page
-  #   if !Meteor.user()
-  #     # allow home
-  #     if @route.name == 'home'
-  #       return
-  #     else
-  #       Router.go(Router.path('home'))
-  #       @render (if Meteor.loggingIn() then @loading else 'landingPage')
-  #       @stop()
+      to: 'footer'      
+  before: ->
+    # if not logged in, send to home page
+    if !Meteor.user()
+      # allow home
+      if @route.name == 'home'
+        return
+      else
+        @redirect 'home'
+        @render (if Meteor.loggingIn() then @loading else 'landingPage')
+        @stop()
 
 Router.map ->
   @route 'home',
@@ -44,18 +43,22 @@ Router.map ->
       dashboardHeader:
         to: 'dashboardHeader'
       dashboardFooter:
-        to: 'dashboardFooter'    
+        to: 'dashboardFooter'
 
   @route 'session',
     path: '/session/:sessionId?'
     layoutTemplate: 'tutoringSessionLayout'
-
+    template: 'tutoringSessionPage'
     action: ->
       if not @params.sessionId?
+        console.log "You don't have a session"
         @redirect "/dashboard"
       else
         console.log "Router: sessionId: #{@params.sessionId}"
 
+        # Problem is when you refresh the page, client hasn't subscribed to TutoringSession
+        # We could use localStorage to make sure user was subscribed and allow user to enter session
+        # Or we could wait until user has subscribed and then either enter or exist the session 
         if TutoringSession.findOne({sessionId: @params.sessionId})
           
           Session.set("sessionId", @params.sessionId)
@@ -63,7 +66,7 @@ Router.map ->
           @render 'tutoringSessionSidebar', 
             to: 'tutoringSessionSidebar'
 
-          @render 'tutoringSessionPage'
+          @render()
         else
           console.log "Router: Tutoring Session not found"
           @redirect "/dashboard"

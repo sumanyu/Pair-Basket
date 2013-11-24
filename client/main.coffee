@@ -4,31 +4,10 @@ Meteor.startup ->
 
   console.log "Meteor startup start"
 
-  Meteor.subscribe 'users'
-
-  Meteor.subscribe 'questions', ->
-    console.log "Subscribed to Questions"
-    Session.set("hasQuestionsLoaded?", true)
-
-    # Subscribed question will always hold the subscribed question
-    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
+  #### Begin Session variables
 
   # Pending session that user left unended should redirect to session itself
   Session.set('pendingSession?', false)
-
-  Meteor.subscribe 'tutoringSession', ->
-    console.log "Subscibred to tutoring session"
-
-    tutoringSession = TutoringSession.findOne()
-
-    console.log "Current tutoring session: #{tutoringSession}"
-    console.log "Tutoring session count: #{TutoringSession.find().count()}"
-
-    # If pending tutoringSession, go straight to the session
-    if TutoringSession.find().count() > 0
-      console.log "Count is greater than 0, redirecting..."
-      Session.set("sessionId", tutoringSession.sessionId)
-      Session.set('pendingSession?', true)
 
   # Has non-null value if question comes from the landing page prompt
   Session.set('questionFromLandingPrompt', null)
@@ -81,40 +60,37 @@ Meteor.startup ->
     'foreign_language': false
   })
 
-  # PLACE ALL DEPS.AUTORUN HERE to avoid dependancy issues
-  # Remember main.coffee is loaded LAST
+  #### End Session variables
 
-  # Deps.autorun ->
-  #   if Session.get("subscribedQuestion")
-  #     Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
+  #### Begin Subscriptions
 
-  # Deps.autorun ->
-  #   if Session.get("subscribedQuestionResponse")
-  #     Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
-      
-  # Deps.autorun ->
-  #   # If tutee accepted tutor's request
-  #   if SessionResponse.find({}).count() > 0
-  #     console.log "SessionResponse autorun"
-  #     response = SessionResponse.findOne()
+  Meteor.subscribe 'users'
 
-  #     console.log response
+  Meteor.subscribe 'questions', ->
+    console.log "Subscribed to Questions"
+    Session.set("hasQuestionsLoaded?", true)
 
-  #     Session.set('foundTutor?', false)
+    # Subscribed question will always hold the subscribed question
+    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
-  #     Meteor.subscribe 'tutoringSession', response.sessionId, (arg) ->
-  #       console.log arg
-  #       console.log @
-  #       Router.go("/session/#{response.sessionId}")
+  Meteor.subscribe 'tutoringSession', ->
+    console.log "Subscibred to tutoring session"
+    Session.set("hasTutoringShasTutoringSessionLoadedessionLoaded?", true)
 
-  # Deps.autorun -> 
-  #   # if tutor accepted the request
-  #   if SessionRequest.find({}).count() > 0
-  #     console.log "SessionRequest autorun"      
-  #     console.log SessionRequest.findOne()
+    tutoringSession = TutoringSession.findOne()
 
-  #     # Popup tutor
-  #     Session.set('foundTutor?', true)
+    console.log "Current tutoring session: #{tutoringSession}"
+    console.log "Tutoring session count: #{TutoringSession.find().count()}"
+
+    # If pending tutoringSession, go straight to the session
+    if TutoringSession.find().count() > 0
+      console.log "Count is greater than 0, redirecting..."
+      Session.set("sessionId", tutoringSession.sessionId)
+      Session.set('pendingSession?', true)
+
+  #### End Subscriptions
+
+  #### Begin autoruns
 
   Deps.autorun ->
     # Show whiteboard, hide other things
@@ -152,5 +128,39 @@ Meteor.startup ->
   Deps.autorun ->
     if Session.get('pendingSession?')
       Router.go("/session/#{Session.get("sessionId")}")
+
+  #### End autoruns
+
+  # Deps.autorun ->
+  #   if Session.get("subscribedQuestion")
+  #     Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
+
+  # Deps.autorun ->
+  #   if Session.get("subscribedQuestionResponse")
+  #     Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
+      
+  # Deps.autorun ->
+  #   # If tutee accepted tutor's request
+  #   if SessionResponse.find({}).count() > 0
+  #     console.log "SessionResponse autorun"
+  #     response = SessionResponse.findOne()
+
+  #     console.log response
+
+  #     Session.set('foundTutor?', false)
+
+  #     Meteor.subscribe 'tutoringSession', response.sessionId, (arg) ->
+  #       console.log arg
+  #       console.log @
+  #       Router.go("/session/#{response.sessionId}")
+
+  # Deps.autorun -> 
+  #   # if tutor accepted the request
+  #   if SessionRequest.find({}).count() > 0
+  #     console.log "SessionRequest autorun"      
+  #     console.log SessionRequest.findOne()
+
+  #     # Popup tutor
+  #     Session.set('foundTutor?', true)
 
   console.log "Meteor startup end"
