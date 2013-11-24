@@ -1,3 +1,5 @@
+# Note using session variables inside any router makes the fn reactive
+
 Router.configure
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
@@ -7,15 +9,21 @@ Router.configure
     footer:
       to: 'footer'      
   before: ->
+    console.log "Router:Global:before: route name: #{@route.name}"
+
     # if not logged in, send to home page
     if !Meteor.user()
-      # allow home
-      if @route.name == 'home'
-        return
-      else
+      if @route.name != 'home'
         @redirect 'home'
-        @render (if Meteor.loggingIn() then @loading else 'landingPage')
+    else if Meteor.user()
+      console.log "Calling before, user exists"
+
+      if not Session.get("haveAllCollectionsLoaded?")
+        console.log "All collections have not loaded, stopping rendering"
+        # Show loading screen until collections are loaded and then redirect to appropriate location
         @stop()
+      else
+        console.log "All collections have loaded"
 
 Router.map ->
   @route 'home',
@@ -28,9 +36,11 @@ Router.map ->
       landingFooter:
         to: 'landingFooter'
     before: ->
+      console.log "Calling before in home"
+
       # if logged in, send to dashboard
       if Meteor.user()
-        Router.go(Router.path('dashboard'))
+        @redirect 'dashboard'
         @stop()
     action: ->
       @render()
@@ -44,23 +54,26 @@ Router.map ->
         to: 'dashboardHeader'
       dashboardFooter:
         to: 'dashboardFooter'
+    before: ->
+      console.log "Calling before in dashboard"
+    action: ->
+      console.log "Rendering dashboard"
+      @render()
 
   @route 'session',
     path: '/session/:sessionId?'
     layoutTemplate: 'tutoringSessionLayout'
     template: 'tutoringSessionPage'
-    action: ->
+    before: ->
+      console.log "Calling before session"
       if not @params.sessionId?
         console.log "You don't have a session"
-        @redirect "/dashboard"
-      else
+        @redirect "/dashboard"    
+        @stop()
+    action: ->
         console.log "Router: sessionId: #{@params.sessionId}"
 
-        # Problem is when you refresh the page, client hasn't subscribed to TutoringSession
-        # We could use localStorage to make sure user was subscribed and allow user to enter session
-        # Or we could wait until user has subscribed and then either enter or exist the session 
         if TutoringSession.findOne({sessionId: @params.sessionId})
-          
           Session.set("sessionId", @params.sessionId)
 
           @render 'tutoringSessionSidebar', 

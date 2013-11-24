@@ -15,6 +15,15 @@ Meteor.startup ->
   # Ensure questions has loaded
   Session.set("hasQuestionsLoaded?", false)
 
+  # Ensure TutoringSession collection has loaded
+  Session.set("hasTutoringSessionCollectionLoaded?", false)
+
+  # Ensure Users collection had loaded
+  Session.set("hasUsersLoaded?", false)
+
+  # Ensure all collections have loaded before performing some action
+  Session.set('haveAllCollectionsLoaded?', false)
+
   # Ensure whiteboard has loaded
   Session.set("hasWhiteboardLoaded?", false)
 
@@ -64,7 +73,9 @@ Meteor.startup ->
 
   #### Begin Subscriptions
 
-  Meteor.subscribe 'users'
+  Meteor.subscribe('users', ->
+    console.log "Subscribed to users"
+    Session.set("hasUsersLoaded?", true))
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
@@ -73,9 +84,9 @@ Meteor.startup ->
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
-  Meteor.subscribe 'tutoringSession', ->
-    console.log "Subscibred to tutoring session"
-    Session.set("hasTutoringShasTutoringSessionLoadedessionLoaded?", true)
+  Meteor.subscribe('tutoringSession', ->
+    console.log "Subscribed to tutoring session"
+    Session.set("hasTutoringSessionCollectionLoaded?", true)
 
     tutoringSession = TutoringSession.findOne()
 
@@ -86,14 +97,26 @@ Meteor.startup ->
     if TutoringSession.find().count() > 0
       console.log "Count is greater than 0, redirecting..."
       Session.set("sessionId", tutoringSession.sessionId)
-      Session.set('pendingSession?', true)
+      Session.set('pendingSession?', true))
 
   #### End Subscriptions
 
   #### Begin autoruns
 
+  # Ensure all collections have loaded before performing action
   Deps.autorun ->
-    # Show whiteboard, hide other things
+    tests = [
+      'hasTutoringSessionCollectionLoaded?', 
+      'hasQuestionsLoaded?', 
+      'hasUsersLoaded?'
+    ]
+
+    result = tests.map((test) -> Session.get(test)).reduce((total, test) -> test and total)
+    console.log "Running ensuring all collections have loaded: #{result}"
+    Session.set('haveAllCollectionsLoaded?', result)
+
+  # Show whiteboard, hide other things
+  Deps.autorun ->
     if Session.get('whiteboardIsSelected?')
       $('.whiteboard').show()
       $('.sharingFiles').hide()
@@ -125,9 +148,9 @@ Meteor.startup ->
         Router.go("/session/#{session}")
 
   # Automatically redirect user to session if user had a session open and didn't end it properly
-  Deps.autorun ->
-    if Session.get('pendingSession?')
-      Router.go("/session/#{Session.get("sessionId")}")
+  # Deps.autorun ->
+  #   if Session.get('pendingSession?')
+  #     Router.go("/session/#{Session.get("sessionId")}")
 
   #### End autoruns
 

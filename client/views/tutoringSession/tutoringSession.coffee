@@ -84,7 +84,7 @@ Template.tutoringSessionSidebar.events
     Session.set('foundTutor?', false)
     Session.set('askingQuestion?', false)
 
-    Meteor.call 'endSession', TutoringSession.findOne().sessionId, (err, result) ->
+    Meteor.call 'endSession', Session.get("sessionId"), (err, result) ->
       console.log "Calling end session"
 
       if err
