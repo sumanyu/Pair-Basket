@@ -131,30 +131,30 @@ Meteor.methods
   #     userId: @userId
   #   Random.id()
 
-  createSessionResponse: (questionId) ->
-    console.log "Creating Session Response"
-    classroomSessionId = Random.id()
-    response = SessionResponse.insert 
-                  questionId: questionId
-                  classroomSessionId: classroomSessionId
-                  userId: @userId
-    classroomSessionId
+  # createSessionResponse: (questionId) ->
+  #   console.log "Creating Session Response"
+  #   classroomSessionId = Random.id()
+  #   response = SessionResponse.insert 
+  #                 questionId: questionId
+  #                 classroomSessionId: classroomSessionId
+  #                 userId: @userId
+  #   classroomSessionId
 
-  # Add better validation later
-  cancelSessionResponse: (questionId) ->
-    SessionResponse.remove({questionId: questionId})
+  # # Add better validation later
+  # cancelSessionResponse: (questionId) ->
+  #   SessionResponse.remove({questionId: questionId})
 
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
-    if ClassroomSession.findOne({tutorId: @userId, classroomSessionId: classroomSessionId})
-      ClassroomSession.update {classroomSessionId: classroomSessionId}, {$set: {tutorStatus: false}}
-    else if ClassroomSession.findOne({tuteeId: @userId, classroomSessionId: classroomSessionId})
-      ClassroomSession.update {classroomSessionId: classroomSessionId}, {$set: {tuteeStatus: false}}
+    if ClassroomSession.findOne({tutorId: @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {tutorStatus: false}}
+    else if ClassroomSession.findOne({tuteeId: @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {tuteeStatus: false}}
 
     # Let others know user has left
     # Event emitter?
 
-  startClassroomSession: (questionId, classroomSessionId, tutorId) ->
+  startClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
     tuteeId = @userId
@@ -182,7 +182,6 @@ Meteor.methods
 
     obj =       
       questionId: questionId
-      classroomSessionId: classroomSessionId
       tutorId: tutorId
       tuteeId: tuteeId
       tutorStatus: true

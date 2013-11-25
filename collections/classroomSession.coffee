@@ -14,8 +14,6 @@ classroomSessionSchema =
       type: Boolean
     tuteeStatus:
       type: Boolean
-    classroomSessionId:
-      type: String
     questionId:
       type: String
     messages:

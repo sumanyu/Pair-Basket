@@ -76,7 +76,7 @@ Router.map ->
     action: ->
         console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
 
-        if ClassroomSession.findOne({classroomSessionId: @params.classroomSessionId})
+        if ClassroomSession.findOne({_id: @params.classroomSessionId})
           Session.set("classroomSessionId", @params.classroomSessionId)
 
           @render 'classroomSessionSidebar', 

@@ -87,24 +87,16 @@ Template.questionsPage.events =
     questionId = Session.get('subscribedQuestion')
     tutorId = Session.get('subscribedResponse')
 
-    # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, (err, classroomSessionId) ->
-      console.log "SessionResponseCreated"
+    Meteor.call("startClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
+      console.log "startClassroomSession"
 
       if err
         console.log err
       else
-        Meteor.call("startClassroomSession", questionId, classroomSessionId, tutorId, (err, classroomSessionId) ->
-          console.log "startClassroomSession"
+        console.log Session.get('subscribedResponse')
 
-          if err
-            console.log err
-          else
-            console.log Session.get('subscribedResponse')
-
-            ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", classroomSessionId
-            Router.go("/session/#{classroomSessionId}")
-        )
+        ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", classroomSessionId
+        Router.go("/session/#{classroomSessionId}")
     )
 
   'click .decline-button': (e, selector) ->
