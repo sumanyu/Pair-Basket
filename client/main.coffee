@@ -102,7 +102,7 @@ Meteor.startup ->
     # If pending ClassroomSession, go straight to the session
     if ClassroomSession.find().count() > 0
       console.log "Count is greater than 0, redirecting..."
-      Session.set("sessionId", classroomSession.sessionId)
+      Session.set("classroomSessionId", classroomSession.classroomSessionId)
       Session.set('pendingSession?', true))
 
   #### End Subscriptions

@@ -84,8 +84,8 @@ Template.classroomSessionSidebar.events
     Session.set('foundTutor?', false)
     Session.set('askingQuestion?', false)
 
-    Meteor.call 'endSession', Session.get("sessionId"), (err, result) ->
-      console.log "Calling end session"
+    Meteor.call 'endSession', Session.get("classroomSessionId"), (err, result) ->
+      console.log "Calling end classroom session"
 
       if err
         console.log err
@@ -120,6 +120,6 @@ Meteor.startup ->
       if $('canvas').length > 0
         user = Meteor.user()?._id || "Anonymous"
 
-        sessionId = Session.get("sessionId")
-        pad = new Pad($('canvas'), sessionId, user)
-        remotePad = new RemotePad(sessionId, pad)
+        classroomSessionId = Session.get("classroomSessionId")
+        pad = new Pad($('canvas'), classroomSessionId, user)
+        remotePad = new RemotePad(classroomSessionId, pad)

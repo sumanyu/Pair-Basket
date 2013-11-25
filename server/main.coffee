@@ -133,28 +133,28 @@ Meteor.methods
 
   createSessionResponse: (questionId) ->
     console.log "Creating Session Response"
-    sessionId = Random.id()
+    classroomSessionId = Random.id()
     response = SessionResponse.insert 
                   questionId: questionId
-                  sessionId: sessionId
+                  classroomSessionId: classroomSessionId
                   userId: @userId
-    sessionId
+    classroomSessionId
 
   # Add better validation later
   cancelSessionResponse: (questionId) ->
     SessionResponse.remove({questionId: questionId})
 
   # Render ClassroomSession's status 'resolved'
-  endSession: (sessionId) ->
-    if ClassroomSession.findOne({tutorId: @userId, sessionId: sessionId})
-      ClassroomSession.update {sessionId: sessionId}, {$set: {tutorStatus: false}}
-    else if ClassroomSession.findOne({tuteeId: @userId, sessionId: sessionId})
-      ClassroomSession.update {sessionId: sessionId}, {$set: {tuteeStatus: false}}
+  endSession: (classroomSessionId) ->
+    if ClassroomSession.findOne({tutorId: @userId, classroomSessionId: classroomSessionId})
+      ClassroomSession.update {classroomSessionId: classroomSessionId}, {$set: {tutorStatus: false}}
+    else if ClassroomSession.findOne({tuteeId: @userId, classroomSessionId: classroomSessionId})
+      ClassroomSession.update {classroomSessionId: classroomSessionId}, {$set: {tuteeStatus: false}}
 
     # Let others know user has left
     # Event emitter?
 
-  startSession: (questionId, sessionId, tutorId) ->
+  startSession: (questionId, classroomSessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
     tuteeId = @userId
@@ -182,7 +182,7 @@ Meteor.methods
 
     obj =       
       questionId: questionId
-      sessionId: sessionId
+      classroomSessionId: classroomSessionId
       tutorId: tutorId
       tuteeId: tuteeId
       tutorStatus: true
@@ -195,7 +195,7 @@ Meteor.methods
       ]
 
     # Add tutor name
-    tutorSessionId = ClassroomSession.insert obj, (err, result) ->
+    classroomSessionId = ClassroomSession.insert obj, (err, result) ->
       console.log "Inserting classroom session"
       if err
         console.log "Error"

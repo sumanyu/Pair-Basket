@@ -14,7 +14,7 @@ classroomSessionSchema =
       type: Boolean
     tuteeStatus:
       type: Boolean
-    sessionId:
+    classroomSessionId:
       type: String
     questionId:
       type: String
@@ -39,5 +39,5 @@ classroomSessionSchema =
 
 @ClassroomSession.deny
   'update': (userId, docs, fields, modifier) ->
-    tests = ['sessionId', 'tutorId', 'tuteeId'].map (test) -> test in fields
+    tests = ['classroomSessionId', 'tutorId', 'tuteeId'].map (test) -> test in fields
     tests.reduce (total, test) -> test or total
