@@ -1,13 +1,3 @@
-@allCategory = [
-  'math',
-  'science',
-  'english',
-  'social_science',
-  'computer',
-  'business',
-  'foreign_language',
-]
-
 Meteor.startup ->
   console.log "Server is starting!"
   console.log "# of Questions: ", Questions.find().count()

@@ -1,3 +1,13 @@
+@allCategory = [
+  'math',
+  'science',
+  'english',
+  'social_science',
+  'computer',
+  'business',
+  'foreign_language',
+]
+
 if Meteor.isClient
   @focusText = (i) ->
     i.focus()

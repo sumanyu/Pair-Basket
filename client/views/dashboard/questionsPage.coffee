@@ -6,17 +6,7 @@ Handlebars.registerHelper(
 
 # TODO: put this array somewhere. it is copied in server.coffee
 Handlebars.registerHelper(
-  "allCategory",
-  () ->
-    [
-      'math',
-      'science',
-      'english',
-      'social_science',
-      'computer',
-      'business',
-      'foreign_language',
-    ]
+  "allCategory", -> allCategory
 )
 
 Handlebars.registerHelper(
