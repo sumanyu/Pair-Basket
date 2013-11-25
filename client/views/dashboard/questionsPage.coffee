@@ -88,22 +88,22 @@ Template.questionsPage.events =
     tutorId = Session.get('subscribedResponse')
 
     # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, (err, session) ->
+    Meteor.call("createSessionResponse", questionId, (err, classroomSessionId) ->
       console.log "SessionResponseCreated"
 
       if err
         console.log err
       else
-        Meteor.call("startSession", questionId, session, tutorId, (err, classroomSessionId) ->
-          console.log "startSession"
+        Meteor.call("startClassroomSession", questionId, classroomSessionId, tutorId, (err, classroomSessionId) ->
+          console.log "startClassroomSession"
 
           if err
             console.log err
           else
             console.log Session.get('subscribedResponse')
 
-            ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
-            Router.go("/session/#{session}")
+            ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", classroomSessionId
+            Router.go("/session/#{classroomSessionId}")
         )
     )
 

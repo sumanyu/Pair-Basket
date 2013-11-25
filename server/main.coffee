@@ -145,7 +145,7 @@ Meteor.methods
     SessionResponse.remove({questionId: questionId})
 
   # Render ClassroomSession's status 'resolved'
-  endSession: (classroomSessionId) ->
+  endClassroomSession: (classroomSessionId) ->
     if ClassroomSession.findOne({tutorId: @userId, classroomSessionId: classroomSessionId})
       ClassroomSession.update {classroomSessionId: classroomSessionId}, {$set: {tutorStatus: false}}
     else if ClassroomSession.findOne({tuteeId: @userId, classroomSessionId: classroomSessionId})
@@ -154,7 +154,7 @@ Meteor.methods
     # Let others know user has left
     # Event emitter?
 
-  startSession: (questionId, classroomSessionId, tutorId) ->
+  startClassroomSession: (questionId, classroomSessionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
     tuteeId = @userId
