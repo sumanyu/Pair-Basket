@@ -49,16 +49,16 @@ Meteor.publish 'questions', ->
   Questions.find({})
 
 # Interestingly, $or doesn't work with classroomStatus: true
-# console.log TutoringSession.find({classroomStatus: true, $or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
+# console.log ClassroomSession.find({classroomStatus: true, $or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
 
 # I learned that publish functions can't contain if/else logic on a collection
-Meteor.publish 'tutoringSession', ->
-  console.log "Publishing tutoring session to: #{@userId}"
+Meteor.publish 'classroomSession', ->
+  console.log "Publishing classroom session to: #{@userId}"
 
   # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
 
   # Discriminate between tutorId or tuteeId later
-  TutoringSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]})
+  ClassroomSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -144,12 +144,12 @@ Meteor.methods
   cancelSessionResponse: (questionId) ->
     SessionResponse.remove({questionId: questionId})
 
-  # Render TutoringSession's status 'resolved'
+  # Render ClassroomSession's status 'resolved'
   endSession: (sessionId) ->
-    if TutoringSession.findOne({tutorId: @userId, sessionId: sessionId})
-      TutoringSession.update {sessionId: sessionId}, {$set: {tutorStatus: false}}
-    else if TutoringSession.findOne({tuteeId: @userId, sessionId: sessionId})
-      TutoringSession.update {sessionId: sessionId}, {$set: {tuteeStatus: false}}
+    if ClassroomSession.findOne({tutorId: @userId, sessionId: sessionId})
+      ClassroomSession.update {sessionId: sessionId}, {$set: {tutorStatus: false}}
+    else if ClassroomSession.findOne({tuteeId: @userId, sessionId: sessionId})
+      ClassroomSession.update {sessionId: sessionId}, {$set: {tuteeStatus: false}}
 
     # Let others know user has left
     # Event emitter?
@@ -195,8 +195,8 @@ Meteor.methods
       ]
 
     # Add tutor name
-    tutorSessionId = TutoringSession.insert obj, (err, result) ->
-      console.log "Inserting tutoring session"
+    tutorSessionId = ClassroomSession.insert obj, (err, result) ->
+      console.log "Inserting classroom session"
       if err
         console.log "Error"
         console.log err

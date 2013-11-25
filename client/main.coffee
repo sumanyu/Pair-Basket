@@ -13,13 +13,13 @@ Meteor.startup ->
   Session.set('questionFromLandingPrompt', null)
 
   # Ensure questions has loaded
-  Session.set("hasQuestionsLoaded?", false)
+  Session.set("hasQuestionsCollectionLoaded?", false)
 
-  # Ensure TutoringSession collection has loaded
-  Session.set("hasTutoringSessionCollectionLoaded?", false)
+  # Ensure ClassroomSession collection has loaded
+  Session.set("hasClassroomSessionCollectionLoaded?", false)
 
   # Ensure Users collection had loaded
-  Session.set("hasUsersLoaded?", false)
+  Session.set("hasUsersCollectionLoaded?", false)
 
   # Ensure all collections have loaded before performing some action
   Session.set('haveAllCollectionsLoaded?', false)
@@ -81,28 +81,28 @@ Meteor.startup ->
 
   Meteor.subscribe('users', ->
     console.log "Subscribed to users"
-    Session.set("hasUsersLoaded?", true))
+    Session.set("hasUsersCollectionLoaded?", true))
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
-    Session.set("hasQuestionsLoaded?", true)
+    Session.set("hasQuestionsCollectionLoaded?", true)
 
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
-  Meteor.subscribe('tutoringSession', ->
-    console.log "Subscribed to tutoring session"
-    Session.set("hasTutoringSessionCollectionLoaded?", true)
+  Meteor.subscribe('classroomSession', ->
+    console.log "Subscribed to classroom session"
+    Session.set("hasClassroomSessionCollectionLoaded?", true)
 
-    tutoringSession = TutoringSession.findOne()
+    classroomSession = ClassroomSession.findOne()
 
-    console.log "Current tutoring session: #{tutoringSession}"
-    console.log "Tutoring session count: #{TutoringSession.find().count()}"
+    console.log "Current classroom session: #{classroomSession}"
+    console.log "Classroom session count: #{ClassroomSession.find().count()}"
 
-    # If pending tutoringSession, go straight to the session
-    if TutoringSession.find().count() > 0
+    # If pending ClassroomSession, go straight to the session
+    if ClassroomSession.find().count() > 0
       console.log "Count is greater than 0, redirecting..."
-      Session.set("sessionId", tutoringSession.sessionId)
+      Session.set("sessionId", classroomSession.sessionId)
       Session.set('pendingSession?', true))
 
   #### End Subscriptions
@@ -112,9 +112,9 @@ Meteor.startup ->
   # Ensure all collections have loaded before performing action
   Deps.autorun ->
     tests = [
-      'hasTutoringSessionCollectionLoaded?', 
-      'hasQuestionsLoaded?', 
-      'hasUsersLoaded?'
+      'hasClassroomSessionCollectionLoaded?', 
+      'hasQuestionsCollectionLoaded?', 
+      'hasUsersCollectionLoaded?'
     ]
 
     result = tests.map((test) -> Session.get(test)).reduce((total, test) -> test and total)
@@ -178,7 +178,7 @@ Meteor.startup ->
 
   #     Session.set('foundTutor?', false)
 
-  #     Meteor.subscribe 'tutoringSession', response.sessionId, (arg) ->
+  #     Meteor.subscribe 'ClassroomSession', response.sessionId, (arg) ->
   #       console.log arg
   #       console.log @
   #       Router.go("/session/#{response.sessionId}")

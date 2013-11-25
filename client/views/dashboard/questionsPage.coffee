@@ -94,7 +94,7 @@ Template.questionsPage.events =
       if err
         console.log err
       else
-        Meteor.call("startSession", questionId, session, tutorId, (err, tutoringSessionId) ->
+        Meteor.call("startSession", questionId, session, tutorId, (err, classroomSessionId) ->
           console.log "startSession"
 
           if err

@@ -65,8 +65,8 @@ Router.map ->
 
   @route 'session',
     path: '/session/:sessionId?'
-    layoutTemplate: 'tutoringSessionLayout'
-    template: 'tutoringSessionPage'
+    layoutTemplate: 'classroomSessionLayout'
+    template: 'classroomSessionPage'
     before: ->
       console.log "Calling before session"
       if not @params.sessionId?
@@ -76,11 +76,11 @@ Router.map ->
     action: ->
         console.log "Router: sessionId: #{@params.sessionId}"
 
-        if TutoringSession.findOne({sessionId: @params.sessionId})
+        if ClassroomSession.findOne({sessionId: @params.sessionId})
           Session.set("sessionId", @params.sessionId)
 
-          @render 'tutoringSessionSidebar', 
-            to: 'tutoringSessionSidebar'
+          @render 'classroomSessionSidebar', 
+            to: 'classroomSessionSidebar'
 
           @render()
         else
