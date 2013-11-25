@@ -2,7 +2,7 @@ Handlebars.registerHelper(
   "underscoreToSpace",
   (string) ->
     string.split("_").join(" ")
-);
+)
 
 # TODO: put this array somewhere. it is copied in server.coffee
 Handlebars.registerHelper(
@@ -17,7 +17,7 @@ Handlebars.registerHelper(
       'business',
       'foreign_language',
     ]
-);
+)
 
 Handlebars.registerHelper(
   "allSchool",
@@ -35,7 +35,7 @@ Handlebars.registerHelper(
       "York_University"
       "Other"
     ]
-);
+)
 
 Template.questionsPage.helpers
   ownedQuestions: =>
@@ -65,7 +65,7 @@ Template.questionsPage.helpers
       {sort: {dateCreated: -1}})
 
   questionsLoaded: ->
-    Session.get('hasQuestionsLoaded?')
+    Session.get('hasQuestionsCollectionLoaded?')
 
   askQuestion: ->
     Session.get('askingQuestion?')

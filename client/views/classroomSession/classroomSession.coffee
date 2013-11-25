@@ -1,14 +1,14 @@
 Template.chatBox.helpers
   areMessagesReady: ->
-    TutoringSession.findOne({}) || false
+    ClassroomSession.findOne({}) || false
 
   messages: ->
     # fetch all chat messages
-    TutoringSession.findOne({}, {fields: {messages: 1}}).messages
+    ClassroomSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
     currentUser = Meteor.userId()
-    currentSession = TutoringSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
+    currentSession = ClassroomSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
     tutorId = currentSession.tutorId
     tuteeId = currentSession.tuteeId
 
@@ -23,14 +23,14 @@ sendMessage = ->
       message: message
       userId: Meteor.userId()
 
-    tutoringSessionId = TutoringSession.findOne()._id
+    classroomSessionId = ClassroomSession.findOne()._id
 
-    console.log TutoringSession.findOne()
+    console.log ClassroomSession.findOne()
 
     # Push messages
-    TutoringSession.update {_id: tutoringSessionId}, $push: {messages: totalMessage}
+    ClassroomSession.update {_id: classroomSessionId}, $push: {messages: totalMessage}
 
-    console.log TutoringSession.findOne()
+    console.log ClassroomSession.findOne()
 
     $(".chat-message").val ""
 
@@ -44,7 +44,7 @@ Template.chatBox.events
   "click #send": (e, s) ->
     sendMessage()
 
-Template.tutoringSessionSidebar.helpers
+Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
 
@@ -54,7 +54,7 @@ Template.tutoringSessionSidebar.helpers
   wolframIsSelected: ->
     Session.get('wolframIsSelected?')
 
-Template.tutoringSessionPage.helpers
+Template.classroomSessionPage.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
 
@@ -64,7 +64,7 @@ Template.tutoringSessionPage.helpers
   wolframIsSelected: ->
     Session.get('wolframIsSelected?')
 
-Template.tutoringSessionSidebar.events 
+Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
     Session.set('whiteboardIsSelected?', true)
     Session.set('fileIsSelected?', false)
