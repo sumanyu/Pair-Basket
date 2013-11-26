@@ -1,14 +1,14 @@
 Template.chatBox.helpers
   areMessagesReady: ->
-    ClassroomSession.findOne({}) || false
+    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}) || false
 
   messages: ->
     # fetch all chat messages
-    ClassroomSession.findOne({}, {fields: {messages: 1}}).messages
+    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
     currentUser = Meteor.user()
-    currentSession = ClassroomSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
+    currentSession = ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {tutorId: 1, tuteeId: 1}})
     tutorId = currentSession.tutorId
     tuteeId = currentSession.tuteeId
 
