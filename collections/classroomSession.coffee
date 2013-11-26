@@ -1,41 +1,62 @@
-messageSchema = new SimpleSchema
-  userId:
+# Can't use more than one nested SimpleSchema
+
+classroomSessionMessageSchema = new SimpleSchema
+  'userId':
     type: String
-  message:
+  'userName':
+    type: String
+  'message':
+    type: String
+
+classroomSessionUserSchema = new SimpleSchema
+  'id':
+    type: String
+  'name':
+    type: String
+  'school':
     type: String
 
 classroomSessionSchema = 
   schema:
-    tutorId:
-      type: String
-    tuteeId:
-      type: String
-    tutorStatus:
+    'tutor':
+      type: classroomSessionUserSchema
+    'tutee':
+      type: classroomSessionUserSchema
+    'tutorStatus':
       type: Boolean
-    tuteeStatus:
+    'tuteeStatus':
       type: Boolean
-    questionId:
+    'questionId':
       type: String
-    messages:
-      type: [messageSchema]
-  virtualFields: 
+    'messages':
+      type: [classroomSessionMessageSchema]
+  virtualFields:
     # False only when both tutor and tutee are inactive
     # Unfortunately, you can't query on virtual fields
     classroomStatus: (classroomSession) ->
       classroomSession.tutorStatus or classroomSession.tuteeStatus
 
-@ClassroomSession = new Meteor.Collection2("ClassroomSession", classroomSessionSchema)
+# Screw collection2, it's schema support sucks hard
+# @ClassroomSession = new Meteor.Collection2("ClassroomSession", classroomSessionSchema)
+
+@ClassroomSession = new Meteor.Collection("ClassroomSession")  
 
 @ClassroomSession.allow
   # User must be logged in and document must be owned by user
   'insert': (userId, doc) ->
-    userId and (userId in [doc.tutorId, doc.tuteeId])
+    console.log userId
+    console.log doc
+    userId and (userId in [doc.tutor.id, doc.tutee.id])
 
   # User must be logged in and document must be owned by user
   'update': (userId, doc) ->
-    userId and (userId in [doc.tutorId, doc.tuteeId])
+    console.log userId
+    console.log doc
+    userId and (userId in [doc.tutor.id, doc.tutee.id])
 
 @ClassroomSession.deny
+  # Disallow modification of tutorId, tuteeId
   'update': (userId, docs, fields, modifier) ->
-    tests = ['classroomSessionId', 'tutorId', 'tuteeId'].map (test) -> test in fields
+    console.log fields
+    tests = ['tutor', 'tutee'].map (test) -> test in fields
     tests.reduce (total, test) -> test or total

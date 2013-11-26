@@ -1,18 +1,18 @@
 Template.chatBox.helpers
   areMessagesReady: ->
-    ClassroomSession.findOne({}) || false
+    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}) || false
 
   messages: ->
     # fetch all chat messages
-    ClassroomSession.findOne({}, {fields: {messages: 1}}).messages
+    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
-    currentUser = Meteor.userId()
-    currentSession = ClassroomSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
-    tutorId = currentSession.tutorId
-    tuteeId = currentSession.tuteeId
+    currentUser = Meteor.user()
+    currentSession = ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {tutor: 1, tutee: 1}})
+    tutor = currentSession.tutor
+    tutee = currentSession.tutee
 
-    if currentUser is tutorId then tuteeId else tutorId
+    if currentUser._id is tutor.id then tutee.name else tutor.name
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -21,18 +21,23 @@ sendMessage = ->
   if message.length > 0
     totalMessage = 
       message: message
-      userId: Meteor.userId()
+      user:
+        id: Meteor.userId()
+        name: Meteor.user().profile.name
 
-    classroomSessionId = ClassroomSession.findOne()._id
-
-    console.log ClassroomSession.findOne()
+    console.log totalMessage
 
     # Push messages
-    ClassroomSession.update {_id: classroomSessionId}, $push: {messages: totalMessage}
-
-    console.log ClassroomSession.findOne()
+    ClassroomSession.update {_id: Session.get('classroomSessionId')}, {$push: {messages: totalMessage}}
 
     $(".chat-message").val ""
+
+Template.chatBox.rendered = ->
+  console.log "Chatbox re-rendering..."
+  focusText($('.chat-message'))
+
+  # Auto-scroll chat
+  $('.chatMessages').scrollTop($('.chatMessages')[0].scrollHeight)
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->
@@ -40,9 +45,6 @@ Template.chatBox.events
       e.preventDefault()
       console.log "entering?"
       sendMessage()
-
-  "click #send": (e, s) ->
-    sendMessage()
 
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->

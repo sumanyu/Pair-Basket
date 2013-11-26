@@ -77,5 +77,5 @@
   SessionRequest.remove({})
   SessionResponse.remove({})
   Questions.remove({})
-  ClassroomSession.remove({})
+  # ClassroomSession.remove({})
   populateQuestions()
