@@ -24,14 +24,14 @@ sendMessage = ->
       userId: Meteor.userId()
       userName: Meteor.user().profile.name
 
-    console.log totalMessage
-
     # Push messages
     ClassroomSession.update {_id: Session.get('classroomSessionId')}, $push: {messages: totalMessage}
 
-    console.log ClassroomSession.findOne()
-
     $(".chat-message").val ""
+
+Template.chatBox.rendered = ->
+  console.log "Chatbox re-rendering..."
+  focusText($('.chat-message'))
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->
@@ -39,9 +39,6 @@ Template.chatBox.events
       e.preventDefault()
       console.log "entering?"
       sendMessage()
-
-  "click #send": (e, s) ->
-    sendMessage()
 
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
