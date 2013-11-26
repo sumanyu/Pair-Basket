@@ -12,6 +12,9 @@
     pointer.text nickname
     positionPointer pointer, position
     $("body").append pointer
+
+    console.log "Remote dragstart, mode: #{mode}"
+
     users[nickname] =
       color: color
       from: position
@@ -35,14 +38,6 @@
 
   LineStream.on padId + ":wipe", (nickname) ->
     pad.wipe()
-
-  LineStream.on padId + ":draw", (nickname) ->
-    # Draw on local pad
-    pad.startRemoteDrawMode()
-
-  LineStream.on padId + ":erase", (nickname) ->
-    # Erase on local pad
-    pad.startRemoteEraseMode()
 
   close: ->
     LineStream.removeAllListeners padId + ":dragstart"

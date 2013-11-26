@@ -10,7 +10,6 @@ class @Pad
   id = undefined
   nickname = undefined
   LineStream = undefined
-  baseGlobalCompositeOperation = undefined
 
   COLORS = 
     erase: 'rgba(0,0,0,1)'
@@ -18,9 +17,6 @@ class @Pad
 
   # 'draw', 'erase'
   mode = undefined
-
-  # Used to co-ordinate remote and local pad's mode
-  originalMode = undefined
 
   constructor: (_canvas, _id, _nickname) ->
     canvas = _canvas
@@ -30,8 +26,6 @@ class @Pad
     canvasOffset = canvas.offset()
     ctx = canvas[0].getContext("2d")
 
-    # Used for erasing components
-    baseGlobalCompositeOperation = ctx.globalCompositeOperation
     mode = 'draw'
 
     setup()
@@ -111,18 +105,18 @@ class @Pad
     prepareCanvasToDraw()
 
   prepareCanvasToErase = ->
-    baseGlobalCompositeOperation = ctx.globalCompositeOperation
     ctx.globalCompositeOperation = 'destination-out'
     ctx.strokeStyle = COLORS.erase
     ctx.lineWidth = 15
 
   prepareCanvasToDraw = (_color) ->
-    ctx.globalCompositeOperation = baseGlobalCompositeOperation
+    ctx.globalCompositeOperation = 'source-over'
     ctx.strokeStyle = _color || color
     ctx.lineWidth = 3
 
   # Reset local pad's mode after remote is done drawing/erasing 
   initializeModeInitialConditions: ->
+    console.log "initializeModeInitialConditions, mode: #{mode}"
     if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
 
   setDrawingMode = (_mode) ->
