@@ -1,3 +1,6 @@
+# Auto-scroll chat
+# $('.chatMessages').scrollTop = $('.chatMessages').scrollHeight
+
 Template.chatBox.helpers
   areMessagesReady: ->
     ClassroomSession.findOne({_id: Session.get('classroomSessionId')}) || false
