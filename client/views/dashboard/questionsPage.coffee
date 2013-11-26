@@ -2,22 +2,12 @@ Handlebars.registerHelper(
   "underscoreToSpace",
   (string) ->
     string.split("_").join(" ")
-);
+)
 
 # TODO: put this array somewhere. it is copied in server.coffee
 Handlebars.registerHelper(
-  "allCategory",
-  () ->
-    [
-      'math',
-      'science',
-      'english',
-      'social_science',
-      'computer',
-      'business',
-      'foreign_language',
-    ]
-);
+  "allCategory", -> allCategory
+)
 
 Handlebars.registerHelper(
   "allSchool",
@@ -35,7 +25,7 @@ Handlebars.registerHelper(
       "York_University"
       "Other"
     ]
-);
+)
 
 Template.questionsPage.helpers
   ownedQuestions: =>
@@ -65,7 +55,7 @@ Template.questionsPage.helpers
       {sort: {dateCreated: -1}})
 
   questionsLoaded: ->
-    Session.get('hasQuestionsLoaded?')
+    Session.get('hasQuestionsCollectionLoaded?')
 
   askQuestion: ->
     Session.get('askingQuestion?')
@@ -87,24 +77,16 @@ Template.questionsPage.events =
     questionId = Session.get('subscribedQuestion')
     tutorId = Session.get('subscribedResponse')
 
-    # User Meteor method to notify client
-    Meteor.call("createSessionResponse", questionId, (err, session) ->
-      console.log "SessionResponseCreated"
+    Meteor.call("startClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
+      console.log "startClassroomSession"
 
       if err
         console.log err
       else
-        Meteor.call("startSession", questionId, session, tutorId, (err, tutoringSessionId) ->
-          console.log "startSession"
+        console.log Session.get('subscribedResponse')
 
-          if err
-            console.log err
-          else
-            console.log Session.get('subscribedResponse')
-
-            ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", session
-            Router.go("/session/#{session}")
-        )
+        ClassroomStream.emit "response:#{Session.get('subscribedResponse')}", classroomSessionId
+        Router.go("/session/#{classroomSessionId}")
     )
 
   'click .decline-button': (e, selector) ->

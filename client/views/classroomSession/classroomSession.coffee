@@ -1,14 +1,14 @@
 Template.chatBox.helpers
   areMessagesReady: ->
-    TutoringSession.findOne({}) || false
+    ClassroomSession.findOne({}) || false
 
   messages: ->
     # fetch all chat messages
-    TutoringSession.findOne({}, {fields: {messages: 1}}).messages
+    ClassroomSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
     currentUser = Meteor.userId()
-    currentSession = TutoringSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
+    currentSession = ClassroomSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
     tutorId = currentSession.tutorId
     tuteeId = currentSession.tuteeId
 
@@ -23,14 +23,14 @@ sendMessage = ->
       message: message
       userId: Meteor.userId()
 
-    tutoringSessionId = TutoringSession.findOne()._id
+    classroomSessionId = ClassroomSession.findOne()._id
 
-    console.log TutoringSession.findOne()
+    console.log ClassroomSession.findOne()
 
     # Push messages
-    TutoringSession.update {_id: tutoringSessionId}, $push: {messages: totalMessage}
+    ClassroomSession.update {_id: classroomSessionId}, $push: {messages: totalMessage}
 
-    console.log TutoringSession.findOne()
+    console.log ClassroomSession.findOne()
 
     $(".chat-message").val ""
 
@@ -44,7 +44,7 @@ Template.chatBox.events
   "click #send": (e, s) ->
     sendMessage()
 
-Template.tutoringSessionSidebar.helpers
+Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
 
@@ -54,7 +54,7 @@ Template.tutoringSessionSidebar.helpers
   wolframIsSelected: ->
     Session.get('wolframIsSelected?')
 
-Template.tutoringSessionPage.helpers
+Template.classroomSessionPage.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
 
@@ -64,7 +64,7 @@ Template.tutoringSessionPage.helpers
   wolframIsSelected: ->
     Session.get('wolframIsSelected?')
 
-Template.tutoringSessionSidebar.events 
+Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
     Session.set('whiteboardIsSelected?', true)
     Session.set('fileIsSelected?', false)
@@ -84,8 +84,8 @@ Template.tutoringSessionSidebar.events
     Session.set('foundTutor?', false)
     Session.set('askingQuestion?', false)
 
-    Meteor.call 'endSession', Session.get("sessionId"), (err, result) ->
-      console.log "Calling end session"
+    Meteor.call 'endClassroomSession', Session.get("classroomSessionId"), (err, result) ->
+      console.log "Calling end classroom session"
 
       if err
         console.log err
@@ -120,6 +120,6 @@ Meteor.startup ->
       if $('canvas').length > 0
         user = Meteor.user()?._id || "Anonymous"
 
-        sessionId = Session.get("sessionId")
-        pad = new Pad($('canvas'), sessionId, user)
-        remotePad = new RemotePad(sessionId, pad)
+        classroomSessionId = Session.get("classroomSessionId")
+        pad = new Pad($('canvas'), classroomSessionId, user)
+        remotePad = new RemotePad(classroomSessionId, pad)

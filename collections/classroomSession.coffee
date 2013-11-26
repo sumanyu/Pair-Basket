@@ -4,7 +4,7 @@ messageSchema = new SimpleSchema
   message:
     type: String
 
-tutoringSessionSchema = 
+classroomSessionSchema = 
   schema:
     tutorId:
       type: String
@@ -14,8 +14,6 @@ tutoringSessionSchema =
       type: Boolean
     tuteeStatus:
       type: Boolean
-    sessionId:
-      type: String
     questionId:
       type: String
     messages:
@@ -23,12 +21,12 @@ tutoringSessionSchema =
   virtualFields: 
     # False only when both tutor and tutee are inactive
     # Unfortunately, you can't query on virtual fields
-    classroomStatus: (tutoringSession) ->
-      tutoringSession.tutorStatus or tutoringSession.tuteeStatus
+    classroomStatus: (classroomSession) ->
+      classroomSession.tutorStatus or classroomSession.tuteeStatus
 
-@TutoringSession = new Meteor.Collection2("TutoringSession", tutoringSessionSchema)
+@ClassroomSession = new Meteor.Collection2("ClassroomSession", classroomSessionSchema)
 
-@TutoringSession.allow
+@ClassroomSession.allow
   # User must be logged in and document must be owned by user
   'insert': (userId, doc) ->
     userId and (userId in [doc.tutorId, doc.tuteeId])
@@ -37,7 +35,7 @@ tutoringSessionSchema =
   'update': (userId, doc) ->
     userId and (userId in [doc.tutorId, doc.tuteeId])
 
-@TutoringSession.deny
+@ClassroomSession.deny
   'update': (userId, docs, fields, modifier) ->
-    tests = ['sessionId', 'tutorId', 'tuteeId'].map (test) -> test in fields
+    tests = ['classroomSessionId', 'tutorId', 'tuteeId'].map (test) -> test in fields
     tests.reduce (total, test) -> test or total

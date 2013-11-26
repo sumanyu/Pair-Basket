@@ -64,23 +64,23 @@ Router.map ->
       @render()
 
   @route 'session',
-    path: '/session/:sessionId?'
-    layoutTemplate: 'tutoringSessionLayout'
-    template: 'tutoringSessionPage'
+    path: '/session/:classroomSessionId?'
+    layoutTemplate: 'classroomSessionLayout'
+    template: 'classroomSessionPage'
     before: ->
       console.log "Calling before session"
-      if not @params.sessionId?
+      if not @params.classroomSessionId?
         console.log "You don't have a session"
         @redirect "/dashboard"    
         @stop()
     action: ->
-        console.log "Router: sessionId: #{@params.sessionId}"
+        console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
 
-        if TutoringSession.findOne({sessionId: @params.sessionId})
-          Session.set("sessionId", @params.sessionId)
+        if ClassroomSession.findOne({_id: @params.classroomSessionId})
+          Session.set("classroomSessionId", @params.classroomSessionId)
 
-          @render 'tutoringSessionSidebar', 
-            to: 'tutoringSessionSidebar'
+          @render 'classroomSessionSidebar', 
+            to: 'classroomSessionSidebar'
 
           @render()
         else
