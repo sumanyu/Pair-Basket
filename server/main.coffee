@@ -38,9 +38,6 @@ Meteor.publish "users", ->
 Meteor.publish 'questions', ->
   Questions.find({})
 
-# Interestingly, $or doesn't work with classroomStatus: true
-# console.log ClassroomSession.find({classroomStatus: true, $or: [{tutorId: @userId}, {tuteeId: @userId}]}).fetch()
-
 # I learned that publish functions can't contain if/else logic on a collection
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
@@ -48,7 +45,7 @@ Meteor.publish 'classroomSession', ->
   # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
 
   # Discriminate between tutorId or tuteeId later
-  ClassroomSession.find({$or: [{tutorId: @userId}, {tuteeId: @userId}]})
+  ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -136,9 +133,9 @@ Meteor.methods
 
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
-    if ClassroomSession.findOne({tutorId: @userId, _id: classroomSessionId})
+    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {tutorStatus: false}}
-    else if ClassroomSession.findOne({tuteeId: @userId, _id: classroomSessionId})
+    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {tuteeStatus: false}}
 
     # Let others know user has left
@@ -170,10 +167,25 @@ Meteor.methods
       {$set: {status: 'resolved'}}
     )
 
+    tutor = Meteor.users.findOne({_id: tutorId})
+    tutorObject = 
+      id: tutorId
+      name: tutor.profile.name
+      school: tutor.profile.school
+
+    tutee = Meteor.user()
+    tuteeObject = 
+      id: tuteeId
+      name: tutee.profile.name
+      school: tutee.profile.school
+
+    console.log tutor
+    console.log tutee
+
     obj =       
       questionId: questionId
-      tutorId: tutorId
-      tuteeId: tuteeId
+      tutor: tutorObject
+      tutee: tuteeObject
       tutorStatus: true
       tuteeStatus: true
       messages: [

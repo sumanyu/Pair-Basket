@@ -8,12 +8,20 @@ classroomSessionSessageSchema = new SimpleSchema
   'message':
     type: String
 
+classroomSessionUserSchema = new SimpleSchema
+  'id':
+    type: String
+  'name':
+    type: String
+  'school':
+    type: String
+
 classroomSessionSchema = 
   schema:
-    'tutorId':
-      type: String
-    'tuteeId':
-      type: String
+    'tutor':
+      type: classroomSessionUserSchema
+    'tutee':
+      type: classroomSessionUserSchema
     'tutorStatus':
       type: Boolean
     'tuteeStatus':
@@ -33,13 +41,13 @@ classroomSessionSchema =
 @ClassroomSession.allow
   # User must be logged in and document must be owned by user
   'insert': (userId, doc) ->
-    userId and (userId in [doc.tutorId, doc.tuteeId])
+    userId and (userId in [doc.tutor.id, doc.tutee.id])
 
   # User must be logged in and document must be owned by user
   'update': (userId, doc) ->
     console.log userId
     console.log doc
-    userId and (userId in [doc.tutorId, doc.tuteeId])
+    userId and (userId in [doc.tutor.id, doc.tutee.id])
 
 @ClassroomSession.deny
   # Disallow modification of tutorId, tuteeId
