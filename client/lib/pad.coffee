@@ -50,7 +50,7 @@ class @Pad
     pad.on "dragstart", (event) =>
       drawing = true
       from = getPosition(event)
-      LineStream.emit id + ":dragstart", nickname, from, color
+      LineStream.emit id + ":dragstart", nickname, from, color, mode
 
     pad.on "dragend", (event) => 
       drawing = false
@@ -59,7 +59,7 @@ class @Pad
     pad.on "drag", (event) =>
       if drawing
         to = getPosition(event)
-        context.drawLine from, to, color
+        context.drawLine from, to
         LineStream.emit id + ":drag", nickname, to
         from = to
         skipCount = 0
@@ -70,23 +70,24 @@ class @Pad
     ctx.lineCap = "round"
     ctx.lineWidth = 3
 
-  getPosition = (event) ->      
+  getPosition = (event) ->
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
-  drawLine: (from, to, color) ->
-    if mode is 'draw'
-      ctx.strokeStyle = color
-      ctx.lineWidth = 3
-    else
-      ctx.strokeStyle = COLORS.erase
-      ctx.lineWidth = 15
-
+  drawLine: (from, to) ->
     ctx.beginPath()
     ctx.moveTo from.x, from.y
     ctx.lineTo to.x, to.y
     ctx.closePath()
     ctx.stroke()
+
+  drawRemoteLine: (from, to, _color, remoteMode) ->
+    if remoteMode is 'draw'
+      prepareCanvasToDraw(_color)
+    else if remoteMode is 'erase'
+      prepareCanvasToErase()
+
+    @drawLine(from, to)
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
@@ -94,39 +95,35 @@ class @Pad
 
   toggleModes: ->
     if @getDrawingMode() is 'erase'
-      @startLocalDrawMode()
+      @startDrawMode()
     else
-      @startLocalEraseMode()
+      @startEraseMode()
 
-  startEraseMode = ->
-    mode = 'erase'
+  startEraseMode: ->
+    setDrawingMode 'erase'
+    prepareCanvasToErase()
+
+  startDrawMode: ->
+    setDrawingMode 'draw'
+    prepareCanvasToDraw()
+
+  prepareCanvasToErase = ->
     baseGlobalCompositeOperation = ctx.globalCompositeOperation
     ctx.globalCompositeOperation = 'destination-out'
+    ctx.strokeStyle = COLORS.erase
+    ctx.lineWidth = 15
 
-  startDrawMode = ->
-    mode = 'draw'
+  prepareCanvasToDraw = (_color) ->
     ctx.globalCompositeOperation = baseGlobalCompositeOperation
+    ctx.strokeStyle = _color || color
+    ctx.lineWidth = 3
 
-  startLocalEraseMode: ->
-    startEraseMode()
-    LineStream.emit id + ":erase", nickname
-
-  startLocalDrawMode: ->
-    startDrawMode()
-    LineStream.emit id + ":draw", nickname
-
-  startRemoteDrawMode: ->
-    originalMode = mode
-    startDrawMode()
-
-  startRemoteEraseMode: ->
-    originalMode = mode
-    startEraseMode()
-  
   # Reset local pad's mode after remote is done drawing/erasing 
-  resetRemoteMode: ->
-    mode = originalMode
-    @toggleModes()
+  initializeModeInitialConditions: ->
+    if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
+
+  setDrawingMode = (_mode) ->
+    mode = _mode
 
   getDrawingMode: ->
     mode
@@ -137,13 +134,8 @@ class @Pad
 
   # Not using it apparently
   close: ->
-
     console.log "closing pad"
     console.log @
-
-    # pad.off "dragstart", onDragStart
-    # pad.off "dragend", onDragEnd
-    # pad.off "drag", onDrag
 
   getRandomColor = ->
     letters = "0123456789ABCDEF".split("")

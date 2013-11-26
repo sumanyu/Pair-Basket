@@ -7,7 +7,7 @@
       top: position.y + 10
       left: position.x + 10
   
-  LineStream.on padId + ":dragstart", (nickname, position, color) ->
+  LineStream.on padId + ":dragstart", (nickname, position, color, mode) ->
     pointer = $($("#tmpl-nickname").text())
     pointer.text nickname
     positionPointer pointer, position
@@ -16,6 +16,7 @@
       color: color
       from: position
       pointer: pointer
+      mode: mode
 
   LineStream.on padId + ":dragend", (nickname) ->
     user = users[nickname]
@@ -23,12 +24,12 @@
       user.pointer.remove()
       users[nickname] = `undefined`
       # Reset local pad's mode to what it had before remote person switched it
-      pad.resetRemoteMode()
+      pad.initializeModeInitialConditions()
 
   LineStream.on padId + ":drag", (nickname, to) ->
     user = users[nickname]
     if user
-      pad.drawLine user.from, to, user.color
+      pad.drawRemoteLine user.from, to, user.color, user.mode
       positionPointer user.pointer, to
       user.from = to
 
