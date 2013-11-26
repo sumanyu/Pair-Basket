@@ -78,6 +78,7 @@ class @Pad
     ctx.closePath()
     ctx.stroke()
 
+  # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
     if remoteMode is 'draw'
       prepareCanvasToDraw(_color)
@@ -114,7 +115,7 @@ class @Pad
     ctx.strokeStyle = _color || color
     ctx.lineWidth = 3
 
-  # Reset local pad's mode after remote is done drawing/erasing 
+  # Reset local pad's mode to IC after remote is done drawing/erasing 
   initializeModeInitialConditions: ->
     console.log "initializeModeInitialConditions, mode: #{mode}"
     if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
