@@ -1,6 +1,3 @@
-# Auto-scroll chat
-# $('.chatMessages').scrollTop = $('.chatMessages').scrollHeight
-
 Template.chatBox.helpers
   areMessagesReady: ->
     ClassroomSession.findOne({_id: Session.get('classroomSessionId')}) || false
@@ -38,6 +35,9 @@ sendMessage = ->
 Template.chatBox.rendered = ->
   console.log "Chatbox re-rendering..."
   focusText($('.chat-message'))
+
+  # Auto-scroll chat
+  $('.chatMessages').scrollTop($('.chatMessages')[0].scrollHeight)
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->
