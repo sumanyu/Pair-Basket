@@ -13,8 +13,6 @@
     positionPointer pointer, position
     $("body").append pointer
 
-    console.log "Remote dragstart, mode: #{mode}"
-
     users[nickname] =
       color: color
       from: position
