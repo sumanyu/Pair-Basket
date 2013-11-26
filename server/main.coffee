@@ -134,9 +134,9 @@ Meteor.methods
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
     if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {tutorStatus: false}}
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}}
     else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {tuteeStatus: false}}
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}}
 
     # Let others know user has left
     # Event emitter?
@@ -172,12 +172,14 @@ Meteor.methods
       id: tutorId
       name: tutor.profile.name
       school: tutor.profile.school
+      status: true
 
     tutee = Meteor.user()
     tuteeObject = 
       id: tuteeId
       name: tutee.profile.name
       school: tutee.profile.school
+      status: true
 
     console.log tutor
     console.log tutee
@@ -186,15 +188,7 @@ Meteor.methods
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
-      tutorStatus: true
-      tuteeStatus: true
-      messages: [
-        {
-          userName: "testUserName"
-          userId: "test+user+id"
-          message: "Welcome to the tutoring!"
-        }
-      ]
+      messages: []
 
     # Add tutor name
     classroomSessionId = ClassroomSession.insert obj, (err, result) ->

@@ -12,7 +12,7 @@ Template.chatBox.helpers
     tutor = currentSession.tutor
     tutee = currentSession.tutee
 
-    if currentUser._id is tutor.id then tutor.name else tutee.name
+    if currentUser._id is tutor.id then tutee.name else tutor.name
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -21,11 +21,14 @@ sendMessage = ->
   if message.length > 0
     totalMessage = 
       message: message
-      userId: Meteor.userId()
-      userName: Meteor.user().profile.name
+      user:
+        id: Meteor.userId()
+        name: Meteor.user().profile.name
+
+    console.log totalMessage
 
     # Push messages
-    ClassroomSession.update {_id: Session.get('classroomSessionId')}, $push: {messages: totalMessage}
+    ClassroomSession.update {_id: Session.get('classroomSessionId')}, {$push: {messages: totalMessage}}
 
     $(".chat-message").val ""
 
