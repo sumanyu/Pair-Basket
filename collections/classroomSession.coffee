@@ -1,28 +1,26 @@
-classroomSessionUserSchema = new SimpleSchema
-  id:
-    type: String
-  name: 
-    type: String
+# Can't use more than one nested SimpleSchema
 
 classroomSessionSessageSchema = new SimpleSchema
-  user:
-    type: [classroomSessionUserSchema]
-  message:
+  'userId':
+    type: String
+  'userName':
+    type: String
+  'message':
     type: String
 
 classroomSessionSchema = 
   schema:
-    tutorId:
+    'tutorId':
       type: String
-    tuteeId:
+    'tuteeId':
       type: String
-    tutorStatus:
+    'tutorStatus':
       type: Boolean
-    tuteeStatus:
+    'tuteeStatus':
       type: Boolean
-    questionId:
+    'questionId':
       type: String
-    messages:
+    'messages':
       type: [classroomSessionSessageSchema]
   virtualFields: 
     # False only when both tutor and tutee are inactive
@@ -39,9 +37,12 @@ classroomSessionSchema =
 
   # User must be logged in and document must be owned by user
   'update': (userId, doc) ->
+    console.log userId
+    console.log doc
     userId and (userId in [doc.tutorId, doc.tuteeId])
 
 @ClassroomSession.deny
+  # Disallow modification of tutorId, tuteeId
   'update': (userId, docs, fields, modifier) ->
-    tests = ['classroomSessionId', 'tutorId', 'tuteeId'].map (test) -> test in fields
+    tests = ['tutorId', 'tuteeId'].map (test) -> test in fields
     tests.reduce (total, test) -> test or total

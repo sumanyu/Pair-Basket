@@ -178,7 +178,8 @@ Meteor.methods
       tuteeStatus: true
       messages: [
         {
-          userId: "testing"
+          userName: "testUserName"
+          userId: "test+user+id"
           message: "Welcome to the tutoring!"
         }
       ]

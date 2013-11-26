@@ -21,16 +21,13 @@ sendMessage = ->
   if message.length > 0
     totalMessage = 
       message: message
-      user: 
-        id: Meteor.userId()
-        name: Meteor.user().profile.name
+      userId: Meteor.userId()
+      userName: Meteor.user().profile.name
 
-    classroomSessionId = ClassroomSession.findOne()._id
-
-    console.log ClassroomSession.findOne()
+    console.log totalMessage
 
     # Push messages
-    ClassroomSession.update {_id: classroomSessionId}, $push: {messages: totalMessage}
+    ClassroomSession.update {_id: Session.get('classroomSessionId')}, $push: {messages: totalMessage}
 
     console.log ClassroomSession.findOne()
 
