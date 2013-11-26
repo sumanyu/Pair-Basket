@@ -19,6 +19,9 @@ class @Pad
   # 'draw', 'erase'
   mode = undefined
 
+  # Used to co-ordinate remote and local pad's mode
+  originalMode = undefined
+
   constructor: (_canvas, _id, _nickname) ->
     canvas = _canvas
     id = _id || Random.id()
@@ -91,19 +94,39 @@ class @Pad
 
   toggleModes: ->
     if @getDrawingMode() is 'erase'
-      @startDrawMode()
+      @startLocalDrawMode()
     else
-      @startEraseMode()
+      @startLocalEraseMode()
 
-  # Use 'black' eraser
-  startEraseMode: ->
+  startEraseMode = ->
     mode = 'erase'
     baseGlobalCompositeOperation = ctx.globalCompositeOperation
     ctx.globalCompositeOperation = 'destination-out'
 
-  startDrawMode: ->
+  startDrawMode = ->
     mode = 'draw'
     ctx.globalCompositeOperation = baseGlobalCompositeOperation
+
+  startLocalEraseMode: ->
+    startEraseMode()
+    LineStream.emit id + ":erase", nickname
+
+  startLocalDrawMode: ->
+    startDrawMode()
+    LineStream.emit id + ":draw", nickname
+
+  startRemoteDrawMode: ->
+    originalMode = mode
+    startDrawMode()
+
+  startRemoteEraseMode: ->
+    originalMode = mode
+    startEraseMode()
+  
+  # Reset local pad's mode after remote is done drawing/erasing 
+  resetRemoteMode: ->
+    mode = originalMode
+    @toggleModes()
 
   getDrawingMode: ->
     mode

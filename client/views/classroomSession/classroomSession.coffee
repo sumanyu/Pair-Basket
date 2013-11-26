@@ -100,10 +100,10 @@ Template.whiteBoard.rendered = ->
 
 Template.whiteBoard.events
   'click .draw': (e, s) ->
-    pad.startDrawMode()
+    pad.startLocalDrawMode()
 
   'click .erase': (e, s) ->
-    pad.startEraseMode()
+    pad.startLocalEraseMode()
 
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     

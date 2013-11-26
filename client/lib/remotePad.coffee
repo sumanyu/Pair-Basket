@@ -22,6 +22,8 @@
     if user
       user.pointer.remove()
       users[nickname] = `undefined`
+      # Reset local pad's mode to what it had before remote person switched it
+      pad.resetRemoteMode()
 
   LineStream.on padId + ":drag", (nickname, to) ->
     user = users[nickname]
@@ -32,6 +34,14 @@
 
   LineStream.on padId + ":wipe", (nickname) ->
     pad.wipe()
+
+  LineStream.on padId + ":draw", (nickname) ->
+    # Draw on local pad
+    pad.startRemoteDrawMode()
+
+  LineStream.on padId + ":erase", (nickname) ->
+    # Erase on local pad
+    pad.startRemoteEraseMode()
 
   close: ->
     LineStream.removeAllListeners padId + ":dragstart"
