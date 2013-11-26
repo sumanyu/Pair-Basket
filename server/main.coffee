@@ -45,7 +45,7 @@ Meteor.publish 'classroomSession', ->
   # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
 
   # Discriminate between tutorId or tuteeId later
-  ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]})
+  ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}, {'tutor.status': true, 'tutee.status': true})
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
