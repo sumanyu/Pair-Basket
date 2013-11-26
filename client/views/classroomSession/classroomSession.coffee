@@ -7,12 +7,12 @@ Template.chatBox.helpers
     ClassroomSession.findOne({}, {fields: {messages: 1}}).messages
 
   chatPartner: ->
-    currentUser = Meteor.userId()
+    currentUser = Meteor.user()
     currentSession = ClassroomSession.findOne({}, {fields: {tutorId: 1, tuteeId: 1}})
     tutorId = currentSession.tutorId
     tuteeId = currentSession.tuteeId
 
-    if currentUser is tutorId then tuteeId else tutorId
+    if currentUser._id is tutorId then tuteeId else tutorId
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -21,7 +21,9 @@ sendMessage = ->
   if message.length > 0
     totalMessage = 
       message: message
-      userId: Meteor.userId()
+      user: 
+        id: Meteor.userId()
+        name: Meteor.user().profile.name
 
     classroomSessionId = ClassroomSession.findOne()._id
 

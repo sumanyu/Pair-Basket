@@ -1,6 +1,12 @@
-messageSchema = new SimpleSchema
-  userId:
+classroomSessionUserSchema = new SimpleSchema
+  id:
     type: String
+  name: 
+    type: String
+
+classroomSessionSessageSchema = new SimpleSchema
+  user:
+    type: [classroomSessionUserSchema]
   message:
     type: String
 
@@ -17,7 +23,7 @@ classroomSessionSchema =
     questionId:
       type: String
     messages:
-      type: [messageSchema]
+      type: [classroomSessionSessageSchema]
   virtualFields: 
     # False only when both tutor and tutee are inactive
     # Unfortunately, you can't query on virtual fields
