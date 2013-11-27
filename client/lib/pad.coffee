@@ -10,7 +10,6 @@ class @Pad
   id = undefined
   nickname = undefined
   LineStream = undefined
-  baseGlobalCompositeOperation = undefined
 
   COLORS = 
     erase: 'rgba(0,0,0,1)'
@@ -27,14 +26,11 @@ class @Pad
     canvasOffset = canvas.offset()
     ctx = canvas[0].getContext("2d")
 
-    # Used for erasing components
-    baseGlobalCompositeOperation = ctx.globalCompositeOperation
     mode = 'draw'
 
-    setup(@)
+    setup()
 
-  # Global window context for @
-  setup = (context) ->
+  setup = ->
     LineStream = @LineStream
 
     LineStream.emit "pad", id
@@ -44,46 +40,52 @@ class @Pad
       height: 580
     ).hammer()
 
-    pad.on "dragstart", (event) =>
-      drawing = true
-      from = getPosition(event)
-      LineStream.emit id + ":dragstart", nickname, from, color
-
-    pad.on "dragend", (event) => 
-      drawing = false
-      LineStream.emit id + ":dragend", nickname
-
-    pad.on "drag", (event) =>
-      if drawing
-        to = getPosition(event)
-        context.drawLine from, to, color
-        LineStream.emit id + ":drag", nickname, to
-        from = to
-        skipCount = 0
-
     setNickname(nickname)
 
     ctx.strokeStyle = color
     ctx.lineCap = "round"
-    ctx.lineWidth = 3
+    ctx.lineWidth = 3    
 
-  getPosition = (event) ->      
+    pad.on "dragstart", dragStart
+    pad.on "dragend", dragEnd
+    pad.on "drag", drag
+
+  dragStart = (event) ->
+    drawing = true
+    from = getPosition(event)
+    LineStream.emit id + ":dragstart", nickname, from, color, mode    
+
+  dragEnd = (event) ->
+    drawing = false
+    LineStream.emit id + ":dragend", nickname    
+
+  drag = (event) ->
+    if drawing
+      to = getPosition(event)
+      drawLine from, to
+      LineStream.emit id + ":drag", nickname, to
+      from = to
+      skipCount = 0
+
+  getPosition = (event) ->
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
-  drawLine: (from, to, color) ->
-    if mode is 'draw'
-      ctx.strokeStyle = color
-      ctx.lineWidth = 3
-    else
-      ctx.strokeStyle = COLORS.erase
-      ctx.lineWidth = 15
-
+  drawLine = (from, to) ->
     ctx.beginPath()
     ctx.moveTo from.x, from.y
     ctx.lineTo to.x, to.y
     ctx.closePath()
     ctx.stroke()
+
+  # We mimic the remote pad's conditions based on remoteMode
+  drawRemoteLine: (from, to, _color, remoteMode) ->
+    if remoteMode is 'draw'
+      prepareCanvasToDraw(_color)
+    else if remoteMode is 'erase'
+      prepareCanvasToErase()
+
+    drawLine(from, to)
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
@@ -95,15 +97,31 @@ class @Pad
     else
       @startEraseMode()
 
-  # Use 'black' eraser
   startEraseMode: ->
-    mode = 'erase'
-    baseGlobalCompositeOperation = ctx.globalCompositeOperation
-    ctx.globalCompositeOperation = 'destination-out'
+    setDrawingMode 'erase'
+    prepareCanvasToErase()
 
   startDrawMode: ->
-    mode = 'draw'
-    ctx.globalCompositeOperation = baseGlobalCompositeOperation
+    setDrawingMode 'draw'
+    prepareCanvasToDraw()
+
+  prepareCanvasToErase = ->
+    ctx.globalCompositeOperation = 'destination-out'
+    ctx.strokeStyle = COLORS.erase
+    ctx.lineWidth = 15
+
+  prepareCanvasToDraw = (_color) ->
+    ctx.globalCompositeOperation = 'source-over'
+    ctx.strokeStyle = _color || color
+    ctx.lineWidth = 3
+
+  # Reset local pad's mode to IC after remote is done drawing/erasing 
+  initializeModeInitialConditions: ->
+    console.log "initializeModeInitialConditions, mode: #{mode}"
+    if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
+
+  setDrawingMode = (_mode) ->
+    mode = _mode
 
   getDrawingMode: ->
     mode
@@ -112,15 +130,12 @@ class @Pad
   document.ontouchmove = (event) ->
     event.preventDefault()  
 
-  # Not using it apparently
   close: ->
+    console.log "Closing pad, unloading dragstart, dragend, drag"
 
-    console.log "closing pad"
-    console.log @
-
-    # pad.off "dragstart", onDragStart
-    # pad.off "dragend", onDragEnd
-    # pad.off "drag", onDrag
+    pad.off "dragstart", dragStart
+    pad.off "dragend", dragEnd
+    pad.off "drag", drag
 
   getRandomColor = ->
     letters = "0123456789ABCDEF".split("")
