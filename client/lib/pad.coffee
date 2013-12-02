@@ -57,7 +57,8 @@ class @Pad
 
   dragEnd = (event) ->
     drawing = false
-    LineStream.emit id + ":dragend", nickname    
+    LineStream.emit id + ":dragend", nickname  
+    ctx.save()  
 
   drag = (event) ->
     if drawing
@@ -137,11 +138,13 @@ class @Pad
     pad.off "dragend", dragEnd
     pad.off "drag", drag
 
-  saveState: ->
+  save: ->
     ctx.save()
 
-  restoreState: ->
+  undo: ->
+    console.log ctx
     ctx.restore()
+    console.log ctx
 
   getRandomColor = ->
     letters = "0123456789ABCDEF".split("")

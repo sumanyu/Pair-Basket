@@ -105,6 +105,9 @@ Template.whiteBoard.events
   'click .erase': (e, s) ->
     pad.startEraseMode()
 
+  'click .undo': (e, s) ->
+    pad.undo()
+
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     
 
