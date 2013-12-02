@@ -137,6 +137,12 @@ class @Pad
     pad.off "dragend", dragEnd
     pad.off "drag", drag
 
+  saveState: ->
+    ctx.save()
+
+  restoreState: ->
+    ctx.restore()
+
   getRandomColor = ->
     letters = "0123456789ABCDEF".split("")
     color = "#"
