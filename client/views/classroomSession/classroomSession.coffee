@@ -8,11 +8,22 @@ Template.chatBox.helpers
 
   chatPartner: ->
     currentUser = Meteor.user()
-    currentSession = ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {tutor: 1, tutee: 1}})
+    currentSession = getCurrentClassroomSession()
     tutor = currentSession.tutor
     tutee = currentSession.tutee
 
     if currentUser._id is tutor.id then tutee.name else tutor.name
+
+getCurrentClassroomSession = ->
+  ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {tutor: 1, tutee: 1}})
+
+getOtherUser = ->
+  currentUser = Meteor.user()
+  currentSession = getCurrentClassroomSession()
+  tutor = currentSession.tutor
+  tutee = currentSession.tutee
+
+  if currentUser._id is tutor.id then tutee.name else tutor.name  
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -107,6 +118,11 @@ Template.whiteBoard.events
 
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     
+
+  'click .start-audio': (e, s) ->
+    # Send user's id for now
+    ClassroomStream.emit "audioRequest:#{}", Session.get("classroomSessionId")
+    conn = peer.connect('')
 
 pad = undefined
 remotePad = undefined

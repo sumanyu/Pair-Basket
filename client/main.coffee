@@ -192,4 +192,29 @@ Meteor.startup ->
   #     # Popup tutor
   #     Session.set('foundTutor?', true)
 
+  # Initialize peer with current user's ID
+  # Hard code Peer's cloud server API key for now
+  peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
+  peer.on 'open', (id) ->
+    # Testing that peer is actually working
+    console.log "My id is: #{id}"
+
+  conn = undefined
+
+  # Event listener for listening for audio chat requests
+  Deps.autorun ->
+    if Session.get("classroomSessionId")
+      ClassroomStream.on "audioRequest:#{Session.get("classroomSessionId")}", (userId) ->
+        console.log "Someone wants to start audio chat with me; their user id: #{userId}"
+        Session.set('audioChatPeerId', userId)
+        console.log "Sending my id to peer"
+        ClassroomStream.emit "audioResponse:#{Session.get("classroomSessionId")}", Meteor.userId()
+
+      ClassroomStream.on "audioResponse:#{Session.get("classroomSessionId")}", (userId) ->
+        console.log "Someone wants to start audio chat with me; their user id: #{userId}"
+        Session.set('audioChatPeerId', userId)
+        console.log "Sending my id to peer"
+        ClassroomStream.emit "audioResponse:#{Session.get("classroomSessionId")}", Meteor.userId()
+
+
   console.log "Meteor startup end"
