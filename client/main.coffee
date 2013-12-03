@@ -210,9 +210,10 @@ Meteor.startup ->
     navigator.getUserMedia {audio: true}, ((mediaStream) ->
       # Answer the call, providing our mediaStream
       _call.answer(mediaStream)
-      _call.on 'stream', (stream) ->
-        # `stream` is the MediaStream of the remote peer.
-        console.log stream
+      _call.on 'stream', (remoteStream) ->
+        console.log remoteStream
+        
+        
     ), (err) -> console.log "This is my error: ", err 
 
   peer.on 'error', (err) ->

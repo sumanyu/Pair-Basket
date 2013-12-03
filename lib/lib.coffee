@@ -20,3 +20,4 @@ if Meteor.isClient
     list.every (input) -> input.length
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+  @moz = !!navigator.mozGetUserMedia

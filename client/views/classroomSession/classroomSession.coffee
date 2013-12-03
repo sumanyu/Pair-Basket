@@ -137,6 +137,18 @@ Template.classroomSessionPage.events
         console.log "Remote stream"
         console.log remoteStream
         # Play it locally in the browser
+        audio = document.createElement('audio')
+
+        # Mozilla/Chrome specific logic
+        unless moz
+          audio.src = window.webkitURL.createObjectURL(remoteStream)
+        else
+          audio.mozSrcObject = remoteStream
+
+        # Auto play
+        audio.controls = true
+        audio.autoplay = true
+        audio.play()
 
       ), (err) -> console.log "Failed to get local streams", err
 
