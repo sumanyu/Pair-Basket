@@ -1,18 +1,13 @@
 Template.chatBox.helpers
   areMessagesReady: ->
-    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}) || false
+    getCurrentClassroomSession() || false
 
   messages: ->
     # fetch all chat messages
-    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {messages: 1}}).messages
+    getCurrentClassroomSession(['messages']).messages
 
   chatPartner: ->
-    currentUser = Meteor.user()
-    currentSession = ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {tutor: 1, tutee: 1}})
-    tutor = currentSession.tutor
-    tutee = currentSession.tutee
-
-    if currentUser._id is tutor.id then tutee.name else tutor.name
+    getChatPartner().name 
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -107,6 +102,29 @@ Template.whiteBoard.events
 
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     
+
+Template.classroomSessionPage.events
+  'click .start-audio': (e, s) ->
+    # Send user's id for now
+    # ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
+    
+    # For data connections
+    # conn = peer.connect("#{getChatPartner.id}")
+
+    console.log 
+
+    # For calls
+    navigator.getUserMedia {audio: true}, ((mediaStream) ->
+      console.log "Local media stream"
+      console.log mediaStream
+
+      call = peer.call("#{getChatPartner().id}", mediaStream)
+
+      console.log call
+
+      call.on 'stream', playRemoteStream
+
+      ), (err) -> console.log "Failed to get local streams", err
 
 pad = undefined
 remotePad = undefined
