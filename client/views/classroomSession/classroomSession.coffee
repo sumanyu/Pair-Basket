@@ -133,7 +133,7 @@ Template.classroomSessionPage.events
 
       console.log call
 
-      call.on 'stream', playRemoteStream(playRemoteStream)
+      call.on 'stream', playRemoteStream
 
       ), (err) -> console.log "Failed to get local streams", err
 
