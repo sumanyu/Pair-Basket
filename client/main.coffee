@@ -212,7 +212,7 @@ Meteor.startup ->
       _call.answer(mediaStream)
       _call.on 'stream', (remoteStream) ->
         console.log remoteStream
-        
+        playRemoteStream(remoteStream)
         
     ), (err) -> console.log "This is my error: ", err 
 
