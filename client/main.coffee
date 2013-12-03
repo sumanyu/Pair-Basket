@@ -194,12 +194,15 @@ Meteor.startup ->
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
-  peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
+  @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
   peer.on 'open', (id) ->
     # Testing that peer is actually working
     console.log "My id is: #{id}"
 
   peer.on 'call', (_call) ->
+    console.log "Getting a call"
+    console.log _call
+
     navigator.getUserMedia {audio: true}, ((mediaStream) ->
       # Answer the call, providing our mediaStream
       _call.answer(mediaStream)
@@ -208,8 +211,11 @@ Meteor.startup ->
         console.log stream
     ), (err) -> console.log "This is my error: ", err 
 
+  peer.on 'error', (err) ->
+    console.log err
+
   # conn = undefined
-  call = undefined
+  @call = undefined
 
   # Event listener for listening for audio chat requests
   # Deps.autorun ->
