@@ -114,12 +114,15 @@ Template.whiteBoard.events
   'click .clear-blackboard': (e, s) ->
     pad.wipe true     
 
+Template.classroomSessionPage.events
   'click .start-audio': (e, s) ->
     # Send user's id for now
     # ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
     
     # For data connections
     # conn = peer.connect("#{getChatPartner.id}")
+
+    console.log navigator
 
     # For calls
     navigator.getUserMedia {audio: true}, ((mediaStream) ->
