@@ -27,3 +27,14 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   audio.controls = true
   audio.autoplay = true
   audio.play()
+
+@getCurrentClassroomSession = ->
+  ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {tutor: 1, tutee: 1}})
+
+@getChatPartner = ->
+  currentUser = Meteor.user()
+  currentSession = getCurrentClassroomSession()
+  tutor = currentSession.tutor
+  tutee = currentSession.tutee
+
+  if currentUser._id is tutor.id then tutee else tutor 
