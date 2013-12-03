@@ -116,8 +116,24 @@ Template.whiteBoard.events
 
   'click .start-audio': (e, s) ->
     # Send user's id for now
-    ClassroomStream.emit "audioRequest:#{}", Session.get("classroomSessionId")
-    conn = peer.connect('')
+    # ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
+    
+    # For data connections
+    # conn = peer.connect("#{getChatPartner.id}")
+
+    # For calls
+    navigator.getUserMedia {audio: true}, ((mediaStream) ->
+      console.log "Local media stream"
+      console.log mediaStream
+
+      call = peer.call("#{getChatPartner.id}", mediaStream)
+
+      call.on 'stream', (remoteStream) ->
+        console.log "Remote stream"
+        console.log remoteStream
+        # Play it locally in the browser
+
+      ), (err) -> console.log "Failed to get local streams", err
 
 pad = undefined
 remotePad = undefined

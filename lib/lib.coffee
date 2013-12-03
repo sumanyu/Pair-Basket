@@ -18,3 +18,5 @@ if Meteor.isClient
 
   @areElementsNonEmpty = (list) ->
     list.every (input) -> input.length
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia

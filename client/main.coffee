@@ -199,22 +199,24 @@ Meteor.startup ->
     # Testing that peer is actually working
     console.log "My id is: #{id}"
 
+  peer.on 'call', (_call) ->
+    # Answer the call, providing our mediaStream
+    _call.answer(mediaStream)
+    _call.on 'steam', (stream) ->
+      # `stream` is the MediaStream of the remote peer.
+      console.log stream
+
   conn = undefined
+  call = undefined
 
   # Event listener for listening for audio chat requests
-  Deps.autorun ->
-    if Session.get("classroomSessionId")
-      ClassroomStream.on "audioRequest:#{Session.get("classroomSessionId")}", (userId) ->
-        console.log "Someone wants to start audio chat with me; their user id: #{userId}"
-        Session.set('audioChatPeerId', userId)
-        console.log "Sending my id to peer"
-        ClassroomStream.emit "audioResponse:#{Session.get("classroomSessionId")}", Meteor.userId()
+  # Deps.autorun ->
+  #   if Session.get("classroomSessionId")
+  #     ClassroomStream.on "audioRequest:#{Meteor.userId()}", (classroomSessionId) ->
+  #       console.log "Someone wants to start audio chat with me"
+  #       ClassroomStream.emit "audioResponse:#{getChatPartner().id}", "Start audio with you"
 
-      ClassroomStream.on "audioResponse:#{Session.get("classroomSessionId")}", (userId) ->
-        console.log "Someone wants to start audio chat with me; their user id: #{userId}"
-        Session.set('audioChatPeerId', userId)
-        console.log "Sending my id to peer"
-        ClassroomStream.emit "audioResponse:#{Session.get("classroomSessionId")}", Meteor.userId()
+  #     ClassroomStream.on "audioResponse:#{Meteor.userId()}", (message) ->
 
 
   console.log "Meteor startup end"
