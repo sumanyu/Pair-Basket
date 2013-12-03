@@ -122,12 +122,16 @@ Template.classroomSessionPage.events
     # For data connections
     # conn = peer.connect("#{getChatPartner.id}")
 
+    console.log 
+
     # For calls
     navigator.getUserMedia {audio: true}, ((mediaStream) ->
       console.log "Local media stream"
       console.log mediaStream
 
-      call = peer.call("#{getChatPartner.id}", mediaStream)
+      call = peer.call("#{getChatPartner().id}", mediaStream)
+
+      console.log call
 
       call.on 'stream', (remoteStream) ->
         console.log "Remote stream"

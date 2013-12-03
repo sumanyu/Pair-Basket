@@ -194,7 +194,11 @@ Meteor.startup ->
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
+  
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
+
+  console.log peer
+
   peer.on 'open', (id) ->
     # Testing that peer is actually working
     console.log "My id is: #{id}"
