@@ -1,10 +1,10 @@
 Template.chatBox.helpers
   areMessagesReady: ->
-    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}) || false
+    getCurrentClassroomSession() || false
 
   messages: ->
     # fetch all chat messages
-    ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {fields: {messages: 1}}).messages
+    getCurrentClassroomSession(['messages']).messages
 
   chatPartner: ->
     getChatPartner().name 

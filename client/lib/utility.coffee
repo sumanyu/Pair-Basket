@@ -33,12 +33,15 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 
   # Create a query of which fields user wants
   if _fields
+
+    # Check if single argument
+    if not $.isArray(_fields)
+      _fields = [_fields]
+
     query =
       fields: {}
 
     _fields.forEach (field) -> query.fields[field] = 1
-
-  console.log query
 
   ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, query)
 
