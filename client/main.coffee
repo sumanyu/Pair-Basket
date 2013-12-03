@@ -200,13 +200,15 @@ Meteor.startup ->
     console.log "My id is: #{id}"
 
   peer.on 'call', (_call) ->
-    # Answer the call, providing our mediaStream
-    _call.answer(mediaStream)
-    _call.on 'steam', (stream) ->
-      # `stream` is the MediaStream of the remote peer.
-      console.log stream
+    navigator.getUserMedia {audio: true}, ((mediaStream) ->
+      # Answer the call, providing our mediaStream
+      _call.answer(mediaStream)
+      _call.on 'stream', (stream) ->
+        # `stream` is the MediaStream of the remote peer.
+        console.log stream
+    ), (err) -> console.log "This is my error: ", err 
 
-  conn = undefined
+  # conn = undefined
   call = undefined
 
   # Event listener for listening for audio chat requests
