@@ -7,8 +7,8 @@ Meteor.startup ->
   #   console.log feedback
   # )
 
-  # this line is commented for 'production' setting. no fixtures, don't delete questions.
-  # dropAll()
+  # this line should be commented for 'production' setting (don't delete questions)
+  dropAll()
 
   Deps.autorun ->
     console.log "# of session requests: ", SessionRequest.find().count()
