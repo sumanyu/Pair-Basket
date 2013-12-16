@@ -11,7 +11,7 @@
       karmaOffered: 50
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "computer"
       userId: '1'
@@ -22,7 +22,7 @@
       karmaOffered: 20
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "math"
       userId: '1'
@@ -33,7 +33,7 @@
       karmaOffered: 80
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "science"
       userId: '1'
@@ -44,7 +44,7 @@
       karmaOffered: 45
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "science"
       userId: '1'
@@ -55,7 +55,7 @@
       karmaOffered: 57
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "business"
       userId: '1'
@@ -66,7 +66,7 @@
       karmaOffered: 92
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ]
 
     for question in questions
