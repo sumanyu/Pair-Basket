@@ -61,6 +61,12 @@ Template.classroomSessionPage.helpers
   wolframIsSelected: ->
     Session.get('wolframIsSelected?')
 
+  # TODO: tweak
+  # wolfram_search: ->
+  #   console.log("yoyoo")
+  #   if Session.get('hasWhiteboardLoaded?')
+  #     console.log("JUICEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
 Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
     Session.set('whiteboardIsSelected?', true)
@@ -76,6 +82,18 @@ Template.classroomSessionSidebar.events
     Session.set('whiteboardIsSelected?', false)
     Session.set('fileIsSelected?', false)
     Session.set('wolframIsSelected?', true)
+
+    #todo: tweak
+    d = document
+    e = d.createElement('iframe')
+    e.scroll = "no"
+    e.frameBorder = 0
+    e.marginWidth = 0
+    e.allowTransparency = "true"
+    e.src = 'http://www.wolframalpha.com/Calculate/embed/large.jsp'
+    e.width = 532
+    e.height = 56
+    d.getElementById('WolframAlphaScript').parentNode.appendChild(e)
 
   "click .end-session": (e, s) ->
     Session.set('foundTutor?', false)
