@@ -5,3 +5,5 @@ A community of students teaching students. Post homework questions and get paire
 
 ### Technology
 - meteor
+- coffeescript
+- stylus
