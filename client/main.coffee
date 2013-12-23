@@ -19,11 +19,14 @@ Meteor.startup ->
     # Ensure Users collection had loaded
     'hasUsersCollectionLoaded?',
 
+    # Ensure all collections have loaded before performing some action
+    'haveAllCollectionsLoaded?',
+
     # Ensure whiteboard has loaded
     'hasWhiteboardLoaded?',
 
     # Click feedback button
-    'feedbackPopup',
+    'feedbackPopup?',
 
     # Is the client asking a question?
     'askingQuestion?',
@@ -46,10 +49,7 @@ Meteor.startup ->
     'subscribedQuestion',
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestionResponse',
-
-    # Chatting with whom in whiteboard session
-    'chattingWith'
+    'subscribedQuestionResponse'
   ]
 
   # Session sidebar variables
