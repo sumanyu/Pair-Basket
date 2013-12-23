@@ -77,20 +77,6 @@ Template.classroomSessionSidebar.events
       else
         Router.go('/dashboard')
 
-Template.whiteBoard.rendered = ->
-  # Ensures whiteboard layout has loaded before executing Deps.autorun
-  Session.set("hasWhiteboardLoaded?", true)
-
-Template.whiteBoard.events
-  'click .draw': (e, s) ->
-    pad.startDrawMode()
-
-  'click .erase': (e, s) ->
-    pad.startEraseMode()
-
-  'click .clear-blackboard': (e, s) ->
-    pad.wipe true     
-
 Template.classroomSessionPage.events
   'click .start-audio': (e, s) ->
     # Send user's id for now

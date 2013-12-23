@@ -1,5 +1,7 @@
 <template name="fileSharing">
   <div class="fileSharing">
-    <img class="files-screenshot" src="/files.jpg">  
+    {{#S3 callback="testFn"}}
+      <input type="file">
+    {{/S3}}
   </div>
 </template>
