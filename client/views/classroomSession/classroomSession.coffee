@@ -55,25 +55,27 @@ Template.classroomSessionSidebar.helpers
 
 Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
-
     setSessionVars
       'whiteboardIsSelected?': true
       'fileIsSelected?': false
       'wolframIsSelected?': false
 
   "click .file-button": (e, s) ->
-    Session.set('whiteboardIsSelected?', false)
-    Session.set('fileIsSelected?', true)
-    Session.set('wolframIsSelected?', false)
+    setSessionVars
+      'whiteboardIsSelected?': false
+      'fileIsSelected?': true
+      'wolframIsSelected?': false
 
   "click .wolfram-button": (e, s) ->
-    Session.set('whiteboardIsSelected?', false)
-    Session.set('fileIsSelected?', false)
-    Session.set('wolframIsSelected?', true)
+    setSessionVars
+      'whiteboardIsSelected?': false
+      'fileIsSelected?': false
+      'wolframIsSelected?': true
 
   "click .end-session": (e, s) ->
-    Session.set('foundTutor?', false)
-    Session.set('askingQuestion?', false)
+    setSessionVars
+      'foundTutor?': false
+      'askingQuestion?': false
 
     Meteor.call 'endClassroomSession', Session.get("classroomSessionId"), (err, result) ->
       console.log "Calling end classroom session"
