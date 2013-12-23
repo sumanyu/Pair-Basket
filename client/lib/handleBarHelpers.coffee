@@ -34,7 +34,6 @@ Handlebars.registerHelper(
     uploadOptions = options.hash
     template = options.fn
     callback = uploadOptions.callback
-    context = @
 
     return unless template
 
