@@ -1,5 +1,4 @@
 Knox = Meteor.require("knox")
-Future = Meteor.require("fibers/future")
 
 knox = null
 S3 = null
@@ -12,24 +11,24 @@ Meteor.methods
 
   # Uploads file
   S3upload: (file, context) ->
-    future = new Future
-
-    extension = (file.name).match(/\.[0-9a-z]{1,5}$/i)
+    extension = (file.name).match(/\.[0-9a-z]{1,5}$/i) || ""
     file.name = Meteor.uuid() + extension
     path = S3.directory + file.name
 
     buffer = new Buffer(file.data)
 
-    knox.putBuffer(buffer, path, {"Content-Type":file.type,"Content-Length":buffer.length}, (error, result) ->
-      unless error
-        future.return(path)
-      else
-        console.log(error)
-      )    
+    url = Async.runSync (done) ->
+      console.log done
 
-    if future.wait()
-      url = knox.http(future.wait())
-      return url
+      knox.putBuffer buffer, path, {"Content-Type":file.type,"Content-Length":buffer.length}, (error, result) ->
+        if result
+          done(null, knox.http(path))
+        else
+          console.log error
+
+    console.log url
+
+    return url
 
   # Deletes file on S3 server
   S3delete: (path) ->
@@ -38,4 +37,3 @@ Meteor.methods
         console.log result
       else
         console.log error
-      )    
