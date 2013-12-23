@@ -31,7 +31,7 @@ Template.chatMessages.rendered = ->
   console.log "Chat messages re-rendering..."
 
   # Auto-scroll chat
-  $('.chatMessages').scrollTop($('.chatMessages')[0].scrollHeight)
+  $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight)
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->
