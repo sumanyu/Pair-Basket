@@ -53,16 +53,6 @@ Template.classroomSessionSidebar.helpers
   wolframIsSelected: ->
     Session.get('wolframIsSelected?')
 
-Template.classroomSessionPage.helpers
-  whiteboardIsSelected: ->
-    Session.get('whiteboardIsSelected?')
-
-  fileIsSelected: ->
-    Session.get('fileIsSelected?')
-
-  wolframIsSelected: ->
-    Session.get('wolframIsSelected?')
-
 Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
     Session.set('whiteboardIsSelected?', true)
