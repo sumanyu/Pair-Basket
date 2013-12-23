@@ -85,7 +85,17 @@ class @Pad
     else if remoteMode is 'erase'
       prepareCanvasToErase()
 
+    # Disable local pad onClick
+    disableLocalPad()
+
     drawLine(from, to)
+
+  disableLocalPad = ->
+    canvas.on 'click', (event) ->
+      event.preventDefault()
+
+  enableLocalPad = ->
+    canvas.off 'click' 
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
@@ -118,6 +128,9 @@ class @Pad
   # Reset local pad's mode to IC after remote is done drawing/erasing 
   initializeModeInitialConditions: ->
     console.log "initializeModeInitialConditions, mode: #{mode}"
+    # Re-enable on click local pad
+    enableLocalPad()
+
     if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
 
   setDrawingMode = (_mode) ->
