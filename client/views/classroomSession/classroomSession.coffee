@@ -1,4 +1,4 @@
-Template.chatBox.helpers
+Template.chatMessages.helpers
   areMessagesReady: ->
     getCurrentClassroomSession() || false
 
@@ -7,7 +7,7 @@ Template.chatBox.helpers
     getCurrentClassroomSession(['messages']).messages
 
   chatPartner: ->
-    getChatPartner().name 
+    getChatPartner().name
 
 sendMessage = ->
   message = $(".chat-message").val()
@@ -28,8 +28,10 @@ sendMessage = ->
     $(".chat-message").val ""
 
 Template.chatBox.rendered = ->
-  console.log "Chatbox re-rendering..."
   focusText($('.chat-message'))
+
+Template.chatMessages.rendered = ->
+  console.log "Chat messages re-rendering..."
 
   # Auto-scroll chat
   $('.chatMessages').scrollTop($('.chatMessages')[0].scrollHeight)

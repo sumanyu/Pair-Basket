@@ -103,25 +103,27 @@
   <div class="chatBoxContainer">
 
     <div class="chatMessages">
-
-      {{#if areMessagesReady }}
-
-        <div>
-          Now chatting with {{chatPartner}}. Say hi!
-        </div>      
-
-        {{#each messages}}
-          {{> chatMessage}}
-        {{/each}}
-
-      {{else}}
-        Loading...
-      {{/if}}
+      {{> chatMessages}}
     </div>
 
     <textarea class='chat-message'></textarea><br>
-    <!-- <button class='btn btn-primary' id='send'>Send</button> -->
   </div>
+</template>
+
+<template name="chatMessages">
+  {{#if areMessagesReady }}
+
+    <div>
+      Now chatting with {{chatPartner}}. Say hi!
+    </div>
+
+    {{#each messages}}
+      {{> chatMessage}}
+    {{/each}}
+
+  {{else}}
+    Loading...
+  {{/if}}
 </template>
 
 <template name='chatMessage'>
