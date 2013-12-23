@@ -1,14 +1,3 @@
-Template.chatBox.helpers
-  areMessagesReady: ->
-    getCurrentClassroomSession() || false
-
-  messages: ->
-    # fetch all chat messages
-    getCurrentClassroomSession(['messages']).messages
-
-  chatPartner: ->
-    getChatPartner().name 
-
 sendMessage = ->
   message = $(".chat-message").val()
 
@@ -27,12 +16,22 @@ sendMessage = ->
 
     $(".chat-message").val ""
 
-Template.chatBox.rendered = ->
-  console.log "Chatbox re-rendering..."
-  focusText($('.chat-message'))
+Template.chatMessages.helpers
+  areMessagesReady: ->
+    getCurrentClassroomSession() || false
+
+  messages: ->
+    # fetch all chat messages
+    getCurrentClassroomSession(['messages']).messages
+
+  chatPartner: ->
+    getChatPartner().name
+
+Template.chatMessages.rendered = ->
+  console.log "Chat messages re-rendering..."
 
   # Auto-scroll chat
-  $('.chatMessages').scrollTop($('.chatMessages')[0].scrollHeight)
+  $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight)
 
 Template.chatBox.events 
   "keydown .chat-message": (e, s) ->
@@ -41,17 +40,10 @@ Template.chatBox.events
       console.log "entering?"
       sendMessage()
 
+Template.chatBox.rendered = ->
+  focusText($('.chat-message'))
+
 Template.classroomSessionSidebar.helpers
-  whiteboardIsSelected: ->
-    Session.get('whiteboardIsSelected?')
-
-  fileIsSelected: ->
-    Session.get('fileIsSelected?')
-
-  wolframIsSelected: ->
-    Session.get('wolframIsSelected?')
-
-Template.classroomSessionPage.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
 
@@ -64,22 +56,18 @@ Template.classroomSessionPage.helpers
 Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
     Session.set('whiteboardIsSelected?', true)
-    Session.set('fileIsSelected?', false)
-    Session.set('wolframIsSelected?', false)
+    setSessionVarsWithValue false, ['fileIsSelected?', 'wolframIsSelected?']
 
   "click .file-button": (e, s) ->
-    Session.set('whiteboardIsSelected?', false)
     Session.set('fileIsSelected?', true)
-    Session.set('wolframIsSelected?', false)
+    setSessionVarsWithValue false, ['whiteboardIsSelected?', 'wolframIsSelected?']
 
   "click .wolfram-button": (e, s) ->
-    Session.set('whiteboardIsSelected?', false)
-    Session.set('fileIsSelected?', false)
     Session.set('wolframIsSelected?', true)
+    setSessionVarsWithValue false, ['fileIsSelected?', 'whiteboardIsSelected?']
 
   "click .end-session": (e, s) ->
-    Session.set('foundTutor?', false)
-    Session.set('askingQuestion?', false)
+    setSessionVarsWithValue false , ['foundTutor?', 'askingQuestion?']
 
     Meteor.call 'endClassroomSession', Session.get("classroomSessionId"), (err, result) ->
       console.log "Calling end classroom session"

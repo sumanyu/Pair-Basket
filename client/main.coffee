@@ -6,64 +6,60 @@ Meteor.startup ->
 
   #### Begin Session variables
 
-  # Pending session that user left unended should redirect to session itself
-  Session.set('pendingSession?', false)
+  setSessionVarsWithValue false, [
+    # Pending session that user left unended should redirect to session itself
+    'pendingSession?',
 
-  # Has non-null value if question comes from the landing page prompt
-  Session.set('questionFromLandingPrompt', null)
+    # Ensure questions has loaded
+    'hasQuestionsCollectionLoaded?',
 
-  # Ensure questions has loaded
-  Session.set("hasQuestionsCollectionLoaded?", false)
+    # Ensure ClassroomSession collection has loaded
+    'hasClassroomSessionCollectionLoaded?',
 
-  # Ensure ClassroomSession collection has loaded
-  Session.set("hasClassroomSessionCollectionLoaded?", false)
+    # Ensure Users collection had loaded
+    'hasUsersCollectionLoaded?',
 
-  # Ensure Users collection had loaded
-  Session.set("hasUsersCollectionLoaded?", false)
+    # Ensure all collections have loaded before performing some action
+    'haveAllCollectionsLoaded?',
 
-  # Ensure all collections have loaded before performing some action
-  Session.set('haveAllCollectionsLoaded?', false)
+    # Ensure whiteboard has loaded
+    'hasWhiteboardLoaded?',
 
-  # Ensure whiteboard has loaded
-  Session.set("hasWhiteboardLoaded?", false)
+    # Click feedback button
+    'feedbackPopup?',
 
-  # Click feedback button
-  Session.set('feedbackPopup', false)
+    # Is the client asking a question?
+    'askingQuestion?',
 
-  # Is the client asking a question?
-  Session.set('askingQuestion?', false)
+    # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
+    'foundTutor?',
 
-  # Error message for ask question
-  Session.get('questionFormError', null)
+    # Alert the user she doesn't have enough Karma
+    'showNotEnoughKarma?'
+  ]
 
-  # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
-  Session.set('foundTutor?', false)
+  setSessionVarsWithValue null, [
+    # Has non-null value if question comes from the landing page prompt
+    'questionFromLandingPrompt',
 
-  # Subscribe user to user's asked question ID
-  Session.set('subscribedQuestion', null)
+    # Error message for ask question
+    'questionFormError',
 
-  # Subscribe user to user's asked question ID
-  Session.set('subscribedQuestionResponse', null)
+    # Subscribe user to user's asked question ID
+    'subscribedQuestion',
+
+    # Subscribe user to user's asked question ID
+    'subscribedQuestionResponse'
+  ]
 
   # Session sidebar variables
   Session.set('whiteboardIsSelected?', true)
-  Session.set('fileIsSelected?', false)
-  Session.set('wolframIsSelected?', false)
-
-  # Alert the user she doesn't have enough Karma
-  Session.set('showNotEnoughKarma?', false)
-
-  # Set temporary userName
-  Session.set('userName', 'Kelly')
-
-  # Chatting with whom in whiteboard session
-  Session.set('chattingWith', null)
+  setSessionVarsWithValue false, ['fileIsSelected?', 'wolframIsSelected?']
 
   # Landing Session variables
-  Session.set('helpOthers?', false)
-  Session.set('askQuestion?', false)
   Session.set('showBoth?', true)
-
+  setSessionVarsWithValue false, ['helpOthers?', 'askQuestion?']
+  
   # category filter
   Session.set('categoryFilter', {
     'math': true,
@@ -125,18 +121,15 @@ Meteor.startup ->
   Deps.autorun ->
     if Session.get('whiteboardIsSelected?')
       $('.whiteboard').show()
-      $('.sharingFiles').hide()
-      $('.wolfram').hide()
+      ['.sharingFiles', '.wolfram'].forEach (selector) -> selector.hide()
 
     if Session.get('fileIsSelected?')
-      $('.whiteboard').hide()
       $('.sharingFiles').show()
-      $('.wolfram').hide()    
+      ['.whiteboard', '.wolfram'].forEach (selector) -> selector.hide()
 
     if Session.get('wolframIsSelected?')
-      $('.whiteboard').hide()
-      $('.sharingFiles').hide()
       $('.wolfram').show()
+      ['.sharingFiles', '.whiteboard'].forEach (selector) -> selector.hide()
 
   # Event listener for listening for classroom requests
   Deps.autorun ->
