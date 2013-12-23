@@ -10,8 +10,7 @@
       "autoform": {},
       "collection2": {},
       "accounts-ui-bootstrap-3": {},
-      "streams": {},
-      "s3": {}
+      "streams": {}
     },
     "packages": {
       "iron-router": {
@@ -43,11 +42,6 @@
         "git": "https://github.com/arunoda/meteor-streams.git",
         "tag": "v0.1.17",
         "commit": "9fcbbc9b7bf542827babc92089c19e730892a22f"
-      },
-      "s3": {
-        "git": "https://github.com/Lepozepo/S3.git",
-        "tag": "v1.2.3",
-        "commit": "fcdd50602eaecb0c172750462003830d84dadc19"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

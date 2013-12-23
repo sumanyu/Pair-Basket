@@ -9,7 +9,6 @@
     "autoform": {},
     "collection2": {},
     "accounts-ui-bootstrap-3": {},
-    "streams": {},
-    "s3": {}
+    "streams": {}
   }
 }
