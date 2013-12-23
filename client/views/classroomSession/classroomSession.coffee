@@ -1,14 +1,3 @@
-Template.chatMessages.helpers
-  areMessagesReady: ->
-    getCurrentClassroomSession() || false
-
-  messages: ->
-    # fetch all chat messages
-    getCurrentClassroomSession(['messages']).messages
-
-  chatPartner: ->
-    getChatPartner().name
-
 sendMessage = ->
   message = $(".chat-message").val()
 
@@ -27,8 +16,16 @@ sendMessage = ->
 
     $(".chat-message").val ""
 
-Template.chatBox.rendered = ->
-  focusText($('.chat-message'))
+Template.chatMessages.helpers
+  areMessagesReady: ->
+    getCurrentClassroomSession() || false
+
+  messages: ->
+    # fetch all chat messages
+    getCurrentClassroomSession(['messages']).messages
+
+  chatPartner: ->
+    getChatPartner().name
 
 Template.chatMessages.rendered = ->
   console.log "Chat messages re-rendering..."
@@ -42,6 +39,9 @@ Template.chatBox.events
       e.preventDefault()
       console.log "entering?"
       sendMessage()
+
+Template.chatBox.rendered = ->
+  focusText($('.chat-message'))
 
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
