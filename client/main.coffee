@@ -6,71 +6,60 @@ Meteor.startup ->
 
   #### Begin Session variables
 
-  setSessionVars
+  setSessionVarsWithValue false, [
     # Pending session that user left unended should redirect to session itself
-    'pendingSession?': false
-
-    # Has non-null value if question comes from the landing page prompt
-    'questionFromLandingPrompt': null
+    'pendingSession?',
 
     # Ensure questions has loaded
-    'hasQuestionsCollectionLoaded?': false
+    'hasQuestionsCollectionLoaded?',
 
     # Ensure ClassroomSession collection has loaded
-    'hasClassroomSessionCollectionLoaded?': false
+    'hasClassroomSessionCollectionLoaded?',
 
     # Ensure Users collection had loaded
-    'hasUsersCollectionLoaded?': false
+    'hasUsersCollectionLoaded?',
 
     # Ensure whiteboard has loaded
-    'hasWhiteboardLoaded?': false   
-    
+    'hasWhiteboardLoaded?',
+
     # Click feedback button
-    'feedbackPopup': false       
+    'feedbackPopup',
 
     # Is the client asking a question?
-    'askingQuestion?': false   
+    'askingQuestion?',
+
+    # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
+    'foundTutor?',
+
+    # Alert the user she doesn't have enough Karma
+    'showNotEnoughKarma?'
+  ]
+
+  setSessionVarsWithValue null, [
+    # Has non-null value if question comes from the landing page prompt
+    'questionFromLandingPrompt',
 
     # Error message for ask question
-    'questionFormError': null   
+    'questionFormError',
 
+    # Subscribe user to user's asked question ID
+    'subscribedQuestion',
 
-    'haveAllCollectionsLoaded?': false
+    # Subscribe user to user's asked question ID
+    'subscribedQuestionResponse',
 
-
-
-
-  # Error message for ask question
-  Session.get('questionFormError', null)
-
-  # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
-  Session.set('foundTutor?', false)
-
-  # Subscribe user to user's asked question ID
-  Session.set('subscribedQuestion', null)
-
-  # Subscribe user to user's asked question ID
-  Session.set('subscribedQuestionResponse', null)
+    # Chatting with whom in whiteboard session
+    'chattingWith'
+  ]
 
   # Session sidebar variables
   Session.set('whiteboardIsSelected?', true)
-  Session.set('fileIsSelected?', false)
-  Session.set('wolframIsSelected?', false)
-
-  # Alert the user she doesn't have enough Karma
-  Session.set('showNotEnoughKarma?', false)
-
-  # Set temporary userName
-  Session.set('userName', 'Kelly')
-
-  # Chatting with whom in whiteboard session
-  Session.set('chattingWith', null)
+  setSessionVarsWithValue false, ['fileIsSelected?', 'wolframIsSelected?']
 
   # Landing Session variables
-  Session.set('helpOthers?', false)
-  Session.set('askQuestion?', false)
   Session.set('showBoth?', true)
-
+  setSessionVarsWithValue false, ['helpOthers?', 'askQuestion?']
+  
   # category filter
   Session.set('categoryFilter', {
     'math': true,
