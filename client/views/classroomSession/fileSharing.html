@@ -3,5 +3,14 @@
     {{#S3 callback="testFn"}}
       <input type="file">
     {{/S3}}
+
+    <div class="shared-files">
+      <ul>
+      {{#each sharedFiles}}
+        <li><a href="{{file.url}}">{{file.name}}</a></li>
+      {{/each}}
+      </ul>
+    </div>
+
   </div>
 </template>

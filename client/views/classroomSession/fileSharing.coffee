@@ -1,0 +1,3 @@
+Template.fileSharing.helpers
+  sharedFiles: ->
+    

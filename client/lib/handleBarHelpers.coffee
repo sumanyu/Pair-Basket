@@ -57,6 +57,7 @@ Handlebars.registerHelper(
               if error
                 console.log error
               else
+                
                 console.log result
 
           reader.readAsArrayBuffer file
