@@ -55,9 +55,11 @@ Template.classroomSessionSidebar.helpers
 
 Template.classroomSessionSidebar.events 
   "click .whiteboard-button": (e, s) ->
-    Session.set('whiteboardIsSelected?', true)
-    Session.set('fileIsSelected?', false)
-    Session.set('wolframIsSelected?', false)
+
+    setSessionVars
+      'whiteboardIsSelected?': true
+      'fileIsSelected?': false
+      'wolframIsSelected?': false
 
   "click .file-button": (e, s) ->
     Session.set('whiteboardIsSelected?', false)

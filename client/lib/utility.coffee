@@ -27,6 +27,8 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   audio.autoplay = true
   audio.play()
 
+# Creates a query for which fields we want from a query
+# For example: ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, {field_1: 1, field_2: 1 })
 @getCurrentClassroomSession = (_fields) ->
   query = {}
 
@@ -44,10 +46,17 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 
   ClassroomSession.findOne({_id: Session.get('classroomSessionId')}, query)
 
+# Returns the other user, whichever one that is (tutor or tutee)
 @getChatPartner = ->
   currentUser = Meteor.user()
   currentSession = getCurrentClassroomSession(['tutor', 'tutee'])
   tutor = currentSession.tutor
   tutee = currentSession.tutee
 
-  if currentUser._id is tutor.id then tutee else tutor 
+  if currentUser._id is tutor.id then tutee else tutor
+
+# Convenient way to set multiple Session.set
+# Takes a map of keys and values, assigns the session based on those keys and values
+@setSessionVars = (sessionMap) ->
+  _.pairs(sessionMap).forEach (pair) ->
+    Session.set(_.first(pair), _.last(pair))
