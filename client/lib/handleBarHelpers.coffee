@@ -1,7 +1,7 @@
 # Add comments for each
 
 Handlebars.registerHelper(
-  "underscoreToSpace",
+  "underscoreToSpace", 
   (string) ->
     string.split("_").join(" ")
 )
@@ -11,7 +11,8 @@ Handlebars.registerHelper(
 )
 
 Handlebars.registerHelper(
-  "allSchool", ->
+  "allSchool", 
+  ->
     [
       "University_of_Waterloo"
       "High_School"
@@ -27,35 +28,42 @@ Handlebars.registerHelper(
     ]
 )
 
-Handlebars.registerHelper "S3", (options) ->
-  uploadOptions = options.hash
-  template = options.fn
-  callback = uploadOptions.callback
-  context = @
+Handlebars.registerHelper(
+  "S3", 
+  (options) ->
+    uploadOptions = options.hash
+    template = options.fn
+    callback = uploadOptions.callback
+    context = @
 
-  return unless template
+    return unless template
 
-  html = Spark.isolate(->
-    template()
-  )
+    html = Spark.isolate -> template()
 
-  html = Spark.attachEvents(
-    "change input[type=file]": (e) ->
-      files = e.currentTarget.files
+    html = Spark.attachEvents(
+      "change input[type=file]": (e) ->
+        files = e.currentTarget.files
 
-      _.each files, (file) ->
-        reader = new FileReader
-        fileData =
-          name: file.name
-          size: file.size
-          type: file.type
+        _.each files, (file) ->
+          reader = new FileReader
+          fileData =
+            name: file.name
+            size: file.size
+            type: file.type
 
-        reader.onload = ->
-          fileData.data = new Uint8Array(reader.result)
-          Meteor.call "S3upload", fileData, context, callback
+          reader.onload = ->
+            fileData.data = new Uint8Array(reader.result)
+            Meteor.call "S3upload", fileData, (error, result) ->
+              if error
+                console.log error
+              else
+                console.log result
 
-        reader.readAsArrayBuffer file
+          reader.readAsArrayBuffer file
 
-  , html)
+    , html)
 
-  html
+    console.log html
+
+    html
+)

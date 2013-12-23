@@ -18,8 +18,6 @@ Meteor.methods
     buffer = new Buffer(file.data)
 
     url = Async.runSync (done) ->
-      console.log done
-
       knox.putBuffer buffer, path, {"Content-Type":file.type,"Content-Length":buffer.length}, (error, result) ->
         if result
           done(null, knox.http(path))
