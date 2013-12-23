@@ -6,32 +6,39 @@ Meteor.startup ->
 
   #### Begin Session variables
 
-  # Pending session that user left unended should redirect to session itself
-  Session.set('pendingSession?', false)
+  setSessionVars
+    # Pending session that user left unended should redirect to session itself
+    'pendingSession?': false
 
-  # Has non-null value if question comes from the landing page prompt
-  Session.set('questionFromLandingPrompt', null)
+    # Has non-null value if question comes from the landing page prompt
+    'questionFromLandingPrompt': null
 
-  # Ensure questions has loaded
-  Session.set("hasQuestionsCollectionLoaded?", false)
+    # Ensure questions has loaded
+    'hasQuestionsCollectionLoaded?': false
 
-  # Ensure ClassroomSession collection has loaded
-  Session.set("hasClassroomSessionCollectionLoaded?", false)
+    # Ensure ClassroomSession collection has loaded
+    'hasClassroomSessionCollectionLoaded?': false
 
-  # Ensure Users collection had loaded
-  Session.set("hasUsersCollectionLoaded?", false)
+    # Ensure Users collection had loaded
+    'hasUsersCollectionLoaded?': false
 
-  # Ensure all collections have loaded before performing some action
-  Session.set('haveAllCollectionsLoaded?', false)
+    # Ensure whiteboard has loaded
+    'hasWhiteboardLoaded?': false   
+    
+    # Click feedback button
+    'feedbackPopup': false       
 
-  # Ensure whiteboard has loaded
-  Session.set("hasWhiteboardLoaded?", false)
+    # Is the client asking a question?
+    'askingQuestion?': false   
 
-  # Click feedback button
-  Session.set('feedbackPopup', false)
+    # Error message for ask question
+    'questionFormError': null   
 
-  # Is the client asking a question?
-  Session.set('askingQuestion?', false)
+
+    'haveAllCollectionsLoaded?': false
+
+
+
 
   # Error message for ask question
   Session.get('questionFormError', null)

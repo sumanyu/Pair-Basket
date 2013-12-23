@@ -60,3 +60,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 @setSessionVars = (sessionMap) ->
   _.pairs(sessionMap).forEach (pair) ->
     Session.set(_.first(pair), _.last(pair))
+
+# Convenient way to set an array of session variables with one value
+@setSessionVarsWithValue = (value, sessionKeys) ->
+  sessionKeys.forEach (key) -> Session.set(key, value)

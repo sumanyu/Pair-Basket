@@ -73,9 +73,10 @@ Template.classroomSessionSidebar.events
       'wolframIsSelected?': true
 
   "click .end-session": (e, s) ->
-    setSessionVars
-      'foundTutor?': false
-      'askingQuestion?': false
+    setSessionVarsWithValue false , [
+      'foundTutor?',
+      'askingQuestion?'
+    ]
 
     Meteor.call 'endClassroomSession', Session.get("classroomSessionId"), (err, result) ->
       console.log "Calling end classroom session"
