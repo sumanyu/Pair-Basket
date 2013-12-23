@@ -1,6 +1,5 @@
 @focusText = (i) ->
   i.focus()
-  i.select()
 
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
