@@ -28,6 +28,7 @@ Handlebars.registerHelper(
     ]
 )
 
+# File uploading helper
 Handlebars.registerHelper(
   "S3", 
   (options) ->
@@ -61,8 +62,6 @@ Handlebars.registerHelper(
           reader.readAsArrayBuffer file
 
     , html)
-
-    console.log html
 
     html
 )
