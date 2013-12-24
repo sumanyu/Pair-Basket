@@ -180,8 +180,6 @@ Meteor.startup ->
   
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
-  console.log peer
-
   peer.on 'open', (id) ->
     # Testing that peer is actually working
     console.log "My id is: #{id}"

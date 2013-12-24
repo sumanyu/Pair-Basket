@@ -189,6 +189,7 @@ Meteor.methods
       tutor: tutorObject
       tutee: tuteeObject
       messages: []
+      sharedFiles: []
 
     # Add tutor name
     classroomSessionId = ClassroomSession.insert obj, (err, result) ->
