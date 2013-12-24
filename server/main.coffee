@@ -133,13 +133,20 @@ Meteor.methods
 
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}}
 
-    # Let others know user has left
-    # Event emitter?
+    console.log @
+
+    totalMessage = 
+      message: "#{Meteor.user().profile.name} has ended the session."
+      user:
+        id: @userId
+        name: Meteor.user().profile.name
+      type: 'alert'
+
+    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}, $push: {messages: totalMessage}}
+    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
 
   startClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
@@ -184,11 +191,20 @@ Meteor.methods
     console.log tutor
     console.log tutee
 
+    # Create two messages
+    messages = [tutorObject, tuteeObject].map (person) -> 
+      totalMessage = 
+        message: "#{person.name} has joined the session."
+        user:
+          id: person.id
+          name: person.name
+        type: 'alert'
+
     classroomSession =       
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
-      messages: []
+      messages: messages
       sharedFiles: []
 
     classroomSessionId = ClassroomSession.insert classroomSession, (err, result) ->
