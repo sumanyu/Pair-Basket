@@ -53,11 +53,10 @@ Handlebars.registerHelper(
 
           reader.onload = ->
             fileData.data = new Uint8Array(reader.result)
-            Meteor.call "S3upload", fileData, (error, result) ->
+            Meteor.call "S3upload", fileData, Session.get("classroomSessionId"), (error, result) ->
               if error
                 console.log error
               else
-                
                 console.log result
 
           reader.readAsArrayBuffer file

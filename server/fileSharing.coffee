@@ -10,9 +10,12 @@ Meteor.methods
       directory: object.directory || "/"
 
   # Uploads file
-  S3upload: (file, context) ->
+  S3upload: (file, classroomSessionId) ->
+    console.log "Uploading file to classroom session #{classroomSessionId}"
+
     # Set file unique id
     extension = (file.name).match(/\.[0-9a-z]{1,5}$/i) || ""
+    _filename = file.name
     file.name = Meteor.uuid() + extension
     path = S3.directory + file.name
 
@@ -27,7 +30,14 @@ Meteor.methods
         else
           console.log error
 
-    console.log url
+    _file = 
+      url: url.result
+      name: _filename
+
+    console.log _file
+
+    # Append file to list of shared files
+    ClassroomSession.update {_id: classroomSessionId}, {$push: {sharedFiles: _file}}
 
     return url
 
