@@ -10,43 +10,49 @@
       "autoform": {},
       "collection2": {},
       "accounts-ui-bootstrap-3": {},
-      "streams": {}
+      "streams": {},
+      "npm": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router",
         "branch": "dev",
-        "commit": "47e1ed3f995c393fb37a9b4e86b9aeca10c6e631"
+        "commit": "7b57d5ae8bc6ec31ddf1f44fd8ecdcfa5bdd119e"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v0.3.6",
-        "commit": "711dbcabe333c8714298b2fd1de97fdcdae6efa7"
+        "tag": "v0.3.7",
+        "commit": "5dd0d142c870647b910be80bc777b96f0dd45e5e"
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.4.1",
-        "commit": "5f07277746fb8cf9c938ed5c1382348fba8218d7"
+        "tag": "v0.4.5",
+        "commit": "256cc92673108bf31f9d81345e6f56da47993d23"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.2.11",
-        "commit": "34ea61718c8826dfa9236222cec6c097bd41ae6b"
+        "tag": "v0.2.15",
+        "commit": "0fe469aa0c01eda0563c8802e17914307960de79"
       },
       "accounts-ui-bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
-        "tag": "v0.2.3",
-        "commit": "c6aac7a331e457abd457a6f3ed030ac1411b220c"
+        "tag": "v0.2.4",
+        "commit": "cdbd20eb065310c0cc302bbd5f22e5b2121c769a"
       },
       "streams": {
         "git": "https://github.com/arunoda/meteor-streams.git",
         "tag": "v0.1.17",
         "commit": "9fcbbc9b7bf542827babc92089c19e730892a22f"
       },
+      "npm": {
+        "git": "https://github.com/arunoda/meteor-npm.git",
+        "tag": "v0.2.6",
+        "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
+      },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.16",
-        "commit": "fae2b014ffc26dfccd3aab38e45d60dda34fd03c"
+        "tag": "v0.2.23",
+        "commit": "ccdb1244ae3a38c70f53e04a2d68879ca89a4f9f"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",

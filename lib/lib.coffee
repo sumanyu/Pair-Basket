@@ -7,3 +7,8 @@
   'business',
   'foreign_language',
 ]
+
+Meteor.methods
+  testFn: (url, context) ->
+    console.log url
+    console.log context
