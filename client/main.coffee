@@ -184,7 +184,6 @@ Meteor.startup ->
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
-  
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
   peer.on 'open', (id) ->
@@ -195,14 +194,17 @@ Meteor.startup ->
     console.log "Getting a call"
     console.log _call
 
-    navigator.getUserMedia {audio: true}, ((mediaStream) ->
-      # Answer the call, providing our mediaStream
-      _call.answer(mediaStream)
-      _call.on 'stream', (remoteStream) ->
-        console.log remoteStream
-        playRemoteStream(remoteStream)
-        
-    ), (err) -> console.log "This is my error: ", err 
+    navigator.getUserMedia(
+      {audio: true},
+      ((mediaStream) ->
+        # Answer the call, providing our mediaStream
+        _call.answer(mediaStream)
+        _call.on 'stream', (remoteStream) ->
+          console.log remoteStream
+          playRemoteStream(remoteStream)  
+      ), 
+      ((err) -> console.log "This is my error: ", err)
+    )
 
   peer.on 'error', (err) ->
     console.log err
@@ -218,6 +220,5 @@ Meteor.startup ->
   #       ClassroomStream.emit "audioResponse:#{getChatPartner().id}", "Start audio with you"
 
   #     ClassroomStream.on "audioResponse:#{Meteor.userId()}", (message) ->
-
 
   console.log "Meteor startup end"
