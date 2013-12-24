@@ -184,15 +184,14 @@ Meteor.methods
     console.log tutor
     console.log tutee
 
-    obj =       
+    classroomSession =       
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
       messages: []
       sharedFiles: []
 
-    # Add tutor name
-    classroomSessionId = ClassroomSession.insert obj, (err, result) ->
+    classroomSessionId = ClassroomSession.insert classroomSession, (err, result) ->
       console.log "Inserting classroom session"
       if err
         console.log "Error"
