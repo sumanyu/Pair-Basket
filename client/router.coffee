@@ -74,15 +74,13 @@ Router.map ->
         @redirect "/dashboard"    
         @stop()
     action: ->
-        console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
+      console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
 
-        if ClassroomSession.findOne({_id: @params.classroomSessionId})
-          Session.set("classroomSessionId", @params.classroomSessionId)
+      if Session.equals("classroomSessionId", @params.classroomSessionId)
+        @render 'classroomSessionSidebar', 
+          to: 'classroomSessionSidebar'
 
-          @render 'classroomSessionSidebar', 
-            to: 'classroomSessionSidebar'
-
-          @render()
-        else
-          console.log "Router: Tutoring Session not found"
-          @redirect "/dashboard"
+        @render()
+      else
+        console.log "Router: Tutoring Session not found"
+        @redirect "/dashboard"

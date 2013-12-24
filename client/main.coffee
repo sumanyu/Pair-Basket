@@ -49,7 +49,10 @@ Meteor.startup ->
     'subscribedQuestion',
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestionResponse'
+    'subscribedQuestionResponse',
+
+    # Active classroom session Id
+    'classroomSessionId'
   ]
 
   # Session sidebar variables
@@ -96,10 +99,11 @@ Meteor.startup ->
     console.log "Classroom session count: #{ClassroomSession.find().count()}"
 
     # If pending ClassroomSession, go straight to the session
-    if ClassroomSession.find().count() > 0
-      console.log "Count is greater than 0, redirecting..."
+    if classroomSession
+      console.log "Pending classroom session exists"
       Session.set("classroomSessionId", classroomSession.classroomSessionId)
-      Session.set('pendingSession?', true))
+      # Use pending session later
+      # Session.set('pendingSession?', true))
 
   #### End Subscriptions
 
@@ -120,6 +124,9 @@ Meteor.startup ->
   # Show whiteboard, hide other things
   Deps.autorun ->
     showActiveClassroomSessionTool()
+
+  Deps.autorun ->
+    console.log "Reactive: haveAllCollectionsLoaded? #{Session.get('haveAllCollectionsLoaded?')}"
 
   # Event listener for listening for classroom requests
   Deps.autorun ->

@@ -42,7 +42,6 @@ Template.chatBox.events
   "keydown .chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
-      console.log "entering?"
       sendMessage()
 
 Template.chatBox.rendered = ->
