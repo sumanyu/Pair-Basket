@@ -213,6 +213,7 @@ body
 		background: url('/home_background.jpg')
 		background-size: 100%
 		background-repeat: no-repeat
+		background-color: #141414
 
 		.landing-header, .landing-footer
 			width: 100%
@@ -468,6 +469,7 @@ body
 		.question-tile-right
 			width: 100px
 			background-color: _light_gray
+			text-align: center
 			// border-top-right-radius(8px)
 			// border-bottom-right-radius(8px)
 
@@ -475,7 +477,7 @@ body
 			border: 3px solid _yellow
 			// border-radius(15px)
 
-		.other-questions .question-tile
+		.other-questions, .resolved-questions .question-tile
 			// aligns owned/other tiles
 			border-left: 3px solid transparent
 			border-right: 3px solid transparent
@@ -507,7 +509,7 @@ body
 			border-radius(50%)
 			width: 70px
 			height: 70px
-			margin: 13px
+			margin: 13px auto
 			text-align:center
 			font-size: 40px
 			font-weight: bold
@@ -596,6 +598,17 @@ body
 			font-size: 16px
 			padding: 5px 10px
 			margin: 0px 15px
+
+		.status-resolved
+			set-background(_dark_gray)
+			border-radius(5px)
+			color: white
+			font-size: 14px
+			padding: 2px 10px
+			float: left
+			margin-left: 10px
+			display: block
+			animate-transition()
 
 		.ask-question-icon
 			width: 38px

@@ -25,6 +25,23 @@ Template.questionsPage.helpers
       },
       {sort: {dateCreated: -1}})
 
+  resolvedQuestions: =>
+    categoryFilter = Session.get('categoryFilter')
+    # console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+    # console.log activeCategories
+
+    Questions.find(
+      {
+        status: 'resolved',
+        category: { $in: activeCategories }
+      },
+      {sort: {dateCreated: -1}})
+
   questionsLoaded: ->
     Session.get('hasQuestionsCollectionLoaded?')
 

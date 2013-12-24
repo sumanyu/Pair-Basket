@@ -11,7 +11,7 @@
       karmaOffered: 50
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "computer"
       userId: '1'
@@ -22,18 +22,18 @@
       karmaOffered: 20
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "math"
       userId: '1'
-      questionText: 'How do we prove that as n -> inf, (3n+1)/(2n+1) -> 3/2 using the formal definition of a limit?'
+      questionText: 'How do you use the area of a circle to find the volume of a cylinder?'
       tags: [
-        "calculus",
-        "delta_epsilon_proof"]
+        "geometry",
+        "volume"]
       karmaOffered: 80
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "science"
       userId: '1'
@@ -44,7 +44,7 @@
       karmaOffered: 45
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "science"
       userId: '1'
@@ -55,7 +55,7 @@
       karmaOffered: 57
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ,
       category: "business"
       userId: '1'
@@ -66,7 +66,7 @@
       karmaOffered: 92
       dateCreated: new Date()
       dateModified: new Date()
-      status: "waiting"
+      status: "resolved"
     ]
 
     for question in questions

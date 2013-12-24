@@ -7,6 +7,7 @@ Meteor.startup ->
   #   console.log feedback
   # )
 
+  # this line should be commented for 'production' setting (don't delete questions)
   dropAll()
 
   Deps.autorun ->

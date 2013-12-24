@@ -67,6 +67,11 @@
               {{> otherQuestionTile}}
           {{/each}}
         </div>
+        <div class="resolved-questions">
+          {{#each resolvedQuestions}}
+              {{> resolvedQuestionTile}}
+          {{/each}}
+        </div>
     {{else}}
         Loading...
     {{/if}}
