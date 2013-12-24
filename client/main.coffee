@@ -78,9 +78,9 @@ Meteor.startup ->
 
   #### Begin Subscriptions
 
-  Meteor.subscribe('users', ->
+  Meteor.subscribe 'users', ->
     console.log "Subscribed to users"
-    Session.set("hasUsersCollectionLoaded?", true))
+    Session.set("hasUsersCollectionLoaded?", true)
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
@@ -89,7 +89,7 @@ Meteor.startup ->
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
-  Meteor.subscribe('classroomSession', ->
+  Meteor.subscribe 'classroomSession', ->
     console.log "Subscribed to classroom session"
     Session.set("hasClassroomSessionCollectionLoaded?", true)
 
@@ -101,7 +101,7 @@ Meteor.startup ->
     # If pending ClassroomSession, go straight to the session
     if classroomSession
       console.log "Pending classroom session exists"
-      Session.set("classroomSessionId", classroomSession.classroomSessionId)
+      Session.set("classroomSessionId", classroomSession._id)
       # Use pending session later
       # Session.set('pendingSession?', true))
 
