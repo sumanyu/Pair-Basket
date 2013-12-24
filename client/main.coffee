@@ -119,17 +119,7 @@ Meteor.startup ->
 
   # Show whiteboard, hide other things
   Deps.autorun ->
-    if Session.get('whiteboardIsSelected?')
-      $('.whiteboard').show()
-      ['.file-sharing', '.wolfram'].forEach (selector) -> $(selector).hide()
-
-    if Session.get('fileIsSelected?')
-      $('.file-sharing').show()
-      ['.whiteboard', '.wolfram'].forEach (selector) -> $(selector).hide()
-
-    if Session.get('wolframIsSelected?')
-      $('.wolfram').show()
-      ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()
+    showActiveClassroomSessionTool()
 
   # Event listener for listening for classroom requests
   Deps.autorun ->

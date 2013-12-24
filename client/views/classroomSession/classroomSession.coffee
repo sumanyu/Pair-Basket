@@ -77,6 +77,9 @@ Template.classroomSessionSidebar.events
       else
         Router.go('/dashboard')
 
+Template.classroomSessionPage.rendered = ->
+  showActiveClassroomSessionTool()
+
 Template.classroomSessionPage.events
   'click .start-audio': (e, s) ->
     # Send user's id for now
