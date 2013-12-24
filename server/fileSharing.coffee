@@ -36,8 +36,15 @@ Meteor.methods
 
     console.log _file
 
+    totalMessage = 
+      message: "#{Meteor.user().profile.name} has uploaded #{_filename}."
+      user:
+        id: @userId
+        name: Meteor.user().profile.name
+      type: 'alert'
+
     # Append file to list of shared files
-    ClassroomSession.update {_id: classroomSessionId}, {$push: {sharedFiles: _file}}
+    ClassroomSession.update {_id: classroomSessionId}, {$push: {sharedFiles: _file, messages: totalMessage}}
 
     return url
 

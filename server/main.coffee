@@ -43,10 +43,14 @@ Meteor.publish 'questions', ->
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
 
-  # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
-
-  # Discriminate between tutorId or tuteeId later
-  ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}, {'tutor.status': true, 'tutee.status': true})
+  # tutor.status and tutee.status cannot both be false
+  # and userId must be either tutor or tutee id
+  ClassroomSession.find(
+    {$and: [
+      {$or: [{'tutor.status': true}, {'tutee.status': true}]}, 
+      {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}
+    ]}
+  )
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -134,13 +138,20 @@ Meteor.methods
 
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}}
 
-    # Let others know user has left
-    # Event emitter?
+    console.log @
+
+    totalMessage = 
+      message: "#{Meteor.user().profile.name} has ended the session."
+      user:
+        id: @userId
+        name: Meteor.user().profile.name
+      type: 'alert'
+
+    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}, $push: {messages: totalMessage}}
+    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
 
   startClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
@@ -185,14 +196,23 @@ Meteor.methods
     console.log tutor
     console.log tutee
 
-    obj =       
+    # Create two messages
+    messages = [tutorObject, tuteeObject].map (person) -> 
+      totalMessage = 
+        message: "#{person.name} has joined the session."
+        user:
+          id: person.id
+          name: person.name
+        type: 'alert'
+
+    classroomSession =       
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
-      messages: []
+      messages: messages
+      sharedFiles: []
 
-    # Add tutor name
-    classroomSessionId = ClassroomSession.insert obj, (err, result) ->
+    classroomSessionId = ClassroomSession.insert classroomSession, (err, result) ->
       console.log "Inserting classroom session"
       if err
         console.log "Error"

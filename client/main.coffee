@@ -49,7 +49,10 @@ Meteor.startup ->
     'subscribedQuestion',
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestionResponse'
+    'subscribedQuestionResponse',
+
+    # Active classroom session Id
+    'classroomSessionId'
   ]
 
   # Session sidebar variables
@@ -75,9 +78,9 @@ Meteor.startup ->
 
   #### Begin Subscriptions
 
-  Meteor.subscribe('users', ->
+  Meteor.subscribe 'users', ->
     console.log "Subscribed to users"
-    Session.set("hasUsersCollectionLoaded?", true))
+    Session.set("hasUsersCollectionLoaded?", true)
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
@@ -86,7 +89,7 @@ Meteor.startup ->
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
-  Meteor.subscribe('classroomSession', ->
+  Meteor.subscribe 'classroomSession', ->
     console.log "Subscribed to classroom session"
     Session.set("hasClassroomSessionCollectionLoaded?", true)
 
@@ -96,10 +99,11 @@ Meteor.startup ->
     console.log "Classroom session count: #{ClassroomSession.find().count()}"
 
     # If pending ClassroomSession, go straight to the session
-    if ClassroomSession.find().count() > 0
-      console.log "Count is greater than 0, redirecting..."
-      Session.set("classroomSessionId", classroomSession.classroomSessionId)
-      Session.set('pendingSession?', true))
+    if classroomSession
+      console.log "Pending classroom session exists"
+      Session.set("classroomSessionId", classroomSession._id)
+      # Use pending session later
+      # Session.set('pendingSession?', true))
 
   #### End Subscriptions
 
@@ -120,6 +124,9 @@ Meteor.startup ->
   # Show whiteboard, hide other things
   Deps.autorun ->
     showActiveClassroomSessionTool()
+
+  Deps.autorun ->
+    console.log "Reactive: haveAllCollectionsLoaded? #{Session.get('haveAllCollectionsLoaded?')}"
 
   # Event listener for listening for classroom requests
   Deps.autorun ->
@@ -177,10 +184,7 @@ Meteor.startup ->
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
-  
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
-
-  console.log peer
 
   peer.on 'open', (id) ->
     # Testing that peer is actually working
@@ -190,14 +194,17 @@ Meteor.startup ->
     console.log "Getting a call"
     console.log _call
 
-    navigator.getUserMedia {audio: true}, ((mediaStream) ->
-      # Answer the call, providing our mediaStream
-      _call.answer(mediaStream)
-      _call.on 'stream', (remoteStream) ->
-        console.log remoteStream
-        playRemoteStream(remoteStream)
-        
-    ), (err) -> console.log "This is my error: ", err 
+    navigator.getUserMedia(
+      {audio: true},
+      ((mediaStream) ->
+        # Answer the call, providing our mediaStream
+        _call.answer(mediaStream)
+        _call.on 'stream', (remoteStream) ->
+          console.log remoteStream
+          playRemoteStream(remoteStream)  
+      ), 
+      ((err) -> console.log "This is my error: ", err)
+    )
 
   peer.on 'error', (err) ->
     console.log err
@@ -213,6 +220,5 @@ Meteor.startup ->
   #       ClassroomStream.emit "audioResponse:#{getChatPartner().id}", "Start audio with you"
 
   #     ClassroomStream.on "audioResponse:#{Meteor.userId()}", (message) ->
-
 
   console.log "Meteor startup end"

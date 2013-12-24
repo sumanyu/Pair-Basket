@@ -71,18 +71,19 @@ Router.map ->
       console.log "Calling before session"
       if not @params.classroomSessionId?
         console.log "You don't have a session"
-        @redirect "/dashboard"    
+        @redirect "/dashboard"
         @stop()
     action: ->
-        console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
+      console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
+      console.log Session.get('classroomSessionId')
 
-        if ClassroomSession.findOne({_id: @params.classroomSessionId})
-          Session.set("classroomSessionId", @params.classroomSessionId)
+      # Add better routing security here
+      # Someone could modify this equivalence and get access to the classroomSession
+      if Session.equals("classroomSessionId", @params.classroomSessionId)
+        @render 'classroomSessionSidebar', 
+          to: 'classroomSessionSidebar'
 
-          @render 'classroomSessionSidebar', 
-            to: 'classroomSessionSidebar'
-
-          @render()
-        else
-          console.log "Router: Tutoring Session not found"
-          @redirect "/dashboard"
+        @render()
+      else
+        console.log "Router: Tutoring Session not found"
+        @redirect "/dashboard"

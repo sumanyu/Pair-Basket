@@ -95,7 +95,14 @@
 </template>
 
 <template name='chatMessage'>
-  <div>
-    <b>{{user.name}}:</b> {{message}}
-  </div>
+
+  {{#if isNormalMessage}}
+    <div>
+      <b>{{user.name}}:</b> {{message}}
+    </div>
+  {{else}}
+    <div>
+      <i>{{message}}</i>
+    </div>
+  {{/if}}
 </template>

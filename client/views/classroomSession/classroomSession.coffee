@@ -8,6 +8,7 @@ sendMessage = ->
       user:
         id: Meteor.userId()
         name: Meteor.user().profile.name
+      type: 'normal'
 
     console.log totalMessage
 
@@ -27,6 +28,10 @@ Template.chatMessages.helpers
   chatPartner: ->
     getChatPartner().name
 
+Template.chatMessage.helpers
+  isNormalMessage: ->
+    @.type is 'normal'
+
 Template.chatMessages.rendered = ->
   console.log "Chat messages re-rendering..."
 
@@ -37,7 +42,6 @@ Template.chatBox.events
   "keydown .chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
-      console.log "entering?"
       sendMessage()
 
 Template.chatBox.rendered = ->
