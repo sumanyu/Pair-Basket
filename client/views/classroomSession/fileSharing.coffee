@@ -1,3 +1,5 @@
 Template.fileSharing.helpers
   sharedFiles: ->
-    result = getCurrentClassroomSession(['filesShared']).filesShared || []
+    result = getCurrentClassroomSession(['sharedFiles']).sharedFiles || []
+    console.log result
+    result

@@ -1,16 +1,23 @@
 <template name="fileSharing">
   <div class="file-sharing">
-    {{#S3 callback="testFn"}}
-      <input type="file">
-    {{/S3}}
+
+    <div class="upload-file">
+      {{> uploadFile}}
+    </div>
 
     <div class="shared-files">
       <ul>
         {{#each sharedFiles}}
-          <li><a href="{{file.url}}">{{file.name}}</a></li>
+          <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
         {{/each}}
       </ul>
     </div>
 
   </div>
+</template>
+
+<template name="uploadFile">
+  {{#S3 callback="testFn"}}
+    <input type="file">
+  {{/S3}}
 </template>
