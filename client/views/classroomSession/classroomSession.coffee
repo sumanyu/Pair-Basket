@@ -28,6 +28,10 @@ Template.chatMessages.helpers
   chatPartner: ->
     getChatPartner().name
 
+Template.chatMessage.helpers
+  isNormalMessage: ->
+    @.type is 'normal'
+
 Template.chatMessages.rendered = ->
   console.log "Chat messages re-rendering..."
 
