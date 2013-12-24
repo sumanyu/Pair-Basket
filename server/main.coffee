@@ -42,20 +42,8 @@ Meteor.publish 'questions', ->
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
 
-  # console.log "Publishing_0: #{  ClassroomSession.find({$or: [{'tutor.status': true}, {'tutee.status': true}]}).count()}"
-  # console.log ClassroomSession.find({$or: [{'tutor.status': true}, {'tutee.status': true}]}).fetch()
-
-  # console.log "Publishing_1: #{  ClassroomSession.find({$or: [{'tutor.status': true}, {'tutee.status': true}], $or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}).count()}"
-  # console.log ClassroomSession.find({$or: [{'tutor.status': true}, {'tutee.status': true}], $or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}).fetch()
-
-  # # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
-  # console.log "Publishing_2: #{  ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}, {$and: [{'tutor.status': true}, {'tutee.status': true}]}).count()}"
-  # console.log ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}, {$and: [{'tutor.status': true}, {'tutee.status': true}]}).fetch()
-
-  # console.log "Publishing_3: #{  ClassroomSession.find({$and: [{$or: [{'tutor.status': true}, {'tutee.status': true}]}, {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}]}).count()}"
-  # console.log ClassroomSession.find({$and: [{$or: [{'tutor.status': true}, {'tutee.status': true}]}, {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}]}).fetch()
-
-  # Discriminate between tutorId or tuteeId later
+  # tutor.status and tutee.status cannot both be false
+  # and userId must be either tutor or tutee id
   ClassroomSession.find({$and: [{$or: [{'tutor.status': true}, {'tutee.status': true}]}, {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}]})
 
 # Subscription for tutees with questions waiting to be answered
