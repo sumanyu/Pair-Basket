@@ -44,7 +44,12 @@ Meteor.publish 'classroomSession', ->
 
   # tutor.status and tutee.status cannot both be false
   # and userId must be either tutor or tutee id
-  ClassroomSession.find({$and: [{$or: [{'tutor.status': true}, {'tutee.status': true}]}, {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}]})
+  ClassroomSession.find(
+    {$and: [
+      {$or: [{'tutor.status': true}, {'tutee.status': true}]}, 
+      {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}
+    ]}
+  )
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
