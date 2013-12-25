@@ -144,9 +144,6 @@ Meteor.methods
 
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
-
-    console.log @
-
     totalMessage = 
       message: "#{Meteor.user().profile.name} has ended the session."
       user:
@@ -160,7 +157,7 @@ Meteor.methods
     else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
 
-  startClassroomSession: (questionId, tutorId) ->
+  createClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
     tuteeId = @userId
@@ -241,6 +238,8 @@ Meteor.methods
     Feedback.insert feedbackData, (error, result) ->
       console.log result
       console.log error
+
+  userJoinedSession
 
   # Configure S3 storage
   Meteor.call "S3config", 
