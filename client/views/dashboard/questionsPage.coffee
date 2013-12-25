@@ -96,4 +96,9 @@ Template.questionsPage.events =
     # toggle active/inactive
     categoryFilter[category] = !(state == 'active')
 
+    # update session and user-profile categoryFilters
     Session.set('categoryFilter', categoryFilter)
+
+    Meteor.users.update(
+      {_id:Meteor.user()._id},
+      {$set: {"profile.categoryFilter": categoryFilter}})
