@@ -122,10 +122,9 @@ Meteor.methods
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
-  # Render ClassroomSession's status 'resolved'
-  endClassroomSession: (classroomSessionId) ->
+  alertClassroomSession: (classroomSessionId, message, status) ->
     totalMessage = 
-      message: "#{Meteor.user().profile.name} has ended the session."
+      message: message
       user:
         id: @userId
         name: Meteor.user().profile.name
@@ -133,39 +132,21 @@ Meteor.methods
       dateCreated: new Date
 
     if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}, $push: {messages: totalMessage}}
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': status}, $push: {messages: totalMessage}}
     else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': status}, $push: {messages: totalMessage}}
+
+  # Render ClassroomSession's status 'resolved'
+  endClassroomSession: (classroomSessionId) ->
+    alertClassroomSession classroomSessionId, "#{Meteor.user().profile.name} has ended the session.", false
 
   # Officiall starts classroom session for a user
   startClassroomSession: (classroomSessionId) ->
-    totalMessage = 
-      message: "#{Meteor.user().profile.name} has joined the session."
-      user:
-        id: @userId
-        name: Meteor.user().profile.name
-      type: 'alert'
-      dateCreated: new Date
-
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': true}, $push: {messages: totalMessage}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': true}, $push: {messages: totalMessage}} 
+    alertClassroomSession classroomSessionId, "#{Meteor.user().profile.name} has joined the session.", true
 
   # Use abruptly leaving classroom session
   leavingClassroomSession: (classroomSessionId) ->
-    totalMessage = 
-      message: "#{Meteor.user().profile.name} has joined the session."
-      user:
-        id: @userId
-        name: Meteor.user().profile.name
-      type: 'alert'
-      dateCreated: new Date
-
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': true}, $push: {messages: totalMessage}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': true}, $push: {messages: totalMessage}} 
+    alertClassroomSession classroomSessionId, "#{Meteor.user().profile.name} has joined the session.", true
 
   createClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
