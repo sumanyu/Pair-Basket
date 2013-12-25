@@ -74,6 +74,13 @@ Router.map ->
     path: '/session/:classroomSessionId?'
     layoutTemplate: 'classroomSessionLayout'
     template: 'classroomSessionPage'
+    load: ->
+      console.log "Calling Router:Session:Load"
+
+      document.unload = ->
+        console.log "Document.unloading... "
+        Meteor.call 'leavingClassroomSession', Session.set('classroomSessionId')
+
     before: ->
       console.log "Calling before session"
       if not @params.classroomSessionId?
