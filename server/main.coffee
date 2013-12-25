@@ -137,7 +137,23 @@ Meteor.methods
     else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
 
+  # Officiall starts classroom session for a user
   startClassroomSession: (classroomSessionId) ->
+    totalMessage = 
+      message: "#{Meteor.user().profile.name} has joined the session."
+      user:
+        id: @userId
+        name: Meteor.user().profile.name
+      type: 'alert'
+      dateCreated: new Date
+
+    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': true}, $push: {messages: totalMessage}}
+    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': true}, $push: {messages: totalMessage}} 
+
+  # Use abruptly leaving classroom session
+  leavingClassroomSession: (classroomSessionId) ->
     totalMessage = 
       message: "#{Meteor.user().profile.name} has joined the session."
       user:
@@ -223,21 +239,6 @@ Meteor.methods
     Feedback.insert feedbackData, (error, result) ->
       console.log result
       console.log error
-
-  # Use abruptly leaving classroom session
-  leavingClassroomSession: (classroomSessionId) ->
-    totalMessage = 
-      message: "#{Meteor.user().profile.name} has joined the session."
-      user:
-        id: @userId
-        name: Meteor.user().profile.name
-      type: 'alert'
-      dateCreated: new Date
-
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': true}, $push: {messages: totalMessage}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': true}, $push: {messages: totalMessage}} 
 
   # Configure S3 storage
   Meteor.call "S3config", 
