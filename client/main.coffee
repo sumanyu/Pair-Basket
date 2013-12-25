@@ -120,6 +120,8 @@ Meteor.startup ->
     if ClassroomSession.findOne()
       console.log "Pending classroom session exists. Setting classroomSessionId to #{ClassroomSession.findOne()._id}"
       Session.set("classroomSessionId", ClassroomSession.findOne()._id)
+    else
+      Session.set("classroomSessionId", null)
 
   Deps.autorun ->
     console.log "Reactive: haveAllCollectionsLoaded? #{Session.get('haveAllCollectionsLoaded?')}"
