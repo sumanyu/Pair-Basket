@@ -133,13 +133,13 @@ Meteor.startup ->
 
   # If logged in, set user's question category filters
   Deps.autorun ->
-    categoryFilter = {}
+    categoryFilter = defaultCategoryFilter
 
     if Meteor.user()
       if Meteor.user().profile.categoryFilter
         categoryFilter = Meteor.user().profile.categoryFilter
 
-      Session.set('categoryFilter', categoryFilter)
+    Session.set('categoryFilter', categoryFilter)
 
   # Automatically redirect user to session if user had a session open and didn't end it properly
   # Deps.autorun ->

@@ -18,17 +18,7 @@ Accounts.onCreateUser (options, user) ->
   if options.profile
     user.profile = options.profile
 
-  categoryFilter = {
-    'math': true,
-    'science': true,
-    'english': true,
-    'social_science': false,
-    'computer': true,
-    'business': false,
-    'foreign_language': false
-  }
-
-  user.profile.categoryFilter = categoryFilter
+  user.profile.categoryFilter = defaultCategoryFilter
 
   return user
 
