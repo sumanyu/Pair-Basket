@@ -43,13 +43,19 @@ Meteor.publish 'questions', ->
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
 
-  # tutor.status and tutee.status cannot both be false
-  # and userId must be either tutor or tutee id
+  # Return all sessions where dateCreated is within 6 hours of right now and
+  # Where if user is tutor, its status is true
+  # Else if user is tuteee, its status is true
+  # Sort by most recently created and limit query to one
   ClassroomSession.find(
     {$and: [
-      {$or: [{'tutor.status': true}, {'tutee.status': true}]}, 
-      {$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}
-    ]}
+      {dateCreated: { $gte: new Date( (new Date)*1 - 1000*3600*6 ) }}, 
+      {$or: [
+        {$and: [{'tutor.status': true}, {'tutor.id': @userId}]},
+        {$and: [{'tutee.status': true}, {'tutee.id': @userId}]}
+      ]}
+    ]},
+    {sort: {_id: -1}, limit: 1}
   )
 
 # Subscription for tutees with questions waiting to be answered
@@ -147,6 +153,7 @@ Meteor.methods
         id: @userId
         name: Meteor.user().profile.name
       type: 'alert'
+      dateCreated: new Date
 
     if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}, $push: {messages: totalMessage}}
@@ -211,6 +218,7 @@ Meteor.methods
       tutee: tuteeObject
       messages: messages
       sharedFiles: []
+      dateCreated: new Date()
 
     classroomSessionId = ClassroomSession.insert classroomSession, (err, result) ->
       console.log "Inserting classroom session"

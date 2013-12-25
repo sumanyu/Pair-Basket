@@ -59,6 +59,13 @@ Router.map ->
         to: 'feedback'
     before: ->
       console.log "Calling before in dashboard"
+
+      # Redirect to classroom session if user is subscribed to an existing session
+      if Session.get('classroomSessionId')
+        console.log "Pending session exists. Redirecting to classroom session"
+        @redirect "/session/#{Session.get('classroomSessionId')}"
+        @stop()
+
     action: ->
       console.log "Rendering dashboard"
       @render()
@@ -71,7 +78,7 @@ Router.map ->
       console.log "Calling before session"
       if not @params.classroomSessionId?
         console.log "You don't have a session"
-        @redirect "/dashboard"
+        @redirect "dashboard"
         @stop()
     action: ->
       console.log "Router: classroomSessionId: #{@params.classroomSessionId}"

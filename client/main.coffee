@@ -89,21 +89,10 @@ Meteor.startup ->
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
+  # Deps.autorun below will handle setting classroomSessionId
   Meteor.subscribe 'classroomSession', ->
     console.log "Subscribed to classroom session"
     Session.set("hasClassroomSessionCollectionLoaded?", true)
-
-    classroomSession = ClassroomSession.findOne()
-
-    console.log "Current classroom session: #{classroomSession}"
-    console.log "Classroom session count: #{ClassroomSession.find().count()}"
-
-    # If pending ClassroomSession, go straight to the session
-    if classroomSession
-      console.log "Pending classroom session exists"
-      Session.set("classroomSessionId", classroomSession._id)
-      # Use pending session later
-      # Session.set('pendingSession?', true))
 
   #### End Subscriptions
 
@@ -124,6 +113,15 @@ Meteor.startup ->
   # Show whiteboard, hide other things
   Deps.autorun ->
     showActiveClassroomSessionTool()
+
+  # Ensure 'classroomSessionId' is set to current classroom session ID
+  Deps.autorun ->
+     # If pending ClassroomSession, go straight to the session
+    if ClassroomSession.findOne()
+      console.log "Pending classroom session exists. Setting classroomSessionId to #{ClassroomSession.findOne()._id}"
+      Session.set("classroomSessionId", ClassroomSession.findOne()._id)
+    else
+      Session.set("classroomSessionId", null)
 
   Deps.autorun ->
     console.log "Reactive: haveAllCollectionsLoaded? #{Session.get('haveAllCollectionsLoaded?')}"
