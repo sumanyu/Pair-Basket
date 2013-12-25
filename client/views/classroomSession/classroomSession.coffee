@@ -1,3 +1,13 @@
+# This is called once when the page is created. We'll treat this as user joining the session.
+Template.classroomSessionPage.created = ->
+  console.log "Creating classroom session page"
+  Meteor.call 'startClassroomSession', Session.get('classroomSessionId')
+
+# This is called once when the classroom session is destroyed. It's not called if user goes to dashbaord.
+# We'll treat this as user ending session
+Template.classroomSessionPage.destroyed = ->
+  console.log "Destroying classroom session page"
+
 sendMessage = ->
   message = $(".chat-message").val()
 

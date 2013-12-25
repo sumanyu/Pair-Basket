@@ -157,6 +157,19 @@ Meteor.methods
     else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
 
+  startClassroomSession: (classroomSessionId) ->
+    totalMessage = 
+      message: "#{Meteor.user().profile.name} has joined the session."
+      user:
+        id: @userId
+        name: Meteor.user().profile.name
+      type: 'alert'
+
+    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': true}, $push: {messages: totalMessage}}
+    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
+      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': true}, $push: {messages: totalMessage}} 
+
   createClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
@@ -200,15 +213,6 @@ Meteor.methods
     console.log tutor
     console.log tutee
 
-    # Create two messages
-    messages = [tutorObject, tuteeObject].map (person) -> 
-      totalMessage = 
-        message: "#{person.name} has joined the session."
-        user:
-          id: person.id
-          name: person.name
-        type: 'alert'
-
     classroomSession =       
       questionId: questionId
       tutor: tutorObject
@@ -238,8 +242,6 @@ Meteor.methods
     Feedback.insert feedbackData, (error, result) ->
       console.log result
       console.log error
-
-  userJoinedSession
 
   # Configure S3 storage
   Meteor.call "S3config", 
