@@ -62,7 +62,8 @@ Router.map ->
 
       # Redirect to classroom session if user is subscribed to an existing session
       if Session.get('classroomSessionId')
-        @redirect "session/#{Session.get('classroomSessionId')}"
+        console.log "Pending session exists. Redirecting to classroom session"
+        @redirect "/session/#{Session.get('classroomSessionId')}"
         @stop()
 
     action: ->
