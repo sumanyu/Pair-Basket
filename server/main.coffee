@@ -217,7 +217,7 @@ Meteor.methods
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
-      messages: messages
+      messages: []
       sharedFiles: []
       dateCreated: new Date()
 
