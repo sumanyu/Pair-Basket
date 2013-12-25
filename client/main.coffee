@@ -100,7 +100,7 @@ Meteor.startup ->
 
     # If pending ClassroomSession, go straight to the session
     if classroomSession
-      console.log "Pending classroom session exists"
+      console.log "Pending classroom session exists. Setting classroomSessionId to #{classroomSession._id}"
       Session.set("classroomSessionId", classroomSession._id)
       # Use pending session later
       # Session.set('pendingSession?', true))
