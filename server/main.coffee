@@ -122,26 +122,6 @@ Meteor.methods
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
-  # createSessionRequest: (questionId) ->
-  #   console.log "Creating Session Request"
-  #   request = SessionRequest.insert
-  #     questionId: questionId
-  #     userId: @userId
-  #   Random.id()
-
-  # createSessionResponse: (questionId) ->
-  #   console.log "Creating Session Response"
-  #   classroomSessionId = Random.id()
-  #   response = SessionResponse.insert 
-  #                 questionId: questionId
-  #                 classroomSessionId: classroomSessionId
-  #                 userId: @userId
-  #   classroomSessionId
-
-  # # Add better validation later
-  # cancelSessionResponse: (questionId) ->
-  #   SessionResponse.remove({questionId: questionId})
-
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
     totalMessage = 
