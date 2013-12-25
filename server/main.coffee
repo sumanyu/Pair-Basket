@@ -43,13 +43,17 @@ Meteor.publish 'questions', ->
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
 
-  # Return all sessions where if user is tutor, its status is true
+  # Return all sessions where dateCreated is within 6 hours of right now and
+  # Where if user is tutor, its status is true
   # Else if user is tuteee, its status is true
   # Sort by most recently created and limit query to one
   ClassroomSession.find(
-    {$or: [
-      {$and: [{'tutor.status': true}, {'tutor.id': @userId}]},
-      {$and: [{'tutee.status': true}, {'tutee.id': @userId}]}
+    {$and: [
+      {dateCreated: { $gte: new Date( (new Date)*1 - 1000*3600*6 ) }}, 
+      {$or: [
+        {$and: [{'tutor.status': true}, {'tutor.id': @userId}]},
+        {$and: [{'tutee.status': true}, {'tutee.id': @userId}]}
+      ]}
     ]},
     {sort: {_id: -1}, limit: 1}
   )
