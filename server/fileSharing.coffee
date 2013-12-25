@@ -33,6 +33,7 @@ Meteor.methods
     _file = 
       url: url.result
       name: _filename
+      dateCreated: new Date
 
     console.log _file
 
@@ -42,6 +43,7 @@ Meteor.methods
         id: @userId
         name: Meteor.user().profile.name
       type: 'alert'
+      dateCreated: new Date
 
     # Append file to list of shared files
     ClassroomSession.update {_id: classroomSessionId}, {$push: {sharedFiles: _file, messages: totalMessage}}

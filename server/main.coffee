@@ -149,6 +149,7 @@ Meteor.methods
         id: @userId
         name: Meteor.user().profile.name
       type: 'alert'
+      dateCreated: new Date
 
     if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
       ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}, $push: {messages: totalMessage}}

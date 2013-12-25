@@ -9,6 +9,7 @@ sendMessage = ->
         id: Meteor.userId()
         name: Meteor.user().profile.name
       type: 'normal'
+      dateCreated: new Date
 
     console.log totalMessage
 
