@@ -117,7 +117,7 @@ class @Pad
       globalCompositeOperation: ctx.globalCompositeOperation
 
     # Prepare to store it on local storage
-    canvasState = localStorage.getItem("#{id}:canvasState")
+    canvasState = getCanvasState()
 
     if canvasState
       console.log canvasState
@@ -126,6 +126,8 @@ class @Pad
 
       # Append to existing set of lines
       canvasState.lines.push line
+
+      console.log canvasState.lines
     else
       console.log "Can't save line to canvas state. It doesn't even exist!"
 
@@ -141,7 +143,7 @@ class @Pad
   # Loads canvas state from given state
   loadCanvasState = () ->
     # Load from localstorage
-    canvasState = localStorage.getItem("#{id}:canvasState")
+    canvasState = getCanvasState()
 
     if canvasState
       # Load lines to canvas state
@@ -152,7 +154,13 @@ class @Pad
         background: 'testing'
         lines: []
 
-      localStorage.setItem("#{id}:canvasState", canvasState)
+      setCanvasState(canvasState)
+
+  setCanvasState = (canvasState) ->
+    localStorage.setItem("#{id}:canvasState", JSON.stringify(canvasState))
+
+  getCanvasState = ->
+    localStorage.getItem("#{id}:canvasState")?.toJSON()
 
   # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
