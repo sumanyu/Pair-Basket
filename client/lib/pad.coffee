@@ -117,7 +117,7 @@ class @Pad
       globalCompositeOperation: ctx.globalCompositeOperation
 
     # Prepare to store it on local storage
-    canvasState = localStorage.getItem('#{id}:canvasState')
+    canvasState = localStorage.getItem("#{id}:canvasState")
 
     if canvasState
       # Append to existing set of lines
@@ -137,7 +137,7 @@ class @Pad
   # Loads canvas state from given state
   loadCanvasState = () ->
     # Load from localstorage
-    canvasState = localStorage.getItem('#{id}:canvasState')
+    canvasState = localStorage.getItem("#{id}:canvasState")
 
     if canvasState
       # Load lines to canvas state
@@ -146,7 +146,7 @@ class @Pad
       # start new localstorage canvas state
       canvasState = 
         lines: []
-      localStorage.setItem('#{id}:canvasState', canvasState)
+      localStorage.setItem("#{id}:canvasState", canvasState)
 
   # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
