@@ -4,6 +4,9 @@
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
+# Convert a string to JSON
+unless String::toJSON then String::toJSON = -> JSON.parse(@)
+
 @areElementsNonEmpty = (list) ->
   list.every (input) -> input.length
 

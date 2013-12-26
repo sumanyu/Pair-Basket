@@ -120,6 +120,10 @@ class @Pad
     canvasState = localStorage.getItem("#{id}:canvasState")
 
     if canvasState
+      console.log canvasState
+      console.log canvasState.lines
+      console.log canvasState.background
+
       # Append to existing set of lines
       canvasState.lines.push line
     else
@@ -145,7 +149,9 @@ class @Pad
     else
       # start new localstorage canvas state
       canvasState = 
+        background: 'testing'
         lines: []
+
       localStorage.setItem("#{id}:canvasState", canvasState)
 
   # We mimic the remote pad's conditions based on remoteMode
