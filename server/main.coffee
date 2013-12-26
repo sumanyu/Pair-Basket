@@ -23,11 +23,6 @@ Accounts.onCreateUser (options, user) ->
   return user
 
 
-# TODO
-# can users manually edit karma with this implementation?
-# would this fix it?:
-# Meteor.users.deny({update: function () { return true; }});
-
 Meteor.publish "users", ->
   Meteor.users.find
     _id: @userId
