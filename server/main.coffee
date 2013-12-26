@@ -142,7 +142,7 @@ Meteor.methods
     alertClassroomSession Meteor.user(), classroomSessionId, message, false
 
   # Officiall starts classroom session for a user
-  startClassroomSession: (classroomSessionId) ->
+  enterClassroomSession: (classroomSessionId) ->
     message = "#{Meteor.user().profile.name} has joined the session."
     alertClassroomSession Meteor.user(), classroomSessionId, message, true
 
