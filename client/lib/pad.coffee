@@ -120,14 +120,9 @@ class @Pad
     canvasState = getCanvasState()
 
     if canvasState
-      console.log canvasState
-      console.log canvasState.lines
-      console.log canvasState.background
-
       # Append to existing set of lines
       canvasState.lines.push line
-
-      console.log canvasState.lines
+      setCanvasState(canvasState)
     else
       console.log "Can't save line to canvas state. It doesn't even exist!"
 
