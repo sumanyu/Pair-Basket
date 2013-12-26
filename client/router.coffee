@@ -97,7 +97,6 @@ Router.map ->
       if not Session.equals("classroomSessionId", @params.classroomSessionId)
         console.log "Router: Tutoring Session not found"
         @redirect "/dashboard"
-
         @stop()
 
     action: ->
