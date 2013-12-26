@@ -148,12 +148,14 @@ class @Pad
       # Load lines to canvas state
       loadLinesToCanvasState canvasState.lines
     else
-      # start new localstorage canvas state
-      canvasState = 
-        background: 'testing'
-        lines: []
+      resetCanvasState()
 
-      setCanvasState(canvasState)
+  resetCanvasState = ->
+   # start new localstorage canvas state
+    canvasState = 
+      lines: []
+
+    setCanvasState(canvasState) 
 
   setCanvasState = (canvasState) ->
     localStorage.setItem("#{id}:canvasState", JSON.stringify(canvasState))
@@ -172,6 +174,7 @@ class @Pad
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
+    resetCanvasState()
     LineStream.emit id + ":wipe", nickname if emitAlso
 
   toggleModes: ->
