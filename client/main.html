@@ -36,3 +36,14 @@
     {{yield 'dashboardFooter'}}
   </div>
 </template>
+
+<template name="profileLayout">
+  <div id="profile">
+    {{yield 'dashboardHeader'}}
+    {{yield 'feedback'}}
+    <div class="container main">
+      {{yield}}
+    </div>
+    {{yield 'dashboardFooter'}}
+  </div>
+</template>

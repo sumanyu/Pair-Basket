@@ -94,3 +94,15 @@ Router.map ->
       else
         console.log "Router: Tutoring Session not found"
         @redirect "/dashboard"
+
+  @route 'profile',
+    path: '/profile'
+    layoutTemplate: 'profileLayout'
+    template: 'profilePage'
+    yieldTemplates:
+      dashboardHeader:
+        to: 'dashboardHeader'
+      dashboardFooter:
+        to: 'dashboardFooter'
+      feedback:
+        to: 'feedback'
