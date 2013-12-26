@@ -76,7 +76,7 @@ class @Pad
 
   # Used for both remote and local draw actions
   drawLine = (from, to) ->
-    drawLineOnCanvas (from, to)
+    drawLineOnCanvas(from, to)
 
     # Save this line to canvas state
     saveLineToCanvasState(from, to, ctx)
@@ -135,9 +135,9 @@ class @Pad
     lines.forEach (line) ->
       # Set context attributes to ctx
       ['strokeStyle', 'lineCap', 'lineWidth', 'globalCompositeOperation'].forEach (ctxStyle) ->
-        ctx.ctxStyle = line.ctxStyle
+        ctx[ctxStyle] = line[ctxStyle]
 
-      drawLine(line.from, line.to)
+      drawLineOnCanvas(line.from, line.to)
 
   # Loads canvas state from given state
   loadCanvasState = ->
