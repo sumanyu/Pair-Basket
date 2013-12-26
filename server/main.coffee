@@ -224,6 +224,19 @@ Meteor.methods
         console.log "Result"
         console.log result
 
+  getSessionHistory: () ->
+    console.log "getting session history"
+    sessionHistory = ClassroomSession.find( 
+      {$or: [
+        {'tutor.id': @userId},
+        {'tutee.id': @userId}
+      ]},
+      {sort: {_id: -1}, limit: 1}
+    )
+
+    return sessionHistory.fetch()
+
+
   createFeedback: (feedbackText) ->
     if not Meteor.user()
       throw new Meteor.Error(401, 'Please log in to give feedback')
