@@ -18,6 +18,9 @@ class @Pad
   # 'draw', 'erase'
   mode = undefined
 
+  lineCap = "round"
+  lineWidth = 3
+
   constructor: (_canvas, _id, _nickname) ->
     canvas = _canvas
     id = _id || Random.id()
@@ -42,9 +45,7 @@ class @Pad
 
     setNickname(nickname)
 
-    ctx.strokeStyle = color
-    ctx.lineCap = "round"
-    ctx.lineWidth = 3    
+    setDefaultCanvasAttributes()
 
     pad.on "dragstart", dragStart
     pad.on "dragend", dragEnd
@@ -52,6 +53,11 @@ class @Pad
 
     # Set canvas state from localstorage
     loadCanvasState()
+
+  setDefaultCanvasAttributes = ->
+    ctx.strokeStyle = color
+    ctx.lineCap = lineCap
+    ctx.lineWidth = lineWidth    
 
   dragStart = (event) ->
     drawing = true
@@ -139,6 +145,9 @@ class @Pad
 
       drawLineOnCanvas(line.from, line.to)
 
+    # Reset local drawing color to default color
+    setDefaultCanvasAttributes()
+
   # Loads canvas state from given state
   loadCanvasState = ->
     # Load from localstorage
@@ -203,7 +212,6 @@ class @Pad
 
   # Reset local pad's mode to IC after remote is done drawing/erasing 
   initializeModeInitialConditions: ->
-    console.log "initializeModeInitialConditions, mode: #{mode}"
     if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
 
   setDrawingMode = (_mode) ->
