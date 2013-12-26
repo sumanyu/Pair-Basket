@@ -50,6 +50,9 @@ class @Pad
     pad.on "dragend", dragEnd
     pad.on "drag", drag
 
+    # Set canvas state from localstorage
+    loadCanvasState()
+
   dragStart = (event) ->
     drawing = true
     from = getPosition(event)
@@ -79,9 +82,11 @@ class @Pad
     ctx.closePath()
     ctx.stroke()
 
+    # Save this line to canvas state
+    saveLineToCanvasState(from, to, ctx)
+
   # Canvas state schema
   # canvasState = 
-  #   background: "rgba(0, 0, 0, 0)"
   #   lines = [
   #     {
   #       from:
@@ -130,13 +135,18 @@ class @Pad
       drawLine(line.from, line.to)
 
   # Loads canvas state from given state
-  loadCanvasState = (canvasState) ->
-    unless canvasState
-      # Load from localstorage
-      canvasState = localStorage.getItem('#{id}:canvasState')
+  loadCanvasState = () ->
+    # Load from localstorage
+    canvasState = localStorage.getItem('#{id}:canvasState')
 
-    # Load lines to canvas state
-    loadLinesToCanvasState canvasState.lines
+    if canvasState
+      # Load lines to canvas state
+      loadLinesToCanvasState canvasState.lines
+    else
+      # start new localstorage canvas state
+      canvasState = 
+        lines: []
+      localStorage.setItem('#{id}:canvasState', canvasState)
 
   # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
