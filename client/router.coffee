@@ -79,31 +79,8 @@ Router.map ->
     load: ->
       console.log "Calling Router:Session:Load"
 
-      # window.onbeforeunload = ->
-      #   console.log "Calling onbeforeunload"
-      #   # Meteor.call 'leavingClassroomSession', Session.get('classroomSessionId')
-      #   console.log "Done calling "
-      #   return "Are you sure you want to leave classroom session?"
-
-      # window.onbeforeunload = ->
-      #   console.log "Calling onunload"
-
-      #   Meteor.setTimeOut
-
-      #   result = Async.runSync (done) ->
-      #     Meteor.call 'leavingClassroomSession', Session.get('classroomSessionId'), (error, result) ->
-      #       done(null, result)
-
-      #   console.log "Ending onunload"
-
-      window.onunload = ->
-        console.log "Document.unloading... "
-        Meteor.call 'leavingClassroomSession', Session.get('classroomSessionId')
-
     unload: ->
       console.log "Calling Router:Session:Unload"
-      # De-register unload logic
-      # window.onunload = null
 
     before: ->
       console.log "Calling before session"
