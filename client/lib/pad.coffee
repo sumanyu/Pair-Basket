@@ -120,21 +120,30 @@ class @Pad
     else
       console.log "Can't save line to canvas state. It doesn't even exist!"
 
-  # Saves the entire state of the canvas on localstorage
-  saveCanvasState = ->
-    # if a state already exists, append to it
-    canvasState = localStorage.getItem('#{id}:canvasState')
+  # # Saves the entire state of the canvas on localstorage
+  # saveCanvasState = ->
+  #   # if a state already exists, append to it
+  #   canvasState = localStorage.getItem('#{id}:canvasState')
 
-    if canvasState
-
-
-
-      canvasState.lines.push
-
-    canvasState =
+  #   if canvasState
 
 
-    localStorage.setItem('#{id}:canvasState', canvasState)
+
+  #     canvasState.lines.push
+
+  #   canvasState =
+
+
+  #   localStorage.setItem('#{id}:canvasState', canvasState)
+
+  # Load lines to canvas
+  loadLinesToCanvasState = (lines) ->
+    lines.forEach (line) ->
+      # Save context attributes to context
+      ['strokeStyle', 'lineCap', 'lineWidth', 'globalCompositeOperation'].forEach (ctxStyle) ->
+        ctx.ctxStyle = line.ctxStyle
+
+      drawLine(line.from, line.to)
 
   # Loads canvas state from given state
   loadCanvasState = (canvasState) ->
