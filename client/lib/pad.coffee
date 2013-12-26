@@ -76,14 +76,18 @@ class @Pad
 
   # Used for both remote and local draw actions
   drawLine = (from, to) ->
+    drawLineOnCanvas (from, to)
+
+    # Save this line to canvas state
+    saveLineToCanvasState(from, to, ctx)
+
+  # Simply draw a line on canvas
+  drawLineOnCanvas = (from, to) ->
     ctx.beginPath()
     ctx.moveTo from.x, from.y
     ctx.lineTo to.x, to.y
     ctx.closePath()
-    ctx.stroke()
-
-    # Save this line to canvas state
-    saveLineToCanvasState(from, to, ctx)
+    ctx.stroke()    
 
   # Canvas state schema
   # canvasState = 
@@ -136,7 +140,7 @@ class @Pad
       drawLine(line.from, line.to)
 
   # Loads canvas state from given state
-  loadCanvasState = () ->
+  loadCanvasState = ->
     # Load from localstorage
     canvasState = getCanvasState()
 
