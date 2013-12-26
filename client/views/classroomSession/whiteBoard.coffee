@@ -1,6 +1,17 @@
+pad = undefined
+remotePad = undefined
+
 Template.whiteBoard.rendered = ->
-  # Ensures whiteboard layout has loaded before executing Deps.autorun
-  Session.set("hasWhiteboardLoaded?", true)
+  if pad
+    pad.close()
+    remotePad.close()
+
+  if $('canvas').length > 0
+    user = Meteor.user()?._id || "Anonymous"
+
+    classroomSessionId = Session.get("classroomSessionId")
+    pad = new Pad($('canvas'), classroomSessionId, user)
+    remotePad = new RemotePad(classroomSessionId, pad)
 
 Template.whiteBoard.events
   'click .draw': (e, s) ->
@@ -10,4 +21,4 @@ Template.whiteBoard.events
     pad.startEraseMode()
 
   'click .clear-blackboard': (e, s) ->
-    pad.wipe true   
+    pad.wipe true

@@ -1,3 +1,13 @@
+# This is called once when the page is created. We'll treat this as user joining the session.
+Template.classroomSessionPage.created = ->
+  console.log "Creating classroom session page"
+  Meteor.call 'enterClassroomSession', Session.get('classroomSessionId')
+
+# This is called once when the classroom session is destroyed. It's not called if user goes to dashbaord.
+# We'll treat this as user ending session
+Template.classroomSessionPage.destroyed = ->
+  console.log "Destroying classroom session page"
+
 sendMessage = ->
   message = $(".chat-message").val()
 
@@ -107,21 +117,3 @@ Template.classroomSessionPage.events
       call.on 'stream', playRemoteStream
 
       ), (err) -> console.log "Failed to get local streams", err
-
-pad = undefined
-remotePad = undefined
-
-Meteor.startup ->
-  Deps.autorun ->
-    if Session.get("hasWhiteboardLoaded?")
-      if pad
-        pad.close()
-        remotePad.close()
-
-      # Hot code bypasses `hasWhiteboardLoaded?`
-      if $('canvas').length > 0
-        user = Meteor.user()?._id || "Anonymous"
-
-        classroomSessionId = Session.get("classroomSessionId")
-        pad = new Pad($('canvas'), classroomSessionId, user)
-        remotePad = new RemotePad(classroomSessionId, pad)
