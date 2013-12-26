@@ -47,7 +47,7 @@ Meteor.publish 'classroomSession', ->
   # Where if user is tutor, its status is true
   # Else if user is tuteee, its status is true
   # Sort by most recently created and limit query to one
-  ClassroomSession.find(
+  cursor = ClassroomSession.find(
     {$and: [
       {dateCreated: { $gte: new Date( (new Date)*1 - 1000*3600*6 ) }}, 
       {$or: [
@@ -57,6 +57,18 @@ Meteor.publish 'classroomSession', ->
     ]},
     {sort: {_id: -1}, limit: 1}
   )
+
+  # # Tracks user leaving the application
+  # @._session.socket.on "close", =>
+  #   console.log "User #{@userId} has left"
+
+  #   console.log 
+
+  #   # Find active classroomSession (if it exists for this person)
+  #   if cursor.count() > 0
+  #     console.log cursor.fetch()[0]
+
+  # cursor
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -148,7 +160,8 @@ Meteor.methods
 
   # Use abruptly leaving classroom session
   leavingClassroomSession: (classroomSessionId) ->
-    message = "#{Meteor.user().profile.name} has joined the session."
+    console.log 'Calling leavingClassroomSession'
+    message = "#{Meteor.user().profile.name} has left the session."
     alertClassroomSession Meteor.user(), classroomSessionId, message, true
 
   createClassroomSession: (questionId, tutorId) ->

@@ -74,12 +74,36 @@ Router.map ->
     path: '/session/:classroomSessionId?'
     layoutTemplate: 'classroomSessionLayout'
     template: 'classroomSessionPage'
+
+    # Load is called before 'before'
     load: ->
       console.log "Calling Router:Session:Load"
 
-      document.unload = ->
+      # window.onbeforeunload = ->
+      #   console.log "Calling onbeforeunload"
+      #   # Meteor.call 'leavingClassroomSession', Session.get('classroomSessionId')
+      #   console.log "Done calling "
+      #   return "Are you sure you want to leave classroom session?"
+
+      # window.onbeforeunload = ->
+      #   console.log "Calling onunload"
+
+      #   Meteor.setTimeOut
+
+      #   result = Async.runSync (done) ->
+      #     Meteor.call 'leavingClassroomSession', Session.get('classroomSessionId'), (error, result) ->
+      #       done(null, result)
+
+      #   console.log "Ending onunload"
+
+      window.onunload = ->
         console.log "Document.unloading... "
-        Meteor.call 'leavingClassroomSession', Session.set('classroomSessionId')
+        Meteor.call 'leavingClassroomSession', Session.get('classroomSessionId')
+
+    unload: ->
+      console.log "Calling Router:Session:Unload"
+      # De-register unload logic
+      # window.onunload = null
 
     before: ->
       console.log "Calling before session"
@@ -87,17 +111,20 @@ Router.map ->
         console.log "You don't have a session"
         @redirect "dashboard"
         @stop()
-    action: ->
+
       console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
       console.log Session.get('classroomSessionId')
 
       # Add better routing security here
       # Someone could modify this equivalence and get access to the classroomSession
-      if Session.equals("classroomSessionId", @params.classroomSessionId)
-        @render 'classroomSessionSidebar', 
-          to: 'classroomSessionSidebar'
-
-        @render()
-      else
+      if not Session.equals("classroomSessionId", @params.classroomSessionId)
         console.log "Router: Tutoring Session not found"
         @redirect "/dashboard"
+        @stop()
+
+    action: ->
+      console.log "Rendering classroom session action"
+      @render 'classroomSessionSidebar', 
+        to: 'classroomSessionSidebar'
+
+      @render()
