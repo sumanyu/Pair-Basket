@@ -65,8 +65,8 @@ Template.questionsPage.events =
     questionId = Session.get('subscribedQuestion')
     tutorId = Session.get('subscribedResponse')
 
-    Meteor.call("startClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
-      console.log "startClassroomSession"
+    Meteor.call("createClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
+      console.log "createClassroomSession"
 
       if err
         console.log err
@@ -89,11 +89,16 @@ Template.questionsPage.events =
       update session variable category filters, which reactively updates question list
     ###
 
-    category = e.target.id
+    clickedCategory = e.target.id
     state = e.target.className.split(" ")[1] # active, inactive
     categoryFilter = Session.get('categoryFilter')
 
     # toggle active/inactive
-    categoryFilter[category] = !(state == 'active')
+    categoryFilter[clickedCategory] = !(state == 'active')
+
+    # update categoryFilters: user-profile, session 
+    Meteor.users.update(
+      {_id:Meteor.user()._id},
+      {$set: {"profile.categoryFilter": categoryFilter}})
 
     Session.set('categoryFilter', categoryFilter)

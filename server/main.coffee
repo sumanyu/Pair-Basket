@@ -17,9 +17,9 @@ Accounts.onCreateUser (options, user) ->
   user.karma = 10
   if options.profile
     user.profile = options.profile
-  # We still want the default hook's 'profile' behavior.
-  # if (options.profile)
-  #   user.profile = options.profile;
+
+  user.profile.categoryFilter = defaultCategoryFilter
+
   return user
 
 
@@ -67,6 +67,20 @@ Meteor.publish "sessionRequest", (questionId) ->
 Meteor.publish "sessionResponse", (questionId) ->
   console.log "Publish sessionResponse, questionId:", questionId
   SessionResponse.find({questionId: questionId})
+
+alertClassroomSession = (user, classroomSessionId, message, status) ->
+  totalMessage = 
+    message: message
+    user:
+      id: user._id
+      name: user.profile.name
+    type: 'alert'
+    dateCreated: new Date
+
+  if ClassroomSession.findOne({'tutor.id': user._id, _id: classroomSessionId})
+    ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': status}, $push: {messages: totalMessage}}
+  else if ClassroomSession.findOne({'tutee.id': user._id, _id: classroomSessionId})
+    ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': status}, $push: {messages: totalMessage}}
 
 Meteor.methods
   createNewQuestion: (questionData) ->
@@ -122,45 +136,24 @@ Meteor.methods
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
-  # createSessionRequest: (questionId) ->
-  #   console.log "Creating Session Request"
-  #   request = SessionRequest.insert
-  #     questionId: questionId
-  #     userId: @userId
-  #   Random.id()
-
-  # createSessionResponse: (questionId) ->
-  #   console.log "Creating Session Response"
-  #   classroomSessionId = Random.id()
-  #   response = SessionResponse.insert 
-  #                 questionId: questionId
-  #                 classroomSessionId: classroomSessionId
-  #                 userId: @userId
-  #   classroomSessionId
-
-  # # Add better validation later
-  # cancelSessionResponse: (questionId) ->
-  #   SessionResponse.remove({questionId: questionId})
-
   # Render ClassroomSession's status 'resolved'
   endClassroomSession: (classroomSessionId) ->
+    message = "#{Meteor.user().profile.name} has ended the session."
+    alertClassroomSession Meteor.user(), classroomSessionId, message, false
 
-    console.log @
+  # Officiall starts classroom session for a user
+  enterClassroomSession: (classroomSessionId) ->
+    message = "#{Meteor.user().profile.name} has joined the session."
+    alertClassroomSession Meteor.user(), classroomSessionId, message, true
 
-    totalMessage = 
-      message: "#{Meteor.user().profile.name} has ended the session."
-      user:
-        id: @userId
-        name: Meteor.user().profile.name
-      type: 'alert'
-      dateCreated: new Date
+  # Use abruptly leaving classroom session
+  # Not used right now because it's very hard to track users closing their browsers
+  leavingClassroomSession: (classroomSessionId) ->
+    console.log 'Calling leavingClassroomSession'
+    message = "#{Meteor.user().profile.name} has left the session."
+    alertClassroomSession Meteor.user(), classroomSessionId, message, true
 
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}, $push: {messages: totalMessage}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}, $push: {messages: totalMessage}}
-
-  startClassroomSession: (questionId, tutorId) ->
+  createClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
     tuteeId = @userId
@@ -203,20 +196,11 @@ Meteor.methods
     console.log tutor
     console.log tutee
 
-    # Create two messages
-    messages = [tutorObject, tuteeObject].map (person) -> 
-      totalMessage = 
-        message: "#{person.name} has joined the session."
-        user:
-          id: person.id
-          name: person.name
-        type: 'alert'
-
     classroomSession =       
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
-      messages: messages
+      messages: []
       sharedFiles: []
       dateCreated: new Date()
 
