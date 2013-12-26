@@ -65,8 +65,8 @@ Template.questionsPage.events =
     questionId = Session.get('subscribedQuestion')
     tutorId = Session.get('subscribedResponse')
 
-    Meteor.call("startClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
-      console.log "startClassroomSession"
+    Meteor.call("createClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
+      console.log "createClassroomSession"
 
       if err
         console.log err
