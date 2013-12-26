@@ -234,7 +234,23 @@ Meteor.methods
       {sort: {_id: -1}, limit: 1}
     )
 
-    return sessionHistory.fetch()
+    tutors = []
+    tutees = []
+
+    console.log "tutors"
+    sessionHistory.forEach (session) ->
+      if session.tutee.id == Meteor.userId()
+        tutors.push session.tutor.name
+
+    console.log "tutees"
+    sessionHistory.forEach (session) ->
+      if session.tutor.id == Meteor.userId()
+        tutees.push session.tutee.name
+
+    result = {
+      'tutors': tutors
+      'tutees': tutees
+    }
 
 
   createFeedback: (feedbackText) ->
