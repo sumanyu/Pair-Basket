@@ -100,18 +100,47 @@ class @Pad
   #     }
   #   ]
 
+  # Save line to canvas state
+  saveLineToCanvasState = (from, to, ctx) ->
+    # Prepare line object
+    line = 
+      from: from
+      to: to
+      strokeStyle: ctx.strokeStyle
+      lineCap: ctx.lineCap
+      lineWidth: ctx.lineWidth
+      globalCompositeOperation: ctx.globalCompositeOperation
+
+    # Prepare to store it on local storage
+    canvasState = localStorage.getItem('#{id}:canvasState')
+
+    if canvasState
+      # Append to existing set of lines
+      canvasState.lines.push line
+    else
+      console.log "Can't save line to canvas state. It doesn't even exist!"
+
   # Saves the entire state of the canvas on localstorage
   saveCanvasState = ->
+    # if a state already exists, append to it
+    canvasState = localStorage.getItem('#{id}:canvasState')
+
+    if canvasState
+
+
+
+      canvasState.lines.push
+
     canvasState =
 
 
     localStorage.setItem('#{id}:canvasState', canvasState)
 
   # Loads canvas state from given state
-  loadCanvasState = (state) ->
-    unless state
+  loadCanvasState = (canvasState) ->
+    unless canvasState
       # Load from localstorage
-      state = localStorage.getItem('#{id}:canvasState')
+      canvasState = localStorage.getItem('#{id}:canvasState')
 
     # Set current canvas state to match provided state
 
