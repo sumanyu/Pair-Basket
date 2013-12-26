@@ -120,26 +120,10 @@ class @Pad
     else
       console.log "Can't save line to canvas state. It doesn't even exist!"
 
-  # # Saves the entire state of the canvas on localstorage
-  # saveCanvasState = ->
-  #   # if a state already exists, append to it
-  #   canvasState = localStorage.getItem('#{id}:canvasState')
-
-  #   if canvasState
-
-
-
-  #     canvasState.lines.push
-
-  #   canvasState =
-
-
-  #   localStorage.setItem('#{id}:canvasState', canvasState)
-
   # Load lines to canvas
   loadLinesToCanvasState = (lines) ->
     lines.forEach (line) ->
-      # Save context attributes to context
+      # Set context attributes to ctx
       ['strokeStyle', 'lineCap', 'lineWidth', 'globalCompositeOperation'].forEach (ctxStyle) ->
         ctx.ctxStyle = line.ctxStyle
 
@@ -151,8 +135,8 @@ class @Pad
       # Load from localstorage
       canvasState = localStorage.getItem('#{id}:canvasState')
 
-    # Set current canvas state to match provided state
-
+    # Load lines to canvas state
+    loadLinesToCanvasState canvasState.lines
 
   # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
