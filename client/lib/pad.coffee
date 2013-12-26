@@ -71,6 +71,7 @@ class @Pad
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
+  # Used for both remote and local draw actions
   drawLine = (from, to) ->
     ctx.beginPath()
     ctx.moveTo from.x, from.y
