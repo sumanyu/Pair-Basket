@@ -79,6 +79,39 @@ class @Pad
     ctx.closePath()
     ctx.stroke()
 
+  canvasState = 
+    background: "rgba(0, 0, 0, 0)"
+    lines = [
+      {
+        from:
+          x: 50
+          y: 50
+        to:
+          x: 60
+          y: 60
+        strokeStyle: ctx.strokeStyle
+        lineCap: ctx.lineCap
+        lineWidth: ctx.lineWidth
+        globalCompositeOperation: ctx.globalCompositeOperation
+      }
+    ]
+
+  # Saves the entire state of the canvas on localstorage
+  saveCanvasState = ->
+    canvasState =
+
+
+    localStorage.setItem('#{id}:canvasState', canvasState)
+
+  # Loads canvas state from given state
+  loadCanvasState = (state) ->
+    unless state
+      # Load from localstorage
+      state = localStorage.getItem('#{id}:canvasState')
+
+    # Set current canvas state to match provided state
+
+
   # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
     if remoteMode is 'draw'
