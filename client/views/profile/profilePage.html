@@ -1,4 +1,9 @@
 <template name="profilePage">
-	<p>profilepage</p>
+	<div class="picture">
+		<img src="/sumanyu.jpeg"/>
+	</div>
+	<div class="name">{{currentUser.profile.name}}</div>
+	<div class="school">{{underscoreToSpace currentUser.profile.school}}</div>
+
 
 </template>
