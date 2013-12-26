@@ -79,22 +79,26 @@ class @Pad
     ctx.closePath()
     ctx.stroke()
 
-  canvasState = 
-    background: "rgba(0, 0, 0, 0)"
-    lines = [
-      {
-        from:
-          x: 50
-          y: 50
-        to:
-          x: 60
-          y: 60
-        strokeStyle: ctx.strokeStyle
-        lineCap: ctx.lineCap
-        lineWidth: ctx.lineWidth
-        globalCompositeOperation: ctx.globalCompositeOperation
-      }
-    ]
+  # Canvas state schema
+  # canvasState = 
+  #   background: "rgba(0, 0, 0, 0)"
+  #   lines = [
+  #     {
+  #       from:
+  #         x: 50
+  #         y: 50
+  #       to:
+  #         x: 60
+  #         y: 60
+  #       strokeStyle: ctx.strokeStyle
+  #       lineCap: ctx.lineCap
+  #       lineWidth: ctx.lineWidth
+  #       globalCompositeOperation: ctx.globalCompositeOperation
+  #     },
+  #     {
+  #      ...
+  #     }
+  #   ]
 
   # Saves the entire state of the canvas on localstorage
   saveCanvasState = ->
