@@ -107,21 +107,3 @@ Template.classroomSessionPage.events
       call.on 'stream', playRemoteStream
 
       ), (err) -> console.log "Failed to get local streams", err
-
-pad = undefined
-remotePad = undefined
-
-Meteor.startup ->
-  Deps.autorun ->
-    if Session.get("hasWhiteboardLoaded?")
-      if pad
-        pad.close()
-        remotePad.close()
-
-      # Hot code bypasses `hasWhiteboardLoaded?`
-      if $('canvas').length > 0
-        user = Meteor.user()?._id || "Anonymous"
-
-        classroomSessionId = Session.get("classroomSessionId")
-        pad = new Pad($('canvas'), classroomSessionId, user)
-        remotePad = new RemotePad(classroomSessionId, pad)
