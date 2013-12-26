@@ -22,9 +22,6 @@ Meteor.startup ->
     # Ensure all collections have loaded before performing some action
     'haveAllCollectionsLoaded?',
 
-    # Ensure whiteboard has loaded
-    'hasWhiteboardLoaded?',
-
     # Click feedback button
     'feedbackPopup?',
 
