@@ -17,9 +17,9 @@ Accounts.onCreateUser (options, user) ->
   user.karma = 10
   if options.profile
     user.profile = options.profile
-  # We still want the default hook's 'profile' behavior.
-  # if (options.profile)
-  #   user.profile = options.profile;
+
+  user.profile.categoryFilter = defaultCategoryFilter
+
   return user
 
 

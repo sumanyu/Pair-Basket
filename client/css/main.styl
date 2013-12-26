@@ -21,6 +21,9 @@ body
 
 	height: 100%
 
+	textarea
+		resize: none
+
 	.yellow-button
 		set-background(_yellow)
 
@@ -76,9 +79,6 @@ body
 		.container
 			width: h - pad
 			padding: pad 20px pad 20px
-
-		textarea
-			resize: none
 
 		p
 			text-align: justify
@@ -347,9 +347,6 @@ body
 					// height: 200px
 					padding: 10px 5px 10px 30px
 					width: 425px
-
-					textarea
-						resize: none
 
 					.ask-question-form, .help-others-form
 
@@ -659,6 +656,7 @@ body
 
 			.wrapper, .active-wrapper
 				width: 100%
+				height: 100px
 
 			.active-wrapper
 				background: white
@@ -746,6 +744,7 @@ body
 				width: 250px
 				padding: 10px
 				overflow: auto
+				word-wrap: break-word
 				border-radius(2px)
 				container-border()
 				margin-bottom: 10px
