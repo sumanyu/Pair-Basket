@@ -147,6 +147,7 @@ Meteor.methods
     # If both users are inactive, remove files from S3
     if inactiveSession
       # Clean up files
+      console.log "Cleaning up shared files"
       inactiveSession.sharedFiles.forEach (file) ->
         Meteor.call 'S3delete', file.path
 

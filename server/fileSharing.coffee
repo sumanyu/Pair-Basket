@@ -32,6 +32,7 @@ Meteor.methods
 
     _file = 
       url: url.result
+      path: file.name
       name: _filename
       dateCreated: new Date
 
