@@ -16,8 +16,7 @@ cleanUpSharedFilesOfOldSessions = new cronJob(
         ]}
       ]}
     ).forEach (classroomSession) ->
-      
-
+      deleteSharedFilesFromClassroomSession(classroomSession)
   start: true
 )
 
