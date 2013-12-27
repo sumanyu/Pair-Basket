@@ -82,6 +82,10 @@ alertClassroomSession = (user, classroomSessionId, message, status) ->
   else if ClassroomSession.findOne({'tutee.id': user._id, _id: classroomSessionId})
     ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': status}, $push: {messages: totalMessage}}
 
+deleteSharedFilesForClassroomSession = (classroomSession) ->
+  classroomSession.sharedFiles.forEach (file) ->
+    Meteor.call 'S3delete', file.path
+
 Meteor.methods
   createNewQuestion: (questionData) ->
     currentUser = Meteor.user()
@@ -148,8 +152,7 @@ Meteor.methods
     if inactiveSession
       # Clean up files
       console.log "Cleaning up shared files"
-      inactiveSession.sharedFiles.forEach (file) ->
-        Meteor.call 'S3delete', file.path
+      deleteSharedFilesForClassroomSession(inactiveSession)
 
   # Officiall starts classroom session for a user
   enterClassroomSession: (classroomSessionId) ->
