@@ -137,9 +137,18 @@ Meteor.methods
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
   # Render ClassroomSession's status 'resolved'
+  # Delete shared files on S3 if classroom session is inactive
   endClassroomSession: (classroomSessionId) ->
     message = "#{Meteor.user().profile.name} has ended the session."
     alertClassroomSession Meteor.user(), classroomSessionId, message, false
+
+    inactiveSession = ClassroomSession.findOne({_id: classroomSessionId, 'tutor.status': false, 'tutee.status': false})
+    
+    # If both users are inactive, remove files from S3
+    if inactiveSession
+      # Clean up files
+      inactiveSession.sharedFiles.forEach (file) ->
+        Meteor.call 'S3delete', file.path
 
   # Officiall starts classroom session for a user
   enterClassroomSession: (classroomSessionId) ->
