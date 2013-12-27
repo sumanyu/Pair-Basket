@@ -16,7 +16,12 @@ cleanUpSharedFilesOfOldSessions = new cronJob(
         ]}
       ]}
     ).forEach (classroomSession) ->
+      # Mark all classroom sessions older than 6 hours as inactive
+      ClassroomSession.update({_id: classroomSession._id}, {$set:{'tutor.status': false, 'tutee.status': false}})
+
+      # Delete shared files
       deleteSharedFilesFromClassroomSession(classroomSession)
+
   start: true
 )
 
