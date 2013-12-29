@@ -20,14 +20,15 @@ skillSchema =
       type: String
       label: "active, inactive, deleted"
 
+@Skills = new Meteor.Collection2("skill", skillSchema)
 
-ownedSkillSchema
+ownedSkillSchema =
   schema:
     userId:
       type: String
       label: "userId"
     skill:
-      type: skill
+      type: skillSchema
     academicLevel:
       type: String
       label: "grade 12?"
@@ -36,7 +37,6 @@ ownedSkillSchema
       label: "Date when this question was created"
 
 
-@Skills = new Meteor.Collection2("skill", skillSchema)
 @ownedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
 
 # image?
