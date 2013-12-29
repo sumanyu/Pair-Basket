@@ -37,6 +37,9 @@ Meteor.publish 'questions', ->
 Meteor.publish 'skills', ->
   Skills.find({})
 
+Meteor.publish 'ownedSkills', ->
+  ownedSkills.find({})
+
 # I learned that publish functions can't contain if/else logic on a collection
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
