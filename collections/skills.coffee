@@ -35,6 +35,9 @@ ownedSkillSchema =
     dateCreated:
       type: Date
       label: "Date when this question was created"
+    display:
+      type: Boolean
+      label: "Display in profile?"
 
 
 @ownedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
