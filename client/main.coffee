@@ -81,7 +81,7 @@ Meteor.startup ->
     Session.set("hasQuestionsCollectionLoaded?", true)
 
     # Subscribed question will always hold the subscribed question
-    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
+    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id)
 
   # Deps.autorun below will handle setting classroomSessionId
   Meteor.subscribe 'classroomSession', ->
