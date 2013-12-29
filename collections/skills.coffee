@@ -46,4 +46,4 @@ ownedSkillSchema
 @ownedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
 
 # image?
-# hierarchy?
+# hierarchy? prereqs?
