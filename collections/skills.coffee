@@ -16,9 +16,6 @@ skillSchema =
     dateCreated:
       type: Date
       label: "Date when this question was created"
-    dateModified:
-      type: Date
-      label: "Date when this question was modified"
     status:
       type: String
       label: "active, inactive, deleted"
@@ -37,9 +34,6 @@ ownedSkillSchema
     dateCreated:
       type: Date
       label: "Date when this question was created"
-    dateModified:
-      type: Date
-      label: "Date when this question was modified"
 
 
 @Skills = new Meteor.Collection2("skill", skillSchema)
