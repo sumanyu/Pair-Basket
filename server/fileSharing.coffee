@@ -32,6 +32,7 @@ Meteor.methods
 
     _file = 
       url: url.result
+      path: file.name
       name: _filename
       dateCreated: new Date
 
@@ -53,7 +54,8 @@ Meteor.methods
   # Deletes file on S3 server
   S3delete: (path) ->
     knox.deleteFile path, (error, result) ->
-      unless error
-        console.log result
-      else
+      if error
+        console.log "Error deleting S3 file"
         console.log error
+      else
+        console.log result
