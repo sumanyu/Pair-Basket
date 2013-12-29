@@ -16,6 +16,12 @@ classroomSessionUserSchema = new SimpleSchema
   'school':
     type: String
 
+fileSharedSchema = new SimpleSchema
+  'url':
+    type: String
+  'name':
+    type: String
+
 classroomSessionSchema = 
   schema:
     'tutor':
@@ -30,6 +36,9 @@ classroomSessionSchema =
       type: String
     'messages':
       type: [classroomSessionMessageSchema]
+    'filesShared':
+      type: [fileSharedSchema]
+      
   virtualFields:
     # False only when both tutor and tutee are inactive
     # Unfortunately, you can't query on virtual fields

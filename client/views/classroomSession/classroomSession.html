@@ -57,45 +57,13 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-1">
       {{> whiteBoard}}
-      {{> sharingFiles}}
+      {{> fileSharing}}
       {{> wolfram}}
     </div>
     <div class="col-md-4">
       {{> chatBox}}
       <button type="button" class="btn btn-default start-audio">Start audio</button>
     </div>
-  </div>
-</template>
-
-<template name="sharingFiles">
-  <div class="sharingFiles">
-    <img class="files-screenshot" src="/files.jpg">  
-  </div>
-</template>
-
-<template name="wolfram">
-  <div class="wolfram">
-    <img class="wolfram-screenshot" src="/wolfram_cropped.jpg">
-  </div>
-</template>
-
-<template name='whiteBoard'>
-  <div class="whiteboard">
-    <div class="row whiteboard-controls">
-
-      <input class='btn btn-danger clear-blackboard' type="button" value='Clear Backboard'/> 
-      <button type="button" class="btn btn-default erase">Erase</button>
-      <button type="button" class="btn btn-default draw">Draw</button>
-
-    </div>
-    <div class="row canvas-wrapper">
-      <canvas class="whiteboardCanvas"></canvas>
-    <div>
-    <script id='tmpl-nickname' type="text/html">
-      <span class='nickname'>
-        nickname
-      </span>
-    </script>    
   </div>
 </template>
 
@@ -127,7 +95,14 @@
 </template>
 
 <template name='chatMessage'>
-  <div>
-    <b>{{user.name}}:</b> {{message}}
-  </div>
+
+  {{#if isNormalMessage}}
+    <div>
+      <b>{{user.name}}:</b> {{message}}
+    </div>
+  {{else}}
+    <div>
+      <i>{{message}}</i>
+    </div>
+  {{/if}}
 </template>

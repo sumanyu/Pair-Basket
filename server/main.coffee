@@ -7,6 +7,7 @@ Meteor.startup ->
   #   console.log feedback
   # )
 
+  # this line should be commented for 'production' setting (don't delete questions)
   dropAll()
 
   Deps.autorun ->
@@ -16,9 +17,9 @@ Accounts.onCreateUser (options, user) ->
   user.karma = 10
   if options.profile
     user.profile = options.profile
-  # We still want the default hook's 'profile' behavior.
-  # if (options.profile)
-  #   user.profile = options.profile;
+
+  user.profile.categoryFilter = defaultCategoryFilter
+
   return user
 
 
@@ -42,10 +43,20 @@ Meteor.publish 'questions', ->
 Meteor.publish 'classroomSession', ->
   console.log "Publishing classroom session to: #{@userId}"
 
-  # Unfortunately, we can't query on virtual fields so we can't query on tutoring session
-
-  # Discriminate between tutorId or tuteeId later
-  ClassroomSession.find({$or: [{'tutor.id': @userId}, {'tutee.id': @userId}]}, {'tutor.status': true, 'tutee.status': true})
+  # Return all sessions where dateCreated is within 6 hours of right now and
+  # Where if user is tutor, its status is true
+  # Else if user is tuteee, its status is true
+  # Sort by most recently created and limit query to one
+  ClassroomSession.find(
+    {$and: [
+      {dateCreated: { $gte: new Date( (new Date)*1 - 1000*3600*6 ) }}, 
+      {$or: [
+        {$and: [{'tutor.status': true}, {'tutor.id': @userId}]},
+        {$and: [{'tutee.status': true}, {'tutee.id': @userId}]}
+      ]}
+    ]},
+    {sort: {_id: -1}, limit: 1}
+  )
 
 # Subscription for tutees with questions waiting to be answered
 Meteor.publish "sessionRequest", (questionId) ->
@@ -56,6 +67,24 @@ Meteor.publish "sessionRequest", (questionId) ->
 Meteor.publish "sessionResponse", (questionId) ->
   console.log "Publish sessionResponse, questionId:", questionId
   SessionResponse.find({questionId: questionId})
+
+alertClassroomSession = (user, classroomSessionId, message, status) ->
+  totalMessage = 
+    message: message
+    user:
+      id: user._id
+      name: user.profile.name
+    type: 'alert'
+    dateCreated: new Date
+
+  if ClassroomSession.findOne({'tutor.id': user._id, _id: classroomSessionId})
+    ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': status}, $push: {messages: totalMessage}}
+  else if ClassroomSession.findOne({'tutee.id': user._id, _id: classroomSessionId})
+    ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': status}, $push: {messages: totalMessage}}
+
+deleteSharedFilesFromClassroomSession = (classroomSession) ->
+  classroomSession.sharedFiles.forEach (file) ->
+    Meteor.call 'S3delete', file.path
 
 Meteor.methods
   createNewQuestion: (questionData) ->
@@ -111,37 +140,33 @@ Meteor.methods
     else
       throw new Meteor.Error(401, 'User does not own question. Cannot cancel.')
 
-  # createSessionRequest: (questionId) ->
-  #   console.log "Creating Session Request"
-  #   request = SessionRequest.insert
-  #     questionId: questionId
-  #     userId: @userId
-  #   Random.id()
-
-  # createSessionResponse: (questionId) ->
-  #   console.log "Creating Session Response"
-  #   classroomSessionId = Random.id()
-  #   response = SessionResponse.insert 
-  #                 questionId: questionId
-  #                 classroomSessionId: classroomSessionId
-  #                 userId: @userId
-  #   classroomSessionId
-
-  # # Add better validation later
-  # cancelSessionResponse: (questionId) ->
-  #   SessionResponse.remove({questionId: questionId})
-
   # Render ClassroomSession's status 'resolved'
+  # Delete shared files on S3 if classroom session is inactive
   endClassroomSession: (classroomSessionId) ->
-    if ClassroomSession.findOne({'tutor.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutor.status': false}}
-    else if ClassroomSession.findOne({'tutee.id': @userId, _id: classroomSessionId})
-      ClassroomSession.update {_id: classroomSessionId}, {$set: {'tutee.status': false}}
+    message = "#{Meteor.user().profile.name} has ended the session."
+    alertClassroomSession Meteor.user(), classroomSessionId, message, false
 
-    # Let others know user has left
-    # Event emitter?
+    inactiveSession = ClassroomSession.findOne({_id: classroomSessionId, 'tutor.status': false, 'tutee.status': false})
+    
+    # If both users are inactive, remove files from S3
+    if inactiveSession
+      # Clean up files
+      console.log "Cleaning up shared files"
+      deleteSharedFilesFromClassroomSession(inactiveSession)
 
-  startClassroomSession: (questionId, tutorId) ->
+  # Officiall starts classroom session for a user
+  enterClassroomSession: (classroomSessionId) ->
+    message = "#{Meteor.user().profile.name} has joined the session."
+    alertClassroomSession Meteor.user(), classroomSessionId, message, true
+
+  # Use abruptly leaving classroom session
+  # Not used right now because it's very hard to track users closing their browsers
+  leavingClassroomSession: (classroomSessionId) ->
+    console.log 'Calling leavingClassroomSession'
+    message = "#{Meteor.user().profile.name} has left the session."
+    alertClassroomSession Meteor.user(), classroomSessionId, message, true
+
+  createClassroomSession: (questionId, tutorId) ->
     # Remove sessionRequest and sessionResponse and question from question
     console.log "Start session"
     tuteeId = @userId
@@ -184,14 +209,15 @@ Meteor.methods
     console.log tutor
     console.log tutee
 
-    obj =       
+    classroomSession =       
       questionId: questionId
       tutor: tutorObject
       tutee: tuteeObject
       messages: []
+      sharedFiles: []
+      dateCreated: new Date()
 
-    # Add tutor name
-    classroomSessionId = ClassroomSession.insert obj, (err, result) ->
+    classroomSessionId = ClassroomSession.insert classroomSession, (err, result) ->
       console.log "Inserting classroom session"
       if err
         console.log "Error"
@@ -212,3 +238,9 @@ Meteor.methods
     Feedback.insert feedbackData, (error, result) ->
       console.log result
       console.log error
+
+  # Configure S3 storage
+  Meteor.call "S3config", 
+    key: 'AKIAJOYKZOSENWR724AQ'
+    secret: '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'
+    bucket: 'pairbasket-share'

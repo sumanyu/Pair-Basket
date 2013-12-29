@@ -1,3 +1,13 @@
+# This is called once when the page is created. We'll treat this as user joining the session.
+Template.classroomSessionPage.created = ->
+  console.log "Creating classroom session page"
+  Meteor.call 'enterClassroomSession', Session.get('classroomSessionId')
+
+# This is called once when the classroom session is destroyed. It's not called if user goes to dashbaord.
+# We'll treat this as user ending session
+Template.classroomSessionPage.destroyed = ->
+  console.log "Destroying classroom session page"
+
 sendMessage = ->
   message = $(".chat-message").val()
 
@@ -8,6 +18,8 @@ sendMessage = ->
       user:
         id: Meteor.userId()
         name: Meteor.user().profile.name
+      type: 'normal'
+      dateCreated: new Date
 
     console.log totalMessage
 
@@ -27,6 +39,10 @@ Template.chatMessages.helpers
   chatPartner: ->
     getChatPartner().name
 
+Template.chatMessage.helpers
+  isNormalMessage: ->
+    @.type is 'normal'
+
 Template.chatMessages.rendered = ->
   console.log "Chat messages re-rendering..."
 
@@ -37,7 +53,6 @@ Template.chatBox.events
   "keydown .chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
-      console.log "entering?"
       sendMessage()
 
 Template.chatBox.rendered = ->
@@ -77,19 +92,8 @@ Template.classroomSessionSidebar.events
       else
         Router.go('/dashboard')
 
-Template.whiteBoard.rendered = ->
-  # Ensures whiteboard layout has loaded before executing Deps.autorun
-  Session.set("hasWhiteboardLoaded?", true)
-
-Template.whiteBoard.events
-  'click .draw': (e, s) ->
-    pad.startDrawMode()
-
-  'click .erase': (e, s) ->
-    pad.startEraseMode()
-
-  'click .clear-blackboard': (e, s) ->
-    pad.wipe true     
+Template.classroomSessionPage.rendered = ->
+  showActiveClassroomSessionTool()
 
 Template.classroomSessionPage.events
   'click .start-audio': (e, s) ->
@@ -113,21 +117,3 @@ Template.classroomSessionPage.events
       call.on 'stream', playRemoteStream
 
       ), (err) -> console.log "Failed to get local streams", err
-
-pad = undefined
-remotePad = undefined
-
-Meteor.startup ->
-  Deps.autorun ->
-    if Session.get("hasWhiteboardLoaded?")
-      if pad
-        pad.close()
-        remotePad.close()
-
-      # Hot code bypasses `hasWhiteboardLoaded?`
-      if $('canvas').length > 0
-        user = Meteor.user()?._id || "Anonymous"
-
-        classroomSessionId = Session.get("classroomSessionId")
-        pad = new Pad($('canvas'), classroomSessionId, user)
-        remotePad = new RemotePad(classroomSessionId, pad)

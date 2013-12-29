@@ -22,9 +22,6 @@ Meteor.startup ->
     # Ensure all collections have loaded before performing some action
     'haveAllCollectionsLoaded?',
 
-    # Ensure whiteboard has loaded
-    'hasWhiteboardLoaded?',
-
     # Click feedback button
     'feedbackPopup?',
 
@@ -49,7 +46,10 @@ Meteor.startup ->
     'subscribedQuestion',
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestionResponse'
+    'subscribedQuestionResponse',
+
+    # Active classroom session Id
+    'classroomSessionId'
   ]
 
   # Session sidebar variables
@@ -59,25 +59,15 @@ Meteor.startup ->
   # Landing Session variables
   Session.set('showBoth?', true)
   setSessionVarsWithValue false, ['helpOthers?', 'askQuestion?']
-  
-  # category filter
-  Session.set('categoryFilter', {
-    'math': true,
-    'science': true,
-    'english': true,
-    'social_science': false,
-    'computer': true,
-    'business': false,
-    'foreign_language': false
-  })
+
 
   #### End Session variables
 
   #### Begin Subscriptions
 
-  Meteor.subscribe('users', ->
+  Meteor.subscribe 'users', ->
     console.log "Subscribed to users"
-    Session.set("hasUsersCollectionLoaded?", true))
+    Session.set("hasUsersCollectionLoaded?", true)
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
@@ -86,20 +76,10 @@ Meteor.startup ->
     # Subscribed question will always hold the subscribed question
     Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
 
-  Meteor.subscribe('classroomSession', ->
+  # Deps.autorun below will handle setting classroomSessionId
+  Meteor.subscribe 'classroomSession', ->
     console.log "Subscribed to classroom session"
     Session.set("hasClassroomSessionCollectionLoaded?", true)
-
-    classroomSession = ClassroomSession.findOne()
-
-    console.log "Current classroom session: #{classroomSession}"
-    console.log "Classroom session count: #{ClassroomSession.find().count()}"
-
-    # If pending ClassroomSession, go straight to the session
-    if ClassroomSession.find().count() > 0
-      console.log "Count is greater than 0, redirecting..."
-      Session.set("classroomSessionId", classroomSession.classroomSessionId)
-      Session.set('pendingSession?', true))
 
   #### End Subscriptions
 
@@ -119,17 +99,19 @@ Meteor.startup ->
 
   # Show whiteboard, hide other things
   Deps.autorun ->
-    if Session.get('whiteboardIsSelected?')
-      $('.whiteboard').show()
-      ['.sharingFiles', '.wolfram'].forEach (selector) -> selector.hide()
+    showActiveClassroomSessionTool()
 
-    if Session.get('fileIsSelected?')
-      $('.sharingFiles').show()
-      ['.whiteboard', '.wolfram'].forEach (selector) -> selector.hide()
+  # Ensure 'classroomSessionId' is set to current classroom session ID
+  Deps.autorun ->
+     # If pending ClassroomSession, go straight to the session
+    if ClassroomSession.findOne()
+      console.log "Pending classroom session exists. Setting classroomSessionId to #{ClassroomSession.findOne()._id}"
+      Session.set("classroomSessionId", ClassroomSession.findOne()._id)
+    else
+      Session.set("classroomSessionId", null)
 
-    if Session.get('wolframIsSelected?')
-      $('.wolfram').show()
-      ['.sharingFiles', '.whiteboard'].forEach (selector) -> selector.hide()
+  Deps.autorun ->
+    console.log "Reactive: haveAllCollectionsLoaded? #{Session.get('haveAllCollectionsLoaded?')}"
 
   # Event listener for listening for classroom requests
   Deps.autorun ->
@@ -145,6 +127,16 @@ Meteor.startup ->
       ClassroomStream.on "response:#{Session.get('subscribedResponse')}", (session) ->
         console.log "That person started the tutoring session!; sessionId: #{session}"
         Router.go("/session/#{session}")
+
+  # If logged in, set user's question category filters
+  Deps.autorun ->
+    categoryFilter = defaultCategoryFilter
+
+    if Meteor.user()
+      if Meteor.user().profile.categoryFilter
+        categoryFilter = Meteor.user().profile.categoryFilter
+
+    Session.set('categoryFilter', categoryFilter)
 
   # Automatically redirect user to session if user had a session open and didn't end it properly
   # Deps.autorun ->
@@ -187,10 +179,7 @@ Meteor.startup ->
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
-  
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
-
-  console.log peer
 
   peer.on 'open', (id) ->
     # Testing that peer is actually working
@@ -200,14 +189,17 @@ Meteor.startup ->
     console.log "Getting a call"
     console.log _call
 
-    navigator.getUserMedia {audio: true}, ((mediaStream) ->
-      # Answer the call, providing our mediaStream
-      _call.answer(mediaStream)
-      _call.on 'stream', (remoteStream) ->
-        console.log remoteStream
-        playRemoteStream(remoteStream)
-        
-    ), (err) -> console.log "This is my error: ", err 
+    navigator.getUserMedia(
+      {audio: true},
+      ((mediaStream) ->
+        # Answer the call, providing our mediaStream
+        _call.answer(mediaStream)
+        _call.on 'stream', (remoteStream) ->
+          console.log remoteStream
+          playRemoteStream(remoteStream)  
+      ), 
+      ((err) -> console.log "This is my error: ", err)
+    )
 
   peer.on 'error', (err) ->
     console.log err
@@ -223,6 +215,5 @@ Meteor.startup ->
   #       ClassroomStream.emit "audioResponse:#{getChatPartner().id}", "Start audio with you"
 
   #     ClassroomStream.on "audioResponse:#{Meteor.userId()}", (message) ->
-
 
   console.log "Meteor startup end"

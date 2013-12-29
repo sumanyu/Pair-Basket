@@ -18,6 +18,9 @@ class @Pad
   # 'draw', 'erase'
   mode = undefined
 
+  lineCap = "round"
+  lineWidth = 3
+
   constructor: (_canvas, _id, _nickname) ->
     canvas = _canvas
     id = _id || Random.id()
@@ -42,13 +45,19 @@ class @Pad
 
     setNickname(nickname)
 
-    ctx.strokeStyle = color
-    ctx.lineCap = "round"
-    ctx.lineWidth = 3    
+    setDefaultCanvasAttributes()
 
     pad.on "dragstart", dragStart
     pad.on "dragend", dragEnd
     pad.on "drag", drag
+
+    # Set canvas state from localstorage
+    loadCanvasState()
+
+  setDefaultCanvasAttributes = ->
+    ctx.strokeStyle = color
+    ctx.lineCap = lineCap
+    ctx.lineWidth = lineWidth    
 
   dragStart = (event) ->
     drawing = true
@@ -71,12 +80,97 @@ class @Pad
     x: parseInt(event.gesture.center.pageX - canvasOffset.left)
     y: parseInt(event.gesture.center.pageY - canvasOffset.top)
 
+  # Used for both remote and local draw actions
   drawLine = (from, to) ->
+    drawLineOnCanvas(from, to)
+
+    # Save this line to canvas state
+    saveLineToCanvasState(from, to, ctx)
+
+  # Simply draw a line on canvas
+  drawLineOnCanvas = (from, to) ->
     ctx.beginPath()
     ctx.moveTo from.x, from.y
     ctx.lineTo to.x, to.y
     ctx.closePath()
-    ctx.stroke()
+    ctx.stroke()    
+
+  # Canvas state schema
+  # canvasState = 
+  #   lines = [
+  #     {
+  #       from:
+  #         x: 50
+  #         y: 50
+  #       to:
+  #         x: 60
+  #         y: 60
+  #       strokeStyle: ctx.strokeStyle
+  #       lineCap: ctx.lineCap
+  #       lineWidth: ctx.lineWidth
+  #       globalCompositeOperation: ctx.globalCompositeOperation
+  #     },
+  #     {
+  #      ...
+  #     }
+  #   ]
+
+  # Save line to canvas state
+  saveLineToCanvasState = (from, to, ctx) ->
+    # Prepare line object
+    line = 
+      from: from
+      to: to
+      strokeStyle: ctx.strokeStyle
+      lineCap: ctx.lineCap
+      lineWidth: ctx.lineWidth
+      globalCompositeOperation: ctx.globalCompositeOperation
+
+    # Prepare to store it on local storage
+    canvasState = getCanvasState()
+
+    if canvasState
+      # Append to existing set of lines
+      canvasState.lines.push line
+      setCanvasState(canvasState)
+    else
+      console.log "Can't save line to canvas state. It doesn't even exist!"
+
+  # Load lines to canvas
+  loadLinesToCanvasState = (lines) ->
+    lines.forEach (line) ->
+      # Set context attributes to ctx
+      ['strokeStyle', 'lineCap', 'lineWidth', 'globalCompositeOperation'].forEach (ctxStyle) ->
+        ctx[ctxStyle] = line[ctxStyle]
+
+      drawLineOnCanvas(line.from, line.to)
+
+    # Reset local drawing color to default color
+    setDefaultCanvasAttributes()
+
+  # Loads canvas state from given state
+  loadCanvasState = ->
+    # Load from localstorage
+    canvasState = getCanvasState()
+
+    if canvasState
+      # Load lines to canvas state
+      loadLinesToCanvasState canvasState.lines
+    else
+      resetCanvasState()
+
+  resetCanvasState = ->
+   # start new localstorage canvas state
+    canvasState = 
+      lines: []
+
+    setCanvasState(canvasState) 
+
+  setCanvasState = (canvasState) ->
+    localStorage.setItem("#{id}:canvasState", JSON.stringify(canvasState))
+
+  getCanvasState = ->
+    localStorage.getItem("#{id}:canvasState")?.toJSON()
 
   # We mimic the remote pad's conditions based on remoteMode
   drawRemoteLine: (from, to, _color, remoteMode) ->
@@ -99,6 +193,7 @@ class @Pad
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
+    resetCanvasState()
     LineStream.emit id + ":wipe", nickname if emitAlso
 
   toggleModes: ->
@@ -130,7 +225,6 @@ class @Pad
     console.log "initializeModeInitialConditions, mode: #{mode}"
     # Re-enable on click local pad
     enableLocalPad()
-
     if mode is 'draw' then prepareCanvasToDraw() else prepareCanvasToErase()
 
   setDrawingMode = (_mode) ->

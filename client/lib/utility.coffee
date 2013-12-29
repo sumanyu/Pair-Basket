@@ -4,6 +4,9 @@
 # Trim left and right
 unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
 
+# Convert a string to JSON
+unless String::toJSON then String::toJSON = -> JSON.parse(@)
+
 @areElementsNonEmpty = (list) ->
   list.every (input) -> input.length
 
@@ -64,3 +67,16 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 # Convenient way to set an array of session variables with one value
 @setSessionVarsWithValue = (value, sessionKeys) ->
   sessionKeys.forEach (key) -> Session.set(key, value)
+
+@showActiveClassroomSessionTool = ->
+  if Session.get('whiteboardIsSelected?')
+    $('.whiteboard').show()
+    ['.file-sharing', '.wolfram'].forEach (selector) -> $(selector).hide()
+
+  if Session.get('fileIsSelected?')
+    $('.file-sharing').show()
+    ['.whiteboard', '.wolfram'].forEach (selector) -> $(selector).hide()
+
+  if Session.get('wolframIsSelected?')
+    $('.wolfram').show()
+    ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()

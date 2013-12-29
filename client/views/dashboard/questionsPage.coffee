@@ -1,32 +1,3 @@
-Handlebars.registerHelper(
-  "underscoreToSpace",
-  (string) ->
-    string.split("_").join(" ")
-)
-
-# TODO: put this array somewhere. it is copied in server.coffee
-Handlebars.registerHelper(
-  "allCategory", -> allCategory
-)
-
-Handlebars.registerHelper(
-  "allSchool",
-  () ->
-    [
-      "University_of_Waterloo"
-      "High_School"
-      "McGill_University"
-      "McMaster_University"
-      "Ryerson_University"
-      "McGill_University"
-      "University_of_British Columbia"
-      "University_of_Toronto"
-      "University_of_Western Ontario"
-      "York_University"
-      "Other"
-    ]
-)
-
 Template.questionsPage.helpers
   ownedQuestions: =>
     Questions.find(
@@ -54,6 +25,23 @@ Template.questionsPage.helpers
       },
       {sort: {dateCreated: -1}})
 
+  resolvedQuestions: =>
+    categoryFilter = Session.get('categoryFilter')
+    # console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+    # console.log activeCategories
+
+    Questions.find(
+      {
+        status: 'resolved',
+        category: { $in: activeCategories }
+      },
+      {sort: {dateCreated: -1}})
+
   questionsLoaded: ->
     Session.get('hasQuestionsCollectionLoaded?')
 
@@ -77,8 +65,8 @@ Template.questionsPage.events =
     questionId = Session.get('subscribedQuestion')
     tutorId = Session.get('subscribedResponse')
 
-    Meteor.call("startClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
-      console.log "startClassroomSession"
+    Meteor.call("createClassroomSession", questionId, tutorId, (err, classroomSessionId) ->
+      console.log "createClassroomSession"
 
       if err
         console.log err
@@ -101,11 +89,16 @@ Template.questionsPage.events =
       update session variable category filters, which reactively updates question list
     ###
 
-    category = e.target.id
+    clickedCategory = e.target.id
     state = e.target.className.split(" ")[1] # active, inactive
     categoryFilter = Session.get('categoryFilter')
 
     # toggle active/inactive
-    categoryFilter[category] = !(state == 'active')
+    categoryFilter[clickedCategory] = !(state == 'active')
+
+    # update categoryFilters: user-profile, session 
+    Meteor.users.update(
+      {_id:Meteor.user()._id},
+      {$set: {"profile.categoryFilter": categoryFilter}})
 
     Session.set('categoryFilter', categoryFilter)

@@ -59,6 +59,13 @@ Router.map ->
         to: 'feedback'
     before: ->
       console.log "Calling before in dashboard"
+
+      # Redirect to classroom session if user is subscribed to an existing session
+      if Session.get('classroomSessionId')
+        console.log "Pending session exists. Redirecting to classroom session"
+        @redirect "/session/#{Session.get('classroomSessionId')}"
+        @stop()
+
     action: ->
       console.log "Rendering dashboard"
       @render()
@@ -67,22 +74,34 @@ Router.map ->
     path: '/session/:classroomSessionId?'
     layoutTemplate: 'classroomSessionLayout'
     template: 'classroomSessionPage'
+
+    # Load is called before 'before'
+    load: ->
+      console.log "Calling Router:Session:Load"
+
+    unload: ->
+      console.log "Calling Router:Session:Unload"
+
     before: ->
       console.log "Calling before session"
       if not @params.classroomSessionId?
         console.log "You don't have a session"
-        @redirect "/dashboard"    
+        @redirect "dashboard"
         @stop()
+
+      console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
+      console.log Session.get('classroomSessionId')
+
+      # Add better routing security here
+      # Someone could modify this equivalence and get access to the classroomSession
+      if not Session.equals("classroomSessionId", @params.classroomSessionId)
+        console.log "Router: Tutoring Session not found"
+        @redirect "/dashboard"
+        @stop()
+
     action: ->
-        console.log "Router: classroomSessionId: #{@params.classroomSessionId}"
+      console.log "Rendering classroom session action"
+      @render 'classroomSessionSidebar', 
+        to: 'classroomSessionSidebar'
 
-        if ClassroomSession.findOne({_id: @params.classroomSessionId})
-          Session.set("classroomSessionId", @params.classroomSessionId)
-
-          @render 'classroomSessionSidebar', 
-            to: 'classroomSessionSidebar'
-
-          @render()
-        else
-          console.log "Router: Tutoring Session not found"
-          @redirect "/dashboard"
+      @render()

@@ -21,6 +21,9 @@ body
 
 	height: 100%
 
+	textarea
+		resize: none
+
 	.yellow-button
 		set-background(_yellow)
 
@@ -76,9 +79,6 @@ body
 		.container
 			width: h - pad
 			padding: pad 20px pad 20px
-
-		textarea
-			resize: none
 
 		p
 			text-align: justify
@@ -213,6 +213,7 @@ body
 		background: url('/home_background.jpg')
 		background-size: 100%
 		background-repeat: no-repeat
+		background-color: #141414
 
 		.landing-header, .landing-footer
 			width: 100%
@@ -347,9 +348,6 @@ body
 					padding: 10px 5px 10px 30px
 					width: 425px
 
-					textarea
-						resize: none
-
 					.ask-question-form, .help-others-form
 
 						.questions-group
@@ -468,6 +466,7 @@ body
 		.question-tile-right
 			width: 100px
 			background-color: _light_gray
+			text-align: center
 			// border-top-right-radius(8px)
 			// border-bottom-right-radius(8px)
 
@@ -475,7 +474,7 @@ body
 			border: 3px solid _yellow
 			// border-radius(15px)
 
-		.other-questions .question-tile
+		.other-questions, .resolved-questions .question-tile
 			// aligns owned/other tiles
 			border-left: 3px solid transparent
 			border-right: 3px solid transparent
@@ -507,7 +506,7 @@ body
 			border-radius(50%)
 			width: 70px
 			height: 70px
-			margin: 13px
+			margin: 13px auto
 			text-align:center
 			font-size: 40px
 			font-weight: bold
@@ -597,6 +596,17 @@ body
 			padding: 5px 10px
 			margin: 0px 15px
 
+		.status-resolved
+			set-background(_dark_gray)
+			border-radius(5px)
+			color: white
+			font-size: 14px
+			padding: 2px 10px
+			float: left
+			margin-left: 10px
+			display: block
+			animate-transition()
+
 		.ask-question-icon
 			width: 38px
 			height: 38px
@@ -646,6 +656,7 @@ body
 
 			.wrapper, .active-wrapper
 				width: 100%
+				height: 100px
 
 			.active-wrapper
 				background: white
@@ -672,7 +683,7 @@ body
 			.whiteboard-button:hover, .file-button:hover, .wolfram-button:hover
 				cursor: pointer
 
-		.sharingFiles, .wolfram
+		.file-sharing, .wolfram
 			padding-top: 22px
 
 			img.files-screenshot
@@ -682,7 +693,7 @@ body
 		.wolfram
 			margin-top: 22px
 
-		.sharingFiles, .wolfram
+		.file-sharing, .wolfram
 			display: none
 
 			img.wolfram-screenshot
@@ -733,6 +744,7 @@ body
 				width: 250px
 				padding: 10px
 				overflow: auto
+				word-wrap: break-word
 				border-radius(2px)
 				container-border()
 				margin-bottom: 10px
