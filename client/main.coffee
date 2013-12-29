@@ -77,7 +77,7 @@ Meteor.startup ->
     console.log "Subscribed to skills"
     Session.set("hasSkillsCollectionLoaded?", true)
 
-  Metoer.subscribe 'ownedSkills', ->
+  Meteor.subscribe 'ownedSkills', ->
     console.log "Subscribed to ownedSkills"
     Session.set("hasOwnedSkillsCollectionLoaded?", true)
 
