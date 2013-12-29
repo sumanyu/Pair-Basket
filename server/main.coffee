@@ -239,8 +239,6 @@ Meteor.methods
       if session.tutee.id == Meteor.userId()
         tutors.push session.tutor.name
 
-    console.log "tutees"
-    sessionHistory.forEach (session) ->
       if session.tutor.id == Meteor.userId()
         tutees.push session.tutee.name
 
