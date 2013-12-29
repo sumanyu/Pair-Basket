@@ -10,6 +10,9 @@ Meteor.startup ->
     # Pending session that user left unended should redirect to session itself
     'pendingSession?',
 
+    # Ensure skills has loaded
+    'hasSkillsCollectionLoaded?'
+
     # Ensure questions has loaded
     'hasQuestionsCollectionLoaded?',
 
@@ -68,6 +71,10 @@ Meteor.startup ->
   Meteor.subscribe 'users', ->
     console.log "Subscribed to users"
     Session.set("hasUsersCollectionLoaded?", true)
+
+  Meteor.subscribe 'skills', ->
+    console.log "Subscribed to skills"
+    Session.set("hasSkillsCollectionLoaded?", true)
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
