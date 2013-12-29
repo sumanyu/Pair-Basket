@@ -27,8 +27,8 @@ ownedSkillSchema =
     userId:
       type: String
       label: "userId"
-    skill:
-      type: skillSchema
+    skillId:
+      type: String
     academicLevel:
       type: String
       label: "grade 12?"
