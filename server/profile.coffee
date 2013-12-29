@@ -25,13 +25,13 @@ Meteor.methods
       'tutees': tutees
     }
 
-  addOwnedSkill: (skill) ->
+  addOwnedSkill: (skillId) ->
     console.log "adding skill"
     console.log skill.name
 
     ownedSkillData =
       userId: Meteor.userId()
-      skill: skill
+      skillId: skillId
       academicLevel: "grade 12?"
       dateCreated: new Date()
       display: true
