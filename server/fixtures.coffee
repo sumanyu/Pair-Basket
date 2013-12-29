@@ -79,3 +79,54 @@
   Questions.remove({})
   # ClassroomSession.remove({})
   populateQuestions()
+  populateSkills()
+
+
+@populateSkills = ->
+  if Meteor.isServer and Skills.find().count() is 0
+    skills = [
+      category: "math"
+      tags: ["calculus"]
+      name: "integral"
+      description: "integration is a fundamental technique in calculus"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "math"
+      tags: ["calculus"]
+      name: "derivative"
+      description: "derivative is used to find the slope of a function"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "math"
+      tags: ["algebra"]
+      name: "arithmetic"
+      description: "addition, subtraction, multiplication, division"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "computer"
+      tags: ["programming"]
+      name: "java"
+      description: "java is a popular object-oriented programming language"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "computer"
+      tags: ["programming"]
+      name: "python"
+      description: "python is a versatile scripting language"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "computer"
+      tags: ["database"]
+      name: "mySQL"
+      description: "MySQL is a query language"
+      dateCreated: new Date()
+      status: "active"
+    ]
+
+    for skill in skills
+      Skills.insert skill
