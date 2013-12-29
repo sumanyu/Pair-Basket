@@ -13,9 +13,6 @@ skillSchema =
     description:
       type: String
       label: "integration is a fundamental technique in calculus"
-    academicLevel:
-      type: String
-      label: "grade 12?"
     dateCreated:
       type: Date
       label: "Date when this question was created"
@@ -34,6 +31,9 @@ ownedSkillSchema
       label: "userId"
     skill:
       type: skill
+    academicLevel:
+      type: String
+      label: "grade 12?"
     dateCreated:
       type: Date
       label: "Date when this question was created"
