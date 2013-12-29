@@ -228,7 +228,7 @@ Meteor.methods
         {'tutor.id': @userId},
         {'tutee.id': @userId}
       ]},
-      {sort: {_id: -1}, limit: 1}
+      {sort: {_id: -1}}
     )
 
     tutors = []
