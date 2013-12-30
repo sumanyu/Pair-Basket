@@ -156,6 +156,15 @@ Meteor.startup ->
 
     Session.set('categoryFilter', categoryFilter)
 
+  # if viewing a user profile, subscribe to user.profile (name, school, skills)
+  Deps.autorun ->
+    profileId = Session.get('profileId')
+
+    Meteor.subscribe 'user-profile', (profileId)->
+      console.log "Subscribed to user-profile"
+      console.log profileId
+      Session.set("hasUserProfileCollectionLoaded?", true)
+
   # Automatically redirect user to session if user had a session open and didn't end it properly
   # Deps.autorun ->
   #   if Session.get('pendingSession?')
