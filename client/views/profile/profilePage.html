@@ -12,15 +12,27 @@
 	<div class="section">
 		<h1>All Skills</h1>
 		{{#each skills}}
-			<div class="skill-box active">
+			{{#if isSkillActive this}}
+			<div id="{{this._id}}" class="skill-box active">
 				{{this.name}}
 			</div>
+			{{else}}
+			<div id="{{this._id}}" class="skill-box inactive">
+				{{this.name}}
+			</div>
+			{{/if}}
+
 		{{/each}}
 	</div>
 
-	<div class="section">
+<!-- 	<div class="section">
 		<h1>My Skills</h1>
-	</div>
+		{{#each activeSkills}}
+			<div id="{{this._id}}" class="skill-box active">
+				{{this.name}}
+			</div>
+		{{/each}}
+	</div> -->
 <!--
 		<div>
 		{{#each ownedSkills}}
