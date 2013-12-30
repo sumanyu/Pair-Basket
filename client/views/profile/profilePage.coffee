@@ -18,5 +18,8 @@ Template.profilePage.helpers
     Session.get("tutees")
 
   ownedSkills: ->
-    OwnedSkills.find({
-    })
+    ownedSkills = OwnedSkills.find({})
+
+  # this is really frustrating
+  skillName: (skillId) ->
+    Skills.findOne({_id: skillId}).name
