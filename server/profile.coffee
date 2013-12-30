@@ -1,9 +1,9 @@
-@getSessionHistory = () ->
+@getSessionHistory = (profileId) ->
   console.log "getting session history"
   sessionHistory = ClassroomSession.find( 
     {$or: [
-      {'tutor.id': Meteor.userId()},
-      {'tutee.id': Meteor.userId()}
+      {'tutor.id': profileId},
+      {'tutee.id': profileId}
     ]},
     {sort: {_id: -1}}
   )
@@ -12,10 +12,10 @@
   tutees = []
 
   sessionHistory.forEach (session) ->
-    if session.tutee.id == Meteor.userId()
+    if session.tutee.id == profileId
       tutors.push session.tutor.name
 
-    if session.tutor.id == Meteor.userId()
+    if session.tutor.id == profileId
       tutees.push session.tutee.name
 
   result = {
@@ -35,7 +35,7 @@ Meteor.methods
     user = Meteor.users.findOne
       _id: profileId
 
-    sessionHistory = getSessionHistory()
+    sessionHistory = getSessionHistory(profileId)
 
     user.profile.tutors = sessionHistory.tutors
     user.profile.tutees = sessionHistory.tutees
