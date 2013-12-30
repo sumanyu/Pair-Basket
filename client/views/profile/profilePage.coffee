@@ -22,9 +22,10 @@ Template.profilePage.helpers
 
   isSkillActive: (skill) ->
 
-    # if the skill exists, check the status
-    if skill._id of Meteor.user().profile.activeSkills
-      return Meteor.user().profile.activeSkills[skill._id]
+    # if activeSkills and skill exist, check the status
+    if Meteor.user().profile.activeSkills
+      if skill._id of Meteor.user().profile.activeSkills
+        return Meteor.user().profile.activeSkills[skill._id]
 
     # if skill not recorded, it is false
     else
