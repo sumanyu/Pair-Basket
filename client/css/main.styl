@@ -13,6 +13,7 @@ body
 	_dark_gray = #636363
 
 	_red = #F22C1E
+	_blue = #3276B1
 
 	// z-index
 	// layer 1: pop-up 100
@@ -26,20 +27,25 @@ body
 
 	.yellow-button
 		set-background(_yellow)
+		color: black
 
 	.red-button
 		set-background(_red)
-
-	.yellow-button, .yellow-button-disabled, .red-button, .red-button-disabled
-		border-radius(5px)
 		color: black
+
+	.blue-button
+		set-background(_blue)
+		color: white
+
+	.yellow-button, .yellow-button-disabled, .red-button, .red-button-disabled, .blue-button
+		border-radius(5px)
 		display: block
 		animate-transition()
 
 	.yellow-button-disabled, .red-button-disabled
 		opacity: 0.75
 
-	.yellow-button:hover, .red-button:hover
+	.yellow-button:hover, .red-button:hover, .blue-button:hover
 		opacity: 0.7
 		cursor: pointer
 		animate-transition()
@@ -768,6 +774,10 @@ body
 		.picture img
 			width: 200px
 			height: 200px
+
+		.edit-skills-button
+			padding: 10px
+			width: 100px
 
 		.skill-box
 			width: 100px
