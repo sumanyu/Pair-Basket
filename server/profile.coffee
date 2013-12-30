@@ -27,7 +27,6 @@ Meteor.methods
 
   addOwnedSkill: (skillId) ->
     console.log "adding skill"
-    console.log skill.name
 
     ownedSkillData =
       userId: Meteor.userId()
@@ -36,6 +35,8 @@ Meteor.methods
       dateCreated: new Date()
       display: true
 
-    ownedSkill.insert ownedSkillData, (err, result) ->
+    OwnedSkills.insert ownedSkillData, (err, result) ->
       console.log err
       console.log result
+
+    console.log OwnedSkills.find().count()

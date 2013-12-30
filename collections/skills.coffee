@@ -40,7 +40,7 @@ ownedSkillSchema =
       label: "Display in profile?"
 
 
-@ownedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
+@OwnedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
 
 # image?
 # hierarchy? prereqs?

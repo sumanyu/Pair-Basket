@@ -38,8 +38,10 @@ Meteor.publish 'skills', ->
   Skills.find({})
 
 Meteor.publish 'ownedSkills', ->
-  ownedSkills.find({
-    'userId': Meteor.userId()
+  console.log("wtf")
+
+  OwnedSkills.find({
+    'userId': @userId
   })
 
 # I learned that publish functions can't contain if/else logic on a collection
