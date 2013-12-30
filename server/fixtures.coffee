@@ -390,7 +390,7 @@
 
     for skill in skills
       Skills.insert skill
-      console.log skill
+      # console.log skill
 
 ###
 
