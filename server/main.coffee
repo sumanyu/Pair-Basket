@@ -31,13 +31,6 @@ Meteor.publish "users", ->
       karma: 1
       profile: 1
 
-Meteor.publish "user-profile", (profileId) ->
-  Meteor.users.find
-    _id: profileId
-  ,
-    fields:
-      profile: 1
-
 Meteor.publish 'questions', ->
   Questions.find({})
 
