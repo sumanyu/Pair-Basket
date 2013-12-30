@@ -77,6 +77,7 @@
   SessionRequest.remove({})
   SessionResponse.remove({})
   Questions.remove({})
+  Skills.remove({})
   # ClassroomSession.remove({})
   populateQuestions()
   populateSkills()
@@ -103,6 +104,76 @@
       tags: ["algebra"]
       name: "arithmetic"
       description: "addition, subtraction, multiplication, division"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["physics"]
+      name: "electricity_and_magnetism"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["physics"]
+      name: "circuits"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["physics"]
+      name: "kinematics"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["physics"]
+      name: "quantum_mechanics"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["physics"]
+      name: "thermodynamics"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["physics"]
+      name: "work_and_energy"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["chemistry"]
+      name: "organic_chemistry"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["chemistry"]
+      name: "reactions"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "genetics"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "human_biology"
+      description: "a"
       dateCreated: new Date()
       status: "active"
     ,
