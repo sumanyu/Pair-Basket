@@ -7,5 +7,11 @@
 	<div class="tutees">I have helped {{tutees}}</div>
 	<div class="tutors">I was helped by {{tutors}}</div>
 
+	<h1>Skills</h1>
+		<div>
+		{{#each ownedSkills}}
+			{{this.skillId}}
+		{{/each}}
+		</div>
 
 </template>

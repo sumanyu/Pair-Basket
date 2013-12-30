@@ -16,3 +16,7 @@ Template.profilePage.helpers
       Session.set("tutees", result.tutees)
 
     Session.get("tutees")
+
+  ownedSkills: ->
+    OwnedSkills.find({
+    })
