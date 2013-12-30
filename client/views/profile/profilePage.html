@@ -20,12 +20,12 @@
 		{{#each skills}}
 			{{#if isSkillActive this}}
 			<div id="{{this._id}}" class="skill-box active">
-				{{this.name}}
+				{{underscoreToSpace this.name}}
 			</div>
 			{{else}}
 				{{#if editingSkills}}
 				<div id="{{this._id}}" class="skill-box inactive">
-					{{this.name}}
+					{{underscoreToSpace this.name}}
 				</div>
 				{{/if}}
 			{{/if}}
