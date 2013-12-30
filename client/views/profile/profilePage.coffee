@@ -1,5 +1,16 @@
 # profileId = 
 
+Deps.autorun ->
+  if Session.get('profileId')
+    profileId = Session.get('profileId')
+
+    Meteor.call 'getUserProfile', profileId, (error, result) ->
+      console.log "getting user profile"
+      console.log error
+      console.log result
+
+      Session.set('profile', result)
+
 Template.profilePage.helpers
   setProfileId: (profileId) ->
     if profileId
@@ -9,6 +20,9 @@ Template.profilePage.helpers
 
   getProfileId: ->
     Session.get('profileId')
+
+  profile: ->
+    Session.get('profile')
 
   tutors: ->
     Meteor.call "getSessionHistory", (error, result) ->

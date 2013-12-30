@@ -60,6 +60,9 @@ Meteor.startup ->
 
     # userId of user-profile currently being browsed
     'profileId'
+
+    # user.profile of user-profile being browsed
+    'profile'
   ]
 
   # Session sidebar variables
