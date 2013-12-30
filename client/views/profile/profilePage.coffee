@@ -1,4 +1,15 @@
+# profileId = 
+
 Template.profilePage.helpers
+  setProfileId: (profileId) ->
+    if profileId
+      Session.set('profileId', profileId)
+    else
+      Session.set('profileId', Meteor.userId())
+
+  getProfileId: ->
+    Session.get('profileId')
+
   tutors: ->
     Meteor.call "getSessionHistory", (error, result) ->
       console.log error

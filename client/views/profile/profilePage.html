@@ -1,4 +1,5 @@
 <template name="profilePage">
+	{{setProfileId profileId}}
 	<div class="section">
 		<div class="picture">
 			<img src="/sumanyu.jpeg"/>
@@ -7,6 +8,7 @@
 		<div class="school">{{underscoreToSpace currentUser.profile.school}}</div>
 		<div class="tutees">I have helped {{tutees}}</div>
 		<div class="tutors">I was helped by {{tutors}}</div>
+		{{getProfileId}}
 	</div>
 
 	<div class="section">

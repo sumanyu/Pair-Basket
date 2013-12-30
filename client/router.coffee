@@ -117,3 +117,25 @@ Router.map ->
         to: 'footer'
       feedback:
         to: 'feedback'
+
+  @route 'profile-id',
+    path: '/profile/:profileId'
+    layoutTemplate: 'profileLayout'
+    template: 'profilePage'
+    yieldTemplates:
+      header:
+        to: 'header'
+      footer:
+        to: 'footer'
+      feedback:
+        to: 'feedback'
+    data: () ->
+      # allow html template to use userId of browsed profile
+      return {
+        profileId: @params.profileId
+      }
+
+    before: ->
+      console.log "Calling before profileId"
+
+      console.log "Router: profileId: #{@params.profileId}"

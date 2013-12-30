@@ -57,6 +57,9 @@ Meteor.startup ->
 
     # Active classroom session Id
     'classroomSessionId'
+
+    # userId of user-profile currently being browsed
+    'profileId'
   ]
 
   # Session sidebar variables
