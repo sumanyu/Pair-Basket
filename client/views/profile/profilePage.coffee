@@ -51,6 +51,10 @@ Template.profilePage.helpers
 
 Template.profilePage.events =
   'click .skill-box': (e, selector) ->
+    # not editing: prevent skill toggle
+    if not Session.get('editingSkills?')
+      return
+
     activeSkills = {}
 
     if Meteor.user().profile.activeSkills
