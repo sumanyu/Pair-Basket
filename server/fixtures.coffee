@@ -361,13 +361,6 @@
     ,
       category: "business"
       tags: ["accounting"]
-      name: "tax"
-      description: "a"
-      dateCreated: new Date()
-      status: "active"
-    ,
-      category: "business"
-      tags: ["accounting"]
       name: "financial_accounting"
       description: "a"
       dateCreated: new Date()
