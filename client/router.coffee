@@ -34,8 +34,8 @@ Router.map ->
     yieldTemplates:
       header:
         to: 'header'
-      landingFooter:
-        to: 'landingFooter'
+      footer:
+        to: 'footer'
     before: ->
       console.log "Calling before in home"
 
