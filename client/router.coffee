@@ -32,8 +32,8 @@ Router.map ->
     layoutTemplate: 'landingLayout'
     template: 'landingPage'
     yieldTemplates:
-      dashboardHeader:
-        to: 'dashboardHeader'
+      header:
+        to: 'header'
       landingFooter:
         to: 'landingFooter'
     before: ->
@@ -51,8 +51,8 @@ Router.map ->
     layoutTemplate: 'dashboardLayout'
     template: 'questionsPage'
     yieldTemplates:
-      dashboardHeader:
-        to: 'dashboardHeader'
+      header:
+        to: 'header'
       dashboardFooter:
         to: 'dashboardFooter'
       feedback:
@@ -111,8 +111,8 @@ Router.map ->
     layoutTemplate: 'profileLayout'
     template: 'profilePage'
     yieldTemplates:
-      dashboardHeader:
-        to: 'dashboardHeader'
+      header:
+        to: 'header'
       dashboardFooter:
         to: 'dashboardFooter'
       feedback:

@@ -1,4 +1,4 @@
-Template.dashboardHeader.events =
+Template.header.events =
   'click .ask-question' : (e, selector) ->
     e.preventDefault()
 
@@ -7,13 +7,13 @@ Template.dashboardHeader.events =
     else
       Session.set('showNotEnoughKarma?', true)
 
-Template.dashboardHeader.helpers
+Template.header.helpers
   userKarma: ->
     if Meteor.user()
       Meteor.user().karma
     else
       karma = ''
 
-Template.dashboardHeader.rendered = ->
+Template.header.rendered = ->
   if not Meteor.user()
     $('.dropdown-toggle').html('Sign In')

@@ -4,7 +4,7 @@
 
 <template name="landingLayout">
   <div id="landing">
-      {{yield 'dashboardHeader'}}
+      {{yield 'header'}}
     <div class="container main">
       {{yield}}
     </div>
@@ -28,7 +28,7 @@
 
 <template name="dashboardLayout">
   <div id="dashboard">
-  	{{yield 'dashboardHeader'}}
+  	{{yield 'header'}}
     {{yield 'feedback'}}
     <div class="container main">
       {{yield}}
@@ -39,7 +39,7 @@
 
 <template name="profileLayout">
   <div id="profile">
-    {{yield 'dashboardHeader'}}
+    {{yield 'header'}}
     {{yield 'feedback'}}
     <div class="container main">
       {{yield}}
