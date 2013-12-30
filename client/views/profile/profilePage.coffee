@@ -29,6 +29,9 @@ Template.profilePage.helpers
     # if skill not recorded, it is false
     else
       return false
+
+  editingSkills: () ->
+    Session.get('editingSkills?')
       
 
   # activeSkills: ->
@@ -69,3 +72,7 @@ Template.profilePage.events =
     Meteor.users.update(
       {_id: Meteor.userId()},
       {$set: {"profile.activeSkills": activeSkills}})
+
+  'click .edit-skills-button': (e, selector) ->
+    # toggle
+    Session.set('editingSkills?', !Session.get('editingSkills?'))

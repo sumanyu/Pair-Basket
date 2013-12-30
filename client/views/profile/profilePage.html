@@ -11,6 +11,12 @@
 
 	<div class="section">
 		<h1>All Skills</h1>
+		{{#if editingSkills}}
+			<div class="edit-skills-button">Hide Inactive</div>
+		{{else}}
+			<div class="edit-skills-button">Edit</div>
+		{{/if}}
+
 		{{#each skills}}
 			{{#if isSkillActive this}}
 			<div id="{{this._id}}" class="skill-box active">

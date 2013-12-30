@@ -37,6 +37,9 @@ Meteor.startup ->
 
     # Alert the user she doesn't have enough Karma
     'showNotEnoughKarma?'
+
+    # Profile: toggle skill
+    'editingSkills?'
   ]
 
   setSessionVarsWithValue null, [
