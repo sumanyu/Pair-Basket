@@ -23,9 +23,11 @@
 				{{this.name}}
 			</div>
 			{{else}}
-			<div id="{{this._id}}" class="skill-box inactive">
-				{{this.name}}
-			</div>
+				{{#if editingSkills}}
+				<div id="{{this._id}}" class="skill-box inactive">
+					{{this.name}}
+				</div>
+				{{/if}}
 			{{/if}}
 
 		{{/each}}
