@@ -25,18 +25,18 @@ Meteor.methods
       'tutees': tutees
     }
 
-  addOwnedSkill: (skillId) ->
-    console.log "adding skill"
+  # addOwnedSkill: (skillId) ->
+  #   console.log "adding skill"
 
-    ownedSkillData =
-      userId: Meteor.userId()
-      skillId: skillId
-      academicLevel: "grade 12?"
-      dateCreated: new Date()
-      display: true
+  #   ownedSkillData =
+  #     userId: Meteor.userId()
+  #     skillId: skillId
+  #     academicLevel: "grade 12?"
+  #     dateCreated: new Date()
+  #     display: true
 
-    OwnedSkills.insert ownedSkillData, (err, result) ->
-      console.log err
-      console.log result
+  #   OwnedSkills.insert ownedSkillData, (err, result) ->
+  #     console.log err
+  #     console.log result
 
-    console.log OwnedSkills.find().count()
+  #   console.log OwnedSkills.find().count()

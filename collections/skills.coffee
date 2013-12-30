@@ -22,25 +22,25 @@ skillSchema =
 
 @Skills = new Meteor.Collection2("skill", skillSchema)
 
-ownedSkillSchema =
-  schema:
-    userId:
-      type: String
-      label: "userId"
-    skillId:
-      type: String
-    academicLevel:
-      type: String
-      label: "grade 12?"
-    dateCreated:
-      type: Date
-      label: "Date when this question was created"
-    display:
-      type: Boolean
-      label: "Display in profile?"
+# ownedSkillSchema =
+#   schema:
+#     userId:
+#       type: String
+#       label: "userId"
+#     skillId:
+#       type: String
+#     academicLevel:
+#       type: String
+#       label: "grade 12?"
+#     dateCreated:
+#       type: Date
+#       label: "Date when this question was created"
+#     display:
+#       type: Boolean
+#       label: "Display in profile?"
 
 
-@OwnedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
+# @OwnedSkills = new Meteor.Collection2("ownedSkill", ownedSkillSchema)
 
 # image?
 # hierarchy? prereqs?
