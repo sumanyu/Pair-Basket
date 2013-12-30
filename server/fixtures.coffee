@@ -144,7 +144,14 @@
     ,
       category: "science"
       tags: ["physics"]
-      name: "work_and_energy"
+      name: "fluid_mechanics"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["chemistry"]
+      name: "inorganic_chemistry"
       description: "a"
       dateCreated: new Date()
       status: "active"
@@ -158,7 +165,63 @@
     ,
       category: "science"
       tags: ["chemistry"]
+      name: "biochemistry"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["chemistry"]
+      name: "physical_chemistry"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["chemistry"]
+      name: "analytical_chemistry"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["chemistry"]
       name: "reactions"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "plants"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "cells"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "evolution"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "microbiology"
+      description: "a"
+      dateCreated: new Date()
+      status: "active"
+    ,
+      category: "science"
+      tags: ["biology"]
+      name: "biotechnology"
       description: "a"
       dateCreated: new Date()
       status: "active"
