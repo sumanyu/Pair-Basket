@@ -53,8 +53,8 @@ Router.map ->
     yieldTemplates:
       header:
         to: 'header'
-      dashboardFooter:
-        to: 'dashboardFooter'
+      footer:
+        to: 'footer'
       feedback:
         to: 'feedback'
     before: ->
@@ -113,7 +113,7 @@ Router.map ->
     yieldTemplates:
       header:
         to: 'header'
-      dashboardFooter:
-        to: 'dashboardFooter'
+      footer:
+        to: 'footer'
       feedback:
         to: 'feedback'
