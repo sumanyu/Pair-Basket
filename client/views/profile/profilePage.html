@@ -1,14 +1,26 @@
 <template name="profilePage">
-	<div class="picture">
-		<img src="/sumanyu.jpeg"/>
+	<div class="section">
+		<div class="picture">
+			<img src="/sumanyu.jpeg"/>
+		</div>
+		<div class="name">{{currentUser.profile.name}}</div>
+		<div class="school">{{underscoreToSpace currentUser.profile.school}}</div>
+		<div class="tutees">I have helped {{tutees}}</div>
+		<div class="tutors">I was helped by {{tutors}}</div>
 	</div>
-	<div class="name">{{currentUser.profile.name}}</div>
-	<div class="school">{{underscoreToSpace currentUser.profile.school}}</div>
-	<div class="tutees">I have helped {{tutees}}</div>
-	<div class="tutors">I was helped by {{tutors}}</div>
 
-	<h1>Skills</h1>
+	<div class="section">
+		<h1>All Skills</h1>
+		{{#each skills}}
+			<div class="skill-box active">
+				{{this.name}}
+			</div>
+		{{/each}}
+	</div>
 
+	<div class="section">
+		<h1>My Skills</h1>
+	</div>
 <!--
 		<div>
 		{{#each ownedSkills}}
