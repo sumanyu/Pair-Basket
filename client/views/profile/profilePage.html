@@ -13,10 +13,12 @@
 
 	<div class="section">
 		<h1>Skills</h1>
-		{{#if editingSkills}}
-			<div class="edit-skills-button blue-button">Hide Inactive</div>
-		{{else}}
-			<div class="edit-skills-button blue-button">Edit</div>
+		{{#if viewingSelfProfile}}
+			{{#if editingSkills}}
+				<div class="edit-skills-button blue-button">Hide Inactive</div>
+			{{else}}
+				<div class="edit-skills-button blue-button">Edit</div>
+			{{/if}}
 		{{/if}}
 
 		{{#each skills}}

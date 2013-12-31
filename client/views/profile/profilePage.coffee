@@ -21,6 +21,9 @@ Template.profilePage.helpers
   getProfileId: ->
     Session.get('profileId')
 
+  viewingSelfProfile: ->
+    Meteor.userId() == Session.get('profileId')
+
   profile: ->
     Session.get('profile')
 
@@ -28,11 +31,20 @@ Template.profilePage.helpers
     Skills.find({})
 
   isSkillActive: (skill) ->
+    if Session.get('profileId')
 
-    # if activeSkills and skill exist, check the status
-    if Meteor.user().profile.activeSkills
-      if skill._id of Meteor.user().profile.activeSkills
-        return Meteor.user().profile.activeSkills[skill._id]
+      # check if viewing self profile or other's
+      if Meteor.userId() == Session.get('profileId')
+        activeSkills = Meteor.user().profile.activeSkills
+      else
+        if Session.get('profile')
+          if Session.get('profile').activeSkills
+            activeSkills = Session.get('profile').activeSkills
+
+      # if activeSkills and skill exist, check the status
+      if activeSkills
+          if skill._id of activeSkills
+            return activeSkills[skill._id]
 
     # if skill not recorded, it is false
     else
