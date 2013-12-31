@@ -50,22 +50,15 @@ Template.profilePage.events =
     if not Session.get('editingSkills?')
       return
 
+    clickedSkillId = e.target.id
+
     activeSkills = {}
 
     if Meteor.user().profile.activeSkills
       activeSkills = Meteor.user().profile.activeSkills
 
-    clickedSkillId = e.target.id
-    state = e.target.className.split(" ")[1]
-
-    console.log "clicked skill box"
-    console.log clickedSkillId
-    console.log state
-
     # toggle active/inactive
-    activeSkills[clickedSkillId] = !(state == 'active')
-
-    console.log activeSkills[clickedSkillId]
+    activeSkills[clickedSkillId] = !activeSkills[clickedSkillId]
 
     # update activeSkills
     Meteor.users.update(
