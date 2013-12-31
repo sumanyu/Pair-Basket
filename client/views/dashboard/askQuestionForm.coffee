@@ -9,6 +9,8 @@ Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-category") 
   focusText(selector)
 
+  $("#question-tags").select2()
+
 Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
 
