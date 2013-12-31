@@ -52,22 +52,7 @@ Template.profilePage.helpers
 
   editingSkills: () ->
     Session.get('editingSkills?')
-      
 
-  # activeSkills: ->
-  #   activeSkills = []
-  #   Skills.find({}).forEach (skill) ->
-  #     if skill._id in Meteor.user().profile.activeSkills
-  #       activeSkills.push skill
-
-  #   return activeSkills
-
-  # ownedSkills: ->
-  #   ownedSkills = OwnedSkills.find({})
-
-  # this is really frustrating
-  # skillName: (skillId) ->
-  #   Skills.findOne({_id: skillId}).name
 
 Template.profilePage.events =
   'click .skill-box': (e, selector) ->

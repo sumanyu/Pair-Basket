@@ -12,7 +12,6 @@ Meteor.startup ->
 
     # Ensure skills has loaded
     'hasSkillsCollectionLoaded?'
-    # 'hasOwnedSkillsCollectionLoaded?'
 
     # Ensure questions has loaded
     'hasQuestionsCollectionLoaded?',
@@ -85,10 +84,6 @@ Meteor.startup ->
   Meteor.subscribe 'skills', ->
     console.log "Subscribed to skills"
     Session.set("hasSkillsCollectionLoaded?", true)
-
-  # Meteor.subscribe 'ownedSkills', ->
-  #   console.log "Subscribed to ownedSkills"
-  #   Session.set("hasOwnedSkillsCollectionLoaded?", true)
 
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"

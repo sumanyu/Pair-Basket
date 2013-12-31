@@ -45,26 +45,3 @@ Meteor.methods
 
     console.log user.profile
     return user.profile
-
-
-    # Meteor.users.findOne
-    #   _id: profileId
-    #   ,
-    #   fields:
-    #     profile: 1
-
-  # addOwnedSkill: (skillId) ->
-  #   console.log "adding skill"
-
-  #   ownedSkillData =
-  #     userId: Meteor.userId()
-  #     skillId: skillId
-  #     academicLevel: "grade 12?"
-  #     dateCreated: new Date()
-  #     display: true
-
-  #   OwnedSkills.insert ownedSkillData, (err, result) ->
-  #     console.log err
-  #     console.log result
-
-  #   console.log OwnedSkills.find().count()
