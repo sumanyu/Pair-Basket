@@ -7,12 +7,13 @@
 		</div>
 		<div class="name">{{profile.name}}</div>
 		<div class="school">{{underscoreToSpace profile.school}}</div>
+		<h1>Allies</h1>
 		<div class="tutees">I have helped {{profile.tutees}}</div>
 		<div class="tutors">I was helped by {{profile.tutors}}</div>
 	</div>
 
 	<div class="section">
-		<h1>Skills</h1>
+		<h1>Disciplines</h1>
 		{{#if viewingSelfProfile}}
 			{{#if editingSkills}}
 				<div class="edit-skills-button blue-button">Hide Inactive</div>
@@ -35,6 +36,12 @@
 			{{/if}}
 
 		{{/each}}
+		
+	</div>
+	<div class="section">
+		<h1>Inventory</h1>
+		<div id="item1" class="skill-box active">Oak, the Panda Sage</div>
+		<div id="item2" class="skill-box active">Snarling Dragon</div>
 	</div>
 
 </template>
