@@ -1,4 +1,4 @@
-@getSessionHistory = (profileId) ->
+@getClassroomSessionHistory = (profileId) ->
   console.log "getting session history"
   sessionHistory = ClassroomSession.find( 
     {$or: [
@@ -35,7 +35,7 @@ Meteor.methods
     user = Meteor.users.findOne
       _id: profileId
 
-    sessionHistory = getSessionHistory(profileId)
+    sessionHistory = getClassroomSessionHistory(profileId)
 
     user.profile.tutors = sessionHistory.tutors
     user.profile.tutees = sessionHistory.tutees
