@@ -1,8 +1,7 @@
-# profileId = 
-
-Deps.autorun ->
-  if Session.get('profileId')
-    profileId = Session.get('profileId')
+Template.profilePage.helpers
+  getProfile: (profileId) ->
+    if not profileId
+      profileId = Meteor.userId()
 
     Meteor.call 'getUserProfile', profileId, (error, result) ->
       console.log "getting user profile"
@@ -11,18 +10,9 @@ Deps.autorun ->
 
       Session.set('profile', result)
 
-Template.profilePage.helpers
-  setProfileId: (profileId) ->
-    if profileId
-      Session.set('profileId', profileId)
-    else
-      Session.set('profileId', Meteor.userId())
-
-  getProfileId: ->
-    Session.get('profileId')
-
   viewingSelfProfile: ->
-    Meteor.userId() == Session.get('profileId')
+    if Session.get('profile')
+      Meteor.userId() == Session.get('profile').id
 
   profile: ->
     Session.get('profile')
@@ -31,10 +21,10 @@ Template.profilePage.helpers
     Skills.find({})
 
   isSkillActive: (skill) ->
-    if Session.get('profileId')
+    if Session.get('profile')
 
       # check if viewing self profile or other's
-      if Meteor.userId() == Session.get('profileId')
+      if Meteor.userId() == Session.get('profile').id
         activeSkills = Meteor.user().profile.activeSkills
       else
         if Session.get('profile')

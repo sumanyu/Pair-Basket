@@ -35,13 +35,13 @@ Meteor.methods
     user = Meteor.users.findOne
       _id: profileId
 
+    # attach userId to profile
+    user.profile.id = profileId
+
+    # attach tutor/tutee history to profile
     sessionHistory = getClassroomSessionHistory(profileId)
 
     user.profile.tutors = sessionHistory.tutors
     user.profile.tutees = sessionHistory.tutees
 
-    console.log user.profile.tutors
-    console.log user.profile.tutees
-
-    console.log user.profile
     return user.profile

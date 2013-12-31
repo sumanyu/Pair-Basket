@@ -57,10 +57,7 @@ Meteor.startup ->
     # Active classroom session Id
     'classroomSessionId'
 
-    # userId of user-profile currently being browsed
-    'profileId'
-
-    # user.profile of user-profile being browsed
+    # Profile Page: user.profile of user being browsed
     'profile'
   ]
 
