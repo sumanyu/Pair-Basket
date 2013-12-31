@@ -106,7 +106,8 @@ Meteor.startup ->
     tests = [
       'hasClassroomSessionCollectionLoaded?', 
       'hasQuestionsCollectionLoaded?', 
-      'hasUsersCollectionLoaded?'
+      'hasUsersCollectionLoaded?',
+      "hasSkillsCollectionLoaded?"
     ]
 
     result = tests.map((test) -> Session.get(test)).reduce((total, test) -> test and total)
