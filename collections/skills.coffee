@@ -18,7 +18,7 @@ skillSchema =
       label: "Date when this question was created"
     status:
       type: String
-      label: "active, inactive, deleted"
+      label: "available, disabled"
 
 @Skills = new Meteor.Collection2("skill", skillSchema)
 
