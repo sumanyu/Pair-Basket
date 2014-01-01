@@ -32,10 +32,10 @@ Router.map ->
     layoutTemplate: 'landingLayout'
     template: 'landingPage'
     yieldTemplates:
-      dashboardHeader:
-        to: 'dashboardHeader'
-      landingFooter:
-        to: 'landingFooter'
+      header:
+        to: 'header'
+      footer:
+        to: 'footer'
     before: ->
       console.log "Calling before in home"
 
@@ -51,10 +51,10 @@ Router.map ->
     layoutTemplate: 'dashboardLayout'
     template: 'questionsPage'
     yieldTemplates:
-      dashboardHeader:
-        to: 'dashboardHeader'
-      dashboardFooter:
-        to: 'dashboardFooter'
+      header:
+        to: 'header'
+      footer:
+        to: 'footer'
       feedback:
         to: 'feedback'
     before: ->
@@ -105,3 +105,37 @@ Router.map ->
         to: 'classroomSessionSidebar'
 
       @render()
+
+  @route 'profile',
+    path: '/profile'
+    layoutTemplate: 'profileLayout'
+    template: 'profilePage'
+    yieldTemplates:
+      header:
+        to: 'header'
+      footer:
+        to: 'footer'
+      feedback:
+        to: 'feedback'
+
+  @route 'profile-id',
+    path: '/profile/:profileId'
+    layoutTemplate: 'profileLayout'
+    template: 'profilePage'
+    yieldTemplates:
+      header:
+        to: 'header'
+      footer:
+        to: 'footer'
+      feedback:
+        to: 'feedback'
+    data: () ->
+      # allow html template to use userId of browsed profile
+      return {
+        profileId: @params.profileId
+      }
+
+    before: ->
+      console.log "Calling before profileId"
+
+      console.log "Router: profileId: #{@params.profileId}"

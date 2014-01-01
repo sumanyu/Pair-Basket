@@ -10,6 +10,9 @@ Meteor.startup ->
     # Pending session that user left unended should redirect to session itself
     'pendingSession?',
 
+    # Ensure skills has loaded
+    'hasSkillsCollectionLoaded?'
+
     # Ensure questions has loaded
     'hasQuestionsCollectionLoaded?',
 
@@ -33,6 +36,9 @@ Meteor.startup ->
 
     # Alert the user she doesn't have enough Karma
     'showNotEnoughKarma?'
+
+    # Profile: toggle skill
+    'editingSkills?'
   ]
 
   setSessionVarsWithValue null, [
@@ -50,6 +56,9 @@ Meteor.startup ->
 
     # Active classroom session Id
     'classroomSessionId'
+
+    # Profile Page: user.profile of user being browsed
+    'profile'
   ]
 
   # Session sidebar variables
@@ -69,12 +78,16 @@ Meteor.startup ->
     console.log "Subscribed to users"
     Session.set("hasUsersCollectionLoaded?", true)
 
+  Meteor.subscribe 'skills', ->
+    console.log "Subscribed to skills"
+    Session.set("hasSkillsCollectionLoaded?", true)
+
   Meteor.subscribe 'questions', ->
     console.log "Subscribed to Questions"
     Session.set("hasQuestionsCollectionLoaded?", true)
 
     # Subscribed question will always hold the subscribed question
-    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id) 
+    Session.set("subscribedQuestion", Questions.findOne({userId: Meteor.userId()})?._id)
 
   # Deps.autorun below will handle setting classroomSessionId
   Meteor.subscribe 'classroomSession', ->
@@ -90,7 +103,8 @@ Meteor.startup ->
     tests = [
       'hasClassroomSessionCollectionLoaded?', 
       'hasQuestionsCollectionLoaded?', 
-      'hasUsersCollectionLoaded?'
+      'hasUsersCollectionLoaded?',
+      "hasSkillsCollectionLoaded?"
     ]
 
     result = tests.map((test) -> Session.get(test)).reduce((total, test) -> test and total)

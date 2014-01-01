@@ -4,11 +4,11 @@
 
 <template name="landingLayout">
   <div id="landing">
-      {{yield 'dashboardHeader'}}
+      {{yield 'header'}}
     <div class="container main">
       {{yield}}
     </div>
-      {{yield 'landingFooter'}}
+      {{yield 'footer'}}
   </div>
 </template>
 
@@ -28,11 +28,22 @@
 
 <template name="dashboardLayout">
   <div id="dashboard">
-  	{{yield 'dashboardHeader'}}
+  	{{yield 'header'}}
     {{yield 'feedback'}}
     <div class="container main">
       {{yield}}
     </div>
-    {{yield 'dashboardFooter'}}
+    {{yield 'footer'}}
+  </div>
+</template>
+
+<template name="profileLayout">
+  <div id="profile">
+    {{yield 'header'}}
+    {{yield 'feedback'}}
+    <div class="container main">
+      {{yield}}
+    </div>
+    {{yield 'footer'}}
   </div>
 </template>

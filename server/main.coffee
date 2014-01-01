@@ -23,11 +23,6 @@ Accounts.onCreateUser (options, user) ->
   return user
 
 
-# TODO
-# can users manually edit karma with this implementation?
-# would this fix it?:
-# Meteor.users.deny({update: function () { return true; }});
-
 Meteor.publish "users", ->
   Meteor.users.find
     _id: @userId
@@ -38,6 +33,10 @@ Meteor.publish "users", ->
 
 Meteor.publish 'questions', ->
   Questions.find({})
+
+Meteor.publish 'skills', ->
+  Skills.find({})
+
 
 # I learned that publish functions can't contain if/else logic on a collection
 Meteor.publish 'classroomSession', ->

@@ -56,25 +56,21 @@
   </div>
 
   <div class="question-list">
-    {{#if questionsLoaded}}
-        <div class="owned-questions">
-          {{#each ownedQuestions}}
-              {{> ownedQuestionTile}}
-          {{/each}}
-        </div>
-        <div class="other-questions">
-          {{#each otherQuestions}}
-              {{> otherQuestionTile}}
-          {{/each}}
-        </div>
-        <div class="resolved-questions">
-          {{#each resolvedQuestions}}
-              {{> resolvedQuestionTile}}
-          {{/each}}
-        </div>
-    {{else}}
-        Loading...
-    {{/if}}
+    <div class="owned-questions">
+      {{#each ownedQuestions}}
+          {{> ownedQuestionTile}}
+      {{/each}}
+    </div>
+    <div class="other-questions">
+      {{#each otherQuestions}}
+          {{> otherQuestionTile}}
+      {{/each}}
+    </div>
+    <div class="resolved-questions">
+      {{#each resolvedQuestions}}
+          {{> resolvedQuestionTile}}
+      {{/each}}
+    </div>
   </div>
 
 </template>
