@@ -9,13 +9,18 @@ Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-category") 
   focusText(selector)
 
+  skillData = []
+  skills = Skills.find()
+
+  skills.forEach (skill) ->
+    skillData.push
+      id: skill._id
+      text: skill.name
+
   $("#question-tags").select2({
     placeholder: 'Disciplines'
     multiple: true
-    data: [
-      {id: 100, text: 'thermodynamics'},
-      {id: 101, text: 'fluid_mechanics'}
-    ]
+    data: skillData
   })
 
 Template.askQuestionForm.maxKarma = ->
