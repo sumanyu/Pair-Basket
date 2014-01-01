@@ -7,6 +7,36 @@ Template.questionsPage.helpers
       },
       {sort: {dateCreated: -1}})
 
+  recommendedQuestions: =>
+    categoryFilter = Session.get('categoryFilter')
+    # console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+    # console.log activeCategories
+
+    questions = Questions.find(
+      {
+        userId: { $ne: Meteor.userId() },
+        status: 'waiting',
+        category: { $in: activeCategories }
+      },
+      {sort: {dateCreated: -1}})
+
+    recommendedQuestions = []
+
+    questions.forEach (question) ->
+      question.skills.forEach (skill) ->
+        # recommend this question if:
+          # any question-skills match user-active-skills
+        if Meteor.user().profile.activeSkills[skill]
+          recommendedQuestions.push(question)
+          return
+
+    return recommendedQuestions
+
   otherQuestions: =>
     categoryFilter = Session.get('categoryFilter')
     # console.log categoryFilter
