@@ -9,7 +9,14 @@ Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-category") 
   focusText(selector)
 
-  $("#question-tags").select2()
+  $("#question-tags").select2({
+    placeholder: 'Disciplines'
+    multiple: true
+    data: [
+      {id: 0, text: 'thermodynamics'},
+      {id: 1, text: 'fluid_mechanics'}
+    ]
+  })
 
 Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
