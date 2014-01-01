@@ -3,7 +3,7 @@
       <div class="left-item">
         <div class="question-tag question-category {{category}}">{{category}}</div>
         {{#each tags}}
-          <div class="question-tag">{{underscoreToSpace this}}</div>
+          <div class="question-tag">{{getSkillName this}}</div>
         {{/each}}
       </div>
       <div class="left-item">
