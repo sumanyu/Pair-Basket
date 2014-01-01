@@ -13,8 +13,8 @@ Template.askQuestionForm.rendered = ->
     placeholder: 'Disciplines'
     multiple: true
     data: [
-      {id: 0, text: 'thermodynamics'},
-      {id: 1, text: 'fluid_mechanics'}
+      {id: 100, text: 'thermodynamics'},
+      {id: 101, text: 'fluid_mechanics'}
     ]
   })
 
@@ -30,13 +30,8 @@ Template.askQuestionForm.events =
   'submit' : (e, selector) ->
     e.preventDefault()
 
-    stringTags = $('input#question-tags').val()
-    tagsList = stringTags.split(",")
-
-    tags = if tagsList.length is 0
-            [stringTags].map (tag) -> tag.trim()
-          else
-            tagsList.map (tag) -> tag.trim()
+    # get array of selected skill IDs
+    tags = $('#s2id_question-tags').select2("val")
 
     category = $('select#question-category').val()
     questionText = $('textarea#question-text').val()
