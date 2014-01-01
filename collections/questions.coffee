@@ -11,7 +11,7 @@ questionsSchema =
       label: "userId"
     questionText:
       type: String
-    tags:
+    skills:
       type: [String]
     karmaOffered:
       type: Number
@@ -26,8 +26,5 @@ questionsSchema =
     status:
       type: String
       label: "waiting, session, resolved, deleted"
-  virtualFields: 
-    tagsJoined: (question) ->
-      question.tags.reduce (current, total) -> "#{total}, #{current}"
 
 @Questions = new Meteor.Collection2("questions", questionsSchema)

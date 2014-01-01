@@ -5,7 +5,7 @@
       category: "english"
       userId: '1'
       questionText: "How do you structure an essay to be creative but effective?"
-      tags: [
+      skills: [
         "essay",
         "writing"]
       karmaOffered: 50
@@ -16,7 +16,7 @@
       category: "computer"
       userId: '1'
       questionText: 'What is the difference between atan and atan2 functions in the cmath library in C++?'
-      tags: [
+      skills: [
         "c++",
         "programming"]
       karmaOffered: 20
@@ -27,7 +27,7 @@
       category: "math"
       userId: '1'
       questionText: 'How do you use the area of a circle to find the volume of a cylinder?'
-      tags: [
+      skills: [
         "geometry",
         "volume"]
       karmaOffered: 80
@@ -38,7 +38,7 @@
       category: "science"
       userId: '1'
       questionText: 'How do you draw a free body diagram with deformable solids?'
-      tags: [
+      skills: [
         "deformable_solids",
         "physics"]
       karmaOffered: 45
@@ -49,7 +49,7 @@
       category: "science"
       userId: '1'
       questionText: 'Why is citric acid a key part of the Krebs Cycle?'
-      tags: [
+      skills: [
         "biology",
         "metabolism"]
       karmaOffered: 57
@@ -60,7 +60,7 @@
       category: "business"
       userId: '1'
       questionText: 'How do banks create value by lending money they do not own?'
-      tags: [
+      skills: [
         "finance",
         "multiplier_effect"]
       karmaOffered: 92

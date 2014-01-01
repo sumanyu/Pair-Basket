@@ -107,10 +107,10 @@ Meteor.methods
     if questionData.category not in allCategory
       throw new Meteor.Error(401, 'Please enter a category')
 
-    # Check if has tags
+    # Check if has skills
     # need better regex
-    if questionData.tags[0] == ''
-      throw new Meteor.Error(401, 'Please enter a tag')
+    if questionData.skills[0] == ''
+      throw new Meteor.Error(401, 'Please enter a skill')
 
     # Check if has question
     if not questionData.questionText

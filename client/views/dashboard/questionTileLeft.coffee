@@ -7,6 +7,6 @@ Template.questionTileLeft.helpers
     if skill
       return skill.name
 
-    # temporary hack to display fixture tags property
+    # temporary hack to display fixture skills property
     else
       return skillId

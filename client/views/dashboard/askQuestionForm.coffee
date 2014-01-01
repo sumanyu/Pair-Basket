@@ -36,7 +36,7 @@ Template.askQuestionForm.events =
     e.preventDefault()
 
     # get array of selected skill IDs
-    tags = $('#s2id_question-skills').select2("val")
+    skills = $('#s2id_question-skills').select2("val")
 
     category = $('select#question-category').val()
     questionText = $('textarea#question-text').val()
@@ -45,7 +45,7 @@ Template.askQuestionForm.events =
     question = 
       category: category
       questionText: questionText
-      tags: tags
+      skills: skills
       karmaOffered: karmaOffered
 
     # Server creates question and returns questionId

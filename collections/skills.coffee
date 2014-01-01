@@ -44,3 +44,4 @@ skillSchema =
 
 # image?
 # hierarchy? prereqs?
+# skill tags?
