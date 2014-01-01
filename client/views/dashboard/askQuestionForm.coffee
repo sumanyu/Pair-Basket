@@ -17,7 +17,7 @@ Template.askQuestionForm.rendered = ->
       id: skill._id
       text: skill.name
 
-  $("#question-tags").select2({
+  $("#question-skills").select2({
     placeholder: 'Disciplines'
     multiple: true
     data: skillData
@@ -36,7 +36,7 @@ Template.askQuestionForm.events =
     e.preventDefault()
 
     # get array of selected skill IDs
-    tags = $('#s2id_question-tags').select2("val")
+    tags = $('#s2id_question-skills').select2("val")
 
     category = $('select#question-category').val()
     questionText = $('textarea#question-text').val()
