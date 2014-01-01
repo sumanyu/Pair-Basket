@@ -57,22 +57,25 @@
 
   <div class="question-list">
     <div class="owned-questions">
+      <p>Owned</p>
       {{#each ownedQuestions}}
           {{> ownedQuestionTile}}
       {{/each}}
     </div>
     <div class="recommended-questions">
+      <p>Recommended</p>
       {{#each recommendedQuestions}}
           {{> otherQuestionTile}}
       {{/each}}
     </div>
     <div class="other-questions">
-      <p>Above: Recommended ......... Below: Other</p>
+      <p>Other</p>
       {{#each otherQuestions}}
           {{> otherQuestionTile}}
       {{/each}}
     </div>
     <div class="resolved-questions">
+      <p>Resolved</p>
       {{#each resolvedQuestions}}
           {{> resolvedQuestionTile}}
       {{/each}}
