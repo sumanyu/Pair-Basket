@@ -179,17 +179,20 @@ class @Pad
     else if remoteMode is 'erase'
       prepareCanvasToErase()
 
-    # Disable local pad onClick
+    # Disable local pad
     disableLocalPad()
 
     drawLine(from, to)
 
   disableLocalPad = ->
-    canvas.on 'click', (event) ->
-      event.preventDefault()
+    pad.off "dragstart", dragStart
+    pad.off "dragend", dragEnd
+    pad.off "drag", drag
 
   enableLocalPad = ->
-    canvas.off 'click' 
+    pad.on "dragstart", dragStart
+    pad.on "dragend", dragEnd
+    pad.on "drag", drag
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
