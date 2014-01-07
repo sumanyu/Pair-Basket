@@ -100,10 +100,10 @@ Template.chatBox.rendered = ->
       
 Template.chatBox.helpers
   awaitingReplyForAudioCall: ->
-    Session.get('awaitingReplyForAudioCall?')
+    Session.get('awaitingReplyForAudioCall?') || false
 
   inAudioCall: ->
-    Session.get('inAudioCall?')    
+    Session.get('inAudioCall?') || false
 
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
