@@ -2,8 +2,8 @@
     <div class="question-tile-left">
       <div class="left-item">
         <div class="question-tag question-category {{category}}">{{category}}</div>
-        {{#each tags}}
-          <div class="question-tag">{{underscoreToSpace this}}</div>
+        {{#each skills}}
+          <div class="question-tag">{{getSkillName this}}</div>
         {{/each}}
       </div>
       <div class="left-item">

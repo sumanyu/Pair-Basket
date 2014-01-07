@@ -477,7 +477,7 @@ body
 			border: 3px solid _yellow
 			// border-radius(15px)
 
-		.other-questions, .resolved-questions .question-tile
+		.recommended-questions, .other-questions, .resolved-questions .question-tile
 			// aligns owned/other tiles
 			border-left: 3px solid transparent
 			border-right: 3px solid transparent
@@ -622,6 +622,28 @@ body
 		input[type="number"]
 			height: 34px
 			width: 100px
+
+		.select2-container
+			// prevents select2 from being squished
+			width: 335px
+
+		.select2-choices
+			// display: block
+			// height: 34px
+			padding-top: 6px
+			padding-bottom: 0px
+			padding-left: 3px
+			padding-right: 3px
+			// font-size: 14px
+			line-height: 1.428571429
+			color: #555555
+			// vertical-align: middle
+			background-color: #ffffff
+			background-image: none
+			border: 1px solid #cccccc
+			border-radius(4px)
+			box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075))
+			transition(0.15s)
 
 	#classroomSession
 		position: relative

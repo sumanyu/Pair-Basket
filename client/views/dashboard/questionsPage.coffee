@@ -7,6 +7,38 @@ Template.questionsPage.helpers
       },
       {sort: {dateCreated: -1}})
 
+  recommendedQuestions: =>
+    # TODO: improve/integrate recommended and other questions
+    categoryFilter = Session.get('categoryFilter')
+    # console.log categoryFilter
+
+    activeCategories = []
+    for category, active of categoryFilter
+      if active
+        activeCategories.push(category)
+    # console.log activeCategories
+
+    questions = Questions.find(
+      {
+        userId: { $ne: Meteor.userId() },
+        status: 'waiting',
+        category: { $in: activeCategories }
+      },
+      {sort: {dateCreated: -1}})
+
+    recommendedQuestions = []
+
+    questions.forEach (question) ->
+      question.skills.forEach (skill) ->
+        # recommend this question if:
+          # any question-skills match user-active-skills
+        if Meteor.user().profile.activeSkills
+          if Meteor.user().profile.activeSkills[skill]
+            recommendedQuestions.push(question)
+            return
+
+    return recommendedQuestions
+
   otherQuestions: =>
     categoryFilter = Session.get('categoryFilter')
     # console.log categoryFilter
@@ -17,13 +49,31 @@ Template.questionsPage.helpers
         activeCategories.push(category)
     # console.log activeCategories
 
-    Questions.find(
+    questions = Questions.find(
       {
         userId: { $ne: Meteor.userId() },
         status: 'waiting',
         category: { $in: activeCategories }
       },
       {sort: {dateCreated: -1}})
+
+    otherQuestions = []
+
+    # TODO: fix hack
+    questions.forEach (question) ->
+      skillsNotFound = true
+
+      question.skills.forEach (skill) ->
+        # recommend this question if:
+          # any question-skills match user-active-skills
+        if Meteor.user().profile.activeSkills
+          if Meteor.user().profile.activeSkills[skill]
+            skillsNotFound = false
+
+      if skillsNotFound
+        otherQuestions.push(question)
+
+    return otherQuestions
 
   resolvedQuestions: =>
     categoryFilter = Session.get('categoryFilter')

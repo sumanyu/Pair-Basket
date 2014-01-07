@@ -61,6 +61,11 @@
           {{> ownedQuestionTile}}
       {{/each}}
     </div>
+    <div class="recommended-questions">
+      {{#each recommendedQuestions}}
+          {{> otherQuestionTile}}
+      {{/each}}
+    </div>
     <div class="other-questions">
       {{#each otherQuestions}}
           {{> otherQuestionTile}}

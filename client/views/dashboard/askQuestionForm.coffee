@@ -9,6 +9,20 @@ Template.askQuestionForm.rendered = ->
   selector = $('.questionForm').find("#question-category") 
   focusText(selector)
 
+  skillData = []
+  skills = Skills.find()
+
+  skills.forEach (skill) ->
+    skillData.push
+      id: skill._id
+      text: skill.name
+
+  $("#question-skills").select2({
+    placeholder: 'Disciplines'
+    multiple: true
+    data: skillData
+  })
+
 Template.askQuestionForm.maxKarma = ->
   Meteor.user().karma
 
@@ -21,13 +35,8 @@ Template.askQuestionForm.events =
   'submit' : (e, selector) ->
     e.preventDefault()
 
-    stringTags = $('input#question-tags').val()
-    tagsList = stringTags.split(",")
-
-    tags = if tagsList.length is 0
-            [stringTags].map (tag) -> tag.trim()
-          else
-            tagsList.map (tag) -> tag.trim()
+    # get array of selected skill IDs
+    skills = $('#s2id_question-skills').select2("val")
 
     category = $('select#question-category').val()
     questionText = $('textarea#question-text').val()
@@ -36,7 +45,7 @@ Template.askQuestionForm.events =
     question = 
       category: category
       questionText: questionText
-      tags: tags
+      skills: skills
       karmaOffered: karmaOffered
 
     # Server creates question and returns questionId

@@ -12,7 +12,7 @@ Router.configure
     console.log "Router:Global:before: route name: #{@route.name}"
 
     # if not logged in, send to home page
-    if !Meteor.user()
+    if !Meteor.loggingIn() and !Meteor.user()
       if @route.name != 'home'
         @redirect 'home'
     else if Meteor.user()
