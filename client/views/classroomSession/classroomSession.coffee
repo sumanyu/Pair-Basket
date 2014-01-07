@@ -85,17 +85,25 @@ Template.chatBox.rendered = ->
 
         if call
           # Update UI call succeeded
-
+          Session.get('awaitingReplyForAudioCall?', false)
+          Session.get('inAudioCall?', true)
 
         call.on 'stream', playRemoteStream
 
         ), (err) -> console.log "Failed to get local streams", err
     else
       # Update UI call failed
+      setSessionVarsWithValue false, [
+        'awaitingReplyForAudioCall?',
+        'inAudioCall?'
+      ]
       
 Template.chatBox.helpers
   awaitingReplyForAudioCall: ->
     Session.get('awaitingReplyForAudioCall?')
+
+  inAudioCall: ->
+    Session.get('inAudioCall?')    
 
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->

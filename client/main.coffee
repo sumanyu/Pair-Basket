@@ -39,6 +39,12 @@ Meteor.startup ->
 
     # Profile: toggle skill
     'editingSkills?'
+
+    # Waiting for reply for audio call
+    'awaitingReplyForAudioCall?'
+
+    # Currently in audio call
+    'inAudioCall?'
   ]
 
   setSessionVarsWithValue null, [
