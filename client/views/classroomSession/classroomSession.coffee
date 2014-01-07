@@ -76,11 +76,14 @@ Template.chatBox.events
       'awaitingReplyForAudioCall?'
     ]
 
-    # Send message to remote peer to end her call as well
-    ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", "Temporary message"
+    synchronizedCloseAudioCalls()
 
-    # End call
-    closeAudioCalls()
+synchronizedCloseAudioCalls = ->
+  # Send message to remote peer to end her call as well
+  ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", "Temporary message"
+
+  # End local call
+  closeAudioCalls()
 
 Template.chatBox.rendered = ->
   focusText($('.chat-message'))
@@ -198,6 +201,7 @@ Template.classroomSessionSidebar.events
       if err
         console.log err
       else
+        synchronizedCloseAudioCalls()
         Router.go('/dashboard')
 
 Template.classroomSessionPage.rendered = ->
