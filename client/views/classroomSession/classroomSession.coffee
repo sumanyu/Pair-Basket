@@ -80,8 +80,7 @@ Template.chatBox.events
     ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", "Temporary message"
 
     # End call
-    call.close()
-    remoteCall.close()
+    closeAudioCalls()
 
 Template.chatBox.rendered = ->
   focusText($('.chat-message'))
@@ -155,8 +154,7 @@ Template.chatBox.rendered = ->
 
   ClassroomStream.on "audioCallEnd:#{Meteor.userId()}", (message) ->
     # End call
-    call.close()
-    remoteCall.close()
+    closeAudioCalls()
 
 Template.chatBox.helpers
   defaultAudioCall: ->

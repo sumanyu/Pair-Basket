@@ -80,3 +80,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   if Session.get('wolframIsSelected?')
     $('.wolfram').show()
     ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()
+
+@closeAudioCalls = ->
+  call?.close()
+  remoteCall?.close()
