@@ -90,7 +90,7 @@ Template.chatBox.rendered = ->
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
-  @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
+  peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
   # Callback for when peerJS successfully loads
   peer.on 'open', (id) ->
