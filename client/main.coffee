@@ -40,6 +40,9 @@ Meteor.startup ->
     # Profile: toggle skill
     'editingSkills?'
 
+    # Default audioCall action (no action yet)
+    'defaultAudioCall?'
+
     # Waiting for reply for audio call
     'awaitingReplyForAudioCall?'
 

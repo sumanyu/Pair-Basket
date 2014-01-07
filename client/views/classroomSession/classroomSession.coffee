@@ -40,7 +40,7 @@ Template.chatMessages.helpers
     getChatPartner().name
 
 Template.chatMessage.helpers
-  isNormalMessage: ->
+  isNormalMessage: ->y
     @.type is 'normal'
 
 Template.chatMessages.rendered = ->
@@ -63,6 +63,10 @@ Template.chatBox.events
     
     # Update UI while we wait for the response
     Session.set("awaitingReplyForAudioCall?", true)
+    setSessionVarsWithValue false, [
+      'awaitingReplyForAudioCall?',
+      'inAudioCall?'
+    ]
 
 Template.chatBox.rendered = ->
   focusText($('.chat-message'))
@@ -99,6 +103,9 @@ Template.chatBox.rendered = ->
       ]
       
 Template.chatBox.helpers
+  defaultAudioCall: ->
+    Session.get('defaultAudioCall?') || false
+
   awaitingReplyForAudioCall: ->
     Session.get('awaitingReplyForAudioCall?') || false
 

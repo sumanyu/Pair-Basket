@@ -75,7 +75,15 @@
 
     <textarea class='chat-message'></textarea><br>
   </div>
-  <button type="button" class="btn btn-default start-audio">Start audio</button>
+
+  {{#if defaultAudioCall }}
+    <button type="button" class="btn btn-default start-audio">Start audio</button>
+  {{else}} {{#if awaitingReplyForAudioCall }}
+    <div> Awaiting reply </div>
+  {{else}} {{#if inAudioCall }}
+    <button type="button" class="btn btn-default end-audio">End audio</button>
+  {{/if}} {{/if}} {{/if}}
+
 </template>
 
 <template name="chatMessages">
