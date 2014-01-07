@@ -62,9 +62,13 @@
     </div>
     <div class="col-md-4">
       {{> chatBox}}
-      <button type="button" class="btn btn-default start-audio">Start audio</button>
+      {{> audioCall}}
     </div>
   </div>
+</template>
+
+<template name="audioCall">
+  <button type="button" class="btn btn-default start-audio">Start audio</button>
 </template>
 
 <template name='chatBox'>
