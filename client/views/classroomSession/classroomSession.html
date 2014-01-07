@@ -75,17 +75,19 @@
 
     <div class="input-chat-message-container">
       <textarea rows="4" class='input-chat-message'></textarea><br>
+
+      <div class="audio-call-container">
+        {{#if defaultAudioCall }}
+          <button type="button" class="btn btn-default start-call">Start call</button>
+        {{else}} {{#if awaitingReplyForAudioCall }}
+          <div> Awaiting reply </div>
+        {{else}} {{#if inAudioCall }}
+          <button type="button" class="btn btn-default end-call">End call</button>
+        {{/if}} {{/if}} {{/if}}
+      </div>
+
     </div>
   </div>
-
-  {{#if defaultAudioCall }}
-    <button type="button" class="btn btn-default start-call">Start call</button>
-  {{else}} {{#if awaitingReplyForAudioCall }}
-    <div> Awaiting reply </div>
-  {{else}} {{#if inAudioCall }}
-    <button type="button" class="btn btn-default end-call">End call</button>
-  {{/if}} {{/if}} {{/if}}
-
 </template>
 
 <template name="chatMessages">

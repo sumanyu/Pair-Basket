@@ -40,15 +40,17 @@ Meteor.startup ->
     # Profile: toggle skill
     'editingSkills?'
 
-    # Default audioCall action (no action yet)
-    'defaultAudioCall?'
-
     # Waiting for reply for audio call
     'awaitingReplyForAudioCall?'
 
     # Currently in audio call
     'inAudioCall?'
   ]
+
+  setSessionVarsWithValue true, [
+    # Default audioCall action (no action yet)
+    'defaultAudioCall?'
+  ]  
 
   setSessionVarsWithValue null, [
     # Has non-null value if question comes from the landing page prompt
