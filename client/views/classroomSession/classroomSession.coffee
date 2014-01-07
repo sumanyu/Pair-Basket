@@ -169,6 +169,9 @@ Template.chatBox.helpers
   inAudioCall: ->
     Session.get('inAudioCall?') || false
 
+  incomingAudioCall: ->
+    Session.get('incomingAudioCall?') || false
+
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')

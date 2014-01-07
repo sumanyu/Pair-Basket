@@ -74,6 +74,19 @@
     </div>
 
     <div class="input-chat-message-container">
+
+      {{#if incomingCall}}
+        <div class="overlay"></div>
+        <div class="incoming-call-popup">
+          <h3>Icon</h3>
+
+          <div class="accept-incoming-call yellow-button">
+            Answer
+          </div>
+          <span class="decline-button">Decline</span>
+        </div>
+      {{/if}}
+
       <textarea rows="4" class='input-chat-message'></textarea><br>
 
       <div class="audio-call-container">

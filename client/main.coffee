@@ -8,31 +8,31 @@ Meteor.startup ->
 
   setSessionVarsWithValue false, [
     # Pending session that user left unended should redirect to session itself
-    'pendingSession?',
+    'pendingSession?'
 
     # Ensure skills has loaded
     'hasSkillsCollectionLoaded?'
 
     # Ensure questions has loaded
-    'hasQuestionsCollectionLoaded?',
+    'hasQuestionsCollectionLoaded?'
 
     # Ensure ClassroomSession collection has loaded
-    'hasClassroomSessionCollectionLoaded?',
+    'hasClassroomSessionCollectionLoaded?'
 
     # Ensure Users collection had loaded
-    'hasUsersCollectionLoaded?',
+    'hasUsersCollectionLoaded?'
 
     # Ensure all collections have loaded before performing some action
-    'haveAllCollectionsLoaded?',
+    'haveAllCollectionsLoaded?'
 
     # Click feedback button
-    'feedbackPopup?',
+    'feedbackPopup?'
 
     # Is the client asking a question?
-    'askingQuestion?',
+    'askingQuestion?'
 
     # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
-    'foundTutor?',
+    'foundTutor?'
 
     # Alert the user she doesn't have enough Karma
     'showNotEnoughKarma?'
@@ -45,6 +45,9 @@ Meteor.startup ->
 
     # Currently in audio call
     'inAudioCall?'
+
+    # Incoming audio call?
+    'incomingAudioCall?'
   ]
 
   setSessionVarsWithValue true, [
@@ -54,16 +57,16 @@ Meteor.startup ->
 
   setSessionVarsWithValue null, [
     # Has non-null value if question comes from the landing page prompt
-    'questionFromLandingPrompt',
+    'questionFromLandingPrompt'
 
     # Error message for ask question
-    'questionFormError',
+    'questionFormError'
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestion',
+    'subscribedQuestion'
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestionResponse',
+    'subscribedQuestionResponse'
 
     # Active classroom session Id
     'classroomSessionId'
