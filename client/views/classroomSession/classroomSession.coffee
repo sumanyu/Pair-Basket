@@ -40,7 +40,7 @@ Template.chatMessages.helpers
     getChatPartner().name
 
 Template.chatMessage.helpers
-  isNormalMessage: ->y
+  isNormalMessage: ->
     @.type is 'normal'
 
 Template.chatMessages.rendered = ->
@@ -77,10 +77,11 @@ Template.chatBox.events
     ]
 
     # Send message to remote peer to end her call as well
-    ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", Session.get("classroomSessionId")
+    ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", "Temporary message"
 
-    # End local call
+    # End call
     call.close()
+    remoteCall.close()
 
 Template.chatBox.rendered = ->
   focusText($('.chat-message'))
@@ -117,7 +118,8 @@ Template.chatBox.rendered = ->
       ]
 
   ClassroomStream.on "audioCallEnd:#{Meteor.userId()}", (message) ->
-    # End remote call
+    # End call
+    call.close()
     remoteCall.close()
 
   # Initialize peer with current user's ID
