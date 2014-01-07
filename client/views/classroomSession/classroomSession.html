@@ -62,13 +62,8 @@
     </div>
     <div class="col-md-4">
       {{> chatBox}}
-      {{> audioCall}}
     </div>
   </div>
-</template>
-
-<template name="audioCall">
-  <button type="button" class="btn btn-default start-audio">Start audio</button>
 </template>
 
 <template name='chatBox'>
@@ -80,6 +75,7 @@
 
     <textarea class='chat-message'></textarea><br>
   </div>
+  <button type="button" class="btn btn-default start-audio">Start audio</button>
 </template>
 
 <template name="chatMessages">
