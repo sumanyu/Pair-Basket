@@ -156,19 +156,29 @@ Meteor.startup ->
   # Hard code Peer's cloud server API key for now
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
+  # Callback for when peerJS successfully loads
   peer.on 'open', (id) ->
     # Testing that peer is actually working
     console.log "My id is: #{id}"
 
+  # Callback for when peerJS has initialization errors
+  peer.on 'error', (err) ->
+    console.log "PeerJS initialization error"
+    console.log err
+
+  # When you're getting a call
   peer.on 'call', (_call) ->
     console.log "Getting a call"
     console.log _call
 
+    # Open user's local mediastream, ready to be sent to the caller
     navigator.getUserMedia(
       {audio: true},
       ((mediaStream) ->
-        # Answer the call, providing our mediaStream
+        # When mediaStream loads, answer the call, providing our mediaStream
         _call.answer(mediaStream)
+
+        # When remove user is streaming, play it right away
         _call.on 'stream', (remoteStream) ->
           console.log remoteStream
           playRemoteStream(remoteStream)  
@@ -176,10 +186,7 @@ Meteor.startup ->
       ((err) -> console.log "This is my error: ", err)
     )
 
-  peer.on 'error', (err) ->
-    console.log err
-
-  # conn = undefined
+  # Stores instantiation of call initiated by this user
   @call = undefined
 
   console.log "Meteor startup end"

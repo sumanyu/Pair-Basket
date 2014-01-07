@@ -100,19 +100,12 @@ Template.classroomSessionPage.events
     # Send user's id for now
     # ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
     
-    # For data connections
-    # conn = peer.connect("#{getChatPartner.id}")
-
-    console.log 
-
-    # For calls
+    # Call remote user
     navigator.getUserMedia {audio: true}, ((mediaStream) ->
       console.log "Local media stream"
       console.log mediaStream
 
       call = peer.call("#{getChatPartner().id}", mediaStream)
-
-      console.log call
 
       call.on 'stream', playRemoteStream
 
