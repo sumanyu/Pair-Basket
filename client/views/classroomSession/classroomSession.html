@@ -77,11 +77,11 @@
   </div>
 
   {{#if defaultAudioCall }}
-    <button type="button" class="btn btn-default start-audio">Start audio</button>
+    <button type="button" class="btn btn-default start-call">Start call</button>
   {{else}} {{#if awaitingReplyForAudioCall }}
     <div> Awaiting reply </div>
   {{else}} {{#if inAudioCall }}
-    <button type="button" class="btn btn-default end-audio">End audio</button>
+    <button type="button" class="btn btn-default end-call">End call</button>
   {{/if}} {{/if}} {{/if}}
 
 </template>

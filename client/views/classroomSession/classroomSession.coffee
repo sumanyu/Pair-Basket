@@ -55,7 +55,7 @@ Template.chatBox.events
       e.preventDefault()
       sendMessage()
 
-  'click .start-audio': (e, s) ->
+  'click .start-call': (e, s) ->
     # Send request to start audio session
     # Emit to other user's userID and send classroomSessionId to ensure audiochat is valid
     # TODO: Use something less sensitive than userId when sending these messages
@@ -64,8 +64,16 @@ Template.chatBox.events
     # Update UI while we wait for the response
     Session.set("awaitingReplyForAudioCall?", true)
     setSessionVarsWithValue false, [
-      'awaitingReplyForAudioCall?',
-      'inAudioCall?'
+      'inAudioCall?',
+      'defaultAudioCall?'
+    ]
+
+  'click .end-call': (e, s) ->
+    # Update UI to end call
+    Session.set('defaultAudioCall?', true)
+    setSessionVarsWithValue false, [
+      'inAudioCall?',
+      'awaitingReplyForAudioCall?'
     ]
 
 Template.chatBox.rendered = ->
