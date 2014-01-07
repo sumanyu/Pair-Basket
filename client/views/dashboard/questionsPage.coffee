@@ -42,9 +42,6 @@ Template.questionsPage.helpers
       },
       {sort: {dateCreated: -1}})
 
-  questionsLoaded: ->
-    Session.get('hasQuestionsCollectionLoaded?')
-
   askQuestion: ->
     Session.get('askingQuestion?')
 

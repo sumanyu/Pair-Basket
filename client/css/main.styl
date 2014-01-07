@@ -13,6 +13,7 @@ body
 	_dark_gray = #636363
 
 	_red = #F22C1E
+	_blue = #3276B1
 
 	// z-index
 	// layer 1: pop-up 100
@@ -26,20 +27,25 @@ body
 
 	.yellow-button
 		set-background(_yellow)
+		color: black
 
 	.red-button
 		set-background(_red)
-
-	.yellow-button, .yellow-button-disabled, .red-button, .red-button-disabled
-		border-radius(5px)
 		color: black
+
+	.blue-button
+		set-background(_blue)
+		color: white
+
+	.yellow-button, .yellow-button-disabled, .red-button, .red-button-disabled, .blue-button
+		border-radius(5px)
 		display: block
 		animate-transition()
 
 	.yellow-button-disabled, .red-button-disabled
 		opacity: 0.75
 
-	.yellow-button:hover, .red-button:hover
+	.yellow-button:hover, .red-button:hover, .blue-button:hover
 		opacity: 0.7
 		cursor: pointer
 		animate-transition()
@@ -83,7 +89,7 @@ body
 		p
 			text-align: justify
 
-	.dashboard-header
+	.header
 		position: fixed !important
 		width: 100%
 		height: 60px
@@ -136,6 +142,10 @@ body
 
 				.header-login:hover
 					set-background(_dark_yellow)
+
+				.ask-question-icon
+					width: 38px
+					height: 38px
 
 				.ask-question
 					cursor: pointer
@@ -214,13 +224,6 @@ body
 		background-size: 100%
 		background-repeat: no-repeat
 		background-color: #141414
-
-		.landing-header, .landing-footer
-			width: 100%
-			height: 50px
-
-		.landing-footer
-			height: 0px
 
 		.container.main
 			padding-top: 90px
@@ -607,9 +610,7 @@ body
 			display: block
 			animate-transition()
 
-		.ask-question-icon
-			width: 38px
-			height: 38px
+		
 
 		.submit-question
 			font-size: 16px
@@ -751,3 +752,38 @@ body
 
 			.chat-message
 				width: 250px
+
+	#profile
+
+		.container.main
+			padding-top: 75px
+			width: 920px
+			background: white
+
+		.section
+			width: 100%
+			clear: both
+
+		.picture img
+			width: 200px
+			height: 200px
+
+		.edit-skills-button
+			padding: 10px
+			width: 130px
+			margin: 10px 0px
+
+		.skill-box
+			width: 100px
+			height: 100px
+			display: block
+			float: left
+			word-wrap: break-word
+			padding: 3px
+			margin: 5px
+
+		.active
+			background-color: _yellow
+
+		.inactive
+			background-color: _dark_gray
