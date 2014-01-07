@@ -152,45 +152,6 @@ Meteor.startup ->
 
     Session.set('categoryFilter', categoryFilter)
 
-  # Automatically redirect user to session if user had a session open and didn't end it properly
-  # Deps.autorun ->
-  #   if Session.get('pendingSession?')
-  #     Router.go("/session/#{Session.get("sessionId")}")
-
-  #### End autoruns
-
-  # Deps.autorun ->
-  #   if Session.get("subscribedQuestion")
-  #     Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
-
-  # Deps.autorun ->
-  #   if Session.get("subscribedQuestionResponse")
-  #     Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
-      
-  # Deps.autorun ->
-  #   # If tutee accepted tutor's request
-  #   if SessionResponse.find({}).count() > 0
-  #     console.log "SessionResponse autorun"
-  #     response = SessionResponse.findOne()
-
-  #     console.log response
-
-  #     Session.set('foundTutor?', false)
-
-  #     Meteor.subscribe 'ClassroomSession', response.sessionId, (arg) ->
-  #       console.log arg
-  #       console.log @
-  #       Router.go("/session/#{response.sessionId}")
-
-  # Deps.autorun -> 
-  #   # if tutor accepted the request
-  #   if SessionRequest.find({}).count() > 0
-  #     console.log "SessionRequest autorun"      
-  #     console.log SessionRequest.findOne()
-
-  #     # Popup tutor
-  #     Session.set('foundTutor?', true)
-
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
@@ -220,14 +181,5 @@ Meteor.startup ->
 
   # conn = undefined
   @call = undefined
-
-  # Event listener for listening for audio chat requests
-  # Deps.autorun ->
-  #   if Session.get("classroomSessionId")
-  #     ClassroomStream.on "audioRequest:#{Meteor.userId()}", (classroomSessionId) ->
-  #       console.log "Someone wants to start audio chat with me"
-  #       ClassroomStream.emit "audioResponse:#{getChatPartner().id}", "Start audio with you"
-
-  #     ClassroomStream.on "audioResponse:#{Meteor.userId()}", (message) ->
 
   console.log "Meteor startup end"
