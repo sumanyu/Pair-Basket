@@ -9,7 +9,7 @@ Template.classroomSessionPage.destroyed = ->
   console.log "Destroying classroom session page"
 
 sendMessage = ->
-  message = $(".chat-message").val()
+  message = $(".input-chat-message").val()
 
   # Prevent empty messages
   if message.length > 0
@@ -26,7 +26,7 @@ sendMessage = ->
     # Push messages
     ClassroomSession.update {_id: Session.get('classroomSessionId')}, {$push: {messages: totalMessage}}
 
-    $(".chat-message").val ""
+    $(".input-chat-message").val ""
 
 Template.chatMessages.helpers
   areMessagesReady: ->
@@ -50,7 +50,7 @@ Template.chatMessages.rendered = ->
   $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight)
 
 Template.chatBox.events 
-  "keydown .chat-message": (e, s) ->
+  "keydown .input-chat-message": (e, s) ->
     if e.keyCode is 13
       e.preventDefault()
       sendMessage()
@@ -86,7 +86,7 @@ synchronizedCloseAudioCalls = ->
   closeAudioCalls()
 
 Template.chatBox.rendered = ->
-  focusText($('.chat-message'))
+  focusText($('.input-chat-message'))
 
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
