@@ -59,7 +59,7 @@ Template.chatBox.events
     # Send request to start audio session
     # Emit to other user's userID and send classroomSessionId to ensure audiochat is valid
     # TODO: Use something less sensitive than userId when sending these messages
-    ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
+    ClassroomStream.emit "audioCallInitRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
     
     # Update UI while we wait for the response
     Session.set("awaitingReplyForAudioCall?", true)
@@ -76,17 +76,20 @@ Template.chatBox.events
       'awaitingReplyForAudioCall?'
     ]
 
+    # Send message to remote peer to end her call as well
+    ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", Session.get("classroomSessionId")
+
 Template.chatBox.rendered = ->
   focusText($('.chat-message'))
 
   # Activate stream events
-  ClassroomStream.on "audioRequest:#{Meteor.userId()}", (classroomSessionId) ->
+  ClassroomStream.on "audioCallInitRequest:#{Meteor.userId()}", (classroomSessionId) ->
     # Check if classroomSessionId is valid
     if ClassroomSession.findOne({_id: classroomSessionId})
       # Update UI to show incoming call
       Session.set('incomingAudioCall?', true)  
 
-  ClassroomStream.on "audioResponse:#{Meteor.userId()}", (audioResponse) ->
+  ClassroomStream.on "audioCallInitResponse:#{Meteor.userId()}", (audioResponse) ->
     if audioResponse
       # Call remote user
       navigator.getUserMedia {audio: true}, ((mediaStream) ->
