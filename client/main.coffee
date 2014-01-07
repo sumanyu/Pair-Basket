@@ -161,4 +161,10 @@ Meteor.startup ->
 
     Session.set('categoryFilter', categoryFilter)
 
+  # Stores instantiation of call initiated by this user
+  @call = undefined
+
+  # Stored instantiation of call of remote
+  @remoteCall = undefined
+
   console.log "Meteor startup end"

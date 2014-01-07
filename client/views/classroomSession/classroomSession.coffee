@@ -90,12 +90,6 @@ Template.chatBox.rendered = ->
   # Hard code Peer's cloud server API key for now
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
-  # Stores instantiation of call initiated by this user
-  @call = undefined
-
-  # Stored instantiation of call of remote
-  @remoteCall = undefined
-
   # Callback for when peerJS successfully loads
   peer.on 'open', (id) ->
     # Testing that peer is actually working
