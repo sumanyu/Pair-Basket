@@ -47,9 +47,7 @@ class @Pad
 
     setDefaultCanvasAttributes()
 
-    pad.on "dragstart", dragStart
-    pad.on "dragend", dragEnd
-    pad.on "drag", drag
+    hookPadEvents()
 
     # Set canvas state from localstorage
     loadCanvasState()
@@ -184,15 +182,21 @@ class @Pad
 
     drawLine(from, to)
 
-  disableLocalPad = ->
+  hookPadEvents = ->
+    pad.on "dragstart", dragStart
+    pad.on "dragend", dragEnd
+    pad.on "drag", drag
+
+  unhookPadEvents = ->
     pad.off "dragstart", dragStart
     pad.off "dragend", dragEnd
     pad.off "drag", drag
 
+  disableLocalPad = ->
+    hookPadEvents()
+
   enableLocalPad = ->
-    pad.on "dragstart", dragStart
-    pad.on "dragend", dragEnd
-    pad.on "drag", drag
+    unhookPadEvents()
 
   wipe: (emitAlso) ->
     ctx.clearRect 0, 0, canvas.width(), canvas.height()
@@ -242,10 +246,7 @@ class @Pad
 
   close: ->
     console.log "Closing pad, unloading dragstart, dragend, drag"
-
-    pad.off "dragstart", dragStart
-    pad.off "dragend", dragEnd
-    pad.off "drag", drag
+    unhookPadEvents()
 
   getRandomColor = ->
     letters = "0123456789ABCDEF".split("")
