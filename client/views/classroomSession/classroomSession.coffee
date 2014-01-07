@@ -97,9 +97,22 @@ Template.classroomSessionPage.rendered = ->
 
 Template.classroomSessionPage.events
   'click .start-audio': (e, s) ->
-    # Send user's id for now
-    # ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
+    # Send request to start audio session
+    # Emit to other user's userID and send classroomSessionId to ensure audiochat is valid
+    # TODO: Use something less sensitive than userId when sending these messages
+    ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
     
+    # Update UI while we wait for the response
+    Session.set("awaitingReplyForAudioCall?", true)
+
+ClassroomStream.on "audioRequest:#{Meteor.userId()}", (classroomSessionId) ->
+  # Check if classroomSessionId is valid
+  if ClassroomSession.findOne({_id: classroomSessionId})
+    # Update UI to show incoming call
+    Session.set('incomingAudioCall?', true)
+
+ClassroomStream.on "audioResponse:#{Meteor.userId()}", (audioResponse) ->
+  if audioResponse
     # Call remote user
     navigator.getUserMedia {audio: true}, ((mediaStream) ->
       console.log "Local media stream"
@@ -107,6 +120,13 @@ Template.classroomSessionPage.events
 
       call = peer.call("#{getChatPartner().id}", mediaStream)
 
+      if call
+        # Update UI call succeeded
+        
+
       call.on 'stream', playRemoteStream
 
       ), (err) -> console.log "Failed to get local streams", err
+  else
+    # Update UI call failed
+    
