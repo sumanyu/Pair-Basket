@@ -79,6 +79,9 @@ Template.chatBox.events
     # Send message to remote peer to end her call as well
     ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", Session.get("classroomSessionId")
 
+    # End local call
+    call.close()
+
 Template.chatBox.rendered = ->
   focusText($('.chat-message'))
 
@@ -112,7 +115,53 @@ Template.chatBox.rendered = ->
         'awaitingReplyForAudioCall?',
         'inAudioCall?'
       ]
-      
+
+  ClassroomStream.on "audioCallEnd:#{Meteor.userId()}", (message) ->
+    # End remote call
+    remoteCall.close()
+
+  # Initialize peer with current user's ID
+  # Hard code Peer's cloud server API key for now
+  @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
+
+  # Callback for when peerJS successfully loads
+  peer.on 'open', (id) ->
+    # Testing that peer is actually working
+    console.log "My id is: #{id}"
+
+  # Callback for when peerJS has initialization errors
+  peer.on 'error', (err) ->
+    console.log "PeerJS initialization error"
+    console.log err
+
+  # When you're getting a call
+  peer.on 'call', (_call) ->
+    console.log "Getting a call"
+    console.log _call
+
+    remoteCall = _call
+
+    # Open user's local mediastream, ready to be sent to the caller
+    navigator.getUserMedia(
+      {audio: true},
+      ((mediaStream) ->
+        # When mediaStream loads, answer the call, providing our mediaStream
+        remoteCall.answer(mediaStream)
+
+        # When remove user is streaming, play it right away
+        remoteCall.on 'stream', (remoteStream) ->
+          console.log remoteStream
+          playRemoteStream(remoteStream)  
+      ), 
+      ((err) -> console.log "This is my error: ", err)
+    )
+
+  # Stores instantiation of call initiated by this user
+  @call = undefined
+
+  # Stored instantiation of call of remote
+  @remoteCall = undefined
+
 Template.chatBox.helpers
   defaultAudioCall: ->
     Session.get('defaultAudioCall?') || false
