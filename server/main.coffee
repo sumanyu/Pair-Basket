@@ -19,6 +19,7 @@ Accounts.onCreateUser (options, user) ->
     user.profile = options.profile
 
   user.profile.categoryFilter = defaultCategoryFilter
+  user.profile.activeSkills = {}
 
   return user
 
