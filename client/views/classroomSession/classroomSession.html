@@ -76,7 +76,8 @@
     <div class="input-chat-message-container">
 
       {{#if incomingAudioCall}}
-        <div class="overlay"></div>
+        <div class="incoming-audio-call-overlay"></div>
+        {{!
         <div class="incoming-audio-call-popup">
           <h3>Icon</h3>
 
@@ -85,6 +86,7 @@
           </div>
           <span class="decline-button">Decline</span>
         </div>
+        }}
       {{/if}}
 
       <textarea rows="4" class='input-chat-message'></textarea><br>
