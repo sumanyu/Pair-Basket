@@ -84,12 +84,10 @@ Template.chatBox.events
     # Notify other user you want to accept call
     ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", true
 
-    # Call is no longer incoming
-    Session.set('incomingAudioCall?', false)
-
     # Now in call
-    Session.get('inAudioCall?', true)
+    Session.set('inAudioCall?', true)
     setSessionVarsWithValue false, [
+      'incomingAudioCall?',
       'awaitingReplyForAudioCall?',
       'defaultAudioCall?'
     ]
@@ -100,14 +98,12 @@ Template.chatBox.events
     # Notify other user you want to reject call
     ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", false
 
-    # Call is no longer incoming
-    Session.set('incomingAudioCall?', false)
-
     # No longer in call
     Session.get('defaultAudioCall?', true)
     setSessionVarsWithValue false, [
       'awaitingReplyForAudioCall?',
-      'inAudioCall?'
+      'inAudioCall?',
+      'incomingAudioCall?'
     ]
 
 synchronizedCloseAudioCalls = ->
