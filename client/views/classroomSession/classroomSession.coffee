@@ -79,6 +79,8 @@ Template.chatBox.events
     synchronizedCloseAudioCalls()
 
   "click .accept-incoming-audio-call": ->
+    console.log "Accepting incoming audio call" 
+
     # Notify other user you want to accept call
     ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", true
 
@@ -93,6 +95,8 @@ Template.chatBox.events
     ]
 
   "click .decline-button": ->
+    console.log "Reject incoming audio call"
+
     # Notify other user you want to reject call
     ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", false
 
@@ -160,7 +164,17 @@ Template.chatBox.rendered = ->
       Session.set('incomingAudioCall?', true)  
 
   ClassroomStream.on "audioCallResponse:#{Meteor.userId()}", (audioResponse) ->
+    console.log "Getting response from audio call request"
+
     if audioResponse
+
+      # Update UI
+      Session.set('inAudioCall?', true)
+      setSessionVarsWithValue false, [
+        'awaitingReplyForAudioCall?',
+        'defaultAudioCall?'
+      ]
+
       # Call remote user
       navigator.getUserMedia {audio: true}, ((mediaStream) ->
         console.log "Local media stream"
