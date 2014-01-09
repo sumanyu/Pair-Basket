@@ -2,8 +2,18 @@ synchronizedCloseAudioCalls = ->
   # Send message to remote peer to end her call as well
   ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", "Temporary message"
 
-  # End local call
   closeAudioCalls()
+
+closeAudioCalls = ->
+  # Update UI to end call
+  Session.set('defaultAudioCall?', true)
+  setSessionVarsWithValue false, [
+    'inAudioCall?',
+    'awaitingReplyForAudioCall?'
+  ]
+
+  # End local call
+  closeAudioStreams()  
 
 # DON'T put these under audioCallContainer.rendered
 # Because every time rendered is called, the fns are 
@@ -25,17 +35,17 @@ Template.audioCallContainer.created = ->
     console.log "Getting a call"
     console.log _call
 
-    remoteCall = _call
+    window.remoteCall = _call
 
     # Open user's local mediastream, ready to be sent to the caller
     navigator.getUserMedia(
       {audio: true},
       ((mediaStream) ->
         # When mediaStream loads, answer the call, providing our mediaStream
-        remoteCall.answer(mediaStream)
+        window.remoteCall.answer(mediaStream)
 
         # When remove user is streaming, play it right away
-        remoteCall.on 'stream', (remoteStream) ->
+        window.remoteCall.on 'stream', (remoteStream) ->
           console.log remoteStream
           playRemoteStream(remoteStream)  
       ), 
@@ -64,21 +74,24 @@ Template.audioCallContainer.created = ->
       ]
 
       # Prevent multiple calls
-      unless call
+      unless window.call
         # Call remote user
         console.log "Calling remote user"
         navigator.getUserMedia {audio: true}, ((mediaStream) ->
           console.log "Local media stream"
           console.log mediaStream
 
-          call = peer.call("#{getChatPartner().id}", mediaStream)
+          window.call = peer.call("#{getChatPartner().id}", mediaStream)
 
-          if call
+          if window.call
             # Update UI call succeeded
-            Session.get('awaitingReplyForAudioCall?', false)
-            Session.get('inAudioCall?', true)
+            Session.set('inAudioCall?', true)
+            setSessionVarsWithValue false, [
+              'awaitingReplyForAudioCall?',
+              'defaultAudioCall?'
+            ]
 
-          call.on 'stream', playRemoteStream
+          window.call.on 'stream', playRemoteStream
 
           ), (err) -> console.log "Failed to get local streams", err
     else
@@ -119,11 +132,4 @@ Template.audioCallContainer.events
     ]
 
   'click .end-call': (e, s) ->
-    # Update UI to end call
-    Session.set('defaultAudioCall?', true)
-    setSessionVarsWithValue false, [
-      'inAudioCall?',
-      'awaitingReplyForAudioCall?'
-    ]
-
     synchronizedCloseAudioCalls()

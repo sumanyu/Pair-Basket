@@ -81,7 +81,10 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     $('.wolfram').show()
     ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()
 
-@closeAudioCalls = ->
+@closeAudioStreams = ->
+  console.log call
+  console.log remoteCall
+
   call?.close()
   remoteCall?.close()
 

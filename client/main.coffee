@@ -171,9 +171,9 @@ Meteor.startup ->
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
   # Stores instantiation of call initiated by this user
-  @call = undefined
+  @call = null
 
   # Stored instantiation of call of remote
-  @remoteCall = undefined
+  @remoteCall = null
 
   console.log "Meteor startup end"
