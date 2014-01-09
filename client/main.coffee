@@ -166,6 +166,10 @@ Meteor.startup ->
 
     Session.set('categoryFilter', categoryFilter)
 
+  # Initialize peer with current user's ID
+  # Hard code Peer's cloud server API key for now
+  @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
+
   # Stores instantiation of call initiated by this user
   @call = undefined
 
