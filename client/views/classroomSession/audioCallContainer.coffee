@@ -5,7 +5,11 @@ synchronizedCloseAudioCalls = ->
   # End local call
   closeAudioCalls()
 
-Template.audioCallContainer.rendered = ->
+# DON'T put these under audioCallContainer.rendered
+# Because every time rendered is called, the fns are 
+# Re-declared, but the old fns don't dissapear
+# This causes conflict
+Template.audioCallContainer.created = ->
   # Callback for when peerJS successfully loads
   peer.on 'open', (id) ->
     # Testing that peer is actually working
@@ -46,9 +50,9 @@ Template.audioCallContainer.rendered = ->
       # Update UI to show incoming call
       Session.set('incomingAudioCall?', true)  
 
-  # Coalesce multiple calls into one
-  audioCallResponseDebounced = _.debounce((audioResponse) ->
-    console.log "Inside debounce"
+  # Due to Meteor, we get multiple requests in short successions
+  ClassroomStream.on "audioCallResponse:#{Meteor.userId()}", (audioResponse) ->
+    console.log "Calling audioCallResponse: #{audioResponse}"
 
     if audioResponse
 
@@ -84,14 +88,6 @@ Template.audioCallContainer.rendered = ->
         'awaitingReplyForAudioCall?',
         'inAudioCall?'
       ]
-  1000, false)
-
-  # Due to Meteor, we get multiple requests in short successions
-  ClassroomStream.on "audioCallResponse:#{Meteor.userId()}", (audioResponse) ->
-    console.log "Getting response from audio call request"
-    console.log audioResponse
-
-    audioCallResponseDebounced()
 
   ClassroomStream.on "audioCallEnd:#{Meteor.userId()}", (message) ->
     console.log "Getting signal to audioCallEnd"
