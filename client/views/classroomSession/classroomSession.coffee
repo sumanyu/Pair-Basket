@@ -78,6 +78,34 @@ Template.chatBox.events
 
     synchronizedCloseAudioCalls()
 
+  "click .accept-incoming-audio-call": ->
+    # Notify other user you want to accept call
+    ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", true
+
+    # Call is no longer incoming
+    Session.set('incomingAudioCall?', false)
+
+    # Now in call
+    Session.get('inAudioCall?', true)
+    setSessionVarsWithValue false, [
+      'awaitingReplyForAudioCall?',
+      'defaultAudioCall?'
+    ]
+
+  "click .decline-button": ->
+    # Notify other user you want to reject call
+    ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", false
+
+    # Call is no longer incoming
+    Session.set('incomingAudioCall?', false)
+
+    # No longer in call
+    Session.get('defaultAudioCall?', true)
+    setSessionVarsWithValue false, [
+      'awaitingReplyForAudioCall?',
+      'inAudioCall?'
+    ]
+
 synchronizedCloseAudioCalls = ->
   # Send message to remote peer to end her call as well
   ClassroomStream.emit "audioCallEnd:#{getChatPartner().id}", "Temporary message"
@@ -171,35 +199,6 @@ Template.chatBox.helpers
 
   incomingAudioCall: ->
     Session.get('incomingAudioCall?') || false
-
-Template.chatBox.events
-  "click .accept-incoming-audio-call": ->
-    # Notify other user you want to accept call
-    ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", true
-
-    # Call is no longer incoming
-    Session.set('incomingAudioCall?', false)
-
-    # Now in call
-    Session.get('inAudioCall?', true)
-    setSessionVarsWithValue false, [
-      'awaitingReplyForAudioCall?',
-      'defaultAudioCall?'
-    ]
-
-  "click .decline-button": ->
-    # Notify other user you want to reject call
-    ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", false
-
-    # Call is no longer incoming
-    Session.set('incomingAudioCall?', false)
-
-    # No longer in call
-    Session.get('defaultAudioCall?', true)
-    setSessionVarsWithValue false, [
-      'awaitingReplyForAudioCall?',
-      'inAudioCall?'
-    ]    
 
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
