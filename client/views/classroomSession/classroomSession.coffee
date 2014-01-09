@@ -187,6 +187,20 @@ Template.chatBox.events
       'defaultAudioCall?'
     ]
 
+    "click .decline-button": ->
+    # Notify other user you want to reject call
+    ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", false
+
+    # Call is no longer incoming
+    Session.set('incomingAudioCall?', false)
+
+    # No longer in call
+    Session.get('defaultAudioCall?', true)
+    setSessionVarsWithValue false, [
+      'awaitingReplyForAudioCall?',
+      'inAudioCall?'
+    ]    
+
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
