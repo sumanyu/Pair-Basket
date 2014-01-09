@@ -40,6 +40,7 @@ Template.audioCallContainer.rendered = ->
 
   # Activate stream events
   ClassroomStream.on "audioCallRequest:#{Meteor.userId()}", (classroomSessionId) ->
+    console.log "Getting audioCallRequest"
     # Check if classroomSessionId is valid
     if ClassroomSession.findOne({_id: classroomSessionId})
       # Update UI to show incoming call
@@ -84,6 +85,7 @@ Template.audioCallContainer.rendered = ->
       ]
 
   ClassroomStream.on "audioCallEnd:#{Meteor.userId()}", (message) ->
+    console.log "Getting signal to audioCallEnd"
     # End call
     closeAudioCalls()
 

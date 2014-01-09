@@ -84,3 +84,18 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 @closeAudioCalls = ->
   call?.close()
   remoteCall?.close()
+
+# Executes a function only once, coalescing multiple sequential calls 
+# into a single execution at the beginning or end.
+debounce = (func, threshold, execAsap) ->
+  timeout = null
+  (args...) ->
+    obj = this
+    delayed = ->
+      func.apply(obj, args) unless execAsap
+      timeout = null
+    if timeout
+      clearTimeout(timeout)
+    else if (execAsap)
+      func.apply(obj, args)
+    timeout = setTimeout delayed, threshold || 100
