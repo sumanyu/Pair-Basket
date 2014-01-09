@@ -172,6 +172,21 @@ Template.chatBox.helpers
   incomingAudioCall: ->
     Session.get('incomingAudioCall?') || false
 
+Template.chatBox.events
+  "click .accept-incoming-audio-call": ->
+    # Notify other user you want to accept call
+    ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", true
+
+    # Call is no longer incoming
+    Session.set('incomingAudioCall?', false)
+
+    # Now in call
+    Session.get('inAudioCall?', true)
+    setSessionVarsWithValue false, [
+      'awaitingReplyForAudioCall?',
+      'defaultAudioCall?'
+    ]
+
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
