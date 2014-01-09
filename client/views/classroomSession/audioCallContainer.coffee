@@ -46,8 +46,9 @@ Template.audioCallContainer.rendered = ->
       # Update UI to show incoming call
       Session.set('incomingAudioCall?', true)  
 
-  ClassroomStream.on "audioCallResponse:#{Meteor.userId()}", (audioResponse) ->
-    console.log "Getting response from audio call request"
+  # Coalesce multiple calls into one
+  audioCallResponseDebounced = _.debounce((audioResponse) ->
+    console.log "Inside debounce"
 
     if audioResponse
 
@@ -83,6 +84,14 @@ Template.audioCallContainer.rendered = ->
         'awaitingReplyForAudioCall?',
         'inAudioCall?'
       ]
+  1000, false)
+
+  # Due to Meteor, we get multiple requests in short successions
+  ClassroomStream.on "audioCallResponse:#{Meteor.userId()}", (audioResponse) ->
+    console.log "Getting response from audio call request"
+    console.log audioResponse
+
+    audioCallResponseDebounced()
 
   ClassroomStream.on "audioCallEnd:#{Meteor.userId()}", (message) ->
     console.log "Getting signal to audioCallEnd"

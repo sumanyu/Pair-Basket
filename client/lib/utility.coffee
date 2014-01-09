@@ -87,7 +87,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 
 # Executes a function only once, coalescing multiple sequential calls 
 # into a single execution at the beginning or end.
-debounce = (func, threshold, execAsap) ->
+@debounce = (func, threshold, execAsap) ->
   timeout = null
   (args...) ->
     obj = this
@@ -95,7 +95,7 @@ debounce = (func, threshold, execAsap) ->
       func.apply(obj, args) unless execAsap
       timeout = null
     if timeout
-      clearTimeout(timeout)
+      Meteor.clearTimeout(timeout)
     else if (execAsap)
       func.apply(obj, args)
-    timeout = setTimeout delayed, threshold || 100
+    timeout = Meteor.setTimeout delayed, threshold || 100
