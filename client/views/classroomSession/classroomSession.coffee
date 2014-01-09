@@ -187,7 +187,7 @@ Template.chatBox.events
       'defaultAudioCall?'
     ]
 
-    "click .decline-button": ->
+  "click .decline-button": ->
     # Notify other user you want to reject call
     ClassroomStream.emit "audioCallResponse:#{getChatPartner().id}", false
 
