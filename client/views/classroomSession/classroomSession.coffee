@@ -192,6 +192,7 @@ Template.chatBox.rendered = ->
         ), (err) -> console.log "Failed to get local streams", err
     else
       # Update UI call failed
+      Session.set('defaultAudioCall?', true)
       setSessionVarsWithValue false, [
         'awaitingReplyForAudioCall?',
         'inAudioCall?'
