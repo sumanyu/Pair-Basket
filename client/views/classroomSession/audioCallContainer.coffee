@@ -73,27 +73,25 @@ Template.audioCallContainer.created = ->
         'defaultAudioCall?'
       ]
 
-      # Prevent multiple calls
-      unless window.call
-        # Call remote user
-        console.log "Calling remote user"
-        navigator.getUserMedia {audio: true}, ((mediaStream) ->
-          console.log "Local media stream"
-          console.log mediaStream
+      # Call remote user
+      console.log "Calling remote user"
+      navigator.getUserMedia {audio: true}, ((mediaStream) ->
+        console.log "Local media stream"
+        console.log mediaStream
 
-          window.call = peer.call("#{getChatPartner().id}", mediaStream)
+        window.call = peer.call("#{getChatPartner().id}", mediaStream)
 
-          if window.call
-            # Update UI call succeeded
-            Session.set('inAudioCall?', true)
-            setSessionVarsWithValue false, [
-              'awaitingReplyForAudioCall?',
-              'defaultAudioCall?'
-            ]
+        if window.call
+          # Update UI call succeeded
+          Session.set('inAudioCall?', true)
+          setSessionVarsWithValue false, [
+            'awaitingReplyForAudioCall?',
+            'defaultAudioCall?'
+          ]
 
-          window.call.on 'stream', playRemoteStream
+        window.call.on 'stream', playRemoteStream
 
-          ), (err) -> console.log "Failed to get local streams", err
+        ), (err) -> console.log "Failed to get local streams", err
     else
       # Update UI call failed
       Session.set('defaultAudioCall?', true)
