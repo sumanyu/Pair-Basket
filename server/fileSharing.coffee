@@ -23,6 +23,7 @@ Meteor.methods
 
     # Run putBuffer using sync utility. Fn waits until result is available.
     # Then it calls done with url set to knox.http(path)
+    # url = {result: ..., error: ...}
     url = Async.runSync (done) ->
       knox.putBuffer buffer, path, {"Content-Type":file.type,"Content-Length":buffer.length}, (error, result) ->
         if result
@@ -63,4 +64,6 @@ Meteor.methods
 
         done(null, if result then true else false)
 
-    return url.result
+    console.log result
+
+    return result.result

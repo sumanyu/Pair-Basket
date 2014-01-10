@@ -247,13 +247,17 @@ Meteor.methods
       console.log error
 
   # Called when user clicks "X" in file sharing page in classroom session
-  deleteFileFromClassroomSession: (classroomSessionId, filePath) ->
+  deleteFileFromClassroomSession: (classroomSessionId, fileObject) ->
     # Make sure user owns classroom session
     if userOwnsClassroomSession(classroomSessionId, @userId)
       # Delete file from S3
+      result = Meteor.call 'S3delete', fileObject.path
 
-
-      # Delete file from classroomSession
+      if result
+        # Delete file from classroomSession collection
+        ClassroomSession.update({_id: classroomSessionId}, {$pull: {sharedFiles: {path: fileObject.path}}})
+      else
+        console.log "Failed to delete file on S3. Not updating the classroomSession collection"
     else
       console.log "User doesn't own the classroom session!"
 
