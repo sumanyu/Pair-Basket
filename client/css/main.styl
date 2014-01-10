@@ -715,7 +715,7 @@ body
 				set-background(_dark_gray)
 				set-border(10px solid #f1f1f1)
 				border-radius(2px)
-				cursor: pointer
+				// cursor: pointer
 
 				.upload-file-message
 					margin: 0 auto
@@ -725,6 +725,26 @@ body
 					font-size: 24px
 					width: 240px
 					margin-top: (h/3)
+
+				.shared-files
+					ul.shared-files-list
+						padding: 0
+						padding-top: 10px
+						list-style: none
+					  margin: 0
+					  border: none
+
+					li
+						margin: 5px 15px
+
+						a
+							border-radius(5px)
+							display: block
+							text-decoration: none
+							padding: 15px
+							set-background(#f1f1f1)
+							color: black
+							font-size: 18px
 
 			.upload-file
 				margin-top: 15px
