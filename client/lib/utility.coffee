@@ -90,7 +90,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 
   reader.onload = ->
     fileData.data = new Uint8Array(reader.result)
-    Meteor.call "S3upload", fileData, Session.get("classroomSessionId"), (error, result) ->
+    Meteor.call "uploadFileToClassroomSession", Session.get("classroomSessionId"), fileData, (error, result) ->
       if error
         console.log error
       else
