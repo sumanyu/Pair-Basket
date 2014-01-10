@@ -7,7 +7,7 @@
           <ul class="shared-files-list">
             {{#each sharedFiles}}
               <li>
-                <div class="delete-file"></div>
+                <div data-path="{{this.path}}" class="delete-file"></div>
                 <a href="{{this.url}}" target="_blank">{{this.name}}</a>
               </li>
             {{/each}}

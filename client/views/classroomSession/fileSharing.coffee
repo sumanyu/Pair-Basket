@@ -17,4 +17,6 @@ Template.fileSharing.events
     e.dataTransfer.dropEffect = 'copy'
 
   "click .delete-file": (e) ->
-    
+    path = $(e.target).data('path')
+    if path
+      Meteor.call 'deleteFileFromClassroomSession', Session.get('classroomSessionId'), path
