@@ -15,3 +15,6 @@ Template.fileSharing.events
     e.preventDefault()
     e.stopPropagation()
     e.dataTransfer.dropEffect = 'copy'
+
+  "click .delete-file": (e) ->
+    
