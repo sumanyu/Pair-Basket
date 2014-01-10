@@ -2,21 +2,24 @@
   <div class="file-sharing">
 
     <div class="drag-and-drop-files">
-      
+      {{#if sharedFiles }}
+        <div class="shared-files">
+          <ul>
+            {{#each sharedFiles}}
+              <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+      {{else}}
+        <div class="upload-file-message">
+          drag and drop files here, or browse and select files
+        </div>
+      {{/if}}
     </div>
 
     <div class="upload-file">
       {{> uploadFile}}
     </div>
-
-    <div class="shared-files">
-      <ul>
-        {{#each sharedFiles}}
-          <li><a href="{{this.url}}" target="_blank">{{this.name}}</a></li>
-        {{/each}}
-      </ul>
-    </div>
-
   </div>
 </template>
 
