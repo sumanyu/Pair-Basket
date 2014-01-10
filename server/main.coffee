@@ -246,6 +246,33 @@ Meteor.methods
       console.log result
       console.log error
 
+  # Called when user drags and drops or explictly uploads files
+  uploadFileToClassroomSession: (classroomSessionId, file) ->
+    console.log "Calling uploadFileToClassroomSession: ", classroomSessionId
+    # Make sure user owns classroom session
+    if userOwnsClassroomSession(classroomSessionId, @userId)
+      # Upload file to S3
+      fileObject = Meteor.call 'S3upload', file
+
+      if fileObject
+        totalMessage = 
+          message: "#{Meteor.user().profile.name} has uploaded #{fileObject.name}."
+          user:
+            id: @userId
+            name: Meteor.user().profile.name
+          type: 'alert'
+          dateCreated: new Date
+
+        # Append file to list of shared files
+        ClassroomSession.update(
+          {_id: classroomSessionId},
+          {$push: {sharedFiles: fileObject, messages: totalMessage}}
+        )
+      else
+        console.log "Failed to upload file on S3. Not updating the classroomSession collection"
+    else
+      console.log "User doesn't own the classroom session!"
+
   # Called when user clicks "X" in file sharing page in classroom session
   deleteFileFromClassroomSession: (classroomSessionId, filePath) ->
     console.log "Calling deleteFileFromClassroomSession: ", classroomSessionId, filePath

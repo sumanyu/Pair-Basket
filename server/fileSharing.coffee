@@ -10,8 +10,8 @@ Meteor.methods
       directory: object.directory || "/"
 
   # Uploads file
-  S3upload: (file, classroomSessionId) ->
-    console.log "Uploading file to classroom session #{classroomSessionId}"
+  S3upload: (file) ->
+    console.log "Uploading file to S3"
 
     # Set file unique id
     extension = (file.name).match(/\.[0-9a-z]{1,5}$/i) || ""
@@ -37,20 +37,10 @@ Meteor.methods
       name: _filename
       dateCreated: new Date
 
-    console.log _file
-
-    totalMessage = 
-      message: "#{Meteor.user().profile.name} has uploaded #{_filename}."
-      user:
-        id: @userId
-        name: Meteor.user().profile.name
-      type: 'alert'
-      dateCreated: new Date
-
-    # Append file to list of shared files
-    ClassroomSession.update {_id: classroomSessionId}, {$push: {sharedFiles: _file, messages: totalMessage}}
-
-    return url
+    if url.error
+      return false
+    else
+      return _file
 
   # Deletes file on S3 server
   S3delete: (path) ->
