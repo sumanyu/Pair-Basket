@@ -52,10 +52,15 @@ Meteor.methods
     return url
 
   # Deletes file on S3 server
-  S3delete: (path, classroomSessionId) ->
-    knox.deleteFile path, (error, result) ->
-      if error
-        console.log "Error deleting S3 file"
-        console.log error
-      else
-        # Update UI
+  S3delete: (path) ->
+    result = Async.runSync (done) ->    
+      knox.deleteFile path, (error, result) ->
+        if error
+          console.log "Error deleting S3 file"
+          console.log error
+        else
+          console.log result
+
+        done(null, if result then true else false)
+
+    return url.result

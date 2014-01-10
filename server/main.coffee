@@ -86,6 +86,13 @@ deleteSharedFilesFromClassroomSession = (classroomSession) ->
   classroomSession.sharedFiles.forEach (file) ->
     Meteor.call 'S3delete', file.path
 
+userOwnsClassroomSession = (classroomSessionId, userId) ->
+  ClassroomSession.findOne(
+    {$or: [
+      {$and: [{'tutor.status': true}, {'tutor.id': userId}]},
+      {$and: [{'tutee.status': true}, {'tutee.id': userId}]}
+    ]})?
+
 Meteor.methods
   createNewQuestion: (questionData) ->
     currentUser = Meteor.user()
@@ -238,6 +245,17 @@ Meteor.methods
     Feedback.insert feedbackData, (error, result) ->
       console.log result
       console.log error
+
+  # Called when user clicks "X" in file sharing page in classroom session
+  deleteFileFromClassroomSession: (classroomSessionId, filePath) ->
+    # Make sure user owns classroom session
+    if userOwnsClassroomSession(classroomSessionId, @userId)
+      # Delete file from S3
+
+
+      # Delete file from classroomSession
+    else
+      console.log "User doesn't own the classroom session!"
 
   # Configure S3 storage
   Meteor.call "S3config", 
