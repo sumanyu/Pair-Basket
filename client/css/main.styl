@@ -818,7 +818,7 @@ body
 
 			.chat-messages
 				height: 300px
-				width: 250px
+				width: 280px
 				padding: 10px
 				overflow: auto
 				word-wrap: break-word
@@ -826,8 +826,43 @@ body
 				container-border()
 				margin-bottom: 10px
 
-			.chat-message
-				width: 250px
+			.input-chat-message-container
+
+				.incoming-audio-call-overlay
+					opacity: 0.7
+					background: black
+					width: 280px
+					height: 140px
+					z-index: 90
+					position: fixed
+
+				.incoming-audio-call-popup
+					width: 280px
+					height: 140px
+					position: fixed
+					z-index: 91
+
+					.accept-incoming-audio-call
+						margin: 0 auto
+						width: 80px
+						padding: 10px 15px 10px 15px
+
+					.decline-button
+						text-align: center
+						text-decoration: underline
+						color: _dark_yellow
+						cursor: pointer
+						margin-top: 5px
+
+				.input-chat-message
+					width: 260px
+					margin-left: 10px
+					margin-top: 10px
+					container-border()
+					outline: 0px transparent
+
+				.audio-call-container
+					margin: 5px 10px 5px 10px
 
 	#profile
 
