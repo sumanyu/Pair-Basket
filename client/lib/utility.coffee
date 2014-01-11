@@ -80,3 +80,25 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   if Session.get('wolframIsSelected?')
     $('.wolfram').show()
     ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()
+
+@closeAudioStreams = ->
+  console.log call
+  console.log remoteCall
+
+  call?.close()
+  remoteCall?.close()
+
+# Executes a function only once, coalescing multiple sequential calls 
+# into a single execution at the beginning or end.
+@debounce = (func, threshold, execAsap) ->
+  timeout = null
+  (args...) ->
+    obj = this
+    delayed = ->
+      func.apply(obj, args) unless execAsap
+      timeout = null
+    if timeout
+      Meteor.clearTimeout(timeout)
+    else if (execAsap)
+      func.apply(obj, args)
+    timeout = Meteor.setTimeout delayed, threshold || 100

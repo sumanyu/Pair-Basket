@@ -8,56 +8,6 @@ Template.classroomSessionPage.created = ->
 Template.classroomSessionPage.destroyed = ->
   console.log "Destroying classroom session page"
 
-sendMessage = ->
-  message = $(".chat-message").val()
-
-  # Prevent empty messages
-  if message.length > 0
-    totalMessage = 
-      message: message
-      user:
-        id: Meteor.userId()
-        name: Meteor.user().profile.name
-      type: 'normal'
-      dateCreated: new Date
-
-    console.log totalMessage
-
-    # Push messages
-    ClassroomSession.update {_id: Session.get('classroomSessionId')}, {$push: {messages: totalMessage}}
-
-    $(".chat-message").val ""
-
-Template.chatMessages.helpers
-  areMessagesReady: ->
-    getCurrentClassroomSession() || false
-
-  messages: ->
-    # fetch all chat messages
-    getCurrentClassroomSession(['messages']).messages
-
-  chatPartner: ->
-    getChatPartner().name
-
-Template.chatMessage.helpers
-  isNormalMessage: ->
-    @.type is 'normal'
-
-Template.chatMessages.rendered = ->
-  console.log "Chat messages re-rendering..."
-
-  # Auto-scroll chat
-  $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight)
-
-Template.chatBox.events 
-  "keydown .chat-message": (e, s) ->
-    if e.keyCode is 13
-      e.preventDefault()
-      sendMessage()
-
-Template.chatBox.rendered = ->
-  focusText($('.chat-message'))
-
 Template.classroomSessionSidebar.helpers
   whiteboardIsSelected: ->
     Session.get('whiteboardIsSelected?')
@@ -90,30 +40,8 @@ Template.classroomSessionSidebar.events
       if err
         console.log err
       else
+        synchronizedCloseAudioCalls()
         Router.go('/dashboard')
 
 Template.classroomSessionPage.rendered = ->
   showActiveClassroomSessionTool()
-
-Template.classroomSessionPage.events
-  'click .start-audio': (e, s) ->
-    # Send user's id for now
-    # ClassroomStream.emit "audioRequest:#{getChatPartner().id}", Session.get("classroomSessionId")
-    
-    # For data connections
-    # conn = peer.connect("#{getChatPartner.id}")
-
-    console.log 
-
-    # For calls
-    navigator.getUserMedia {audio: true}, ((mediaStream) ->
-      console.log "Local media stream"
-      console.log mediaStream
-
-      call = peer.call("#{getChatPartner().id}", mediaStream)
-
-      console.log call
-
-      call.on 'stream', playRemoteStream
-
-      ), (err) -> console.log "Failed to get local streams", err

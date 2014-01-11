@@ -8,51 +8,65 @@ Meteor.startup ->
 
   setSessionVarsWithValue false, [
     # Pending session that user left unended should redirect to session itself
-    'pendingSession?',
+    'pendingSession?'
 
     # Ensure skills has loaded
     'hasSkillsCollectionLoaded?'
 
     # Ensure questions has loaded
-    'hasQuestionsCollectionLoaded?',
+    'hasQuestionsCollectionLoaded?'
 
     # Ensure ClassroomSession collection has loaded
-    'hasClassroomSessionCollectionLoaded?',
+    'hasClassroomSessionCollectionLoaded?'
 
     # Ensure Users collection had loaded
-    'hasUsersCollectionLoaded?',
+    'hasUsersCollectionLoaded?'
 
     # Ensure all collections have loaded before performing some action
-    'haveAllCollectionsLoaded?',
+    'haveAllCollectionsLoaded?'
 
     # Click feedback button
-    'feedbackPopup?',
+    'feedbackPopup?'
 
     # Is the client asking a question?
-    'askingQuestion?',
+    'askingQuestion?'
 
     # Has the client found a tutor? If so, prompt user to accept/decline tutor's request
-    'foundTutor?',
+    'foundTutor?'
 
     # Alert the user she doesn't have enough Karma
     'showNotEnoughKarma?'
 
     # Profile: toggle skill
     'editingSkills?'
+
+    # Waiting for reply for audio call
+    'awaitingReplyForAudioCall?'
+
+    # Currently in audio call
+    'inAudioCall?'
+
+    # Incoming audio call?
+    'incomingAudioCall?'
   ]
+
+  setSessionVarsWithValue true, [
+    # Default audioCall action (no action yet)
+    'defaultAudioCall?'
+  ]  
 
   setSessionVarsWithValue null, [
     # Has non-null value if question comes from the landing page prompt
-    'questionFromLandingPrompt',
+    'questionFromLandingPrompt'
 
     # Error message for ask question
-    'questionFormError',
+    'questionFormError'
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestion',
+    'subscribedQuestion'
 
     # Subscribe user to user's asked question ID
-    'subscribedQuestionResponse',
+    'subscribedQuestionResponse'
 
     # Active classroom session Id
     'classroomSessionId'
@@ -152,82 +166,14 @@ Meteor.startup ->
 
     Session.set('categoryFilter', categoryFilter)
 
-  # Automatically redirect user to session if user had a session open and didn't end it properly
-  # Deps.autorun ->
-  #   if Session.get('pendingSession?')
-  #     Router.go("/session/#{Session.get("sessionId")}")
-
-  #### End autoruns
-
-  # Deps.autorun ->
-  #   if Session.get("subscribedQuestion")
-  #     Meteor.subscribe "sessionRequest", Session.get("subscribedQuestion")
-
-  # Deps.autorun ->
-  #   if Session.get("subscribedQuestionResponse")
-  #     Meteor.subscribe "sessionResponse", Session.get("subscribedQuestionResponse")
-      
-  # Deps.autorun ->
-  #   # If tutee accepted tutor's request
-  #   if SessionResponse.find({}).count() > 0
-  #     console.log "SessionResponse autorun"
-  #     response = SessionResponse.findOne()
-
-  #     console.log response
-
-  #     Session.set('foundTutor?', false)
-
-  #     Meteor.subscribe 'ClassroomSession', response.sessionId, (arg) ->
-  #       console.log arg
-  #       console.log @
-  #       Router.go("/session/#{response.sessionId}")
-
-  # Deps.autorun -> 
-  #   # if tutor accepted the request
-  #   if SessionRequest.find({}).count() > 0
-  #     console.log "SessionRequest autorun"      
-  #     console.log SessionRequest.findOne()
-
-  #     # Popup tutor
-  #     Session.set('foundTutor?', true)
-
   # Initialize peer with current user's ID
   # Hard code Peer's cloud server API key for now
   @peer = new Peer(Meteor.userId(), {key: 'bpdi6rltdw0qw7b9'})
 
-  peer.on 'open', (id) ->
-    # Testing that peer is actually working
-    console.log "My id is: #{id}"
+  # Stores instantiation of call initiated by this user
+  @call = null
 
-  peer.on 'call', (_call) ->
-    console.log "Getting a call"
-    console.log _call
-
-    navigator.getUserMedia(
-      {audio: true},
-      ((mediaStream) ->
-        # Answer the call, providing our mediaStream
-        _call.answer(mediaStream)
-        _call.on 'stream', (remoteStream) ->
-          console.log remoteStream
-          playRemoteStream(remoteStream)  
-      ), 
-      ((err) -> console.log "This is my error: ", err)
-    )
-
-  peer.on 'error', (err) ->
-    console.log err
-
-  # conn = undefined
-  @call = undefined
-
-  # Event listener for listening for audio chat requests
-  # Deps.autorun ->
-  #   if Session.get("classroomSessionId")
-  #     ClassroomStream.on "audioRequest:#{Meteor.userId()}", (classroomSessionId) ->
-  #       console.log "Someone wants to start audio chat with me"
-  #       ClassroomStream.emit "audioResponse:#{getChatPartner().id}", "Start audio with you"
-
-  #     ClassroomStream.on "audioResponse:#{Meteor.userId()}", (message) ->
+  # Stored instantiation of call of remote
+  @remoteCall = null
 
   console.log "Meteor startup end"
