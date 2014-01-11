@@ -10,8 +10,8 @@ Meteor.methods
       directory: object.directory || "/"
 
   # Uploads file
-  S3upload: (file, classroomSessionId) ->
-    console.log "Uploading file to classroom session #{classroomSessionId}"
+  S3upload: (file) ->
+    console.log "Uploading file to S3"
 
     # Set file unique id
     extension = (file.name).match(/\.[0-9a-z]{1,5}$/i) || ""
@@ -23,6 +23,7 @@ Meteor.methods
 
     # Run putBuffer using sync utility. Fn waits until result is available.
     # Then it calls done with url set to knox.http(path)
+    # url = {result: ..., error: ...}
     url = Async.runSync (done) ->
       knox.putBuffer buffer, path, {"Content-Type":file.type,"Content-Length":buffer.length}, (error, result) ->
         if result
@@ -36,26 +37,23 @@ Meteor.methods
       name: _filename
       dateCreated: new Date
 
-    console.log _file
-
-    totalMessage = 
-      message: "#{Meteor.user().profile.name} has uploaded #{_filename}."
-      user:
-        id: @userId
-        name: Meteor.user().profile.name
-      type: 'alert'
-      dateCreated: new Date
-
-    # Append file to list of shared files
-    ClassroomSession.update {_id: classroomSessionId}, {$push: {sharedFiles: _file, messages: totalMessage}}
-
-    return url
+    if url.error
+      return false
+    else
+      return _file
 
   # Deletes file on S3 server
   S3delete: (path) ->
-    knox.deleteFile path, (error, result) ->
-      if error
-        console.log "Error deleting S3 file"
-        console.log error
-      else
-        console.log result
+    result = Async.runSync (done) ->    
+      knox.deleteFile path, (error, result) ->
+        if error
+          console.log "Error deleting S3 file"
+          console.log error
+        else
+          console.log result
+
+        done(null, if result then true else false)
+
+    console.log result
+
+    return result.result

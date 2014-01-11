@@ -81,6 +81,23 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     $('.wolfram').show()
     ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()
 
+@uploadFileToS3 = (file) ->
+  reader = new FileReader
+  fileData =
+    name: file.name
+    size: file.size
+    type: file.type
+
+  reader.onload = ->
+    fileData.data = new Uint8Array(reader.result)
+    Meteor.call "uploadFileToClassroomSession", Session.get("classroomSessionId"), fileData, (error, result) ->
+      if error
+        console.log error
+      else
+        console.log result
+
+  reader.readAsArrayBuffer file
+
 @closeAudioStreams = ->
   console.log call
   console.log remoteCall
