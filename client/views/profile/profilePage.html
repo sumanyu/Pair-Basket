@@ -12,12 +12,20 @@
 
 		<div class="tutees">
 			<h4>Students</h4>
-			<div>{{profile.tutees}}</div>
+			{{#each profile.tutees}}
+			<div class="profile-picture">
+				<a title='{{this}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
+			</div>
+			{{/each}}
 		</div>
 
 		<div class="tutors">
 			<h4>Mentors</h4>
-			<div>{{profile.tutors}}</div>
+			{{#each profile.tutors}}
+			<div class="profile-picture">
+				<a title='{{this}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
+			</div>
+			{{/each}}
 		</div>
 	</div>
 
