@@ -32,11 +32,13 @@
 	<div class="section">
 		<h1>Disciplines</h1>
 		{{#if viewingSelfProfile}}
+			<p>
 			{{#if editingSkills}}
-				<div class="edit-skills-button blue-button">Hide Inactive</div>
+				<a class="edit-skills-button">Hide Inactive</a>
 			{{else}}
-				<div class="edit-skills-button blue-button">Edit</div>
+				<a class="edit-skills-button">Edit</a>
 			{{/if}}
+			</p>
 		{{/if}}
 
 		{{#each skills}}
