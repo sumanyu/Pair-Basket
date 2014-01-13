@@ -14,7 +14,7 @@
 			<h4>Students</h4>
 			{{#each profile.tutees}}
 			<div class="profile-picture">
-				<a title='{{this}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
+				<a href='/profile/{{this.userId}}' title='{{this.name}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
 			</div>
 			{{/each}}
 		</div>
@@ -23,7 +23,7 @@
 			<h4>Mentors</h4>
 			{{#each profile.tutors}}
 			<div class="profile-picture">
-				<a title='{{this}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
+				<a href='/profile/{{this.userId}}'title='{{this.name}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
 			</div>
 			{{/each}}
 		</div>

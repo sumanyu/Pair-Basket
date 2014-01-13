@@ -13,10 +13,14 @@
 
   sessionHistory.forEach (session) ->
     if session.tutee.id == profileId
-      tutors.push session.tutor.name
+      tutors.push
+        name: session.tutor.name
+        userId: session.tutor.id
 
     if session.tutor.id == profileId
-      tutees.push session.tutee.name
+      tutees.push
+        name: session.tutee.name
+        userId: session.tutee.id
 
   result = {
     'tutors': tutors
