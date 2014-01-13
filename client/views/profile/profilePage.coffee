@@ -20,6 +20,12 @@ Template.profilePage.helpers
   skills: ->
     Skills.find({})
 
+  noActiveSkills: ->
+    if Object.keys(Session.get('profile').activeSkills).length == 0
+      return true
+    else
+      return false
+
   isSkillActive: (skill) ->
     if Session.get('profile')
 

@@ -42,6 +42,9 @@
 				<a class="edit-skills-button">Hide Inactive</a>
 			{{else}}
 				<a class="edit-skills-button">Edit</a>
+				{{#if noActiveSkills}}
+				<p>Let us know your strengths so that we can recommend the right questions</p>
+				{{/if}}
 			{{/if}}
 			</p>
 		{{/if}}
