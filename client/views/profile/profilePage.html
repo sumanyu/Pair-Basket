@@ -1,27 +1,52 @@
 <template name="profilePage">
 	{{getProfile profileId}}
+	<div class="dashboard-button">
+		<p>
+			<a href="/dashboard">Back to Dashboard</a>
+		</p>
+	</div>
 
 	<div class="section">
-		{{!--
-		<div class="picture">
-			<img src="/sumanyu.jpeg"/>
+		<div class="personal">
+			<div class="picture">
+				<img style="width: 150px" src="/logo-black.png"/>
+			</div>
+			<div class="name">{{profile.name}}</div>
+			<div class="school">{{underscoreToSpace profile.school}}</div>
 		</div>
-		--}}
-		<div class="name">Name: {{profile.name}}</div>
-		<div class="school">School: {{underscoreToSpace profile.school}}</div>
-		<h1>Learning</h1>
-		<div class="tutees">{{profile.name}} has helped: {{profile.tutees}}</div>
-		<div class="tutors">{{profile.name}} was helped by: {{profile.tutors}}</div>
+
+		<div class="tutees">
+			<h4>Students</h4>
+			{{#each profile.tutees}}
+			<div class="profile-picture">
+				<a href='/profile/{{this.userId}}' title='{{this.name}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
+			</div>
+			{{/each}}
+		</div>
+
+		<div class="tutors">
+			<h4>Mentors</h4>
+			{{#each profile.tutors}}
+			<div class="profile-picture">
+				<a href='/profile/{{this.userId}}'title='{{this.name}}'><img style="height: 34px; width: 25px" src="/logo-black.png"/></a>
+			</div>
+			{{/each}}
+		</div>
 	</div>
 
 	<div class="section">
 		<h1>Disciplines</h1>
 		{{#if viewingSelfProfile}}
+			<p>
 			{{#if editingSkills}}
-				<div class="edit-skills-button blue-button">Hide Inactive</div>
+				<a class="edit-skills-button">Hide Inactive</a>
 			{{else}}
-				<div class="edit-skills-button blue-button">Edit</div>
+				<a class="edit-skills-button">Edit</a>
+				{{#if noActiveSkills}}
+				<p>Let us know your strengths so that we can recommend the right questions</p>
+				{{/if}}
 			{{/if}}
+			</p>
 		{{/if}}
 
 		{{#each skills}}

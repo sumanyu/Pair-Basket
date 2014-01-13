@@ -484,7 +484,9 @@ body
 			// border-radius(15px)
 
 		.left-item
-			height: 30px
+			float: left
+			clear: both
+			margin-bottom: 5px
 
 		.question-tag
 			background: _dark_gray
@@ -493,6 +495,7 @@ body
 			font-size: 14px
 			padding: 2px 10px
 			margin-right: 10px
+			margin-top: 3px
 			display: block
 			float: left
 			text-decoration: none
@@ -893,27 +896,67 @@ body
 		.section
 			width: 100%
 			clear: both
+			padding-top: 20px
+
+		.dashboard-button
+			p
+				margin: 5px 0px
 
 		.picture img
 			width: 200px
 			height: 200px
 
+		.name
+			font-size: 26px
+
+		.school
+			font-size: 20px
+			color: _dark_gray
+
+		.personal, .tutees, .tutors
+			width: 200px
+			height: 260px
+			float: left
+			margin-right: 40px
+
+		.tutees, .tutors
+			border: solid 1px _light_gray
+			padding: 0px 20px
+			border-radius(5px)
+
+			h4
+				text-align: center
+				margin: 10px
+				border-bottom: solid 1px _light_gray
+
+			p
+				text-align: center
+				margin: 10px
+
+			.profile-picture
+				float: left
+				margin: 3px
+
 		.edit-skills-button
-			padding: 10px
-			width: 130px
-			margin: 10px 0px
+			margin-left: 2px
+			cursor: pointer
 
 		.skill-box
-			width: 100px
-			height: 100px
+			// width: 100px
+			// height: 100px
+			border-radius(5px)
+			font-size: 14px
 			display: block
 			float: left
 			word-wrap: break-word
-			padding: 3px
 			margin: 5px
+			padding: 2px 10px
+			cursor: pointer
+
 
 		.active
-			background-color: _yellow
+			background-color: _dark_yellow
 
 		.inactive
 			background-color: _dark_gray
+			color: white
