@@ -814,7 +814,7 @@ body
 			animate-transition()
 
 		.chat-box-container
-			padding: 25px
+			padding: 25px 25px 0px 25px
 			set-background(#f1f1f1)
 
 			.chat-messages
@@ -860,7 +860,22 @@ body
 					outline: 0px transparent
 
 				.audio-call-container
-					margin: 5px 10px 5px 10px
+					padding: 5px 10px
+
+					.start-call, .awaiting-reply, .end-call
+						width: 50px
+						cursor: pointer
+						text-align: center
+
+						img
+							height: 40px
+							width: 40px
+
+						div
+							line-height: 90%
+							color: _dark_gray
+							font-size: 12px
+							position: relative
 
 	#profile
 
