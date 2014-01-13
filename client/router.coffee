@@ -57,6 +57,12 @@ Router.map ->
         to: 'footer'
       feedback:
         to: 'feedback'
+    data: () ->
+      # allow html template to use userId of browsed profile
+      return {
+        headerAskQuestionButton: true
+      }
+
     before: ->
       console.log "Calling before in dashboard"
 
