@@ -17,3 +17,5 @@ Template.header.helpers
 Template.header.rendered = ->
   if not Meteor.user()
     $('.dropdown-toggle').html('Sign In')
+  else
+    $('#login-buttons-open-change-password').before('<a href="/profile" class="btn btn-default btn-block">My Profile</a>')
