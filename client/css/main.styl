@@ -827,19 +827,19 @@ body
 
 			.input-chat-message-container
 				margin-top: 15px
+				width: 300px
+
+				.incoming-audio-call-overlay, .incoming-audio-call-popup
+					width: @width
+					height: 145px
+					position: fixed
 
 				.incoming-audio-call-overlay
 					opacity: 0.7
 					background: black
-					width: 280px
-					height: 140px
 					z-index: 90
-					position: fixed
 
 				.incoming-audio-call-popup
-					width: 280px
-					height: 140px
-					position: fixed
 					z-index: 91
 
 					.accept-incoming-audio-call
