@@ -48,6 +48,10 @@ Template.chatBox.events
 Template.chatBox.rendered = ->
   focusText($('.input-chat-message'))
 
+  # Hack to make chat full screen. Fix this later.
+  # Set that height to chat-messages
+  $('.chat-messages').height(window.innerHeight - 215)
+
 Template.incomingCallContainer.events
   "click .accept-incoming-audio-call": ->
     console.log "Accepting incoming audio call" 

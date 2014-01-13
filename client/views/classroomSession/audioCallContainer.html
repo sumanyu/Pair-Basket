@@ -1,9 +1,18 @@
 <template name="audioCallContainer">
   {{#if defaultAudioCall }}
-    <button type="button" class="btn btn-default start-call">Start call</button>
+    <div class="start-call">
+      <img src="/mic_dark.png" />
+      <div>call</div>
+    </div>
   {{else}} {{#if awaitingReplyForAudioCall }}
-    <div> Awaiting reply </div>
+    <div class="awaiting-reply">
+      <img src="/awaiting_reply.png" />
+      <div>awaiting reply</div>
+    </div>
   {{else}} {{#if inAudioCall }}
-    <button type="button" class="btn btn-default end-call">End call</button>
+    <div class="end-call">
+      <img src="/end.png" />
+      <div>end</div>
+    </div>
   {{/if}} {{/if}} {{/if}}  
 </template>
