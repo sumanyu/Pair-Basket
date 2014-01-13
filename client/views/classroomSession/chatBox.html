@@ -1,0 +1,64 @@
+<template name='chatBox'>
+  <div class="chat-box-container">
+
+    <div class="chat-messages">
+      {{> chatMessages}}
+    </div>
+
+    <div class="input-chat-message-container">
+      {{> chatMessageContainer}}
+    </div>
+  </div>
+</template>
+
+<template name="chatMessageContainer">
+  {{> incomingCallContainer}}
+
+  <textarea rows="4" class='input-chat-message'></textarea><br>
+
+  <div class="audio-call-container">
+    {{> audioCallContainer}}
+  </div>  
+</template>
+
+<template name="incomingCallContainer">
+  {{#if incomingAudioCall}}
+    <div class="incoming-audio-call-overlay"></div>
+    <div class="incoming-audio-call-popup">
+      <img class="audio-call-logo" src="/mic_light.png" />
+      <div class="accept-incoming-audio-call yellow-button">
+        Answer
+      </div>
+      <div class="decline-button">Decline</div>
+    </div>
+  {{/if}}
+</template>
+
+<template name="chatMessages">
+  {{#if areMessagesReady }}
+
+    <div>
+      Now chatting with {{chatPartner}}. Say hi!
+    </div>
+
+    {{#each messages}}
+      {{> chatMessage}}
+    {{/each}}
+
+  {{else}}
+    Loading...
+  {{/if}}
+</template>
+
+<template name='chatMessage'>
+
+  {{#if isNormalMessage}}
+    <div>
+      <b>{{user.name}}:</b> {{message}}
+    </div>
+  {{else}}
+    <div>
+      <i>{{message}}</i>
+    </div>
+  {{/if}}
+</template>

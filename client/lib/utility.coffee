@@ -80,3 +80,42 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   if Session.get('wolframIsSelected?')
     $('.wolfram').show()
     ['.file-sharing', '.whiteboard'].forEach (selector) -> $(selector).hide()
+
+@uploadFileToS3 = (file) ->
+  reader = new FileReader
+  fileData =
+    name: file.name
+    size: file.size
+    type: file.type
+
+  reader.onload = ->
+    fileData.data = new Uint8Array(reader.result)
+    Meteor.call "uploadFileToClassroomSession", Session.get("classroomSessionId"), fileData, (error, result) ->
+      if error
+        console.log error
+      else
+        console.log result
+
+  reader.readAsArrayBuffer file
+
+@closeAudioStreams = ->
+  console.log call
+  console.log remoteCall
+
+  call?.close()
+  remoteCall?.close()
+
+# Executes a function only once, coalescing multiple sequential calls 
+# into a single execution at the beginning or end.
+@debounce = (func, threshold, execAsap) ->
+  timeout = null
+  (args...) ->
+    obj = this
+    delayed = ->
+      func.apply(obj, args) unless execAsap
+      timeout = null
+    if timeout
+      Meteor.clearTimeout(timeout)
+    else if (execAsap)
+      func.apply(obj, args)
+    timeout = Meteor.setTimeout delayed, threshold || 100

@@ -30,22 +30,7 @@ Handlebars.registerHelper(
       "change input[type=file]": (e) ->
         files = e.currentTarget.files
 
-        _.each files, (file) ->
-          reader = new FileReader
-          fileData =
-            name: file.name
-            size: file.size
-            type: file.type
-
-          reader.onload = ->
-            fileData.data = new Uint8Array(reader.result)
-            Meteor.call "S3upload", fileData, Session.get("classroomSessionId"), (error, result) ->
-              if error
-                console.log error
-              else
-                console.log result
-
-          reader.readAsArrayBuffer file
+        _.each files, uploadFileToS3
 
     , html)
 
