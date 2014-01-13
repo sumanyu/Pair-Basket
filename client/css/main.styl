@@ -814,19 +814,19 @@ body
 			animate-transition()
 
 		.chat-box-container
-			padding: 20px
+			padding: 25px
+			set-background(#f1f1f1)
 
 			.chat-messages
 				height: 300px
-				width: 280px
+				width: 100%
 				padding: 10px
 				overflow: auto
 				word-wrap: break-word
-				border-radius(2px)
-				container-border()
-				margin-bottom: 10px
+				set-background(white)
 
 			.input-chat-message-container
+				margin-top: 15px
 
 				.incoming-audio-call-overlay
 					opacity: 0.7
@@ -855,9 +855,7 @@ body
 						margin-top: 5px
 
 				.input-chat-message
-					width: 260px
-					margin-left: 10px
-					margin-top: 10px
+					width: 100%
 					container-border()
 					outline: 0px transparent
 
