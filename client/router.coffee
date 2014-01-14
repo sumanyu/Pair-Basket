@@ -7,7 +7,7 @@ Router.configure
     header:
       to: 'header'
     footer:
-      to: 'footer'      
+      to: 'footer'
   before: ->
     console.log "Router:Global:before: route name: #{@route.name}"
 
