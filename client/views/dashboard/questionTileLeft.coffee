@@ -5,7 +5,7 @@ Template.questionTileLeft.helpers
     )
 
     if skill
-      return skill.name
+      return underscoreToSpace(skill.name)
 
     # temporary hack to display fixture skills property
     else

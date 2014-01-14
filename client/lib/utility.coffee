@@ -119,3 +119,6 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     else if (execAsap)
       func.apply(obj, args)
     timeout = Meteor.setTimeout delayed, threshold || 100
+
+@underscoreToSpace = (string) ->
+  string.split("_").join(" ");
