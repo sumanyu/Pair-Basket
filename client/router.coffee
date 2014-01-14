@@ -123,6 +123,14 @@ Router.map ->
         to: 'footer'
       feedback:
         to: 'feedback'
+    before: ->
+      console.log "Calling before /profile"
+
+      Meteor.call 'getUserProfile', Meteor.userId(), (error, result) ->
+        console.log "getting user profile"
+        console.log error
+        console.log result
+        Session.set('profile', result)
 
   @route 'profile-id',
     path: '/profile/:profileId'
@@ -135,13 +143,18 @@ Router.map ->
         to: 'footer'
       feedback:
         to: 'feedback'
-    data: () ->
-      # allow html template to use userId of browsed profile
-      return {
-        profileId: @params.profileId
-      }
-
     before: ->
       console.log "Calling before profileId"
 
       console.log "Router: profileId: #{@params.profileId}"
+      # if !Meteor.users.findOne({_id: @params.profileId})
+      #   @stop()
+
+      Meteor.call 'getUserProfile', @params.profileId, (error, result) ->
+        console.log "getting user profile"
+        console.log error
+        console.log result
+        Session.set('profile', result)
+
+      if not Session.get('profile')
+        @redirect('/404')

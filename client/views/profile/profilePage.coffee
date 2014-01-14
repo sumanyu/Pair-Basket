@@ -1,15 +1,4 @@
 Template.profilePage.helpers
-  getProfile: (profileId) ->
-    if not profileId
-      profileId = Meteor.userId()
-
-    Meteor.call 'getUserProfile', profileId, (error, result) ->
-      console.log "getting user profile"
-      console.log error
-      console.log result
-
-      Session.set('profile', result)
-
   viewingSelfProfile: ->
     if Session.get('profile')
       Meteor.userId() == Session.get('profile').id
