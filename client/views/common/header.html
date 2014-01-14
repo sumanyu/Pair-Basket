@@ -1,14 +1,16 @@
 <template name="header">
   <div class="header">
     <div class="header-content">
-      <div class="header-title">
-        <div class="logo-wrapper">
-          <img class="logo" src="/logo-black.png"></img>
+      <a href='/dashboard'>
+        <div class="header-title">
+          <div class="logo-wrapper">
+            <img class="logo" src="/logo-black.png"></img>
+          </div>
+          <div class="title-wrapper">
+            PairBasket
+          </div>
         </div>
-        <div class="title-wrapper">
-          PairBasket
-        </div>
-      </div>
+      </a>
       <div class="header-buttons">
         {{#if currentUser}}
           {{#if headerAskQuestionButton}}
