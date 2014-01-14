@@ -15,7 +15,7 @@ Template.askQuestionForm.rendered = ->
   skills.forEach (skill) ->
     skillData.push
       id: skill._id
-      text: skill.name
+      text: underscoreToSpace(skill.name)
 
   $("#question-skills").select2({
     placeholder: 'Disciplines'
