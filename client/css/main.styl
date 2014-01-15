@@ -262,6 +262,95 @@ body
 			font-size:35pt;
 
 		}
+
+		.call-to-action
+			margin-top: 30px
+			margin-left: -70px
+
+			.square-button
+				height: 55px
+				line-height: @height
+				width: 150px
+				text-align: center
+				vertical-align: center
+				background: _yellow
+				font-size: 18px
+				font-weight: bold
+				border-radius(2px)
+				box-shadow(0 5px _dark_yellow)
+
+			.square-button:hover
+				cursor: pointer
+				margin-top: -1px
+				box-shadow(0 6px _dark_yellow)
+
+			.square-button:active
+				margin-top: 5px
+				box-shadow(0 0px _dark_yellow)
+
+			.help-others-btn
+				// float: left
+
+			.ask-question-btn
+				// float: right
+
+			.help-others-wrapper
+				background: _yellow
+				border-radius(2px)
+				box-shadow(0 5px _dark_yellow)
+
+			.ask-question-wrapper, .help-others-wrapper
+				background: _yellow
+				border-radius(2px)
+				box-shadow(0 8px _dark_yellow)
+				// height: 200px
+				padding: 10px 5px 10px 30px
+				width: 425px
+
+				.ask-question-form, .help-others-form
+
+					.questions-group
+						float: left
+						width: 300px
+
+						.email, .password, .question, .name, .school
+							margin-top: 5px
+							margin-bottom: 5px
+
+					// Make this auto resize later
+					.submit-group
+						float: left
+						height: 130px
+						margin-top: 5px
+
+						.ask-question-form-button
+							position: relative
+							left: 40%
+							top: 50%
+							set-background(_dark_yellow)
+							border-radius(5px)
+							animate-transition()
+							font-weight: bold
+							font-size: 14px
+
+				.help-others-form
+
+					.questions-group
+						width: 280px
+
+					.submit-group
+						height: 80px
+
+						.help-others-form-button
+							position: relative
+							left: 20%
+							top: 25%
+							set-background(_dark_yellow)
+							border-radius(5px)
+							animate-transition()
+							font-weight: bold
+							font-size: 14px
+
 		.topCTA{
 			position:relative;
 			margin-top:10%;
