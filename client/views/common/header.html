@@ -1,5 +1,9 @@
 <template name="header">
+  {{#if currentUser}}
+  <div class="header header-orange">
+  {{else}}
   <div class="header">
+  {{/if}}
     <div class="header-content">
       {{#if currentUser}}
       <a href='/dashboard'>
