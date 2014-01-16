@@ -3,9 +3,6 @@
     <div class="header-content">
       {{#if currentUser}}
       <a href='/dashboard'>
-      {{else}}
-      <a href='/'>
-      {{/if}}
         <div class="header-title">
           <div class="logo-wrapper">
             <img class="logo" src="/logo-black.png"></img>
@@ -15,6 +12,7 @@
           </div>
         </div>
       </a>
+      {{/if}}
       <div class="header-buttons">
         {{#if currentUser}}
           {{#if headerAskQuestionButton}}
