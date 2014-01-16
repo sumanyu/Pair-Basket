@@ -39,6 +39,9 @@ Meteor.methods
     user = Meteor.users.findOne
       _id: profileId
 
+    if not user
+      return null
+
     # attach userId to profile
     user.profile.id = profileId
 
