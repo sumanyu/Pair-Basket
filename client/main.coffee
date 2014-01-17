@@ -80,8 +80,8 @@ Meteor.startup ->
   setSessionVarsWithValue false, ['fileIsSelected?', 'wolframIsSelected?']
 
   # Landing Session variables
-  Session.set('showBoth?', true)
-  setSessionVarsWithValue false, ['helpOthers?', 'askQuestion?']
+  Session.set('topCTAShowBoth?', true)
+  setSessionVarsWithValue false, ['topCTAHelpOthers?', 'topCTAAskQuestion?']
 
 
   #### End Session variables

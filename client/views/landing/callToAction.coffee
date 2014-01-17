@@ -1,29 +1,29 @@
 Template.landingCallToActionTop.helpers
   helpOthers: ->
-    Session.get('helpOthers?')
+    Session.get('topCTAHelpOthers?')
 
   askQuestion: ->
-    Session.get('askQuestion?')
+    Session.get('topCTAAskQuestion?')
 
   showBoth: ->
-    Session.get('showBoth?')
+    Session.get('topCTAShowBoth?')
 
 logSession = ->
-  ['askQuestion?', 'helpOthers?', 'showBoth?'].forEach (vars) ->
+  ['topCTAAskQuestion?', 'topCTAHelpOthers?', 'topCTAShowBoth?'].forEach (vars) ->
     console.log vars, Session.get(vars)
 
 Template.landingCallToActionTop.events =
   'click .ask-question-btn': (e, s) ->
-    Session.set('askQuestion?', true)
+    Session.set('topCTAAskQuestion?', true)
 
-    Session.set('helpOthers?', false)
-    Session.set('showBoth?', false)
+    Session.set('topCTAHelpOthers?', false)
+    Session.set('topCTAShowBoth?', false)
 
   'click .help-others-btn': (e, s) ->
-    Session.set('helpOthers?', true)
+    Session.set('topCTAHelpOthers?', true)
 
-    Session.set('askQuestion?', false)
-    Session.set('showBoth?', false)
+    Session.set('topCTAAskQuestion?', false)
+    Session.set('topCTAShowBoth?', false)
 
 onValidInput = (dataDict, func) ->
   # Clean input
