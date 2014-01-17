@@ -48,31 +48,28 @@ Template.landingHelpOthersTop.events =
   'submit': (e, s) ->
     e.preventDefault()
 
-    # Clean input
-    name = $('.help-others-wrapper .name').val().trim()
-    school = $('.help-others-wrapper .school').val().trim()
-    email = $('.help-others-wrapper input[type=email]').val().trim()
-    password = $('.help-others-wrapper input[type=password]').val().trim()
+    parentElement = '.help-others-wrapper'
 
-    # Validate inputs - for now just check if all inputs were entered
-    isInputValid = areElementsNonEmpty([email, password, name, school])
+    dataDict = 
+      name : "#{parentElement} .name"
+      school : "#{parentElement} .school"
+      email : "#{parentElement} input[type=email]"
+      password : "#{parentElement} input[type=password]"
 
-    if isInputValid
+    onValidInput dataDict, (sanitizedDataDict) ->
+      data = _.pick(sanitizedDataDict, 'name', 'school', 'email', 'password')
 
       profile =
-        'name': name
-        'school': school
+        'name': data['name']
+        'school': data['school']
 
       # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: email, password: password, profile: profile}, (err) ->
+      Accounts.createUser {email: data['email'], password: data['password'], profile: profile}, (err) ->
         if err
           console.log err
         else
           # Success, account was created
           Router.go('dashboard')
-    else
-      # Throw some message
-      console.log "invalid input"
 
 Template.landingAskQuestionTop.rendered = ->
   focusText($('.ask-question-wrapper textarea'))
@@ -98,7 +95,7 @@ Template.landingAskQuestionTop.events =
         'school': data['school']
 
       # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: data['email'], password: data['password'], profile: data['profile']}, (err) ->
+      Accounts.createUser {email: data['email'], password: data['password'], profile: profile}, (err) ->
         if err
           console.log err
         else
