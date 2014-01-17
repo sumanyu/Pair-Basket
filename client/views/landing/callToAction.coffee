@@ -41,6 +41,28 @@ onValidInput = (dataDict, func) ->
     # Throw some message
     console.log "invalid input"
 
+createAccountHelpingOthers = (parentElement) ->
+  dataDict = 
+    name : "#{parentElement} .name"
+    school : "#{parentElement} .school"
+    email : "#{parentElement} input[type=email]"
+    password : "#{parentElement} input[type=password]"
+
+  onValidInput dataDict, (sanitizedDataDict) ->
+    data = _.pick(sanitizedDataDict, 'name', 'school', 'email', 'password')
+
+    profile =
+      'name': data['name']
+      'school': data['school']
+
+    # Create meteor account, on client will log-in upon successful completion
+    Accounts.createUser {email: data['email'], password: data['password'], profile: profile}, (err) ->
+      if err
+        console.log err
+      else
+        # Success, account was created
+        Router.go('dashboard')  
+
 Template.landingHelpOthersTop.rendered = ->
   focusText($('.help-others-wrapper .name'))
 
@@ -49,27 +71,7 @@ Template.landingHelpOthersTop.events =
     e.preventDefault()
 
     parentElement = '.help-others-wrapper'
-
-    dataDict = 
-      name : "#{parentElement} .name"
-      school : "#{parentElement} .school"
-      email : "#{parentElement} input[type=email]"
-      password : "#{parentElement} input[type=password]"
-
-    onValidInput dataDict, (sanitizedDataDict) ->
-      data = _.pick(sanitizedDataDict, 'name', 'school', 'email', 'password')
-
-      profile =
-        'name': data['name']
-        'school': data['school']
-
-      # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: data['email'], password: data['password'], profile: profile}, (err) ->
-        if err
-          console.log err
-        else
-          # Success, account was created
-          Router.go('dashboard')
+    createAccountHelpingOthers(parentElement)
 
 createAccountWhenAskingQuestion = (parentElement) ->
   dataDict = 
