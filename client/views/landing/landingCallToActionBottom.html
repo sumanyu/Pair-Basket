@@ -1,0 +1,53 @@
+
+<template name="landingCallToActionBottom">
+  <div class="row call-to-action">
+
+    {{#if showBoth}}
+      <div class="col-md-3">
+        <div class="square-button help-others-btn">
+          Help Others
+        </div>
+      </div>
+      <div class="col-md-3 col-md-offset-2">
+        <div class="square-button ask-question-btn">
+          Ask a Question
+        </div>
+      </div>    
+    {{/if}}
+
+    {{#if helpOthers}}
+      {{> landingHelpOthersBottom}}
+    {{/if}}
+
+    {{#if askQuestion}}
+      {{> landingAskQuestionBottom}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="landingHelpOthersBottom">
+  <div class="col-md-5 help-others-wrapper">
+    {{> landingHelpOthersForm}}
+  </div>
+</template>
+
+<template name="landingAskQuestionBottom">
+  <div class="col-md-5 ask-question-wrapper">
+    <form role="form" class="ask-question-form">
+      <div class="questions-group">
+        <textarea placeholder="Question: Without photosynthesis, how would the biosphere adapt?" class="form-control question" rows="3"></textarea>
+        <input type="text" class="form-control name" placeholder="Name">
+        <select class="form-control school">
+            {{#each allSchool}}
+            <option value="{{this}}">{{underscoreToSpace this}}</option>
+            {{/each}}
+        </select>
+        <input type="email" class="form-control email" placeholder="Email">
+        <input type="password" class="form-control password" placeholder="Password">
+      </div>
+      <div class="submit-group">
+        <input class="btn ask-question-form-button" type="submit" value="Ask">
+      </div>
+    </form>
+  </div>  
+</template>
