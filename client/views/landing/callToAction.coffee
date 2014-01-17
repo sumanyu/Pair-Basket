@@ -71,6 +71,31 @@ Template.landingHelpOthersTop.events =
           # Success, account was created
           Router.go('dashboard')
 
+createAccountWhenAskingQuestion = (parentElement) ->
+  dataDict = 
+    name : "#{parentElement} .name"
+    school : "#{parentElement} .school"
+    email : "#{parentElement} input[type=email]"
+    password : "#{parentElement} input[type=password]"
+    question : "#{parentElement} textarea.question"
+
+  onValidInput dataDict, (sanitizedDataDict) ->
+    data = _.pick(sanitizedDataDict, 'name', 'school', 'email', 'password', 'question')
+
+    profile =
+      'name': data['name']
+      'school': data['school']
+
+    # Create meteor account, on client will log-in upon successful completion
+    Accounts.createUser {email: data['email'], password: data['password'], profile: profile}, (err) ->
+      if err
+        console.log err
+      else
+        # Success, account was created
+        Session.set('questionFromLandingPrompt', data['question'])
+        Session.set('askingQuestion?', true)
+        Router.go('dashboard')
+
 Template.landingAskQuestionTop.rendered = ->
   focusText($('.ask-question-wrapper textarea'))
 
@@ -79,27 +104,4 @@ Template.landingAskQuestionTop.events =
     e.preventDefault()
 
     parentElement = '.ask-question-wrapper'
-
-    dataDict = 
-      name : "#{parentElement} .name"
-      school : "#{parentElement} .school"
-      email : "#{parentElement} input[type=email]"
-      password : "#{parentElement} input[type=password]"
-      question : "#{parentElement} textarea.question"
-
-    onValidInput dataDict, (sanitizedDataDict) ->
-      data = _.pick(sanitizedDataDict, 'name', 'school', 'email', 'password', 'question')
-
-      profile =
-        'name': data['name']
-        'school': data['school']
-
-      # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: data['email'], password: data['password'], profile: profile}, (err) ->
-        if err
-          console.log err
-        else
-          # Success, account was created
-          Session.set('questionFromLandingPrompt', data['question'])
-          Session.set('askingQuestion?', true)
-          Router.go('dashboard')
+    createAccountWhenAskingQuestion(parentElement)
