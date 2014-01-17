@@ -1,4 +1,3 @@
-
 <template name="landingCallToActionBottom">
   <div class="row call-to-action">
 
@@ -33,21 +32,6 @@
 
 <template name="landingAskQuestionBottom">
   <div class="col-md-5 ask-question-wrapper">
-    <form role="form" class="ask-question-form">
-      <div class="questions-group">
-        <textarea placeholder="Question: Without photosynthesis, how would the biosphere adapt?" class="form-control question" rows="3"></textarea>
-        <input type="text" class="form-control name" placeholder="Name">
-        <select class="form-control school">
-            {{#each allSchool}}
-            <option value="{{this}}">{{underscoreToSpace this}}</option>
-            {{/each}}
-        </select>
-        <input type="email" class="form-control email" placeholder="Email">
-        <input type="password" class="form-control password" placeholder="Password">
-      </div>
-      <div class="submit-group">
-        <input class="btn ask-question-form-button" type="submit" value="Ask">
-      </div>
-    </form>
+    {{> landingAskQuestionForm}}
   </div>  
 </template>
