@@ -1,4 +1,4 @@
-<template name="landingCallToAction">
+<template name="landingCallToActionTop">
   <div class="row call-to-action">
 
     {{#if showBoth}}
@@ -15,16 +15,16 @@
     {{/if}}
 
     {{#if helpOthers}}
-      {{> landingHelpOthers}}
+      {{> landingHelpOthersTop}}
     {{/if}}
 
     {{#if askQuestion}}
-      {{> landingAskQuestion}}
+      {{> landingAskQuestionTop}}
     {{/if}}
   </div>
 </template>
 
-<template name="landingHelpOthers">
+<template name="landingHelpOthersTop">
   <div class="col-md-5 help-others-wrapper">
     <form role="form" class="help-others-form">
       <div class="questions-group">
@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<template name="landingAskQuestion">
+<template name="landingAskQuestionTop">
   <div class="col-md-5 ask-question-wrapper">
     <form role="form" class="ask-question-form">
       <div class="questions-group">

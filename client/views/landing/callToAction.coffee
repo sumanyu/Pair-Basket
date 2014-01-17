@@ -1,4 +1,4 @@
-Template.landingCallToAction.helpers
+Template.landingCallToActionTop.helpers
   helpOthers: ->
     Session.get('helpOthers?')
 
@@ -12,7 +12,7 @@ logSession = ->
   ['askQuestion?', 'helpOthers?', 'showBoth?'].forEach (vars) ->
     console.log vars, Session.get(vars)
 
-Template.landingCallToAction.events =
+Template.landingCallToActionTop.events =
   'click .ask-question-btn': (e, s) ->
     Session.set('askQuestion?', true)
 
@@ -25,10 +25,26 @@ Template.landingCallToAction.events =
     Session.set('askQuestion?', false)
     Session.set('showBoth?', false)
 
-Template.landingHelpOthers.rendered = ->
+onValidInput = (dataDict, func) ->
+  # Clean input
+  sanitizedDataDict = {}
+  _.keys(dataDict).forEach (key) ->
+    sanitizedDataDict[key] = $("#{dataDict[key]}").val().trim()
+
+  console.log dataDict
+  console.log sanitizedDataDict
+
+  # Validate inputs - for now just check if all inputs were entered
+  if areElementsNonEmpty(_.values(sanitizedDataDict))
+    func(sanitizedDataDict)
+  else
+    # Throw some message
+    console.log "invalid input"
+
+Template.landingHelpOthersTop.rendered = ->
   focusText($('.help-others-wrapper .name'))
 
-Template.landingHelpOthers.events =
+Template.landingHelpOthersTop.events =
   'submit': (e, s) ->
     e.preventDefault()
 
@@ -58,38 +74,35 @@ Template.landingHelpOthers.events =
       # Throw some message
       console.log "invalid input"
 
-Template.landingAskQuestion.rendered = ->
+Template.landingAskQuestionTop.rendered = ->
   focusText($('.ask-question-wrapper textarea'))
 
-Template.landingAskQuestion.events =
+Template.landingAskQuestionTop.events =
   'submit': (e, s) ->
     e.preventDefault()
 
-    # Clean input
-    name = $('.ask-question-wrapper .name').val().trim()
-    school = $('.ask-question-wrapper .school').val().trim()
-    email = $('.ask-question-wrapper input[type=email]').val().trim()
-    password = $('.ask-question-wrapper input[type=password]').val().trim()
-    question = $('.ask-question-wrapper textarea.question').val().trim()
+    parentElement = '.ask-question-wrapper'
 
-    # Validate inputs - for now just check if all inputs were entered
-    isInputValid = areElementsNonEmpty([email, password, question, name, school])
+    dataDict = 
+      name : "#{parentElement} .name"
+      school : "#{parentElement} .school"
+      email : "#{parentElement} input[type=email]"
+      password : "#{parentElement} input[type=password]"
+      question : "#{parentElement} textarea.question"
 
-    if isInputValid
+    onValidInput dataDict, (sanitizedDataDict) ->
+      data = _.pick(sanitizedDataDict, 'name', 'school', 'email', 'password', 'question')
 
       profile =
-        'name': name
-        'school': school
+        'name': data['name']
+        'school': data['school']
 
       # Create meteor account, on client will log-in upon successful completion
-      Accounts.createUser {email: email, password: password, profile: profile}, (err) ->
+      Accounts.createUser {email: data['email'], password: data['password'], profile: data['profile']}, (err) ->
         if err
           console.log err
         else
           # Success, account was created
-          Session.set('questionFromLandingPrompt', question)
+          Session.set('questionFromLandingPrompt', data['question'])
           Session.set('askingQuestion?', true)
           Router.go('dashboard')
-    else
-      # Throw some message
-      console.log "invalid input"
