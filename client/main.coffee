@@ -83,6 +83,9 @@ Meteor.startup ->
   Session.set('topCTAShowBoth?', true)
   setSessionVarsWithValue false, ['topCTAHelpOthers?', 'topCTAAskQuestion?']
 
+  Session.set('bottomCTAShowBoth?', true)
+  setSessionVarsWithValue false, ['bottomCTAHelpOthers?', 'bottomCTAAskQuestion?']
+
 
   #### End Session variables
 

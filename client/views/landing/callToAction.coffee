@@ -87,3 +87,49 @@ Template.landingAskQuestionTop.events =
 
     parentElement = '.ask-question-wrapper'
     createAccountWhenAskingQuestion(parentElement)
+
+#
+
+
+Template.landingCallToActionBottom.helpers
+  helpOthers: ->
+    Session.get('bottomCTAHelpOthers?')
+
+  askQuestion: ->
+    Session.get('bottomCTAAskQuestion?')
+
+  showBoth: ->
+    Session.get('bottomCTAShowBoth?')
+
+Template.landingCallToActionBottom.events =
+  'click .ask-question-btn': (e, s) ->
+    Session.set('bottomCTAAskQuestion?', true)
+
+    Session.set('bottomCTAHelpOthers?', false)
+    Session.set('bottomCTAShowBoth?', false)
+
+  'click .help-others-btn': (e, s) ->
+    Session.set('bottomCTAHelpOthers?', true)
+
+    Session.set('bottomCTAAskQuestion?', false)
+    Session.set('bottomCTAShowBoth?', false)
+
+Template.landingHelpOthersBottom.rendered = ->
+  focusText($('.help-others-wrapper .name'))
+
+Template.landingHelpOthersBottom.events =
+  'submit': (e, s) ->
+    e.preventDefault()
+
+    parentElement = '.help-others-wrapper'
+    createAccountHelpingOthers(parentElement)
+
+Template.landingAskQuestionBottom.rendered = ->
+  focusText($('.ask-question-wrapper textarea'))
+
+Template.landingAskQuestionBottom.events =
+  'submit': (e, s) ->
+    e.preventDefault()
+
+    parentElement = '.ask-question-wrapper'
+    createAccountWhenAskingQuestion(parentElement)
