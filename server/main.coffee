@@ -291,6 +291,6 @@ Meteor.methods
 
   # Configure S3 storage
   Meteor.call "S3config", 
-    key: 'AKIAJOYKZOSENWR724AQ'
-    secret: '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'
+    key: ''
+    secret: ''
     bucket: 'pairbasket-share'
