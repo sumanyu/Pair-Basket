@@ -1,0 +1,36 @@
+<template name="landingCallToActionTop">
+  <div class="row call-to-action">
+    {{#if showBoth}}
+      <div class="col-md-3">
+        <div class="square-button help-others-btn">
+          Help Others
+        </div>
+      </div>
+      <div class="col-md-3 col-md-offset-2">
+        <div class="square-button ask-question-btn">
+          Ask a Question
+        </div>
+      </div>    
+    {{/if}}
+
+    {{#if helpOthers}}
+      {{> landingHelpOthersTop}}
+    {{/if}}
+
+    {{#if askQuestion}}
+      {{> landingAskQuestionTop}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="landingHelpOthersTop">
+  <div class="col-md-5 help-others-wrapper">
+    {{> landingHelpOthersForm}}
+  </div>
+</template>
+
+<template name="landingAskQuestionTop">
+  <div class="col-md-5 ask-question-wrapper">
+    {{> landingAskQuestionForm}}
+  </div>  
+</template>

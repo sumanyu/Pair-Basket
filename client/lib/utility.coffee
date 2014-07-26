@@ -121,4 +121,17 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     timeout = Meteor.setTimeout delayed, threshold || 100
 
 @underscoreToSpace = (string) ->
-  string.split("_").join(" ");
+  string.split("_").join(" ")
+
+@onValidInput = (dataDict, func) ->
+  # Clean input
+  sanitizedDataDict = {}
+  _.keys(dataDict).forEach (key) ->
+    sanitizedDataDict[key] = $("#{dataDict[key]}").val().trim()
+
+  # Validate inputs - for now just check if all inputs were entered
+  if areElementsNonEmpty(_.values(sanitizedDataDict))
+    func(sanitizedDataDict)
+  else
+    # Throw some message
+    console.log "invalid input"

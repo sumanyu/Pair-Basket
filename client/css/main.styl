@@ -1,5 +1,8 @@
 @import 'utility'
 
+*
+	font-family: 'Pt Sans' !important
+
 html
 	height: 100%
 
@@ -89,13 +92,18 @@ body
 		p
 			text-align: justify
 
-	.header
+	.header-fixed
 		position: fixed !important
+		background-color: _yellow
+		box-shadow(0px 1px 15px _dark_gray)
+
+	.header-landing
+		position: absolute !important
+
+	.header
 		width: 100%
 		height: 60px
 		z-index: 80
-		background-color: _yellow
-		box-shadow(0px 1px 15px _dark_gray)
 
 		.header-content
 			width: 980px
@@ -222,181 +230,228 @@ body
 		font-size: 10pt
 
 	#landing
-		min-height: 100%
-		background: url('/home_background.jpg')
-		background-size: 100%
-		background-repeat: no-repeat
-		background-color: #141414
+		height: 100%
 
-		.container.main
-			padding-top: 90px
-			padding-left: 0px
-			padding-right: 0px
-			width: 100%
+		h2
+			color:white
+			font-size:35pt
+			text-align: center
+			margin:0
+			padding-top:20px
 
-			.title-landing
+		#splash
+			height: 100%
+			width:100%
+			background:url('/home_background.jpg')
+			background-size: cover
+			text-align: center
+			margin:0
+			min-width: 1000px
+
+		#logo
+			width:35%
+			max-width: 500px
+			margin-top: 5%
+			float: left
+			margin-left: 5%
+
+		#splashcontent
+			float:left
+			margin-top: 10%
+
+		h1
+			color: white
+			font-size:40pt
+
+		.subtitle
+			text-align: left
+			color: white
+			font-size:35pt
+
+		.call-to-action
+			margin-top: 30px
+			margin-left: 70px
+
+			.square-button
+				height: 55px
+				line-height: @height
+				width: 150px
 				text-align: center
-				margin-bottom: 20px
-				width: 100%
-				color: white
-
-				h1
-					line-height: 60px
-
-			.value-props
-				// margin-top: 25px
-				// margin-bottom: 30px
-				color: white
-
-				.value-prop
-					margin-top: 25px
-					margin-bottom: 5px
-
-					.steps
-						margin-left: -40px
-
-					h2
-						margin-top: 10px
-
-			.questionForm
-				margin: 20px 0 0 0
-
-			.circle
-				background-color: _yellow
-				border-radius(50%)
-				width: 55px
-				height: h = 55px
-				text-align: center
-				padding-top: (h/3)
-				font-size: 26px
+				vertical-align: center
+				background: _yellow
+				font-size: 18px
 				font-weight: bold
-				color: white
-				line-height: 21px
+				border-radius(2px)
+				box-shadow(0 5px _dark_yellow)
 
-			.col-md-2.circle-width
-				width: 10%
-				padding-left: 0px
-				margin-top: 9px
+			.square-button:hover
+				cursor: pointer
+				margin-top: -1px
+				box-shadow(0 6px _dark_yellow)
 
-			.landing-prompt
-				padding-left: 0px
+			.square-button:active
+				margin-top: 5px
+				box-shadow(0 0px _dark_yellow)
 
-				h2
-					font-weight: bold
+			.help-others-btn
+				// float: left
 
-			.steps
-				padding-left: 5px
+			.ask-question-btn
+				// float: right
 
-				.unemphasized
-					font-weight: normal
+			.help-others-wrapper
+				background: _yellow
+				border-radius(2px)
+				box-shadow(0 5px _dark_yellow)
 
-			.landing-prompt
-				padding-left: 0px
+			.ask-question-wrapper, .help-others-wrapper
+				background: _yellow
+				border-radius(2px)
+				box-shadow(0 8px _dark_yellow)
+				// height: 200px
+				padding: 10px 5px 10px 30px
+				width: 425px
 
-			.logo-wrapper
-				width: 4em
-				height: 4em
-				padding: 0px 0px
-				margin-left: 9.3%
-				opacity: .80
+				.ask-question-form, .help-others-form
 
-				img.logo
-					width: 60px
-					height: auto
+					.questions-group
+						float: left
+						width: 300px
 
-			.title-wrapper
-				padding-left: 25px
-
-				.title
-					font-weight: bold
-
-			.call-to-action
-				margin-top: 30px
-				margin-left: -70px
-
-				.square-button
-					height: 55px
-					line-height: @height
-					width: 150px
-					text-align: center
-					vertical-align: center
-					background: _yellow
-					font-size: 18px
-					font-weight: bold
-					border-radius(2px)
-					box-shadow(0 5px _dark_yellow)
-
-				.square-button:hover
-					cursor: pointer
-					margin-top: -1px
-					box-shadow(0 6px _dark_yellow)
-
-				.square-button:active
-					margin-top: 5px
-					box-shadow(0 0px _dark_yellow)
-
-				.help-others-btn
-					// float: left
-
-				.ask-question-btn
-					// float: right
-
-				.help-others-wrapper
-					background: _yellow
-					border-radius(2px)
-					box-shadow(0 5px _dark_yellow)
-
-				.ask-question-wrapper, .help-others-wrapper
-					background: _yellow
-					border-radius(2px)
-					box-shadow(0 8px _dark_yellow)
-					// height: 200px
-					padding: 10px 5px 10px 30px
-					width: 425px
-
-					.ask-question-form, .help-others-form
-
-						.questions-group
-							float: left
-							width: 300px
-
-							.email, .password, .question, .name, .school
-								margin-top: 5px
-								margin-bottom: 5px
-
-						// Make this auto resize later
-						.submit-group
-							float: left
-							height: 130px
+						.email, .password, .question, .name, .school
 							margin-top: 5px
+							margin-bottom: 5px
 
-							.ask-question-form-button
-								position: relative
-								left: 40%
-								top: 50%
-								set-background(_dark_yellow)
-								border-radius(5px)
-								animate-transition()
-								font-weight: bold
-								font-size: 14px
+					// Make this auto resize later
+					.submit-group
+						float: left
+						height: 130px
+						margin-top: 5px
 
-					.help-others-form
+						.ask-question-form-button
+							position: relative
+							left: 40%
+							top: 50%
+							set-background(_dark_yellow)
+							border-radius(5px)
+							animate-transition()
+							font-weight: bold
+							font-size: 14px
 
-						.questions-group
-							width: 280px
+				.help-others-form
 
-						.submit-group
-							height: 80px
+					.questions-group
+						width: 280px
 
-							.help-others-form-button
-								position: relative
-								left: 20%
-								top: 25%
-								set-background(_dark_yellow)
-								border-radius(5px)
-								animate-transition()
-								font-weight: bold
-								font-size: 14px
+					.submit-group
+						height: 80px
+
+						.help-others-form-button
+							position: relative
+							left: 20%
+							top: 25%
+							set-background(_dark_yellow)
+							border-radius(5px)
+							animate-transition()
+							font-weight: bold
+							font-size: 14px
+
+		.bottom-cta
+			width: 500px
+			margin: 0px auto
+
+		.valuebg
+			background-color: #16a085
+			width:100%
+
+			.wrapper
+				text-align: center
+				position:relative
+				width:80%
+				margin:0 auto
+				min-width: 1000px
+
+		.col1
+			position: relative
+			display: inline-block
+			width:25%
+			padding:3%
+			text-align: center
+			vertical-align: center
+			color:white
+			top:50px
+
+		.col2
+			position: relative
+			display: inline-block
+			width:25%
+			padding:3%
+			text-align: center
+			vertical-align: top
+			color:white
+
+		.col1 img
+			position: relative
+			width:80%
+
+		.ssbg
+			background-color: #d35400
+			width:100%
+
+		.sswrapper
+			width:60%
+			margin: 0 auto
+			padding-top:100px
+			min-width: 1000px
+
+		.ssbg img
+			position: relative
+			width:60%
+			padding-bottom:100px
+			z-index: 9
+			left:100px
+
+		.disc
+			color:white
+			width:200px
+			background: rgba(0,0,0,0.5)
+			padding:10px
+
+		#disc1
+			position:relative
+			margin-left:65%
+			margin-top: -1300px
+			z-index: 10
+
+		#disc2
+			position:relative
+			margin-left: 65%
+			margin-top: 400px
+			z-index: 10
+
+		#disc3
+			position:relative
+			margin-left: 65%
+			margin-top: 500px
+			z-index: 10
+
+		#spacer
+			width:100%
+			height:100px
+
+		#CTA
+			width:100%
+			height: 500px
+			background-color: #2c3e50
+			padding-top: 20px
+			margin-top: 0px
+
+		h3
+			padding:0
+			margin:0
+			color: white
+			font-size:40pt
+			text-align: center
 
 	#dashboard
 		.control-label
